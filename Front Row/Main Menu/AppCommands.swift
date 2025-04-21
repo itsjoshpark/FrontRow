@@ -5,11 +5,22 @@
 //  Created by Joshua Park on 3/11/24.
 //
 
+import Sparkle
 import SwiftUI
 
 struct AppCommands: Commands {
+    private let updater: SPUUpdater
+
     var body: some Commands {
         CommandGroup(after: .appInfo) {
+            Section {
+                Button {
+                    updater.checkForUpdates()
+                } label: {
+                    Text("Check for Updates…")
+                }
+                .disabled(!updater.canCheckForUpdates)
+            }
             Section {
                 Button {
                     Task {
@@ -26,5 +37,9 @@ struct AppCommands: Commands {
                 }
             }
         }
+    }
+
+    init(updater: SPUUpdater) {
+        self.updater = updater
     }
 }

@@ -1,5 +1,5 @@
 <p align="center">
-<img height="256" src="https://github.com/godly-devotion/FrontRow/raw/main/Front Row/Assets.xcassets/AppIcon.appiconset/icon_256x256.png" />
+<img height="256" src="https://github.com/itsjoshpark/FrontRow/raw/main/Front Row/Assets.xcassets/AppIcon.appiconset/icon_256x256.png" />
 </p>
 
 <h1 align="center">Front Row</h1>
@@ -7,24 +7,21 @@
 <p align="center">Play HDR videos &amp; spatial audio natively</p>
 
 <p align="center">
+<a title="Release" target="_blank" href="https://github.com/itsjoshpark/FrontRow/releases"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/itsjoshpark/FrontRow"></a>
 <a title="Crowdin" target="_blank" href="https://crowdin.com/project/FrontRow"><img src="https://badges.crowdin.net/FrontRow/localized.svg"></a>
-<a title="License" target="_blank" href="https://github.com/godly-devotion/FrontRow/blob/main/LICENSE"><img src="https://img.shields.io/github/license/godly-devotion/FrontRow?color=blue"></a>
+<a title="License" target="_blank" href="https://github.com/itsjoshpark/FrontRow/blob/main/LICENSE"><img src="https://img.shields.io/github/license/itsjoshpark/FrontRow?color=blue"></a>
 </p>
 
 ![Screenshot](.github/images/screenshot.png)
 
 Experience color accurate HDR videos with full surround sound using spatial audio.
 
-## Download
-
-[![](.github/images/download-on-app-store-badge.svg)](https://apps.apple.com/us/app/front-row-video-player/id6480318506)
-
 ## Compatibility
 
 - [HDR video compatible Macs](https://support.apple.com/en-us/102205) and/or [spatial audio compatible devices](https://support.apple.com/en-us/102469)
 - Apple Silicon (M1 and later)
-- macOS Sonoma 14.2 and later
-- Xcode 15.2 (to build)
+- macOS Sonoma 15.0 and later
+- Xcode 16 (to build)
 
 ## Frequently Asked Questions
 

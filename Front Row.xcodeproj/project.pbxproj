@@ -14,6 +14,7 @@
 		03B2590E2BB242620071FF7C /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2590D2BB242620071FF7C /* PlayerView.swift */; };
 		03B259102BB249310071FF7C /* PlayerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2590F2BB249310071FF7C /* PlayerControlsView.swift */; };
 		03B712272B96C40C00C1F753 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03B712262B96C40C00C1F753 /* AVKit.framework */; };
+		03C112BF2DB56BFF00AE6799 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 03C112BE2DB56BFF00AE6799 /* Sparkle */; };
 		03D77E952B9AA13700276A45 /* HelpCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D77E942B9AA13700276A45 /* HelpCommands.swift */; };
 		03E78C582BA7D2D40063BF06 /* OpenURLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E78C572BA7D2D40063BF06 /* OpenURLView.swift */; };
 		03E8F3DD2B9F7B350008CE49 /* AppCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8F3DC2B9F7B350008CE49 /* AppCommands.swift */; };
@@ -63,6 +64,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03B712272B96C40C00C1F753 /* AVKit.framework in Frameworks */,
+				03C112BF2DB56BFF00AE6799 /* Sparkle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +175,7 @@
 			);
 			name = "Front Row";
 			packageProductDependencies = (
+				03C112BE2DB56BFF00AE6799 /* Sparkle */,
 			);
 			productName = "Front Row";
 			productReference = 03EA684D2B9630CF003348BE /* Front Row.app */;
@@ -226,6 +229,7 @@
 			);
 			mainGroup = 03EA68442B9630CF003348BE;
 			packageReferences = (
+				03C112BD2DB56BFF00AE6799 /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
 			productRefGroup = 03EA684E2B9630CF003348BE /* Products */;
 			projectDirPath = "";
@@ -504,6 +508,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		03C112BD2DB56BFF00AE6799 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		03C112BE2DB56BFF00AE6799 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03C112BD2DB56BFF00AE6799 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 03EA68452B9630CF003348BE /* Project object */;
 }

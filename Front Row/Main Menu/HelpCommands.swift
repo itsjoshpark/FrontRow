@@ -12,7 +12,7 @@ struct HelpCommands: Commands {
         CommandGroup(replacing: .help) {
             Link(
                 "Website",
-                destination: URL(string: "https://github.com/godly-devotion/FrontRow")!
+                destination: URL(string: "https://github.com/itsjoshpark/FrontRow")!
             )
             Link(
                 "Improve Translation",
@@ -20,7 +20,7 @@ struct HelpCommands: Commands {
             )
             Link(
                 "Report a Problem",
-                destination: URL(string: "https://github.com/godly-devotion/FrontRow/issues")!
+                destination: URL(string: "https://github.com/itsjoshpark/FrontRow/issues")!
             )
         }
     }

@@ -81,5 +81,11 @@
 			<string>Default</string>
 		</dict>
 	</array>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+	<key>SUFeedURL</key>
+	<string>https://github.com/itsjoshpark/FrontRow/raw/main/.sparkle/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>j1emFUOJ+3Pou9kvxoeZIOTIFTeg1RWsfPuOoecgk/c=</string>
 </dict>
 </plist>
