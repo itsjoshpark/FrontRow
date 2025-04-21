@@ -5,15 +5,22 @@
     <language>en</language>
 
     <item>
-      <title>v2.0</title>
-      <link>https://github.com/godly-devotion/FrontRow</link>
-      <sparkle:version>2.0</sparkle:version>
-      <sparkle:minimumSystemVersion>14.2</sparkle:minimumSystemVersion>
-      <pubDate>Sat, 30 Mar 2024 00:00:00 +0000</pubDate>
-      <link>https://apps.apple.com/us/app/front-row-video-player/id6480318506</link>
+      <title>v2.5.4</title>
+      <link>https://github.com/itsjoshpark/FrontRow</link>
+      <sparkle:version>2.5.4</sparkle:version>
+      <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
+      <sparkle:fullReleaseNotesLink>https://github.com/itsjoshpark/FrontRow/releases</sparkle:fullReleaseNotesLink>
+      <pubDate>Sun, 20 Apr 2025 00:59:08 +0000</pubDate>
+      <enclosure
+        url="https://github.com/itsjoshpark/FrontRow/releases/download/v2.5.4/FrontRow_v2.5.4.dmg"
+        sparkle:edSignature="8if9PxMEJRAL5St3QAZ4DG7/KROiwMqjFc5t3Xvm7fCnd/c+syWZNHu6ifCLUmEuwdPyuepmjJfmzcJbOb7YAw=="
+        length="2735713"
+        type="application/octet-stream" />
       <description><![CDATA[
-      <p>Front Row has moved to the Mac App Store!</p>
-      <p>Please remove existing version before switching to the app store release.</p>
+      <ul>
+      <li>Moved new releases back to GitHub</li>
+      </ul>
+      <p>Front Row is moving from releasing updates on the Mac App Store back to GitHub. Apple behavior of temporarily removing your app from the store unless you pay their ongoing developer fee is hostile. Releasing new versions on GitHub allows anyone to download and run the app in the future even if I don&#39;t continue to pay Apple.</p>
       ]]>
       </description>
     </item>
