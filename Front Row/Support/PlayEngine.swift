@@ -39,6 +39,8 @@ import SwiftUI
 
     private(set) var isLocalFile = false
 
+    private(set) var fileURL: URL?
+
     private var _currentTime: TimeInterval = 0.0
 
     var currentTime: Double {
@@ -231,9 +233,11 @@ import SwiftUI
                     isLoaded = true
                     isLocalFile = FileManager.default.fileExists(
                         atPath: url.path(percentEncoded: false))
+                    fileURL = url
                 case .failed:
                     isLoaded = false
                     isLocalFile = false
+                    fileURL = nil
                 default:
                     break
                 }
