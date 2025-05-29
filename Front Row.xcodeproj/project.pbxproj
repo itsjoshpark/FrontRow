@@ -16,6 +16,7 @@
 		03B712272B96C40C00C1F753 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03B712262B96C40C00C1F753 /* AVKit.framework */; };
 		03C112BF2DB56BFF00AE6799 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 03C112BE2DB56BFF00AE6799 /* Sparkle */; };
 		03D77E952B9AA13700276A45 /* HelpCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D77E942B9AA13700276A45 /* HelpCommands.swift */; };
+		03DEE9E62DE5600F002E05B9 /* KeyDownListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DEE9E52DE5600B002E05B9 /* KeyDownListener.swift */; };
 		03E78C582BA7D2D40063BF06 /* OpenURLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E78C572BA7D2D40063BF06 /* OpenURLView.swift */; };
 		03E8F3DD2B9F7B350008CE49 /* AppCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8F3DC2B9F7B350008CE49 /* AppCommands.swift */; };
 		03EA68512B9630CF003348BE /* FrontRowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EA68502B9630CF003348BE /* FrontRowApp.swift */; };
@@ -41,6 +42,7 @@
 		03B712262B96C40C00C1F753 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		03BACB2D2B96C8A800D24F07 /* FrontRowInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FrontRowInfo.plist; sourceTree = SOURCE_ROOT; };
 		03D77E942B9AA13700276A45 /* HelpCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCommands.swift; sourceTree = "<group>"; };
+		03DEE9E52DE5600B002E05B9 /* KeyDownListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyDownListener.swift; sourceTree = "<group>"; };
 		03E78C572BA7D2D40063BF06 /* OpenURLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenURLView.swift; sourceTree = "<group>"; };
 		03E8F3DC2B9F7B350008CE49 /* AppCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCommands.swift; sourceTree = "<group>"; };
 		03EA684D2B9630CF003348BE /* Front Row.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Front Row.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				03EA686D2B968D92003348BE /* Extensions.swift */,
+				03DEE9E52DE5600B002E05B9 /* KeyDownListener.swift */,
 				03EA68662B9654A0003348BE /* PlayEngine.swift */,
 				03EE7B0D2BAA5176009F68C5 /* PresentedViewManager.swift */,
 				032BBB1D2B9FF671003D2FA8 /* WindowController.swift */,
@@ -280,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03E78C582BA7D2D40063BF06 /* OpenURLView.swift in Sources */,
+				03DEE9E62DE5600F002E05B9 /* KeyDownListener.swift in Sources */,
 				033D450A2BB37FCA001AEBAA /* SeekSliderView.swift in Sources */,
 				03B259102BB249310071FF7C /* PlayerControlsView.swift in Sources */,
 				03407ADD2BA90F1100FB4323 /* WindowCommands.swift in Sources */,

@@ -15,6 +15,7 @@ struct FrontRowApp: App {
     @State private var presentedViewManager: PresentedViewManager
     @State private var windowController: WindowController
     private let updaterController: SPUStandardUpdaterController
+    private let keyDownListener = KeyDownListener()
 
     init() {
         self._playEngine = .init(wrappedValue: .shared)
@@ -26,6 +27,8 @@ struct FrontRowApp: App {
             updaterDelegate: nil,
             userDriverDelegate: nil
         )
+
+        keyDownListener.startMonitoringKeyEvents()
 
         UserDefaults.standard.set(false, forKey: "NSFullScreenMenuItemEverywhere")
     }
@@ -54,12 +57,14 @@ struct FrontRowApp: App {
                     NotificationCenter.default.publisher(
                         for: NSWindow.didEnterFullScreenNotification)
                 ) { _ in
+                    keyDownListener.stopMonitoringKeyEvents()
                     windowController.setIsFullscreen(true)
                 }
                 .onReceive(
                     NotificationCenter.default.publisher(
                         for: NSWindow.didExitFullScreenNotification)
                 ) { _ in
+                    keyDownListener.startMonitoringKeyEvents()
                     windowController.setIsFullscreen(false)
                 }
         }
