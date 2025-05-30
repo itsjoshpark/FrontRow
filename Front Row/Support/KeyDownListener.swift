@@ -44,10 +44,13 @@ final class KeyDownListener {
 
             switch command {
             case .escape:
-                NSApp.hide(nil)
-                PlayEngine.shared.pause()
-                return nil
+                if !WindowController.shared.isFullscreen {
+                    NSApp.hide(nil)
+                    PlayEngine.shared.pause()
+                    return nil
+                }
             }
+            return event
         }
     }
 
