@@ -13,14 +13,13 @@ struct AppCommands: Commands {
 
     var body: some Commands {
         CommandGroup(after: .appInfo) {
-            Section {
-                Button {
-                    updater.checkForUpdates()
-                } label: {
-                    Text("Check for Updates…")
-                }
-                .disabled(!updater.canCheckForUpdates)
+            Button {
+                updater.checkForUpdates()
+            } label: {
+                Text("Check for Updates…")
             }
+            .disabled(!updater.canCheckForUpdates)
+
             Section {
                 Button {
                     Task {

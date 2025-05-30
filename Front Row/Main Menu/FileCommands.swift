@@ -31,7 +31,7 @@ struct FileCommands: Commands {
                     comment: "Show the open URL dialog"
                 )
             }
-            .keyboardShortcut("L", modifiers: [.command])
+            .keyboardShortcut("O", modifiers: [.command, .shift])
 
             Divider()
 
