@@ -14,7 +14,7 @@ struct OpenURLView: View {
     @State private var displayError = false
 
     var body: some View {
-        HStack(spacing: 14) {
+        HStack(spacing: 16) {
             if displayLoading {
                 ProgressView()
                     .controlSize(.small)
@@ -22,9 +22,8 @@ struct OpenURLView: View {
 
             if displayError {
                 Image(systemName: "play.slash")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
                     .foregroundStyle(.secondary)
+                    .font(.largeTitle)
             }
 
             TextField(
@@ -70,8 +69,7 @@ struct OpenURLView: View {
             .font(.title)
             .textFieldStyle(.plain)
         }
-        .padding([.horizontal], 16)
-        .padding([.vertical], 12)
+        .padding([.horizontal], 26)
     }
 }
 
