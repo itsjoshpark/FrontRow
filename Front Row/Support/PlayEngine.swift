@@ -50,6 +50,7 @@ import SwiftUI
             withMutation(keyPath: \.currentTime) {
                 let time = CMTimeMakeWithSeconds(newValue, preferredTimescale: 1)
                 player.seek(to: time)
+                updateNowPlayingInfo()
             }
         }
     }
@@ -70,6 +71,7 @@ import SwiftUI
                 if Float.isApproxEqual(lhs: newValue, rhs: 1.0) {
                     player.rate = 1.0
                     player.defaultRate = 1.0
+                    updateNowPlayingInfo()
                     return
                 }
 
@@ -85,6 +87,8 @@ import SwiftUI
                     player.rate = newValue
                     player.defaultRate = newValue
                 }
+
+                updateNowPlayingInfo()
             }
         }
     }
@@ -152,6 +156,7 @@ import SwiftUI
             .receive(on: DispatchQueue.main)
             .sink { status in
                 self.timeControlStatus = status
+                self.updateNowPlayingInfo()
             }
             .store(in: &subs)
 
@@ -170,6 +175,7 @@ import SwiftUI
         for sub in currentItemSubs { sub.cancel() }
         currentItemSubs.removeAll()
         removePeriodicTimeObserver()
+        NowPlayable.shared.removeRemoteCommandHandlers()
     }
 
     @MainActor
@@ -231,9 +237,17 @@ import SwiftUI
                     isLoaded = true
                     isLocalFile = FileManager.default.fileExists(
                         atPath: url.path(percentEncoded: false))
+                    NowPlayable.shared.setNowPlayingMetadata(
+                        NowPlayableStaticMetadata(
+                            assetURL: url, mediaType: videoSize == CGSize.zero ? .audio : .video,
+                            title: url.lastPathComponent))
+                    NowPlayable.shared.sessionStart()
+                    NowPlayable.shared.setupRemoteCommandHandlers(playEngine: self)
                 case .failed:
                     isLoaded = false
                     isLocalFile = false
+                    NowPlayable.shared.sessionEnd()
+                    NowPlayable.shared.removeRemoteCommandHandlers()
                 default:
                     break
                 }
@@ -278,12 +292,14 @@ import SwiftUI
         guard isLoaded else { return }
 
         player.play()
+        updateNowPlayingInfo()
     }
 
     func pause() {
         guard isLoaded else { return }
 
         player.pause()
+        updateNowPlayingInfo()
     }
 
     func playPause() {
@@ -331,6 +347,7 @@ import SwiftUI
 
         let time = CMTimeMakeWithSeconds(timecode, preferredTimescale: 1)
         await player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
+        updateNowPlayingInfo()
     }
 
     func goToTime(_ timecode: String) async {
@@ -355,6 +372,7 @@ import SwiftUI
         let validRange = CMTimeRange(start: .zero, end: item.duration)
         guard validRange.containsTime(time) else { return }
         await player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
+        updateNowPlayingInfo()
     }
 
     @MainActor
@@ -432,5 +450,16 @@ import SwiftUI
         guard let timeObserver else { return }
         player.removeTimeObserver(timeObserver)
         self.timeObserver = nil
+    }
+
+    private func updateNowPlayingInfo() {
+        NowPlayable.shared.setNowPlayingPlaybackInfo(
+            playing: timeControlStatus == .playing,
+            NowPlayableDynamicMetadata(
+                rate: player.rate,
+                position: Float(currentTime),
+                duration: Float(duration)
+            )
+        )
     }
 }

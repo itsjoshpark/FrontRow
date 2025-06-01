@@ -12,6 +12,7 @@ import SwiftUI
 struct FrontRowApp: App {
     @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
     @State private var playEngine: PlayEngine
+    @State private var nowPlayable: NowPlayable
     @State private var presentedViewManager: PresentedViewManager
     @State private var windowController: WindowController
     private let updaterController: SPUStandardUpdaterController
@@ -19,6 +20,7 @@ struct FrontRowApp: App {
 
     init() {
         self._playEngine = .init(wrappedValue: .shared)
+        self._nowPlayable = .init(wrappedValue: .shared)
         self._presentedViewManager = .init(wrappedValue: .shared)
         self._windowController = .init(wrappedValue: .shared)
 
