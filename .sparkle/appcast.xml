@@ -5,6 +5,30 @@
     <language>en</language>
 
     <item>
+      <title>v2.6</title>
+      <link>https://github.com/itsjoshpark/FrontRow</link>
+      <sparkle:version>2.6</sparkle:version>
+      <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
+      <sparkle:fullReleaseNotesLink>https://github.com/itsjoshpark/FrontRow/releases</sparkle:fullReleaseNotesLink>
+      <pubDate>Mon, 06 Jun 2025 03:05:16 +0000</pubDate>
+      <enclosure
+        url="https://github.com/itsjoshpark/FrontRow/releases/download/v2.6/FrontRow_v2.6.dmg"
+        sparkle:edSignature="eGjDM66gVDxWVWt9Z/NGJBOjYWZwnO+/Ys35OoA4wbTDLiVq1BlCwdsFTZ03iGvQKOuPwo23aFreRSsqojP4DA=="
+        length="2744098"
+        type="application/octet-stream" />
+      <description><![CDATA[
+      <ul>
+      <li>New: Use the Now Playing control center in the menu bar to control the app</li>
+      <li>New: Display recently opened files in the app&#39;s Dock context menu</li>
+      <li>New: Pause and hide app by pressing Esc key</li>
+      <li>New: Open URL shortcut is now Cmd+Shift+O</li>
+      <li>Fixed: Open URL window UI</li>
+      </ul>
+      ]]>
+      </description>
+    </item>
+
+    <item>
       <title>v2.5.4</title>
       <link>https://github.com/itsjoshpark/FrontRow</link>
       <sparkle:version>2.5.4</sparkle:version>
