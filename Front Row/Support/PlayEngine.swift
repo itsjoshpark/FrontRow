@@ -71,7 +71,6 @@ import SwiftUI
                 if Float.isApproxEqual(lhs: newValue, rhs: 1.0) {
                     player.rate = 1.0
                     player.defaultRate = 1.0
-                    updateNowPlayingInfo()
                     return
                 }
 
@@ -87,8 +86,6 @@ import SwiftUI
                     player.rate = newValue
                     player.defaultRate = newValue
                 }
-
-                updateNowPlayingInfo()
             }
         }
     }
@@ -149,6 +146,9 @@ import SwiftUI
     private var timeObserver: Any?
 
     init() {
+        NowPlayable.shared.sessionStart()
+        NowPlayable.shared.setupRemoteCommandHandlers(playEngine: self)
+
         player.preventsDisplaySleepDuringVideoPlayback = true
         player.appliesMediaSelectionCriteriaAutomatically = false
 
@@ -156,6 +156,13 @@ import SwiftUI
             .receive(on: DispatchQueue.main)
             .sink { status in
                 self.timeControlStatus = status
+                self.updateNowPlayingInfo()
+            }
+            .store(in: &subs)
+
+        player.publisher(for: \.rate)
+            .receive(on: DispatchQueue.main)
+            .sink { rate in
                 self.updateNowPlayingInfo()
             }
             .store(in: &subs)
@@ -172,10 +179,11 @@ import SwiftUI
     }
 
     deinit {
+        NowPlayable.shared.sessionEnd()
+        NowPlayable.shared.removeRemoteCommandHandlers()
         for sub in currentItemSubs { sub.cancel() }
         currentItemSubs.removeAll()
         removePeriodicTimeObserver()
-        NowPlayable.shared.removeRemoteCommandHandlers()
     }
 
     /// Attempts to open file at url. If its not playable, returns false.
@@ -225,13 +233,11 @@ import SwiftUI
                         NowPlayableStaticMetadata(
                             assetURL: url, mediaType: videoSize == CGSize.zero ? .audio : .video,
                             title: url.lastPathComponent))
-                    NowPlayable.shared.sessionStart()
-                    NowPlayable.shared.setupRemoteCommandHandlers(playEngine: self)
+                    updateNowPlayingInfo()
                 case .failed:
                     isLoaded = false
                     isLocalFile = false
                     NowPlayable.shared.sessionEnd()
-                    NowPlayable.shared.removeRemoteCommandHandlers()
                 default:
                     break
                 }
@@ -276,14 +282,12 @@ import SwiftUI
         guard isLoaded else { return }
 
         player.play()
-        updateNowPlayingInfo()
     }
 
     func pause() {
         guard isLoaded else { return }
 
         player.pause()
-        updateNowPlayingInfo()
     }
 
     func playPause() {
