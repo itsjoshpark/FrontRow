@@ -14,7 +14,9 @@ struct FileCommands: Commands {
     var body: some Commands {
         CommandGroup(replacing: .newItem) {
             Button {
-                Task { await PlayEngine.shared.showOpenFileDialog() }
+                Task {
+                    await showOpenFileDialog()
+                }
             } label: {
                 Text(
                     "Open File...",
@@ -47,5 +49,20 @@ struct FileCommands: Commands {
             }
             .disabled(!playEngine.isLocalFile)
         }
+    }
+
+    private func showOpenFileDialog() async {
+        let panel = NSOpenPanel()
+        panel.allowedContentTypes = PlayEngine.supportedFileTypes
+        panel.allowsMultipleSelection = false
+        panel.canChooseDirectories = false
+        panel.canChooseFiles = true
+        let resp = await panel.beginSheetModal(for: NSApplication.shared.mainWindow!)
+        if resp != .OK {
+            return
+        }
+
+        guard let url = panel.url else { return }
+        await PlayEngine.shared.openFile(url: url)
     }
 }

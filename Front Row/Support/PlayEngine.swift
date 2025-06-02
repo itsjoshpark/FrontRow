@@ -178,22 +178,6 @@ import SwiftUI
         NowPlayable.shared.removeRemoteCommandHandlers()
     }
 
-    @MainActor
-    func showOpenFileDialog() async {
-        let panel = NSOpenPanel()
-        panel.allowedContentTypes = PlayEngine.supportedFileTypes
-        panel.allowsMultipleSelection = false
-        panel.canChooseDirectories = false
-        panel.canChooseFiles = true
-        let resp = await panel.beginSheetModal(for: NSApplication.shared.mainWindow!)
-        if resp != .OK {
-            return
-        }
-
-        guard let url = panel.url else { return }
-        await openFile(url: url)
-    }
-
     /// Attempts to open file at url. If its not playable, returns false.
     /// - Parameter url: A URL to a local, remote, or HTTP Live Streaming media resource.
     /// - Returns: A Boolean value that indicates whether an asset contains playable content.
