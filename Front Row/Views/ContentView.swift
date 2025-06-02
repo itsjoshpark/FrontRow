@@ -31,7 +31,8 @@ struct ContentView: View {
 
                             Task {
                                 guard let url = await provider.getURL() else { return }
-                                await PlayEngine.shared.openFile(url: url)
+                                guard await PlayEngine.shared.openFile(url: url) else { return }
+                                NSDocumentController.shared.noteNewRecentDocumentURL(url)
                             }
 
                             return true

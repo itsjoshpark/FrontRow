@@ -34,7 +34,7 @@ extension NowPlayable {
             guard let event = event as? MPChangePlaybackPositionCommandEvent else {
                 return .commandFailed
             }
-            Task { @MainActor in
+            Task {
                 await playEngine.goToTime(event.positionTime)
             }
             return .success
@@ -45,7 +45,7 @@ extension NowPlayable {
             NSNumber(value: playEngine.skipInterval)
         ]
         commandCenter.skipForwardCommand.addTarget { _ in
-            Task { @MainActor in
+            Task {
                 await playEngine.goForwards()
             }
             return .success
@@ -56,7 +56,7 @@ extension NowPlayable {
             NSNumber(value: playEngine.skipInterval)
         ]
         commandCenter.skipBackwardCommand.addTarget { _ in
-            Task { @MainActor in
+            Task {
                 await playEngine.goBackwards()
             }
             return .success

@@ -61,6 +61,7 @@ struct OpenURLView: View {
                         displayLoading = false
                         displayError = false
                     }
+                    NSDocumentController.shared.noteNewRecentDocumentURL(url)
                     dismiss()
                 }
             }

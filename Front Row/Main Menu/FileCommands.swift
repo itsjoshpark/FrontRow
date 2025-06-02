@@ -63,6 +63,7 @@ struct FileCommands: Commands {
         }
 
         guard let url = panel.url else { return }
-        await PlayEngine.shared.openFile(url: url)
+        guard await PlayEngine.shared.openFile(url: url) else { return }
+        NSDocumentController.shared.noteNewRecentDocumentURL(url)
     }
 }

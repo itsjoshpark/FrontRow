@@ -93,7 +93,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func application(_ application: NSApplication, open urls: [URL]) {
         guard urls.count == 1, let url = urls.first else { return }
         Task {
-            await PlayEngine.shared.openFile(url: url)
+            guard await PlayEngine.shared.openFile(url: url) else { return }
+            NSDocumentController.shared.noteNewRecentDocumentURL(url)
         }
     }
 
