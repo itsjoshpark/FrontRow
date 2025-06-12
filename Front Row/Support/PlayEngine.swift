@@ -196,8 +196,16 @@ import SwiftUI
         }
         asset = AVURLAsset(url: url)
         do {
-            let isPlayable = try await asset!.load(.isPlayable)
+            let (isPlayable, metadata) = try await asset!.load(.isPlayable, .metadata)
             guard isPlayable else { return false }
+
+            let commonMetadata = try await asset!.load(.commonMetadata)
+            let availableFormats = try await asset!.load(.availableMetadataFormats)
+            var allItems: [AVMetadataItem] = metadata + commonMetadata
+            for format in availableFormats {
+                allItems += try await asset!.loadMetadata(for: format)
+            }
+            debugPrint(allItems)
 
             if let subtitleGroup = try await asset!.loadMediaSelectionGroup(for: .legible) {
                 self.subtitleGroup = subtitleGroup
