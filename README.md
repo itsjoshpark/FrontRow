@@ -20,8 +20,8 @@ Experience color accurate HDR videos with full surround sound using spatial audi
 
 - [HDR video compatible Macs](https://support.apple.com/en-us/102205) and/or [spatial audio compatible devices](https://support.apple.com/en-us/102469)
 - Apple Silicon (M1 and later)
-- macOS Sonoma 15.0 and later
-- Xcode 16 (to build)
+- macOS Sequoia 15.0 and later
+- Xcode 26.2 (to build)
 
 ## Frequently Asked Questions
 
@@ -46,6 +46,7 @@ ffmpeg -i ./input.mkv -map 0 -c copy -tag:v hvc1 ./output.mp4
 ```
 
 Note:
+
 - Add `-c:s mov_text` after `-c copy` if there are built in subtitles
 - Use `-tag:v hvc1` for video streams encoded in H265. Use `-tag:v avc1` instead for H264
 
@@ -58,6 +59,7 @@ ffmpeg -i ./input.mkv -map 0 -c copy -c:a aac_at -b:a 448k -tag:v hvc1 ./output.
 ```
 
 Note:
+
 - Add `-c:s mov_text` after `-c copy` if there are built in subtitles
 - Use `-tag:v hvc1` for video streams encoded in H265. Use `-tag:v avc1` instead for H264
 
