@@ -104,12 +104,7 @@ import SwiftUI
                 .first(where: { $0.isKind(of: containerClass) })
         else { return nil }
 
-        guard let titlebarClass = NSClassFromString("NSTitlebarView") else { return nil }
-        guard let titlebar = containerView.subviews.first(where: { $0.isKind(of: titlebarClass) })
-        else { return nil }
-
-        _titlebarView = titlebar
-
+        _titlebarView = containerView
         return _titlebarView
     }
 

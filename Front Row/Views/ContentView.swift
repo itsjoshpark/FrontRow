@@ -68,6 +68,9 @@ struct ContentView: View {
         .background {
             Color.black.ignoresSafeArea()
         }
+        .onAppear {
+            resetMouseIdleTimer()
+        }
         .onContinuousHover { phase in
             switch phase {
             case .active:
@@ -90,11 +93,15 @@ struct ContentView: View {
             }
         }
         .onChange(of: WindowController.shared.isMouseInTitleBar) { _, isInTitleBar in
-            // When mouse enters title bar, show controls and reset idle timer
             if isInTitleBar {
+                // When mouse enters title bar, show controls and reset idle timer
                 showPlayerControls()
                 WindowController.shared.showTitlebar()
                 resetMouseIdleTimer()
+            } else if !mouseInsideWindow && !WindowController.shared.isMouseInPlayerControls {
+                // When mouse leaves title bar and is not in content area or controls, hide UI
+                hidePlayerControls()
+                WindowController.shared.hideTitlebar()
             }
         }
     }
