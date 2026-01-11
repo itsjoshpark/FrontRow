@@ -39,6 +39,8 @@ import SwiftUI
 
     private(set) var isLocalFile = false
 
+    private(set) var fileURL: URL?
+
     private var _currentTime: TimeInterval = 0.0
 
     var currentTime: Double {
@@ -229,6 +231,7 @@ import SwiftUI
                     isLoaded = true
                     isLocalFile = FileManager.default.fileExists(
                         atPath: url.path(percentEncoded: false))
+                    fileURL = url
                     NowPlayable.shared.setNowPlayingMetadata(
                         NowPlayableStaticMetadata(
                             assetURL: url, mediaType: videoSize == CGSize.zero ? .audio : .video,
@@ -237,6 +240,7 @@ import SwiftUI
                 case .failed:
                     isLoaded = false
                     isLocalFile = false
+                    fileURL = nil
                     NowPlayable.shared.sessionEnd()
                 default:
                     break

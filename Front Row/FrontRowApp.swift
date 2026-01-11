@@ -5,6 +5,7 @@
 //  Created by Joshua Park on 3/4/24.
 //
 
+import AVKit
 import Sparkle
 import SwiftUI
 
@@ -37,7 +38,12 @@ struct FrontRowApp: App {
         Window("Front Row", id: "main") {
             ContentView()
                 .preferredColorScheme(.dark)
+                .ignoresSafeArea()
                 .environment(playEngine)
+                .navigationTitle(playEngine.fileURL?.lastPathComponent ?? "Front Row")
+                .if(playEngine.isLocalFile) { view in
+                    view.navigationDocument(playEngine.fileURL!)
+                }
                 .sheet(isPresented: $presentedViewManager.isPresentingOpenURLView) {
                     OpenURLView()
                         .frame(minWidth: 600)
@@ -68,7 +74,6 @@ struct FrontRowApp: App {
                     windowController.setIsFullscreen(false)
                 }
         }
-        .windowStyle(.hiddenTitleBar)
         .restorationBehavior(.disabled)
         .commands {
             AppCommands(updater: updaterController.updater)

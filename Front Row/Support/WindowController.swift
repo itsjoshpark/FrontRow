@@ -11,6 +11,54 @@ import SwiftUI
 
     static let shared = WindowController()
 
+    private var mouseMovedMonitor: Any?
+
+    // MARK: - Mouse Tracking
+
+    private(set) var isMouseInTitleBar = false
+    var isMouseInPlayerControls = false
+
+    init() {
+        setupMouseTracking()
+    }
+
+    deinit {
+        if let monitor = mouseMovedMonitor {
+            NSEvent.removeMonitor(monitor)
+        }
+    }
+
+    private func setupMouseTracking() {
+        mouseMovedMonitor = NSEvent.addLocalMonitorForEvents(matching: [.mouseMoved]) {
+            [weak self] event in
+            self?.updateMousePosition()
+            return event
+        }
+    }
+
+    private func updateMousePosition() {
+        guard let window = NSApp.mainWindow else {
+            isMouseInTitleBar = false
+            return
+        }
+
+        let mouseLocation = NSEvent.mouseLocation
+        let windowFrame = window.frame
+
+        guard windowFrame.contains(mouseLocation) else {
+            isMouseInTitleBar = false
+            return
+        }
+
+        // Convert screen point to window coordinates
+        let windowPoint = window.convertPoint(fromScreen: mouseLocation)
+        // contentLayoutRect excludes the title bar area
+        let contentRect = window.contentLayoutRect
+
+        // Mouse is in title bar if it's above the content rect
+        isMouseInTitleBar = windowPoint.y > contentRect.maxY
+    }
+
     // MARK: - Fullscreen
 
     private(set) var isFullscreen = false
