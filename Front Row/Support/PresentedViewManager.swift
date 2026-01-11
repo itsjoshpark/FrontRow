@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 @Observable public final class PresentedViewManager {
 
     static let shared = PresentedViewManager()

@@ -91,12 +91,14 @@ struct ContentView: View {
             mouseIdleTimer = nil
         }
 
-        mouseIdleTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) {
-            mouseIdleTimerAction($0)
+        mouseIdleTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { _ in
+            Task { @MainActor in
+                mouseIdleTimerAction()
+            }
         }
     }
 
-    private func mouseIdleTimerAction(_ sender: Timer) {
+    private func mouseIdleTimerAction() {
         hidePlayerControls()
         WindowController.shared.hideTitlebar()
         if mouseInsideWindow {

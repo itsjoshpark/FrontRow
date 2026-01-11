@@ -11,17 +11,13 @@ import SwiftUI
 @main
 struct FrontRowApp: App {
     @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
-    @State private var playEngine: PlayEngine
-    @State private var presentedViewManager: PresentedViewManager
-    @State private var windowController: WindowController
+    @State private var playEngine = PlayEngine.shared
+    @State private var presentedViewManager = PresentedViewManager.shared
+    @State private var windowController = WindowController.shared
     private let updaterController: SPUStandardUpdaterController
     private let keyDownListener = KeyDownListener()
 
     init() {
-        self._playEngine = .init(wrappedValue: .shared)
-        self._presentedViewManager = .init(wrappedValue: .shared)
-        self._windowController = .init(wrappedValue: .shared)
-
         updaterController = SPUStandardUpdaterController(
             startingUpdater: true,
             updaterDelegate: nil,
@@ -37,7 +33,6 @@ struct FrontRowApp: App {
         Window("Front Row", id: "main") {
             ContentView()
                 .preferredColorScheme(.dark)
-                .environment(playEngine)
                 .sheet(isPresented: $presentedViewManager.isPresentingOpenURLView) {
                     OpenURLView()
                         .frame(minWidth: 600)
@@ -70,18 +65,15 @@ struct FrontRowApp: App {
         }
         .windowStyle(.hiddenTitleBar)
         .restorationBehavior(.disabled)
+        .environment(playEngine)
+        .environment(presentedViewManager)
+        .environment(windowController)
         .commands {
             AppCommands(updater: updaterController.updater)
-            FileCommands(playEngine: $playEngine)
-            ViewCommands(
-                playEngine: $playEngine,
-                windowController: $windowController)
-            PlaybackCommands(
-                playEngine: $playEngine,
-                presentedViewManager: $presentedViewManager)
-            WindowCommands(
-                playEngine: $playEngine,
-                windowController: $windowController)
+            FileCommands()
+            ViewCommands()
+            PlaybackCommands()
+            WindowCommands()
             HelpCommands()
         }
     }
