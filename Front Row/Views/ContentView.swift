@@ -50,6 +50,18 @@ struct ContentView: View {
             }
 
             PlayerControlsView()
+                .onContinuousHover { phase in
+                    switch phase {
+                    case .active:
+                        WindowController.shared.isMouseInPlayerControls = true
+                        resetMouseIdleTimer()
+                        showPlayerControls()
+                        WindowController.shared.showTitlebar()
+                        WindowController.shared.showCursor()
+                    case .ended:
+                        WindowController.shared.isMouseInPlayerControls = false
+                    }
+                }
                 .animation(.linear(duration: 0.4), value: playerControlsShown)
                 .opacity(playerControlsShown ? 1.0 : 0.0)
         }
@@ -66,9 +78,23 @@ struct ContentView: View {
                 WindowController.shared.showCursor()
             case .ended:
                 mouseInsideWindow = false
-                hidePlayerControls()
-                WindowController.shared.hideTitlebar()
+                // Only hide if mouse is not hovering over title bar or controls
+                let isHoveringInteractiveArea =
+                    WindowController.shared.isMouseInTitleBar
+                    || WindowController.shared.isMouseInPlayerControls
+                if !isHoveringInteractiveArea {
+                    hidePlayerControls()
+                    WindowController.shared.hideTitlebar()
+                }
                 WindowController.shared.showCursor()
+            }
+        }
+        .onChange(of: WindowController.shared.isMouseInTitleBar) { _, isInTitleBar in
+            // When mouse enters title bar, show controls and reset idle timer
+            if isInTitleBar {
+                showPlayerControls()
+                WindowController.shared.showTitlebar()
+                resetMouseIdleTimer()
             }
         }
     }
@@ -97,9 +123,17 @@ struct ContentView: View {
     }
 
     private func mouseIdleTimerAction(_ sender: Timer) {
-        hidePlayerControls()
-        WindowController.shared.hideTitlebar()
-        if mouseInsideWindow {
+        let isHoveringInteractiveArea =
+            WindowController.shared.isMouseInTitleBar
+            || WindowController.shared.isMouseInPlayerControls
+
+        // Only hide controls if mouse is not hovering over title bar or controls
+        if !isHoveringInteractiveArea {
+            hidePlayerControls()
+            WindowController.shared.hideTitlebar()
+        }
+        // Only hide cursor if mouse is in content area (not title bar or controls)
+        if mouseInsideWindow && !isHoveringInteractiveArea {
             WindowController.shared.hideCursor()
         }
     }
