@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 @Observable public final class WindowController {
 
     static let shared = WindowController()

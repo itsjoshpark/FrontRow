@@ -9,7 +9,8 @@ import AVKit
 import SwiftUI
 
 struct FileCommands: Commands {
-    @Binding var playEngine: PlayEngine
+    @Environment(PlayEngine.self) private var playEngine
+    @Environment(PresentedViewManager.self) private var viewManager
 
     var body: some Commands {
         CommandGroup(replacing: .newItem) {
@@ -26,7 +27,7 @@ struct FileCommands: Commands {
             .keyboardShortcut("O", modifiers: [.command])
 
             Button {
-                PresentedViewManager.shared.isPresentingOpenURLView.toggle()
+                viewManager.isPresentingOpenURLView.toggle()
             } label: {
                 Text(
                     "Open URL...",
@@ -38,8 +39,9 @@ struct FileCommands: Commands {
             Divider()
 
             Button {
-                guard let item = PlayEngine.shared.player.currentItem else { return }
-                guard let asset = item.asset as? AVURLAsset else { return }
+                guard let item = playEngine.player.currentItem,
+                    let asset = item.asset as? AVURLAsset
+                else { return }
                 NSWorkspace.shared.activateFileViewerSelecting([asset.url])
             } label: {
                 Text(
@@ -51,6 +53,7 @@ struct FileCommands: Commands {
         }
     }
 
+    @MainActor
     private func showOpenFileDialog() async {
         let panel = NSOpenPanel()
         panel.allowedContentTypes = PlayEngine.supportedFileTypes
@@ -63,7 +66,7 @@ struct FileCommands: Commands {
         }
 
         guard let url = panel.url else { return }
-        guard await PlayEngine.shared.openFile(url: url) else { return }
+        guard await playEngine.openFile(url: url) else { return }
         NSDocumentController.shared.noteNewRecentDocumentURL(url)
     }
 }

@@ -9,10 +9,13 @@ import AVKit
 import SwiftUI
 
 struct ViewCommands: Commands {
-    @Binding var playEngine: PlayEngine
-    @Binding var windowController: WindowController
+    @Environment(PlayEngine.self) private var playEngine
+    @Environment(WindowController.self) private var windowController
 
     var body: some Commands {
+        @Bindable var playEngine = playEngine
+        @Bindable var windowController = windowController
+
         CommandGroup(replacing: .toolbar) {
             Button {
                 NSApplication.shared.mainWindow?.toggleFullScreen(nil)
@@ -27,13 +30,13 @@ struct ViewCommands: Commands {
 
             Divider()
 
-            subtitlePicker
+            subtitlePicker(playEngine: $playEngine)
         }
     }
 
-    @ViewBuilder private var subtitlePicker: some View {
-        if let group = playEngine.subtitleGroup {
-            Picker("Subtitle", selection: $playEngine.subtitle) {
+    @ViewBuilder private func subtitlePicker(playEngine: Bindable<PlayEngine>) -> some View {
+        if let group = playEngine.wrappedValue.subtitleGroup {
+            Picker("Subtitle", selection: playEngine.subtitle) {
                 Text("Off").tag(nil as AVMediaSelectionOption?)
 
                 let optionsWithoutForcedSubs = group.options.filter {

@@ -9,10 +9,13 @@ import AVKit
 import SwiftUI
 
 struct PlaybackCommands: Commands {
-    @Binding var playEngine: PlayEngine
-    @Binding var presentedViewManager: PresentedViewManager
+    @Environment(PlayEngine.self) private var playEngine
+    @Environment(PresentedViewManager.self) private var presentedViewManager
 
     var body: some Commands {
+        @Bindable var playEngine = playEngine
+        @Bindable var presentedViewManager = presentedViewManager
+
         CommandMenu("Playback") {
             Button {
                 playEngine.playPause()
@@ -138,7 +141,7 @@ struct PlaybackCommands: Commands {
 
             Divider()
 
-            audioTrackPicker
+            audioTrackPicker(playEngine: $playEngine)
 
             Toggle(isOn: $playEngine.isMuted) {
                 Text("Mute")
@@ -147,9 +150,9 @@ struct PlaybackCommands: Commands {
         }
     }
 
-    @ViewBuilder private var audioTrackPicker: some View {
-        if let group = playEngine.audioGroup {
-            Picker("Audio Track", selection: $playEngine.audioTrack) {
+    @ViewBuilder private func audioTrackPicker(playEngine: Bindable<PlayEngine>) -> some View {
+        if let group = playEngine.wrappedValue.audioGroup {
+            Picker("Audio Track", selection: playEngine.audioTrack) {
                 Text("Off").tag(nil as AVMediaSelectionOption?)
                 ForEach(group.options) { option in
                     Text(verbatim: option.displayName).tag(Optional(option))

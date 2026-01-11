@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct WindowCommands: Commands {
-    @Binding var playEngine: PlayEngine
-    @Binding var windowController: WindowController
+    @Environment(PlayEngine.self) private var playEngine
+    @Environment(WindowController.self) private var windowController
 
     var body: some Commands {
         CommandGroup(after: .windowSize) {
             Section {
                 Button {
-                    PlayEngine.shared.fitToVideoSize()
+                    playEngine.fitToVideoSize()
                 } label: {
                     Text(
                         "Natural Size",

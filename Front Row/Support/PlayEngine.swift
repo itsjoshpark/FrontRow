@@ -9,6 +9,7 @@ import AVKit
 import Combine
 import SwiftUI
 
+@MainActor
 @Observable public final class PlayEngine {
 
     static let shared = PlayEngine()
@@ -145,7 +146,7 @@ import SwiftUI
 
     private var timeObserver: Any?
 
-    init() {
+    private init() {
         NowPlayable.shared.sessionStart()
         NowPlayable.shared.setupRemoteCommandHandlers(playEngine: self)
 
@@ -154,24 +155,24 @@ import SwiftUI
 
         player.publisher(for: \.timeControlStatus)
             .receive(on: DispatchQueue.main)
-            .sink { status in
-                self.timeControlStatus = status
-                self.updateNowPlayingInfo()
+            .sink { [weak self] status in
+                self?.timeControlStatus = status
+                self?.updateNowPlayingInfo()
             }
             .store(in: &subs)
 
         player.publisher(for: \.rate)
             .receive(on: DispatchQueue.main)
-            .sink { rate in
-                self.updateNowPlayingInfo()
+            .sink { [weak self] rate in
+                self?.updateNowPlayingInfo()
             }
             .store(in: &subs)
 
         player.publisher(for: \.isMuted)
             .removeDuplicates()
             .receive(on: DispatchQueue.main)
-            .sink { isMuted in
-                self._isMuted = isMuted
+            .sink { [weak self] isMuted in
+                self?._isMuted = isMuted
             }
             .store(in: &subs)
 
@@ -189,27 +190,19 @@ import SwiftUI
     /// Attempts to open file at url. If its not playable, returns false.
     /// - Parameter url: A URL to a local, remote, or HTTP Live Streaming media resource.
     /// - Returns: A Boolean value that indicates whether an asset contains playable content.
-    @MainActor
     @discardableResult func openFile(url: URL) async -> Bool {
         if asset != nil {
             asset!.cancelLoading()
         }
-        asset = AVURLAsset(url: url)
+        let newAsset = AVURLAsset(url: url)
+        asset = newAsset
+
         do {
-            let isPlayable = try await asset!.load(.isPlayable)
+            let isPlayable = try await newAsset.load(.isPlayable)
             guard isPlayable else { return false }
 
-            if let subtitleGroup = try await asset!.loadMediaSelectionGroup(for: .legible) {
-                self.subtitleGroup = subtitleGroup
-            } else {
-                self.subtitleGroup = nil
-            }
-
-            if let audioGroup = try await asset!.loadMediaSelectionGroup(for: .audible) {
-                self.audioGroup = audioGroup
-            } else {
-                self.audioGroup = nil
-            }
+            self.subtitleGroup = try? await newAsset.loadMediaSelectionGroup(for: .legible)
+            self.audioGroup = try? await newAsset.loadMediaSelectionGroup(for: .audible)
         } catch {
             return false
         }
@@ -217,7 +210,7 @@ import SwiftUI
         for sub in currentItemSubs { sub.cancel() }
         currentItemSubs.removeAll()
 
-        let playerItem = AVPlayerItem(asset: asset!)
+        let playerItem = AVPlayerItem(asset: newAsset)
 
         playerItem.publisher(for: \.status)
             .removeDuplicates()
@@ -226,17 +219,18 @@ import SwiftUI
                 guard let self else { return }
                 switch status {
                 case .readyToPlay:
-                    isLoaded = true
-                    isLocalFile = FileManager.default.fileExists(
-                        atPath: url.path(percentEncoded: false))
+                    self.isLoaded = true
+                    self.isLocalFile = FileManager.default.fileExists(atPath: url.path)
                     NowPlayable.shared.setNowPlayingMetadata(
                         NowPlayableStaticMetadata(
-                            assetURL: url, mediaType: videoSize == CGSize.zero ? .audio : .video,
-                            title: url.lastPathComponent))
-                    updateNowPlayingInfo()
+                            assetURL: url,
+                            mediaType: self.videoSize == .zero ? .audio : .video,
+                            title: url.lastPathComponent
+                        ))
+                    self.updateNowPlayingInfo()
                 case .failed:
-                    isLoaded = false
-                    isLocalFile = false
+                    self.isLoaded = false
+                    self.isLocalFile = false
                     NowPlayable.shared.sessionEnd()
                 default:
                     break
@@ -249,25 +243,16 @@ import SwiftUI
             .receive(on: DispatchQueue.main)
             .sink { [weak self] size in
                 guard let self else { return }
-                videoSize = size
-                fitToVideoSize(skipResize: WindowController.shared.isFullscreen)
+                self.videoSize = size
+                self.fitToVideoSize(skipResize: WindowController.shared.isFullscreen)
             }
             .store(in: &currentItemSubs)
 
         player.replaceCurrentItem(with: playerItem)
         player.play()
 
-        if let subtitleGroup {
-            subtitle = subtitleGroup.options.first
-        } else {
-            subtitle = nil
-        }
-
-        if let audioGroup {
-            audioTrack = audioGroup.options.first
-        } else {
-            audioTrack = nil
-        }
+        self.subtitle = subtitleGroup?.options.first
+        self.audioTrack = audioGroup?.options.first
 
         return true
     }
@@ -420,17 +405,20 @@ import SwiftUI
 
     private func addPeriodicTimeObserver() {
         let interval = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+
         timeObserver = player.addPeriodicTimeObserver(
             forInterval: interval,
             queue: .main
         ) { [weak self] time in
-            guard let self else { return }
-            _currentTime = time.seconds
+            Task { @MainActor in
+                guard let self else { return }
+                self._currentTime = time.seconds
 
-            guard let duration = player.currentItem?.duration.seconds else { return }
-            guard !duration.isNaN && !duration.isInfinite else { return }
-            self.duration = duration
-            timeRemaining = duration - _currentTime
+                guard let duration = self.player.currentItem?.duration.seconds else { return }
+                guard !duration.isNaN && !duration.isInfinite else { return }
+                self.duration = duration
+                self.timeRemaining = duration - self._currentTime
+            }
         }
     }
 
