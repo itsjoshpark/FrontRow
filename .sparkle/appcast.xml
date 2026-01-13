@@ -2,10 +2,11 @@
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
   <channel>
     <title>Front Row</title>
+    <description>There's a new version available</description>
     <language>en</language>
 
     <item>
-      <title>v2.7</title>
+      <title>New Version Available</title>
       <link>https://github.com/itsjoshpark/FrontRow</link>
       <sparkle:version>19</sparkle:version>
       <sparkle:shortVersionString>2.7 (19)</sparkle:shortVersionString>
@@ -16,16 +17,17 @@
       <ul>
       <li>New: Display filename in title bar</li>
       </ul>
-      <p>This version includes one-time changes and cannot be installed using the auto updater.</p>
+      <p>This version includes one-time changes which cannot be installed using the auto updater.</p>
       <p>Click <strong>“More Info”</strong> to visit our website and download the update.</p>
       ]]>
       </description>
     </item>
 
     <item>
-      <title>v2.6</title>
+      <title>New Version Available</title>
       <link>https://github.com/itsjoshpark/FrontRow</link>
-      <sparkle:version>2.6</sparkle:version>
+      <sparkle:version>18</sparkle:version>
+      <sparkle:shortVersionString>2.6 (18)</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
       <sparkle:fullReleaseNotesLink>https://github.com/itsjoshpark/FrontRow/releases</sparkle:fullReleaseNotesLink>
       <pubDate>Mon, 06 Jun 2025 03:05:16 +0000</pubDate>
@@ -47,9 +49,10 @@
     </item>
 
     <item>
-      <title>v2.5.4</title>
+      <title>New Version Available</title>
       <link>https://github.com/itsjoshpark/FrontRow</link>
-      <sparkle:version>2.5.4</sparkle:version>
+      <sparkle:version>17</sparkle:version>
+      <sparkle:shortVersionString>2.5.4 (17)</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
       <sparkle:fullReleaseNotesLink>https://github.com/itsjoshpark/FrontRow/releases</sparkle:fullReleaseNotesLink>
       <pubDate>Sun, 20 Apr 2025 00:59:08 +0000</pubDate>
