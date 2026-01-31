@@ -128,6 +128,7 @@ struct SeekSliderView: NSViewRepresentable {
         }
     }
 
+    @MainActor
     class Coordinator: NSObject {
         var seekSlider: SeekSliderView
 

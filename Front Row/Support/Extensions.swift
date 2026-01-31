@@ -51,49 +51,18 @@ struct AnyDropDelegate: DropDelegate {
     }
 }
 
-extension NSItemProvider: @unchecked Sendable {}
-
 extension NSItemProvider {
-    func loadObject<T>(ofClass: T.Type) async throws -> T? where T: NSItemProviderReading {
-        try await withCheckedThrowingContinuation { continuation in
-            _ = loadObject(ofClass: ofClass) { data, error in
-                if let error {
-                    continuation.resume(throwing: error)
-                    return
-                }
-
-                guard let object = data as? T else {
-                    continuation.resume(returning: nil)
-                    return
-                }
-
-                continuation.resume(returning: object)
+    /// Load a file URL from the item provider.
+    func loadFileURL(completion: @escaping @Sendable (URL?) -> Void) {
+        loadItem(forTypeIdentifier: "public.file-url", options: nil) { data, _ in
+            guard let data = data as? Data,
+                let url = URL(dataRepresentation: data, relativeTo: nil)
+            else {
+                completion(nil)
+                return
             }
+            completion(url)
         }
-    }
-
-    func loadObject<T>(ofClass: T.Type) async throws -> T?
-    where T: _ObjectiveCBridgeable, T._ObjectiveCType: NSItemProviderReading {
-        try await withCheckedThrowingContinuation { continuation in
-            _ = loadObject(ofClass: ofClass) { data, error in
-                if let error {
-                    continuation.resume(throwing: error)
-                    return
-                }
-
-                guard let data else {
-                    continuation.resume(returning: nil)
-                    return
-                }
-
-                continuation.resume(returning: data)
-            }
-        }
-    }
-
-    /// Get a URL from the item provider, if any.
-    func getURL() async -> URL? {
-        try? await loadObject(ofClass: URL.self)
     }
 }
 
@@ -131,8 +100,9 @@ extension NSSize {
     }
 }
 
-extension AVMediaSelectionOption: Identifiable {
-    public var id: String {
+extension AVMediaSelectionOption {
+    /// Provides a stable identifier for the option.
+    var stableID: String {
         let dict = propertyList() as? NSDictionary
         guard let dict, let id = dict.value(forKey: "MediaSelectionOptionsPersistentID") as? Int
         else {

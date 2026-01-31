@@ -29,6 +29,7 @@ struct NowPlayableDynamicMetadata {
     let duration: Float
 }
 
+@MainActor
 final class NowPlayable {
 
     static let shared = NowPlayable()
