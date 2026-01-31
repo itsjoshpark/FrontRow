@@ -8,7 +8,7 @@
 import MediaPlayer
 
 extension NowPlayable {
-    func setupRemoteCommandHandlers(playEngine: PlayEngine) {
+    @MainActor func setupRemoteCommandHandlers(playEngine: PlayEngine) {
         let commandCenter = MPRemoteCommandCenter.shared()
 
         commandCenter.playCommand.isEnabled = true

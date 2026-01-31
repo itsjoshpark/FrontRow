@@ -12,17 +12,13 @@ import SwiftUI
 @main
 struct FrontRowApp: App {
     @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
-    @State private var playEngine: PlayEngine
-    @State private var presentedViewManager: PresentedViewManager
-    @State private var windowController: WindowController
+    @State private var playEngine = PlayEngine.shared
+    @State private var presentedViewManager = PresentedViewManager.shared
+    @State private var windowController = WindowController.shared
     private let updaterController: SPUStandardUpdaterController
     private let keyDownListener = KeyDownListener()
 
     init() {
-        self._playEngine = .init(wrappedValue: .shared)
-        self._presentedViewManager = .init(wrappedValue: .shared)
-        self._windowController = .init(wrappedValue: .shared)
-
         updaterController = SPUStandardUpdaterController(
             startingUpdater: true,
             updaterDelegate: nil,
@@ -39,7 +35,6 @@ struct FrontRowApp: App {
             ContentView()
                 .preferredColorScheme(.dark)
                 .ignoresSafeArea()
-                .environment(playEngine)
                 .navigationTitle(playEngine.fileURL?.lastPathComponent ?? "Front Row")
                 .if(playEngine.isLocalFile) { view in
                     view.navigationDocument(playEngine.fileURL!)
@@ -75,18 +70,15 @@ struct FrontRowApp: App {
                 }
         }
         .restorationBehavior(.disabled)
+        .environment(playEngine)
+        .environment(presentedViewManager)
+        .environment(windowController)
         .commands {
             AppCommands(updater: updaterController.updater)
-            FileCommands(playEngine: $playEngine)
-            ViewCommands(
-                playEngine: $playEngine,
-                windowController: $windowController)
-            PlaybackCommands(
-                playEngine: $playEngine,
-                presentedViewManager: $presentedViewManager)
-            WindowCommands(
-                playEngine: $playEngine,
-                windowController: $windowController)
+            FileCommands()
+            ViewCommands()
+            PlaybackCommands()
+            WindowCommands()
             HelpCommands()
         }
     }

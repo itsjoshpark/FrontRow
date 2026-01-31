@@ -29,10 +29,12 @@ struct ContentView: View {
                                 return false
                             }
 
-                            Task {
-                                guard let url = await provider.getURL() else { return }
-                                guard await PlayEngine.shared.openFile(url: url) else { return }
-                                NSDocumentController.shared.noteNewRecentDocumentURL(url)
+                            provider.loadFileURL { url in
+                                guard let url else { return }
+                                Task { @MainActor in
+                                    guard await PlayEngine.shared.openFile(url: url) else { return }
+                                    NSDocumentController.shared.noteNewRecentDocumentURL(url)
+                                }
                             }
 
                             return true
@@ -124,12 +126,14 @@ struct ContentView: View {
             mouseIdleTimer = nil
         }
 
-        mouseIdleTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) {
-            mouseIdleTimerAction($0)
+        mouseIdleTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { _ in
+            MainActor.assumeIsolated {
+                self.mouseIdleTimerAction()
+            }
         }
     }
 
-    private func mouseIdleTimerAction(_ sender: Timer) {
+    private func mouseIdleTimerAction() {
         let isHoveringInteractiveArea =
             WindowController.shared.isMouseInTitleBar
             || WindowController.shared.isMouseInPlayerControls
@@ -148,4 +152,7 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environment(PlayEngine.shared)
+        .environment(PresentedViewManager.shared)
+        .environment(WindowController.shared)
 }

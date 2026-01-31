@@ -9,8 +9,6 @@ import AVKit
 import SwiftUI
 
 struct FileCommands: Commands {
-    @Binding var playEngine: PlayEngine
-
     var body: some Commands {
         CommandGroup(replacing: .newItem) {
             Button {
@@ -38,8 +36,9 @@ struct FileCommands: Commands {
             Divider()
 
             Button {
-                guard let item = PlayEngine.shared.player.currentItem else { return }
-                guard let asset = item.asset as? AVURLAsset else { return }
+                guard let item = PlayEngine.shared.player.currentItem,
+                    let asset = item.asset as? AVURLAsset
+                else { return }
                 NSWorkspace.shared.activateFileViewerSelecting([asset.url])
             } label: {
                 Text(
@@ -47,10 +46,11 @@ struct FileCommands: Commands {
                     comment: "Show the currently playing file in Finder"
                 )
             }
-            .disabled(!playEngine.isLocalFile)
+            .disabled(!PlayEngine.shared.isLocalFile)
         }
     }
 
+    @MainActor
     private func showOpenFileDialog() async {
         let panel = NSOpenPanel()
         panel.allowedContentTypes = PlayEngine.supportedFileTypes

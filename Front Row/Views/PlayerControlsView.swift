@@ -238,7 +238,7 @@ struct PlayerControlsView: View {
                     let optionsWithoutForcedSubs = group.options.filter {
                         !$0.displayName.contains("Forced")
                     }
-                    ForEach(optionsWithoutForcedSubs) {
+                    ForEach(optionsWithoutForcedSubs, id: \.stableID) {
                         option in
                         Text(verbatim: option.displayName).tag(Optional(option))
                     }
@@ -255,4 +255,7 @@ struct PlayerControlsView: View {
 
 #Preview {
     PlayerControlsView()
+        .environment(PlayEngine.shared)
+        .environment(PresentedViewManager.shared)
+        .environment(WindowController.shared)
 }

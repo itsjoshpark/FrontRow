@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct WindowCommands: Commands {
-    @Binding var playEngine: PlayEngine
-    @Binding var windowController: WindowController
-
     var body: some Commands {
         CommandGroup(after: .windowSize) {
             Section {
@@ -23,7 +20,7 @@ struct WindowCommands: Commands {
                     )
                 }
                 .keyboardShortcut("0", modifiers: [.command])
-                .disabled(!playEngine.isLoaded || windowController.isFullscreen)
+                .disabled(!PlayEngine.shared.isLoaded || WindowController.shared.isFullscreen)
             }
         }
     }

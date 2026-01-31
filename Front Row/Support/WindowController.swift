@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 @Observable public final class WindowController {
 
     static let shared = WindowController()
@@ -18,14 +19,8 @@ import SwiftUI
     private(set) var isMouseInTitleBar = false
     var isMouseInPlayerControls = false
 
-    init() {
+    private init() {
         setupMouseTracking()
-    }
-
-    deinit {
-        if let monitor = mouseMovedMonitor {
-            NSEvent.removeMonitor(monitor)
-        }
     }
 
     private func setupMouseTracking() {

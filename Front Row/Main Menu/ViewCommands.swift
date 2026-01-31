@@ -9,19 +9,18 @@ import AVKit
 import SwiftUI
 
 struct ViewCommands: Commands {
-    @Binding var playEngine: PlayEngine
-    @Binding var windowController: WindowController
-
     var body: some Commands {
         CommandGroup(replacing: .toolbar) {
             Button {
                 NSApplication.shared.mainWindow?.toggleFullScreen(nil)
             } label: {
-                Text(windowController.isFullscreen ? "Exit Full Screen" : "Enter Full Screen")
+                Text(
+                    WindowController.shared.isFullscreen
+                        ? "Exit Full Screen" : "Enter Full Screen")
             }
             .keyboardShortcut(.return, modifiers: [])
 
-            Toggle(isOn: $windowController.isOnTop) {
+            Toggle(isOn: Bindable(WindowController.shared).isOnTop) {
                 Text("Float on Top")
             }
 
@@ -32,14 +31,14 @@ struct ViewCommands: Commands {
     }
 
     @ViewBuilder private var subtitlePicker: some View {
-        if let group = playEngine.subtitleGroup {
-            Picker("Subtitle", selection: $playEngine.subtitle) {
+        if let group = PlayEngine.shared.subtitleGroup {
+            Picker("Subtitle", selection: Bindable(PlayEngine.shared).subtitle) {
                 Text("Off").tag(nil as AVMediaSelectionOption?)
 
                 let optionsWithoutForcedSubs = group.options.filter {
                     !$0.displayName.contains("Forced")
                 }
-                ForEach(optionsWithoutForcedSubs) {
+                ForEach(optionsWithoutForcedSubs, id: \.stableID) {
                     option in
                     Text(verbatim: option.displayName).tag(Optional(option))
                 }
