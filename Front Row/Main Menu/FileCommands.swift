@@ -33,6 +33,41 @@ struct FileCommands: Commands {
             }
             .keyboardShortcut("O", modifiers: [.command, .shift])
 
+            Menu {
+                ForEach(RecentDocumentsStore.shared.recentURLs, id: \.self) { url in
+                    Button {
+                        Task {
+                            await openRecentDocumentAndPresent(url: url)
+                        }
+                    } label: {
+                        Label {
+                            Text(url.lastPathComponent)
+                        } icon: {
+                            Image(nsImage: url.recentDocumentIcon)
+                        }
+                    }
+                }
+
+                if !RecentDocumentsStore.shared.recentURLs.isEmpty {
+                    Divider()
+                }
+
+                Button {
+                    RecentDocumentsStore.shared.clear()
+                } label: {
+                    Text(
+                        "Clear Menu",
+                        comment: "Clears the Open Recent menu's list of recently opened files"
+                    )
+                }
+                .disabled(RecentDocumentsStore.shared.recentURLs.isEmpty)
+            } label: {
+                Text(
+                    "Open Recent",
+                    comment: "Title of the Open Recent submenu"
+                )
+            }
+
             Divider()
 
             Button {
@@ -52,18 +87,7 @@ struct FileCommands: Commands {
 
     @MainActor
     private func showOpenFileDialog() async {
-        let panel = NSOpenPanel()
-        panel.allowedContentTypes = PlayEngine.supportedFileTypes
-        panel.allowsMultipleSelection = false
-        panel.canChooseDirectories = false
-        panel.canChooseFiles = true
-        let resp = await panel.beginSheetModal(for: NSApplication.shared.mainWindow!)
-        if resp != .OK {
-            return
-        }
-
-        guard let url = panel.url else { return }
-        guard await PlayEngine.shared.openFile(url: url) else { return }
-        NSDocumentController.shared.noteNewRecentDocumentURL(url)
+        guard let url = await presentOpenFilePanel() else { return }
+        await openFileAndPresent(url: url)
     }
 }

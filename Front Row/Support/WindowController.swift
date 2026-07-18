@@ -14,6 +14,12 @@ import SwiftUI
 
     private var mouseMovedMonitor: Any?
 
+    /// The app's main player window, captured once it's created (it's a singleton `Window`
+    /// scene). Used to distinguish it from transient windows (e.g. a menu's own backing window)
+    /// when handling window-level notifications that don't otherwise specify which window they
+    /// came from.
+    var mainWindow: NSWindow?
+
     // MARK: - Mouse Tracking
 
     private(set) var isMouseInTitleBar = false
@@ -95,7 +101,7 @@ import SwiftUI
 
         guard let containerClass = NSClassFromString("NSTitlebarContainerView") else { return nil }
         guard
-            let containerView = NSApp.windows.first?.contentView?.superview?.subviews.reversed()
+            let containerView = NSApp.mainWindow?.contentView?.superview?.subviews.reversed()
                 .first(where: { $0.isKind(of: containerClass) })
         else { return nil }
 
@@ -113,7 +119,7 @@ import SwiftUI
 
     private func setTitlebarOpacity(_ opacity: CGFloat, immediately: Bool = false) {
         /// when the window is in full screen, the titlebar view is in another window (the "toolbar window")
-        guard titlebarView?.window == NSApp.windows.first else { return }
+        guard titlebarView?.window == NSApp.mainWindow else { return }
 
         if immediately {
             self.titlebarView?.animator().alphaValue = opacity

@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "\"%@\" could not be found and has been removed from your recent files." : {
+      "comment" : "Alert message shown when a recent file can no longer be opened"
+    },
     "%llds" : {
       "comment" : "Label displaying seconds",
       "localizations" : {
@@ -569,6 +572,12 @@
           }
         }
       }
+    },
+    "Clear Menu" : {
+      "comment" : "Clears the Open Recent menu's list of recently opened files"
+    },
+    "Couldn't Open File" : {
+
     },
     "Decrease by 5%" : {
       "comment" : "Decrease playback speed by 5%",
@@ -3130,6 +3139,9 @@
         }
       }
     },
+    "No Recent Files" : {
+      "comment" : "Placeholder shown when there are no recent files"
+    },
     "None" : {
       "localizations" : {
         "ar" : {
@@ -3414,6 +3426,9 @@
         }
       }
     },
+    "OK" : {
+
+    },
     "Open File..." : {
       "comment" : "Show the open file dialog",
       "localizations" : {
@@ -3556,6 +3571,9 @@
           }
         }
       }
+    },
+    "Open Recent" : {
+      "comment" : "Title of the Open Recent submenu"
     },
     "Open URL..." : {
       "comment" : "Show the open URL dialog",
@@ -4268,6 +4286,9 @@
         }
       }
     },
+    "Remove from Recents" : {
+
+    },
     "Report a Problem" : {
       "localizations" : {
         "ar" : {
@@ -4695,6 +4716,9 @@
           }
         }
       }
+    },
+    "Resume %@" : {
+      "comment" : "Welcome window button to resume the most recently played file"
     },
     "Show in Finder" : {
       "comment" : "Show the currently playing file in Finder",
@@ -5267,6 +5291,9 @@
         }
       }
     },
+    "Version %@" : {
+
+    },
     "Website" : {
       "localizations" : {
         "ar" : {
@@ -5408,6 +5435,9 @@
           }
         }
       }
+    },
+    "Welcome to Front Row" : {
+
     }
   },
   "version" : "1.0"
