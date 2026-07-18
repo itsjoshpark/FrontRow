@@ -24,7 +24,6 @@
 		03E8F3DD2B9F7B350008CE49 /* AppCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8F3DC2B9F7B350008CE49 /* AppCommands.swift */; };
 		03EA68512B9630CF003348BE /* FrontRowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EA68502B9630CF003348BE /* FrontRowApp.swift */; };
 		03EA68532B9630CF003348BE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EA68522B9630CF003348BE /* ContentView.swift */; };
-		03EA68582B9630D0003348BE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03EA68572B9630D0003348BE /* Preview Assets.xcassets */; };
 		03EA68612B96523B003348BE /* FileCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EA68602B96523B003348BE /* FileCommands.swift */; };
 		03EA68642B965322003348BE /* PlaybackCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EA68632B965322003348BE /* PlaybackCommands.swift */; };
 		03EA68672B9654A0003348BE /* PlayEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EA68662B9654A0003348BE /* PlayEngine.swift */; };
@@ -58,7 +57,6 @@
 		03EA684D2B9630CF003348BE /* Front Row.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Front Row.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03EA68502B9630CF003348BE /* FrontRowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontRowApp.swift; sourceTree = "<group>"; };
 		03EA68522B9630CF003348BE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		03EA68572B9630D0003348BE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		03EA68602B96523B003348BE /* FileCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCommands.swift; sourceTree = "<group>"; };
 		03EA68632B965322003348BE /* PlaybackCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackCommands.swift; sourceTree = "<group>"; };
 		03EA68662B9654A0003348BE /* PlayEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayEngine.swift; sourceTree = "<group>"; };
@@ -126,20 +124,11 @@
 				03BACB2D2B96C8A800D24F07 /* FrontRowInfo.plist */,
 				03EA68502B9630CF003348BE /* FrontRowApp.swift */,
 				03EA685F2B965224003348BE /* Main Menu */,
-				03EA68562B9630D0003348BE /* Preview Content */,
 				0386A120300C2BAD0058EB77 /* Resources */,
 				03EA686C2B968D86003348BE /* Support */,
 				03EA68652B965424003348BE /* Views */,
 			);
 			path = "Front Row";
-			sourceTree = "<group>";
-		};
-		03EA68562B9630D0003348BE /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				03EA68572B9630D0003348BE /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		03EA685F2B965224003348BE /* Main Menu */ = {
@@ -275,7 +264,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03EA68582B9630D0003348BE /* Preview Assets.xcassets in Resources */,
 				0386A11F300C28060058EB77 /* AppIcon.icon in Resources */,
 				0355CA552BA790E5001AF5EA /* Localizable.xcstrings in Resources */,
 			);
