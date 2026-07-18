@@ -21,7 +21,7 @@ Experience color accurate HDR videos with full surround sound using spatial audi
 - [HDR video compatible Macs](https://support.apple.com/en-us/102205) and/or [spatial audio compatible devices](https://support.apple.com/en-us/102469)
 - Apple Silicon (M1 and later)
 - macOS Sequoia 15.6 and later
-- Xcode 26.2 (to build)
+- Xcode 26.3 (to build)
 
 ## Frequently Asked Questions
 
