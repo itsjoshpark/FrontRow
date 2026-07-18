@@ -2,12 +2,57 @@
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
   <channel>
     <title>Front Row</title>
+    <description>There's a new version available</description>
     <language>en</language>
 
     <item>
-      <title>v2.5.4</title>
+      <title>New Version Available</title>
       <link>https://github.com/itsjoshpark/FrontRow</link>
-      <sparkle:version>2.5.4</sparkle:version>
+      <sparkle:version>19</sparkle:version>
+      <sparkle:shortVersionString>2.7 (19)</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>15.6</sparkle:minimumSystemVersion>
+      <sparkle:fullReleaseNotesLink>https://github.com/itsjoshpark/FrontRow/releases</sparkle:fullReleaseNotesLink>
+      <pubDate>Sun, 11 Jan 2025 05:20:25 +0000</pubDate>
+      <description><![CDATA[
+      <ul>
+      <li>New: Display filename in title bar</li>
+      </ul>
+      <p>This version includes one-time changes which cannot be installed using the auto updater.</p>
+      <p>Click <strong>“More Info”</strong> to visit our website and download the update.</p>
+      ]]>
+      </description>
+    </item>
+
+    <item>
+      <title>New Version Available</title>
+      <link>https://github.com/itsjoshpark/FrontRow</link>
+      <sparkle:version>18</sparkle:version>
+      <sparkle:shortVersionString>2.6 (18)</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
+      <sparkle:fullReleaseNotesLink>https://github.com/itsjoshpark/FrontRow/releases</sparkle:fullReleaseNotesLink>
+      <pubDate>Mon, 06 Jun 2025 03:05:16 +0000</pubDate>
+      <enclosure
+        url="https://github.com/itsjoshpark/FrontRow/releases/download/v2.6/FrontRow_v2.6.dmg"
+        sparkle:edSignature="eGjDM66gVDxWVWt9Z/NGJBOjYWZwnO+/Ys35OoA4wbTDLiVq1BlCwdsFTZ03iGvQKOuPwo23aFreRSsqojP4DA=="
+        length="2744098"
+        type="application/octet-stream" />
+      <description><![CDATA[
+      <ul>
+      <li>New: Use the Now Playing control center in the menu bar to control the app</li>
+      <li>New: Display recently opened files in the app&#39;s Dock context menu</li>
+      <li>New: Pause and hide app by pressing Esc key</li>
+      <li>New: Open URL shortcut is now Cmd+Shift+O</li>
+      <li>Fixed: Open URL window UI</li>
+      </ul>
+      ]]>
+      </description>
+    </item>
+
+    <item>
+      <title>New Version Available</title>
+      <link>https://github.com/itsjoshpark/FrontRow</link>
+      <sparkle:version>17</sparkle:version>
+      <sparkle:shortVersionString>2.5.4 (17)</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
       <sparkle:fullReleaseNotesLink>https://github.com/itsjoshpark/FrontRow/releases</sparkle:fullReleaseNotesLink>
       <pubDate>Sun, 20 Apr 2025 00:59:08 +0000</pubDate>

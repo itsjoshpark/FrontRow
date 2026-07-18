@@ -7,9 +7,58 @@
 
 import SwiftUI
 
+@MainActor
 @Observable public final class WindowController {
 
     static let shared = WindowController()
+
+    private var mouseMovedMonitor: Any?
+
+    /// The app's main player window, captured once it's created (it's a singleton `Window`
+    /// scene). Used to distinguish it from transient windows (e.g. a menu's own backing window)
+    /// when handling window-level notifications that don't otherwise specify which window they
+    /// came from.
+    var mainWindow: NSWindow?
+
+    // MARK: - Mouse Tracking
+
+    private(set) var isMouseInTitleBar = false
+    var isMouseInPlayerControls = false
+
+    private init() {
+        setupMouseTracking()
+    }
+
+    private func setupMouseTracking() {
+        mouseMovedMonitor = NSEvent.addLocalMonitorForEvents(matching: [.mouseMoved]) {
+            [weak self] event in
+            self?.updateMousePosition()
+            return event
+        }
+    }
+
+    private func updateMousePosition() {
+        guard let window = NSApp.mainWindow else {
+            isMouseInTitleBar = false
+            return
+        }
+
+        let mouseLocation = NSEvent.mouseLocation
+        let windowFrame = window.frame
+
+        guard windowFrame.contains(mouseLocation) else {
+            isMouseInTitleBar = false
+            return
+        }
+
+        // Convert screen point to window coordinates
+        let windowPoint = window.convertPoint(fromScreen: mouseLocation)
+        // contentLayoutRect excludes the title bar area
+        let contentRect = window.contentLayoutRect
+
+        // Mouse is in title bar if it's above the content rect
+        isMouseInTitleBar = windowPoint.y > contentRect.maxY
+    }
 
     // MARK: - Fullscreen
 
@@ -52,16 +101,11 @@ import SwiftUI
 
         guard let containerClass = NSClassFromString("NSTitlebarContainerView") else { return nil }
         guard
-            let containerView = NSApp.windows.first?.contentView?.superview?.subviews.reversed()
+            let containerView = NSApp.mainWindow?.contentView?.superview?.subviews.reversed()
                 .first(where: { $0.isKind(of: containerClass) })
         else { return nil }
 
-        guard let titlebarClass = NSClassFromString("NSTitlebarView") else { return nil }
-        guard let titlebar = containerView.subviews.first(where: { $0.isKind(of: titlebarClass) })
-        else { return nil }
-
-        _titlebarView = titlebar
-
+        _titlebarView = containerView
         return _titlebarView
     }
 
@@ -75,7 +119,7 @@ import SwiftUI
 
     private func setTitlebarOpacity(_ opacity: CGFloat, immediately: Bool = false) {
         /// when the window is in full screen, the titlebar view is in another window (the "toolbar window")
-        guard titlebarView?.window == NSApp.windows.first else { return }
+        guard titlebarView?.window == NSApp.mainWindow else { return }
 
         if immediately {
             self.titlebarView?.animator().alphaValue = opacity

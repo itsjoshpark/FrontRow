@@ -37,20 +37,25 @@ final class KeyDownListener {
                 return event
             }
 
-            let allWindows = NSApp.windows
-            let firstResponders = allWindows.compactMap { $0.firstResponder }
-            let fieldEditors = firstResponders.filter { ($0 as? NSText)?.isEditable == true }
-            guard fieldEditors.isEmpty else { return event }
-
             switch command {
             case .escape:
-                if !WindowController.shared.isFullscreen {
-                    NSApp.hide(nil)
-                    PlayEngine.shared.pause()
-                    return nil
+                let shouldHandle = MainActor.assumeIsolated {
+                    let allWindows = NSApp.windows
+                    let firstResponders = allWindows.compactMap { $0.firstResponder }
+                    let fieldEditors = firstResponders.filter {
+                        ($0 as? NSText)?.isEditable == true
+                    }
+                    guard fieldEditors.isEmpty else { return false }
+
+                    if !WindowController.shared.isFullscreen {
+                        NSApp.hide(nil)
+                        PlayEngine.shared.pause()
+                        return true
+                    }
+                    return false
                 }
+                return shouldHandle ? nil : event
             }
-            return event
         }
     }
 

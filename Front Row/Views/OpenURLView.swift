@@ -50,7 +50,7 @@ struct OpenURLView: View {
                         return
                     }
                     displayLoading = true
-                    guard await PlayEngine.shared.openFile(url: url) else {
+                    guard await openFileAndPresent(url: url) else {
                         withAnimation {
                             displayLoading = false
                             displayError = true

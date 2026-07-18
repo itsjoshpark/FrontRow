@@ -9,12 +9,12 @@ import AVKit
 import SwiftUI
 
 struct FileCommands: Commands {
-    @Binding var playEngine: PlayEngine
-
     var body: some Commands {
         CommandGroup(replacing: .newItem) {
             Button {
-                Task { await PlayEngine.shared.showOpenFileDialog() }
+                Task {
+                    await showOpenFileDialog()
+                }
             } label: {
                 Text(
                     "Open File...",
@@ -33,11 +33,47 @@ struct FileCommands: Commands {
             }
             .keyboardShortcut("O", modifiers: [.command, .shift])
 
+            Menu {
+                ForEach(RecentDocumentsStore.shared.recentURLs, id: \.self) { url in
+                    Button {
+                        Task {
+                            await openRecentDocumentAndPresent(url: url)
+                        }
+                    } label: {
+                        Label {
+                            Text(url.lastPathComponent)
+                        } icon: {
+                            Image(nsImage: url.recentDocumentIcon)
+                        }
+                    }
+                }
+
+                if !RecentDocumentsStore.shared.recentURLs.isEmpty {
+                    Divider()
+                }
+
+                Button {
+                    RecentDocumentsStore.shared.clear()
+                } label: {
+                    Text(
+                        "Clear Menu",
+                        comment: "Clears the Open Recent menu's list of recently opened files"
+                    )
+                }
+                .disabled(RecentDocumentsStore.shared.recentURLs.isEmpty)
+            } label: {
+                Text(
+                    "Open Recent",
+                    comment: "Title of the Open Recent submenu"
+                )
+            }
+
             Divider()
 
             Button {
-                guard let item = PlayEngine.shared.player.currentItem else { return }
-                guard let asset = item.asset as? AVURLAsset else { return }
+                guard let item = PlayEngine.shared.player.currentItem,
+                    let asset = item.asset as? AVURLAsset
+                else { return }
                 NSWorkspace.shared.activateFileViewerSelecting([asset.url])
             } label: {
                 Text(
@@ -45,7 +81,13 @@ struct FileCommands: Commands {
                     comment: "Show the currently playing file in Finder"
                 )
             }
-            .disabled(!playEngine.isLocalFile)
+            .disabled(!PlayEngine.shared.isLocalFile)
         }
+    }
+
+    @MainActor
+    private func showOpenFileDialog() async {
+        guard let url = await presentOpenFilePanel() else { return }
+        await openFileAndPresent(url: url)
     }
 }

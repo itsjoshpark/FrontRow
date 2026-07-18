@@ -4413,6 +4413,9 @@
         }
       }
     },
+    "Open Recent" : {
+      "comment" : "Title of the Open Recent submenu"
+    },
     "Open URL..." : {
       "comment" : "Show the open URL dialog",
       "localizations" : {
@@ -5836,6 +5839,9 @@
           }
         }
       }
+    },
+    "Resume %@" : {
+      "comment" : "Welcome window button to resume the most recently played file"
     },
     "Show in Finder" : {
       "comment" : "Show the currently playing file in Finder",

@@ -9,6 +9,60 @@ import AVKit
 import Foundation
 import SwiftUI
 
+extension View {
+    @ViewBuilder
+    func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
+        if condition {
+            transform(self)
+        } else {
+            self
+        }
+    }
+
+    /// Accepts drops of supported media files and opens the first one.
+    func mediaFileDropDestination() -> some View {
+        onDrop(
+            of: [.fileURL],
+            delegate: AnyDropDelegate(
+                onValidate: { $0.hasItemsConforming(to: PlayEngine.supportedFileTypes) },
+                onPerform: { info in
+                    guard let provider = info.itemProviders(for: [.fileURL]).first else {
+                        return false
+                    }
+                    provider.loadFileURL { url in
+                        guard let url else { return }
+                        Task { @MainActor in
+                            await openFileAndPresent(url: url)
+                        }
+                    }
+                    return true
+                }
+            )
+        )
+    }
+}
+
+/// Gives access to the `NSWindow` backing a SwiftUI view, as soon as it exists - unlike relying
+/// on `NSApp.mainWindow`/`NSApp.keyWindow` at some later point, which can be the wrong window
+/// once the app has more than one `Window` scene.
+struct WindowAccessor: NSViewRepresentable {
+    let callback: (NSWindow) -> Void
+
+    func makeNSView(context: Context) -> NSView {
+        let view = NSView()
+        DispatchQueue.main.async { [weak view] in
+            guard let window = view?.window else { return }
+            callback(window)
+        }
+        return view
+    }
+
+    func updateNSView(_ nsView: NSView, context: Context) {
+        guard let window = nsView.window else { return }
+        callback(window)
+    }
+}
+
 struct AnyDropDelegate: DropDelegate {
     var isTargeted: Binding<Bool>?
     var onValidate: ((DropInfo) -> Bool)?
@@ -40,49 +94,29 @@ struct AnyDropDelegate: DropDelegate {
     }
 }
 
-extension NSItemProvider: @unchecked Sendable {}
-
 extension NSItemProvider {
-    func loadObject<T>(ofClass: T.Type) async throws -> T? where T: NSItemProviderReading {
-        try await withCheckedThrowingContinuation { continuation in
-            _ = loadObject(ofClass: ofClass) { data, error in
-                if let error {
-                    continuation.resume(throwing: error)
-                    return
-                }
-
-                guard let object = data as? T else {
-                    continuation.resume(returning: nil)
-                    return
-                }
-
-                continuation.resume(returning: object)
+    /// Load a file URL from the item provider.
+    func loadFileURL(completion: @escaping @Sendable (URL?) -> Void) {
+        loadItem(forTypeIdentifier: "public.file-url", options: nil) { data, _ in
+            guard let data = data as? Data,
+                let url = URL(dataRepresentation: data, relativeTo: nil)
+            else {
+                completion(nil)
+                return
             }
+            completion(url)
         }
     }
+}
 
-    func loadObject<T>(ofClass: T.Type) async throws -> T?
-    where T: _ObjectiveCBridgeable, T._ObjectiveCType: NSItemProviderReading {
-        try await withCheckedThrowingContinuation { continuation in
-            _ = loadObject(ofClass: ofClass) { data, error in
-                if let error {
-                    continuation.resume(throwing: error)
-                    return
-                }
-
-                guard let data else {
-                    continuation.resume(returning: nil)
-                    return
-                }
-
-                continuation.resume(returning: data)
-            }
+extension URL {
+    /// An icon suitable for representing this URL in the Open Recent menu / welcome screen,
+    /// whether it points to a local file or a remote resource.
+    var recentDocumentIcon: NSImage {
+        if isFileURL {
+            return NSWorkspace.shared.icon(forFile: path(percentEncoded: false))
         }
-    }
-
-    /// Get a URL from the item provider, if any.
-    func getURL() async -> URL? {
-        try? await loadObject(ofClass: URL.self)
+        return NSWorkspace.shared.icon(for: .url)
     }
 }
 
@@ -120,8 +154,9 @@ extension NSSize {
     }
 }
 
-extension AVMediaSelectionOption: Identifiable {
-    public var id: String {
+extension AVMediaSelectionOption {
+    /// Provides a stable identifier for the option.
+    var stableID: String {
         let dict = propertyList() as? NSDictionary
         guard let dict, let id = dict.value(forKey: "MediaSelectionOptionsPersistentID") as? Int
         else {

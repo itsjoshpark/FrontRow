@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 @Observable public final class PresentedViewManager {
 
     static let shared = PresentedViewManager()
@@ -15,7 +16,21 @@ import SwiftUI
 
     var isPresentingGoToTimeView = false
 
+    /// The name of a recent file that could not be opened (e.g. it was moved or deleted).
+    ///
+    /// Setting this presents an alert. It's set back to `nil` once the alert is dismissed.
+    var brokenRecentFileName: String?
+
+    var isPresentingBrokenRecentFileAlert: Bool {
+        get { brokenRecentFileName != nil }
+        set {
+            if !newValue {
+                brokenRecentFileName = nil
+            }
+        }
+    }
+
     var isPresenting: Bool {
-        isPresentingOpenURLView || isPresentingGoToTimeView
+        isPresentingOpenURLView || isPresentingGoToTimeView || isPresentingBrokenRecentFileAlert
     }
 }

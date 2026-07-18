@@ -18,26 +18,7 @@ struct ContentView: View {
 
         ZStack(alignment: .bottom) {
             PlayerView(player: PlayEngine.shared.player)
-                .onDrop(
-                    of: [.fileURL],
-                    delegate: AnyDropDelegate(
-                        onValidate: {
-                            $0.hasItemsConforming(to: PlayEngine.supportedFileTypes)
-                        },
-                        onPerform: {
-                            guard let provider = $0.itemProviders(for: [.fileURL]).first else {
-                                return false
-                            }
-
-                            Task {
-                                guard let url = await provider.getURL() else { return }
-                                await PlayEngine.shared.openFile(url: url)
-                            }
-
-                            return true
-                        }
-                    )
-                )
+                .mediaFileDropDestination()
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 .ignoresSafeArea()
 
@@ -49,11 +30,26 @@ struct ContentView: View {
             }
 
             PlayerControlsView()
+                .onContinuousHover { phase in
+                    switch phase {
+                    case .active:
+                        WindowController.shared.isMouseInPlayerControls = true
+                        resetMouseIdleTimer()
+                        showPlayerControls()
+                        WindowController.shared.showTitlebar()
+                        WindowController.shared.showCursor()
+                    case .ended:
+                        WindowController.shared.isMouseInPlayerControls = false
+                    }
+                }
                 .animation(.linear(duration: 0.4), value: playerControlsShown)
                 .opacity(playerControlsShown ? 1.0 : 0.0)
         }
         .background {
             Color.black.ignoresSafeArea()
+        }
+        .onAppear {
+            resetMouseIdleTimer()
         }
         .onContinuousHover { phase in
             switch phase {
@@ -65,9 +61,27 @@ struct ContentView: View {
                 WindowController.shared.showCursor()
             case .ended:
                 mouseInsideWindow = false
+                // Only hide if mouse is not hovering over title bar or controls
+                let isHoveringInteractiveArea =
+                    WindowController.shared.isMouseInTitleBar
+                    || WindowController.shared.isMouseInPlayerControls
+                if !isHoveringInteractiveArea {
+                    hidePlayerControls()
+                    WindowController.shared.hideTitlebar()
+                }
+                WindowController.shared.showCursor()
+            }
+        }
+        .onChange(of: WindowController.shared.isMouseInTitleBar) { _, isInTitleBar in
+            if isInTitleBar {
+                // When mouse enters title bar, show controls and reset idle timer
+                showPlayerControls()
+                WindowController.shared.showTitlebar()
+                resetMouseIdleTimer()
+            } else if !mouseInsideWindow && !WindowController.shared.isMouseInPlayerControls {
+                // When mouse leaves title bar and is not in content area or controls, hide UI
                 hidePlayerControls()
                 WindowController.shared.hideTitlebar()
-                WindowController.shared.showCursor()
             }
         }
     }
@@ -90,15 +104,25 @@ struct ContentView: View {
             mouseIdleTimer = nil
         }
 
-        mouseIdleTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) {
-            mouseIdleTimerAction($0)
+        mouseIdleTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { _ in
+            MainActor.assumeIsolated {
+                self.mouseIdleTimerAction()
+            }
         }
     }
 
-    private func mouseIdleTimerAction(_ sender: Timer) {
-        hidePlayerControls()
-        WindowController.shared.hideTitlebar()
-        if mouseInsideWindow {
+    private func mouseIdleTimerAction() {
+        let isHoveringInteractiveArea =
+            WindowController.shared.isMouseInTitleBar
+            || WindowController.shared.isMouseInPlayerControls
+
+        // Only hide controls if mouse is not hovering over title bar or controls
+        if !isHoveringInteractiveArea {
+            hidePlayerControls()
+            WindowController.shared.hideTitlebar()
+        }
+        // Only hide cursor if mouse is in content area (not title bar or controls)
+        if mouseInsideWindow && !isHoveringInteractiveArea {
             WindowController.shared.hideCursor()
         }
     }
@@ -106,4 +130,7 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environment(PlayEngine.shared)
+        .environment(PresentedViewManager.shared)
+        .environment(WindowController.shared)
 }

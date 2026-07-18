@@ -9,8 +9,8 @@ import AVKit
 import SwiftUI
 
 struct PlaybackCommands: Commands {
-    @Binding var playEngine: PlayEngine
-    @Binding var presentedViewManager: PresentedViewManager
+    @Bindable private var playEngine = PlayEngine.shared
+    @Bindable private var presentedViewManager = PresentedViewManager.shared
 
     var body: some Commands {
         CommandMenu("Playback") {
@@ -151,7 +151,7 @@ struct PlaybackCommands: Commands {
         if let group = playEngine.audioGroup {
             Picker("Audio Track", selection: $playEngine.audioTrack) {
                 Text("Off").tag(nil as AVMediaSelectionOption?)
-                ForEach(group.options) { option in
+                ForEach(group.options, id: \.stableID) { option in
                     Text(verbatim: option.displayName).tag(Optional(option))
                 }
             }
