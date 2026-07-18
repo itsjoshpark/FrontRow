@@ -30,4 +30,4 @@ jobs:
           xcodebuild clean build analyze
           -project "Front Row.xcodeproj"
           -scheme "Front Row"
-          CODE_SIGNING_ALLOWED=NO | xcpretty && exit ${PIPESTATUS[0]}
+          CODE_SIGNING_ALLOWED=NO
