@@ -6,13 +6,13 @@ on:
 
 jobs:
   build:
-    runs-on: macos-15
+    runs-on: macos-26
     steps:
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7
 
       - name: Setup Xcode Version
-        uses: maxim-lobanov/setup-xcode@v1.7.0
+        uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest-stable
 
@@ -30,4 +30,4 @@ jobs:
           xcodebuild clean build analyze
           -project "Front Row.xcodeproj"
           -scheme "Front Row"
-          CODE_SIGNING_ALLOWED=NO
+          CODE_SIGNING_ALLOWED=NO | xcpretty && exit ${PIPESTATUS[0]}
