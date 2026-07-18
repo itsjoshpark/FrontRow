@@ -1,5 +1,5 @@
 <p align="center">
-<img height="256" src="https://github.com/itsjoshpark/FrontRow/raw/main/Front Row/Assets.xcassets/AppIcon.appiconset/icon_256x256.png" />
+<img height="256" src="https://github.com/itsjoshpark/FrontRow/raw/main/.github/images/icon.png" />
 </p>
 
 <h1 align="center">Front Row</h1>

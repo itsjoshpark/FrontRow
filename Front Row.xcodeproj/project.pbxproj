@@ -12,6 +12,7 @@
 		033D450A2BB37FCA001AEBAA /* SeekSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D45092BB37FCA001AEBAA /* SeekSliderView.swift */; };
 		03407ADD2BA90F1100FB4323 /* WindowCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03407ADC2BA90F1100FB4323 /* WindowCommands.swift */; };
 		0355CA552BA790E5001AF5EA /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 0355CA542BA790E5001AF5EA /* Localizable.xcstrings */; };
+		0386A11F300C28060058EB77 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 0386A11E300C28060058EB77 /* AppIcon.icon */; };
 		03B2590E2BB242620071FF7C /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2590D2BB242620071FF7C /* PlayerView.swift */; };
 		03B259102BB249310071FF7C /* PlayerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2590F2BB249310071FF7C /* PlayerControlsView.swift */; };
 		03B712272B96C40C00C1F753 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03B712262B96C40C00C1F753 /* AVKit.framework */; };
@@ -23,8 +24,6 @@
 		03E8F3DD2B9F7B350008CE49 /* AppCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8F3DC2B9F7B350008CE49 /* AppCommands.swift */; };
 		03EA68512B9630CF003348BE /* FrontRowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EA68502B9630CF003348BE /* FrontRowApp.swift */; };
 		03EA68532B9630CF003348BE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EA68522B9630CF003348BE /* ContentView.swift */; };
-		03EA68552B9630D0003348BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03EA68542B9630D0003348BE /* Assets.xcassets */; };
-		03EA68582B9630D0003348BE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03EA68572B9630D0003348BE /* Preview Assets.xcassets */; };
 		03EA68612B96523B003348BE /* FileCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EA68602B96523B003348BE /* FileCommands.swift */; };
 		03EA68642B965322003348BE /* PlaybackCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EA68632B965322003348BE /* PlaybackCommands.swift */; };
 		03EA68672B9654A0003348BE /* PlayEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EA68662B9654A0003348BE /* PlayEngine.swift */; };
@@ -45,6 +44,7 @@
 		033D45092BB37FCA001AEBAA /* SeekSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeekSliderView.swift; sourceTree = "<group>"; };
 		03407ADC2BA90F1100FB4323 /* WindowCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCommands.swift; sourceTree = "<group>"; };
 		0355CA542BA790E5001AF5EA /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		0386A11E300C28060058EB77 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		03B2590D2BB242620071FF7C /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		03B2590F2BB249310071FF7C /* PlayerControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlsView.swift; sourceTree = "<group>"; };
 		03B712262B96C40C00C1F753 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
@@ -57,8 +57,6 @@
 		03EA684D2B9630CF003348BE /* Front Row.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Front Row.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03EA68502B9630CF003348BE /* FrontRowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontRowApp.swift; sourceTree = "<group>"; };
 		03EA68522B9630CF003348BE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		03EA68542B9630D0003348BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		03EA68572B9630D0003348BE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		03EA68602B96523B003348BE /* FileCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCommands.swift; sourceTree = "<group>"; };
 		03EA68632B965322003348BE /* PlaybackCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackCommands.swift; sourceTree = "<group>"; };
 		03EA68662B9654A0003348BE /* PlayEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayEngine.swift; sourceTree = "<group>"; };
@@ -86,6 +84,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0386A120300C2BAD0058EB77 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0386A11E300C28060058EB77 /* AppIcon.icon */,
+				0355CA542BA790E5001AF5EA /* Localizable.xcstrings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		03B712252B96C40C00C1F753 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,22 +123,12 @@
 			children = (
 				03BACB2D2B96C8A800D24F07 /* FrontRowInfo.plist */,
 				03EA68502B9630CF003348BE /* FrontRowApp.swift */,
-				03EA68542B9630D0003348BE /* Assets.xcassets */,
-				0355CA542BA790E5001AF5EA /* Localizable.xcstrings */,
 				03EA685F2B965224003348BE /* Main Menu */,
-				03EA68562B9630D0003348BE /* Preview Content */,
+				0386A120300C2BAD0058EB77 /* Resources */,
 				03EA686C2B968D86003348BE /* Support */,
 				03EA68652B965424003348BE /* Views */,
 			);
 			path = "Front Row";
-			sourceTree = "<group>";
-		};
-		03EA68562B9630D0003348BE /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				03EA68572B9630D0003348BE /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		03EA685F2B965224003348BE /* Main Menu */ = {
@@ -267,8 +264,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03EA68582B9630D0003348BE /* Preview Assets.xcassets in Resources */,
-				03EA68552B9630D0003348BE /* Assets.xcassets in Resources */,
+				0386A11F300C28060058EB77 /* AppIcon.icon in Resources */,
 				0355CA552BA790E5001AF5EA /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,11 +458,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 20;
-				DEVELOPMENT_ASSET_PATHS = "\"Front Row/Preview Content\"";
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
@@ -491,11 +485,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 20;
-				DEVELOPMENT_ASSET_PATHS = "\"Front Row/Preview Content\"";
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
