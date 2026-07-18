@@ -1,4 +1,4 @@
 files:
-  - source: /Front Row/Localizable.xcstrings
-    translation: /Front Row/Localizable.xcstrings
+  - source: /Front Row/Resources/Localizable.xcstrings
+    translation: /Front Row/Resources/Localizable.xcstrings
     multilingual: 1
