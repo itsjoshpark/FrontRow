@@ -18,29 +18,7 @@ struct ContentView: View {
 
         ZStack(alignment: .bottom) {
             PlayerView(player: PlayEngine.shared.player)
-                .onDrop(
-                    of: [.fileURL],
-                    delegate: AnyDropDelegate(
-                        onValidate: {
-                            $0.hasItemsConforming(to: PlayEngine.supportedFileTypes)
-                        },
-                        onPerform: {
-                            guard let provider = $0.itemProviders(for: [.fileURL]).first else {
-                                return false
-                            }
-
-                            provider.loadFileURL { url in
-                                guard let url else { return }
-                                Task { @MainActor in
-                                    guard await PlayEngine.shared.openFile(url: url) else { return }
-                                    NSDocumentController.shared.noteNewRecentDocumentURL(url)
-                                }
-                            }
-
-                            return true
-                        }
-                    )
-                )
+                .mediaFileDropDestination()
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 .ignoresSafeArea()
 

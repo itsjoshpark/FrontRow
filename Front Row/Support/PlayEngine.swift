@@ -30,7 +30,17 @@ import SwiftUI
         30,
     ]
 
+    // Resume thresholds (seconds): a saved position is only resumed if it's past
+    // `resumeMinimumPosition` and more than `resumeEndBuffer` from the end.
+    private static let resumeMinimumPosition: TimeInterval = 3
+    private static let resumeEndBuffer: TimeInterval = 5
+
+    /// How often (in seconds of playback) the current position is saved while playing.
+    private static let periodicPositionSaveInterval: TimeInterval = 5
+
     private var asset: AVAsset?
+
+    private var lastPeriodicPositionSaveTime: TimeInterval = 0
 
     private(set) var player = AVPlayer()
 
@@ -148,6 +158,10 @@ import SwiftUI
 
     private var timeObserver: Any?
 
+    /// The URL this instance currently holds security-scoped access to, if any. Must be stopped
+    /// before accessing a different file.
+    private var accessingSecurityScopedURL: URL?
+
     private init() {
         NowPlayable.shared.sessionStart()
         NowPlayable.shared.setupRemoteCommandHandlers(playEngine: self)
@@ -158,8 +172,14 @@ import SwiftUI
         player.publisher(for: \.timeControlStatus)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
-                self?.timeControlStatus = status
-                self?.updateNowPlayingInfo()
+                guard let self else { return }
+                self.timeControlStatus = status
+                self.updateNowPlayingInfo()
+                // Skip when paused because playback reached the end - that position is cleared by
+                // the play-to-end observer, so persisting here would just leave an orphan entry.
+                if status == .paused, !self.isPlaybackAtEnd {
+                    self.persistCurrentPlaybackPosition()
+                }
             }
             .store(in: &subs)
 
@@ -184,27 +204,68 @@ import SwiftUI
     /// Attempts to open file at url. If its not playable, returns false.
     /// - Parameter url: A URL to a local, remote, or HTTP Live Streaming media resource.
     /// - Returns: A Boolean value that indicates whether an asset contains playable content.
-    @discardableResult func openFile(url: URL) async -> Bool {
+    @discardableResult func openFile(url originalURL: URL) async -> Bool {
+        persistCurrentPlaybackPosition()
+        lastPeriodicPositionSaveTime = 0
+
+        let url = resolveAccessibleURL(originalURL)
+
         if asset != nil {
             asset!.cancelLoading()
         }
         let newAsset = AVURLAsset(url: url)
         asset = newAsset
 
+        var mediaDuration: TimeInterval = .nan
         do {
             let isPlayable = try await newAsset.load(.isPlayable)
             guard isPlayable else { return false }
 
             self.subtitleGroup = try? await newAsset.loadMediaSelectionGroup(for: .legible)
             self.audioGroup = try? await newAsset.loadMediaSelectionGroup(for: .audible)
+            if let loadedDuration = try? await newAsset.load(.duration) {
+                mediaDuration = loadedDuration.seconds
+            }
         } catch {
             return false
         }
 
+        let playerItem = AVPlayerItem(asset: newAsset)
+        installObservers(on: playerItem, url: url)
+
+        player.replaceCurrentItem(with: playerItem)
+
+        await resumeIfNeeded(url: url, duration: mediaDuration)
+
+        player.play()
+
+        self.subtitle = subtitleGroup?.options.first
+        self.audioTrack = audioGroup?.options.first
+
+        return true
+    }
+
+    /// Resolves the URL to open into one this process can actually read.
+    ///
+    /// Reopening a previously selected file (recents/resume) requires resolving its
+    /// security-scoped bookmark, since the access granted by the open panel/drag-and-drop doesn't
+    /// survive relaunch. A first-time URL already has ambient access, so it's used as-is.
+    private func resolveAccessibleURL(_ originalURL: URL) -> URL {
+        accessingSecurityScopedURL?.stopAccessingSecurityScopedResource()
+        accessingSecurityScopedURL = nil
+
+        guard
+            let accessibleURL = RecentDocumentsStore.shared.startAccessingRecentDocument(
+                originalURL)
+        else { return originalURL }
+
+        accessingSecurityScopedURL = accessibleURL
+        return accessibleURL
+    }
+
+    private func installObservers(on playerItem: AVPlayerItem, url: URL) {
         for sub in currentItemSubs { sub.cancel() }
         currentItemSubs.removeAll()
-
-        let playerItem = AVPlayerItem(asset: newAsset)
 
         playerItem.publisher(for: \.status)
             .removeDuplicates()
@@ -245,13 +306,38 @@ import SwiftUI
             }
             .store(in: &currentItemSubs)
 
-        player.replaceCurrentItem(with: playerItem)
-        player.play()
+        NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime, object: playerItem)
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                PlaybackPositionStore.shared.clearPosition(for: url)
+            }
+            .store(in: &currentItemSubs)
+    }
 
-        self.subtitle = subtitleGroup?.options.first
-        self.audioTrack = audioGroup?.options.first
+    /// Seeks to a previously saved position if one exists and is worth resuming from (far enough
+    /// in, but not effectively finished).
+    private func resumeIfNeeded(url: URL, duration: TimeInterval) async {
+        guard let saved = PlaybackPositionStore.shared.position(for: url),
+            !duration.isNaN,
+            saved > Self.resumeMinimumPosition,
+            saved < duration - Self.resumeEndBuffer
+        else { return }
 
-        return true
+        await player.seek(to: CMTimeMakeWithSeconds(saved, preferredTimescale: 1))
+    }
+
+    /// Whether playback is effectively at the end, using the same buffer as resume so a position
+    /// this close to the end wouldn't be resumed from anyway.
+    private var isPlaybackAtEnd: Bool {
+        guard duration > 0 else { return false }
+        return _currentTime >= duration - Self.resumeEndBuffer
+    }
+
+    /// Saves the current playback position immediately, as a safety net on pause, before switching
+    /// files, and on termination. Only files in the recent documents list are tracked.
+    func persistCurrentPlaybackPosition() {
+        guard let fileURL, RecentDocumentsStore.shared.recentURLs.contains(fileURL) else { return }
+        PlaybackPositionStore.shared.setPosition(_currentTime, for: fileURL)
     }
 
     func cancelLoading() {
@@ -353,7 +439,7 @@ import SwiftUI
     }
 
     func fitToVideoSize(skipResize: Bool = false) {
-        guard let window = NSApp.windows.first else { return }
+        guard let window = WindowController.shared.mainWindow else { return }
         guard videoSize != CGSize.zero else {
             /// reset aspect ratio setting
             window.resizeIncrements = NSMakeSize(1.0, 1.0)
@@ -415,6 +501,13 @@ import SwiftUI
                 guard !duration.isNaN && !duration.isInfinite else { return }
                 self.duration = duration
                 self.timeRemaining = duration - self._currentTime
+
+                if time.seconds - self.lastPeriodicPositionSaveTime
+                    >= Self.periodicPositionSaveInterval
+                {
+                    self.lastPeriodicPositionSaveTime = time.seconds
+                    self.persistCurrentPlaybackPosition()
+                }
             }
         }
     }

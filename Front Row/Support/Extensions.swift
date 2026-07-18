@@ -18,6 +18,49 @@ extension View {
             self
         }
     }
+
+    /// Accepts drops of supported media files and opens the first one.
+    func mediaFileDropDestination() -> some View {
+        onDrop(
+            of: [.fileURL],
+            delegate: AnyDropDelegate(
+                onValidate: { $0.hasItemsConforming(to: PlayEngine.supportedFileTypes) },
+                onPerform: { info in
+                    guard let provider = info.itemProviders(for: [.fileURL]).first else {
+                        return false
+                    }
+                    provider.loadFileURL { url in
+                        guard let url else { return }
+                        Task { @MainActor in
+                            await openFileAndPresent(url: url)
+                        }
+                    }
+                    return true
+                }
+            )
+        )
+    }
+}
+
+/// Gives access to the `NSWindow` backing a SwiftUI view, as soon as it exists - unlike relying
+/// on `NSApp.mainWindow`/`NSApp.keyWindow` at some later point, which can be the wrong window
+/// once the app has more than one `Window` scene.
+struct WindowAccessor: NSViewRepresentable {
+    let callback: (NSWindow) -> Void
+
+    func makeNSView(context: Context) -> NSView {
+        let view = NSView()
+        DispatchQueue.main.async { [weak view] in
+            guard let window = view?.window else { return }
+            callback(window)
+        }
+        return view
+    }
+
+    func updateNSView(_ nsView: NSView, context: Context) {
+        guard let window = nsView.window else { return }
+        callback(window)
+    }
 }
 
 struct AnyDropDelegate: DropDelegate {
@@ -63,6 +106,17 @@ extension NSItemProvider {
             }
             completion(url)
         }
+    }
+}
+
+extension URL {
+    /// An icon suitable for representing this URL in the Open Recent menu / welcome screen,
+    /// whether it points to a local file or a remote resource.
+    var recentDocumentIcon: NSImage {
+        if isFileURL {
+            return NSWorkspace.shared.icon(forFile: path(percentEncoded: false))
+        }
+        return NSWorkspace.shared.icon(for: .url)
     }
 }
 

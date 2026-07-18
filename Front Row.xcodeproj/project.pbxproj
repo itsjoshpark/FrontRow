@@ -32,6 +32,11 @@
 		03EA68702B96BAD1003348BE /* ViewCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EA686F2B96BAD1003348BE /* ViewCommands.swift */; };
 		03EE7B0C2BA9F396009F68C5 /* GoToTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EE7B0B2BA9F396009F68C5 /* GoToTimeView.swift */; };
 		03EE7B0E2BAA5176009F68C5 /* PresentedViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EE7B0D2BAA5176009F68C5 /* PresentedViewManager.swift */; };
+		FADE00000000000000000002 /* RecentDocumentsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000001 /* RecentDocumentsStore.swift */; };
+		FADE00000000000000000004 /* FileOpening.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000003 /* FileOpening.swift */; };
+		FADE00000000000000000006 /* WelcomeWindowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000005 /* WelcomeWindowCoordinator.swift */; };
+		FADE00000000000000000008 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000007 /* WelcomeView.swift */; };
+		FADE0000000000000000000A /* PlaybackPositionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000009 /* PlaybackPositionStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +66,11 @@
 		03EA686F2B96BAD1003348BE /* ViewCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCommands.swift; sourceTree = "<group>"; };
 		03EE7B0B2BA9F396009F68C5 /* GoToTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToTimeView.swift; sourceTree = "<group>"; };
 		03EE7B0D2BAA5176009F68C5 /* PresentedViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentedViewManager.swift; sourceTree = "<group>"; };
+		FADE00000000000000000001 /* RecentDocumentsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentDocumentsStore.swift; sourceTree = "<group>"; };
+		FADE00000000000000000003 /* FileOpening.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileOpening.swift; sourceTree = "<group>"; };
+		FADE00000000000000000005 /* WelcomeWindowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeWindowCoordinator.swift; sourceTree = "<group>"; };
+		FADE00000000000000000007 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		FADE00000000000000000009 /* PlaybackPositionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackPositionStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +156,7 @@
 				03B2590F2BB249310071FF7C /* PlayerControlsView.swift */,
 				03B2590D2BB242620071FF7C /* PlayerView.swift */,
 				033D45092BB37FCA001AEBAA /* SeekSliderView.swift */,
+				FADE00000000000000000007 /* WelcomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -154,11 +165,15 @@
 			isa = PBXGroup;
 			children = (
 				03EA686D2B968D92003348BE /* Extensions.swift */,
+				FADE00000000000000000003 /* FileOpening.swift */,
 				03DEE9E52DE5600B002E05B9 /* KeyDownListener.swift */,
 				03DEE9E22DE54F90002E05B9 /* NowPlayable.swift */,
 				032EAF5C2DE9132600D31519 /* NowPlayable+RemoteCommands.swift */,
+				FADE00000000000000000009 /* PlaybackPositionStore.swift */,
 				03EA68662B9654A0003348BE /* PlayEngine.swift */,
 				03EE7B0D2BAA5176009F68C5 /* PresentedViewManager.swift */,
+				FADE00000000000000000001 /* RecentDocumentsStore.swift */,
+				FADE00000000000000000005 /* WelcomeWindowCoordinator.swift */,
 				032BBB1D2B9FF671003D2FA8 /* WindowController.swift */,
 			);
 			path = Support;
@@ -306,6 +321,11 @@
 				03EA68512B9630CF003348BE /* FrontRowApp.swift in Sources */,
 				03EA686E2B968D92003348BE /* Extensions.swift in Sources */,
 				032BBB1E2B9FF671003D2FA8 /* WindowController.swift in Sources */,
+				FADE00000000000000000002 /* RecentDocumentsStore.swift in Sources */,
+				FADE00000000000000000004 /* FileOpening.swift in Sources */,
+				FADE00000000000000000006 /* WelcomeWindowCoordinator.swift in Sources */,
+				FADE00000000000000000008 /* WelcomeView.swift in Sources */,
+				FADE0000000000000000000A /* PlaybackPositionStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

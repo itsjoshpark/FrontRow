@@ -31,7 +31,7 @@ struct FrontRowApp: App {
     }
 
     var body: some Scene {
-        Window("Front Row", id: "main") {
+        Window("Front Row", id: WindowID.main) {
             ContentView()
                 .preferredColorScheme(.dark)
                 .ignoresSafeArea()
@@ -68,7 +68,22 @@ struct FrontRowApp: App {
                     keyDownListener.startMonitoringKeyEvents()
                     windowController.setIsFullscreen(false)
                 }
+                .onReceive(
+                    NotificationCenter.default.publisher(for: NSWindow.willCloseNotification)
+                ) { notification in
+                    guard let closingWindow = notification.object as? NSWindow,
+                        closingWindow == windowController.mainWindow
+                    else { return }
+                    playEngine.pause()
+                }
+                .background(
+                    WindowAccessor { window in
+                        window.isMovableByWindowBackground = true
+                        windowController.mainWindow = window
+                    }
+                )
         }
+        .defaultLaunchBehavior(.suppressed)
         .restorationBehavior(.disabled)
         .environment(playEngine)
         .environment(presentedViewManager)
@@ -81,6 +96,17 @@ struct FrontRowApp: App {
             WindowCommands()
             HelpCommands()
         }
+
+        Window("Welcome to Front Row", id: WindowID.welcome) {
+            WelcomeView()
+                .preferredColorScheme(.dark)
+                .environment(presentedViewManager)
+        }
+        .windowStyle(.hiddenTitleBar)
+        .windowResizability(.contentSize)
+        .defaultLaunchBehavior(.presented)
+        .defaultPosition(.center)
+        .restorationBehavior(.disabled)
     }
 }
 
@@ -88,14 +114,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func application(_ application: NSApplication, open urls: [URL]) {
         guard urls.count == 1, let url = urls.first else { return }
         Task {
-            guard await PlayEngine.shared.openFile(url: url) else { return }
-            NSDocumentController.shared.noteNewRecentDocumentURL(url)
+            await openFileAndPresent(url: url)
         }
     }
 
-    func applicationDidFinishLaunching(_ notification: Notification) {
-        if let window = NSApp.windows.first {
-            window.isMovableByWindowBackground = true
-        }
+    func applicationWillTerminate(_ notification: Notification) {
+        PlayEngine.shared.persistCurrentPlaybackPosition()
+    }
+
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        true
     }
 }
