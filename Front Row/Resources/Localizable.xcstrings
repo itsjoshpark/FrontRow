@@ -179,7 +179,7 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%llds"
           }
         },
@@ -191,7 +191,7 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%llds"
           }
         },
@@ -209,7 +209,7 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%llds"
           }
         },
@@ -2016,7 +2016,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Front Row"
           }
         },
@@ -2028,7 +2028,7 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Front Row"
           }
         },
@@ -2040,7 +2040,7 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Front Row"
           }
         },
@@ -2058,19 +2058,19 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Front Row"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Front Row"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Front Row"
           }
         },
@@ -2124,13 +2124,13 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Front Row"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Front Row"
           }
         }
@@ -3907,7 +3907,7 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Off"
           }
         },
@@ -4412,9 +4412,6 @@
           }
         }
       }
-    },
-    "Open Recent" : {
-      "comment" : "Title of the Open Recent submenu"
     },
     "Open URL..." : {
       "comment" : "Show the open URL dialog",
@@ -5839,9 +5836,6 @@
           }
         }
       }
-    },
-    "Resume %@" : {
-      "comment" : "Welcome window button to resume the most recently played file"
     },
     "Show in Finder" : {
       "comment" : "Show the currently playing file in Finder",
