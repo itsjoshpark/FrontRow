@@ -8,6 +8,23 @@
     <item>
       <title>New Version Available</title>
       <link>https://github.com/itsjoshpark/FrontRow</link>
+      <sparkle:version>22</sparkle:version>
+      <sparkle:shortVersionString>2.9.1 (22)</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>15.6</sparkle:minimumSystemVersion>
+      <sparkle:fullReleaseNotesLink>https://github.com/itsjoshpark/FrontRow/releases</sparkle:fullReleaseNotesLink>
+      <pubDate>Sun, 19 Jul 2026 16:38:05 +0000</pubDate>
+      <description><![CDATA[
+      <ul>
+      <li>Fixed: Updating app</li>
+      </ul>
+      <p><strong>Note</strong>: You will need to manually download this update from the website. Subsequent updates should work automatically.</p>
+      ]]>
+      </description>
+    </item>
+
+    <item>
+      <title>New Version Available</title>
+      <link>https://github.com/itsjoshpark/FrontRow</link>
       <sparkle:version>21</sparkle:version>
       <sparkle:shortVersionString>2.9 (21)</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>15.6</sparkle:minimumSystemVersion>
