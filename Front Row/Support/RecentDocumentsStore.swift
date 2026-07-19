@@ -33,15 +33,29 @@ final class RecentDocumentsStore {
         let bookmarkData: Data
     }
 
+    private let defaults: UserDefaults
+
+    private let positionStore: PlaybackPositionStore
+
     private var entries: [Entry] = []
 
     var recentURLs: [URL] {
         entries.map(\.url)
     }
 
-    private init() {
-        entries = Self.loadPersistedEntries()
+    init(
+        defaults: UserDefaults = .standard,
+        positionStore: PlaybackPositionStore = .shared
+    ) {
+        self.defaults = defaults
+        self.positionStore = positionStore
+
+        entries = Self.loadPersistedEntries(from: defaults)
         trim()
+        // Entries dropped above never went through `removeRecentDocument`, so write the pruned
+        // list back and discard the positions they left behind.
+        persist()
+        positionStore.retainOnly(urls: recentURLs)
     }
 
     /// Adds a URL to the front of the recent documents list, or moves it to the front if it's
@@ -73,7 +87,7 @@ final class RecentDocumentsStore {
         persist()
 
         for dropped in droppedEntries {
-            PlaybackPositionStore.shared.clearPosition(for: dropped.url)
+            positionStore.clearPosition(for: dropped.url)
         }
 
         NSDocumentController.shared.noteNewRecentDocumentURL(url)
@@ -83,7 +97,7 @@ final class RecentDocumentsStore {
     func removeRecentDocument(_ url: URL) {
         entries.removeAll { $0.url == url }
         persist()
-        PlaybackPositionStore.shared.clearPosition(for: url)
+        positionStore.clearPosition(for: url)
     }
 
     /// Empties the recent documents list.
@@ -93,7 +107,7 @@ final class RecentDocumentsStore {
         persist()
 
         for url in urls {
-            PlaybackPositionStore.shared.clearPosition(for: url)
+            positionStore.clearPosition(for: url)
         }
 
         NSDocumentController.shared.clearRecentDocuments(nil)
@@ -142,11 +156,11 @@ final class RecentDocumentsStore {
 
     private func persist() {
         let bookmarks = entries.map(\.bookmarkData)
-        UserDefaults.standard.set(bookmarks, forKey: Self.defaultsKey)
+        defaults.set(bookmarks, forKey: Self.defaultsKey)
     }
 
-    private static func loadPersistedEntries() -> [Entry] {
-        let bookmarks = UserDefaults.standard.array(forKey: defaultsKey) as? [Data] ?? []
+    private static func loadPersistedEntries(from defaults: UserDefaults) -> [Entry] {
+        let bookmarks = defaults.array(forKey: defaultsKey) as? [Data] ?? []
         return bookmarks.compactMap { data in
             var isStale = false
             guard

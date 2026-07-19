@@ -19,10 +19,13 @@ final class PlaybackPositionStore {
 
     private static let defaultsKey = "PlaybackPositions"
 
+    private let defaults: UserDefaults
+
     private var positions: [String: TimeInterval]
 
-    private init() {
-        let raw = UserDefaults.standard.dictionary(forKey: Self.defaultsKey) ?? [:]
+    init(defaults: UserDefaults = .standard) {
+        self.defaults = defaults
+        let raw = defaults.dictionary(forKey: Self.defaultsKey) ?? [:]
         positions = raw.compactMapValues { $0 as? TimeInterval }
     }
 
@@ -40,7 +43,21 @@ final class PlaybackPositionStore {
         persist()
     }
 
+    /// Drops every position not belonging to one of `urls`.
+    ///
+    /// Positions only exist to serve the recent documents list, so entries that outlived their
+    /// recent entry - dropped because a bookmark no longer resolved, or trimmed off the end of the
+    /// list - would otherwise linger indefinitely.
+    func retainOnly(urls: [URL]) {
+        let keep = Set(urls.map(\.absoluteString))
+        let remaining = positions.filter { keep.contains($0.key) }
+        guard remaining.count != positions.count else { return }
+
+        positions = remaining
+        persist()
+    }
+
     private func persist() {
-        UserDefaults.standard.set(positions, forKey: Self.defaultsKey)
+        defaults.set(positions, forKey: Self.defaultsKey)
     }
 }

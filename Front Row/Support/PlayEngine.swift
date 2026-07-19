@@ -30,17 +30,16 @@ import SwiftUI
         30,
     ]
 
-    // Resume thresholds (seconds): a saved position is only resumed if it's past
-    // `resumeMinimumPosition` and more than `resumeEndBuffer` from the end.
-    private static let resumeMinimumPosition: TimeInterval = 3
-    private static let resumeEndBuffer: TimeInterval = 5
-
     /// How often (in seconds of playback) the current position is saved while playing.
     private static let periodicPositionSaveInterval: TimeInterval = 5
 
     private var asset: AVAsset?
 
     private var lastPeriodicPositionSaveTime: TimeInterval = 0
+
+    /// Suppresses position saves while `openFile` swaps items, so a tick landing mid-swap can't
+    /// attribute one file's time to another.
+    private var isSwitchingFile = false
 
     private(set) var player = AVPlayer()
 
@@ -175,9 +174,7 @@ import SwiftUI
                 guard let self else { return }
                 self.timeControlStatus = status
                 self.updateNowPlayingInfo()
-                // Skip when paused because playback reached the end - that position is cleared by
-                // the play-to-end observer, so persisting here would just leave an orphan entry.
-                if status == .paused, !self.isPlaybackAtEnd {
+                if status == .paused {
                     self.persistCurrentPlaybackPosition()
                 }
             }
@@ -206,7 +203,9 @@ import SwiftUI
     /// - Returns: A Boolean value that indicates whether an asset contains playable content.
     @discardableResult func openFile(url originalURL: URL) async -> Bool {
         persistCurrentPlaybackPosition()
-        lastPeriodicPositionSaveTime = 0
+
+        isSwitchingFile = true
+        defer { isSwitchingFile = false }
 
         let url = resolveAccessibleURL(originalURL)
 
@@ -233,9 +232,20 @@ import SwiftUI
         let playerItem = AVPlayerItem(asset: newAsset)
         installObservers(on: playerItem, url: url)
 
+        // Adopt the new file's identity and clear the outgoing file's time before the item is
+        // swapped in. The periodic observer starts reporting the new item's time immediately, so
+        // anything it saves after this point must already be attributed to `url`.
+        fileURL = url
+        _currentTime = 0
+        duration = 0
+        timeRemaining = 0
+
         player.replaceCurrentItem(with: playerItem)
 
-        await resumeIfNeeded(url: url, duration: mediaDuration)
+        let resumedPosition = await resumeIfNeeded(url: url, duration: mediaDuration)
+        // Seed the throttle with where playback actually starts, so the first tick doesn't read as
+        // a full interval's worth of progress and trigger an immediate save.
+        lastPeriodicPositionSaveTime = resumedPosition ?? 0
 
         player.play()
 
@@ -277,7 +287,6 @@ import SwiftUI
                     self.isLoaded = true
                     self.isLocalFile = FileManager.default.fileExists(
                         atPath: url.path(percentEncoded: false))
-                    self.fileURL = url
                     NowPlayable.shared.setNowPlayingMetadata(
                         NowPlayableStaticMetadata(
                             assetURL: url,
@@ -314,28 +323,30 @@ import SwiftUI
             .store(in: &currentItemSubs)
     }
 
-    /// Seeks to a previously saved position if one exists and is worth resuming from (far enough
-    /// in, but not effectively finished).
-    private func resumeIfNeeded(url: URL, duration: TimeInterval) async {
-        guard let saved = PlaybackPositionStore.shared.position(for: url),
-            !duration.isNaN,
-            saved > Self.resumeMinimumPosition,
-            saved < duration - Self.resumeEndBuffer
-        else { return }
+    /// Seeks to a previously saved position if one is worth resuming from, returning the position
+    /// seeked to.
+    private func resumeIfNeeded(url: URL, duration: TimeInterval) async -> TimeInterval? {
+        guard
+            let target = ResumePolicy.resumeTarget(
+                saved: PlaybackPositionStore.shared.position(for: url), duration: duration)
+        else { return nil }
 
-        await player.seek(to: CMTimeMakeWithSeconds(saved, preferredTimescale: 1))
+        await player.seek(to: CMTimeMakeWithSeconds(target, preferredTimescale: 1))
+        return target
     }
 
-    /// Whether playback is effectively at the end, using the same buffer as resume so a position
-    /// this close to the end wouldn't be resumed from anyway.
     private var isPlaybackAtEnd: Bool {
-        guard duration > 0 else { return false }
-        return _currentTime >= duration - Self.resumeEndBuffer
+        ResumePolicy.isAtEnd(currentTime: _currentTime, duration: duration)
     }
 
     /// Saves the current playback position immediately, as a safety net on pause, before switching
     /// files, and on termination. Only files in the recent documents list are tracked.
+    ///
+    /// Skipped while switching files, since the engine's time and its current file briefly belong
+    /// to different items, and when playback reached the end - that position is cleared by the
+    /// play-to-end observer, so persisting it would just leave an orphan entry.
     func persistCurrentPlaybackPosition() {
+        guard !isSwitchingFile, !isPlaybackAtEnd else { return }
         guard let fileURL, RecentDocumentsStore.shared.recentURLs.contains(fileURL) else { return }
         PlaybackPositionStore.shared.setPosition(_currentTime, for: fileURL)
     }
