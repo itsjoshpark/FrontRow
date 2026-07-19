@@ -78,8 +78,8 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "state" : "translated",
+            "value" : "%@을(를) 찾을 수 없어 최근 항목에서 제거되었습니다."
           }
         },
         "nl" : {
@@ -593,8 +593,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Check for Updates…"
+            "state" : "translated",
+            "value" : "Nach Aktualisierungen suchen…"
           }
         },
         "el" : {
@@ -605,8 +605,8 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Check for Updates…"
+            "state" : "translated",
+            "value" : "Buscar actualizaciones…"
           }
         },
         "fi" : {
@@ -617,8 +617,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Check for Updates…"
+            "state" : "translated",
+            "value" : "Rechercher des mises à jour…"
           }
         },
         "he" : {
@@ -635,8 +635,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Check for Updates…"
+            "state" : "translated",
+            "value" : "Ricerca aggiornamenti…"
           }
         },
         "ja" : {
@@ -708,7 +708,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "檢查更新 ..."
+            "value" : "檢查更新⋯"
           }
         }
       }
@@ -736,8 +736,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Clear Menu"
+            "state" : "translated",
+            "value" : "Einträge löschen"
           }
         },
         "el" : {
@@ -748,8 +748,8 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Clear Menu"
+            "state" : "translated",
+            "value" : "Vaciar menú"
           }
         },
         "fi" : {
@@ -760,8 +760,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Clear Menu"
+            "state" : "translated",
+            "value" : "Effacer le menu"
           }
         },
         "he" : {
@@ -778,20 +778,20 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Clear Menu"
+            "state" : "translated",
+            "value" : "Cancella menu"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Clear Menu"
+            "state" : "translated",
+            "value" : "メニューを消去"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Clear Menu"
+            "state" : "translated",
+            "value" : "메뉴 지우기"
           }
         },
         "nl" : {
@@ -844,14 +844,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Clear Menu"
+            "state" : "translated",
+            "value" : "清除菜单"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Clear Menu"
+            "state" : "translated",
+            "value" : "清除選單"
           }
         }
       }
@@ -932,8 +932,8 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
+            "state" : "translated",
+            "value" : "파일을 열 수 없습니다"
           }
         },
         "nl" : {
@@ -2841,7 +2841,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "跳至時間 ..."
+            "value" : "跳至時間⋯"
           }
         }
       }
@@ -3593,8 +3593,8 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "No Recent Files"
+            "state" : "translated",
+            "value" : "Sin archivos recientes"
           }
         },
         "fi" : {
@@ -3635,8 +3635,8 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "No Recent Files"
+            "state" : "translated",
+            "value" : "최근 목록이 없음"
           }
         },
         "nl" : {
@@ -3907,7 +3907,7 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Off"
           }
         },
@@ -4019,8 +4019,8 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "OK"
+            "state" : "translated",
+            "value" : "Aceptar"
           }
         },
         "fi" : {
@@ -4061,8 +4061,8 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "OK"
+            "state" : "translated",
+            "value" : "확인"
           }
         },
         "nl" : {
@@ -4115,8 +4115,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "OK"
+            "state" : "translated",
+            "value" : "确定"
           }
         },
         "zh-Hant" : {
@@ -4265,7 +4265,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "打開檔案 ..."
+            "value" : "打開檔案⋯"
           }
         }
       }
@@ -4293,8 +4293,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Open Recent"
+            "state" : "translated",
+            "value" : "Benutzte Dokumente"
           }
         },
         "el" : {
@@ -4305,8 +4305,8 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Open Recent"
+            "state" : "translated",
+            "value" : "Abrir recientes"
           }
         },
         "fi" : {
@@ -4317,8 +4317,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Open Recent"
+            "state" : "translated",
+            "value" : "Ouvrir l’élément récent"
           }
         },
         "he" : {
@@ -4335,20 +4335,20 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Open Recent"
+            "state" : "translated",
+            "value" : "Apri recente"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Open Recent"
+            "state" : "translated",
+            "value" : "最近使項目開く"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Open Recent"
+            "state" : "translated",
+            "value" : "최근 사용 열기"
           }
         },
         "nl" : {
@@ -4401,20 +4401,17 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Open Recent"
+            "state" : "translated",
+            "value" : "打开最近使用"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Open Recent"
+            "state" : "translated",
+            "value" : "打開最近使用過的項目"
           }
         }
       }
-    },
-    "Open Recent" : {
-      "comment" : "Title of the Open Recent submenu"
     },
     "Open URL..." : {
       "comment" : "Show the open URL dialog",
@@ -4554,7 +4551,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "打開 URL ..."
+            "value" : "打開位置⋯"
           }
         }
       }
@@ -5161,8 +5158,8 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Remove from Recents"
+            "state" : "translated",
+            "value" : "Eliminar de recientes"
           }
         },
         "fi" : {
@@ -5203,8 +5200,8 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Remove from Recents"
+            "state" : "translated",
+            "value" : "최근 목록에서 제거"
           }
         },
         "nl" : {
@@ -5732,8 +5729,8 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Resume %@"
+            "state" : "translated",
+            "value" : "Continuar %@"
           }
         },
         "fi" : {
@@ -5774,8 +5771,8 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Resume %@"
+            "state" : "translated",
+            "value" : "%@ 재개"
           }
         },
         "nl" : {
@@ -5839,9 +5836,6 @@
           }
         }
       }
-    },
-    "Resume %@" : {
-      "comment" : "Welcome window button to resume the most recently played file"
     },
     "Show in Finder" : {
       "comment" : "Show the currently playing file in Finder",
@@ -6436,7 +6430,7 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Version %@"
           }
         },
@@ -6448,8 +6442,8 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Version %@"
+            "state" : "translated",
+            "value" : "Versión %@"
           }
         },
         "fi" : {
@@ -6460,7 +6454,7 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Version %@"
           }
         },
@@ -6478,20 +6472,20 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Version %@"
+            "state" : "translated",
+            "value" : "Versione %@"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Version %@"
+            "state" : "translated",
+            "value" : "バージョン %@"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Version %@"
+            "state" : "translated",
+            "value" : "버전 %@"
           }
         },
         "nl" : {
@@ -6544,14 +6538,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Version %@"
+            "state" : "translated",
+            "value" : "版本 %@"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Version %@"
+            "state" : "translated",
+            "value" : "版本 %@"
           }
         }
       }
@@ -6732,8 +6726,8 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Welcome to Front Row"
+            "state" : "translated",
+            "value" : "Bienvenido a Front Row"
           }
         },
         "fi" : {
@@ -6774,8 +6768,8 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Welcome to Front Row"
+            "state" : "translated",
+            "value" : "시작 윈도우"
           }
         },
         "nl" : {
