@@ -9,9 +9,6 @@ Please review the following guidelines to help keep the project in a good shape.
 
 To prevent broken or inconsistent code from being checked-in, all Pull Request will go through a gated check-in process.
 This process will check that the code builds without errors and that it meets [swift-format](https://github.com/apple/swift-format)'s standards.
-Many swift-format warnings can be fixed by using the Format Source Code option that it provides in Xcode.
-
-![image](https://github.com/MochiDiffusion/MochiDiffusion/assets/1341760/d4012424-bd54-484f-a0e2-7cb2ee20fbd3)
 
 
 ## <a name="commit"></a> Pull Request Commit Message Format
@@ -21,7 +18,6 @@ This format leads to **easier to read commit history**.
 Note that Pull Requests are squash merged so this rule only applies to the final commit message shown in GitHub's PR page.
 
 Each commit message consists of a **header** and a **body**.
-
 
 ```
 <header>
@@ -59,6 +55,7 @@ Must be one of the following:
 * **fix**: A bug fix
 * **perf**: A code change that improves performance
 * **refactor**: A code change that neither fixes a bug nor adds a feature
+* **test**: Adding missing tests or correcting existing tests
 
 
 ##### Summary
