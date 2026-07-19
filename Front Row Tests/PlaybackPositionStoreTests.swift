@@ -1,6 +1,6 @@
 //
 //  PlaybackPositionStoreTests.swift
-//  Front RowTests
+//  Front Row Tests
 //
 //  Created by Joshua Park on 7/19/26.
 //

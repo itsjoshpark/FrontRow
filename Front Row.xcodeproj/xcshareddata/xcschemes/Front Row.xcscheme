@@ -35,8 +35,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FADE00000000000000000070"
-               BuildableName = "Front RowTests.xctest"
-               BlueprintName = "Front RowTests"
+               BuildableName = "Front Row Tests.xctest"
+               BlueprintName = "Front Row Tests"
                ReferencedContainer = "container:Front Row.xcodeproj">
             </BuildableReference>
          </TestableReference>

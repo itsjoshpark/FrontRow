@@ -84,13 +84,13 @@
 		FADE00000000000000000005 /* WelcomeWindowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeWindowCoordinator.swift; sourceTree = "<group>"; };
 		FADE00000000000000000007 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		FADE00000000000000000009 /* PlaybackPositionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackPositionStore.swift; sourceTree = "<group>"; };
-		FADE0000000000000000001A /* ResumePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumePolicy.swift; sourceTree = "<group>"; };
 		FADE0000000000000000000B /* FrontRow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FrontRow.entitlements; sourceTree = "<group>"; };
+		FADE0000000000000000001A /* ResumePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumePolicy.swift; sourceTree = "<group>"; };
 		FADE00000000000000000031 /* ResumePolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumePolicyTests.swift; sourceTree = "<group>"; };
 		FADE00000000000000000032 /* PlaybackPositionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackPositionStoreTests.swift; sourceTree = "<group>"; };
 		FADE00000000000000000033 /* RecentDocumentsStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentDocumentsStoreTests.swift; sourceTree = "<group>"; };
 		FADE00000000000000000034 /* TestDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDefaults.swift; sourceTree = "<group>"; };
-		FADE00000000000000000040 /* Front RowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Front RowTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FADE00000000000000000040 /* Front Row Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Front Row Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,7 +135,7 @@
 			children = (
 				03B712252B96C40C00C1F753 /* Frameworks */,
 				03EA684F2B9630CF003348BE /* Front Row */,
-				FADE00000000000000000050 /* Front RowTests */,
+				FADE00000000000000000050 /* Front Row Tests */,
 				03EA684E2B9630CF003348BE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -144,7 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				03EA684D2B9630CF003348BE /* Front Row.app */,
-				FADE00000000000000000040 /* Front RowTests.xctest */,
+				FADE00000000000000000040 /* Front Row Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -209,15 +209,15 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
-		FADE00000000000000000050 /* Front RowTests */ = {
+		FADE00000000000000000050 /* Front Row Tests */ = {
 			isa = PBXGroup;
 			children = (
-				FADE00000000000000000031 /* ResumePolicyTests.swift */,
 				FADE00000000000000000032 /* PlaybackPositionStoreTests.swift */,
 				FADE00000000000000000033 /* RecentDocumentsStoreTests.swift */,
+				FADE00000000000000000031 /* ResumePolicyTests.swift */,
 				FADE00000000000000000034 /* TestDefaults.swift */,
 			);
-			path = "Front RowTests";
+			path = "Front Row Tests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,9 +244,9 @@
 			productReference = 03EA684D2B9630CF003348BE /* Front Row.app */;
 			productType = "com.apple.product-type.application";
 		};
-		FADE00000000000000000070 /* Front RowTests */ = {
+		FADE00000000000000000070 /* Front Row Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FADE000000000000000000A0 /* Build configuration list for PBXNativeTarget "Front RowTests" */;
+			buildConfigurationList = FADE000000000000000000A0 /* Build configuration list for PBXNativeTarget "Front Row Tests" */;
 			buildPhases = (
 				FADE00000000000000000060 /* Sources */,
 				FADE00000000000000000061 /* Frameworks */,
@@ -256,9 +256,9 @@
 			dependencies = (
 				FADE00000000000000000080 /* PBXTargetDependency */,
 			);
-			name = "Front RowTests";
-			productName = "Front RowTests";
-			productReference = FADE00000000000000000040 /* Front RowTests.xctest */;
+			name = "Front Row Tests";
+			productName = "Front Row Tests";
+			productReference = FADE00000000000000000040 /* Front Row Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -319,7 +319,7 @@
 			projectRoot = "";
 			targets = (
 				03EA684C2B9630CF003348BE /* Front Row */,
-				FADE00000000000000000070 /* Front RowTests */,
+				FADE00000000000000000070 /* Front Row Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -644,7 +644,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FADE000000000000000000A0 /* Build configuration list for PBXNativeTarget "Front RowTests" */ = {
+		FADE000000000000000000A0 /* Build configuration list for PBXNativeTarget "Front Row Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FADE00000000000000000090 /* Debug */,
