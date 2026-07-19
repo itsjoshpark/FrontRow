@@ -8,6 +8,28 @@
     <item>
       <title>New Version Available</title>
       <link>https://github.com/itsjoshpark/FrontRow</link>
+      <sparkle:version>21</sparkle:version>
+      <sparkle:shortVersionString>2.9 (21)</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>15.6</sparkle:minimumSystemVersion>
+      <sparkle:fullReleaseNotesLink>https://github.com/itsjoshpark/FrontRow/releases</sparkle:fullReleaseNotesLink>
+      <pubDate>Sun, 19 Jul 2026 00:51:49 +0000</pubDate>
+      <enclosure
+        url="https://github.com/itsjoshpark/FrontRow/releases/download/v2.9/FrontRow_v2.9.dmg"
+        sparkle:edSignature="1/aj6F9pYeHD6SXSwCbTlNbaGZdUGGpluNirgiyBa1XovUNN/7HZOeEZIbuycg0w+G46Qm21DzQW9GXX5dwmBw=="
+        length="3709021"
+        type="application/octet-stream" />
+      <description><![CDATA[
+      <ul>
+      <li>Update: App icon</li>
+      <li>Update: App localizations</li>
+      </ul>
+      ]]>
+      </description>
+    </item>
+
+    <item>
+      <title>New Version Available</title>
+      <link>https://github.com/itsjoshpark/FrontRow</link>
       <sparkle:version>20</sparkle:version>
       <sparkle:shortVersionString>2.8 (20)</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>15.6</sparkle:minimumSystemVersion>
