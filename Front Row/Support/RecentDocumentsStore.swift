@@ -8,167 +8,154 @@
 import AppKit
 import SwiftUI
 
-/// Manages the recently opened files shown in File > Open Recent and the welcome window.
+/// Manages the recently opened files shown in File > Open Recent and the welcome window, along
+/// with where playback last reached in each of them.
 ///
 /// It keeps its own persisted list rather than using `NSDocumentController.recentDocumentURLs`,
 /// which has no API to remove a single entry (only `clearRecentDocuments(_:)`).
 ///
 /// Because the app is sandboxed read-only to user-selected files, access granted by the open
-/// panel/drop doesn't survive relaunch. Each entry therefore stores a security-scoped bookmark
+/// panel/drop doesn't survive relaunch. Each record therefore stores a security-scoped bookmark
 /// (created while that access is still active) and resolves it when reopening the file.
+///
+/// Bookmarks are resolved lazily, at open time rather than at launch, because resolution can't
+/// distinguish a deleted file from one on an unmounted volume - pruning eagerly would throw away
+/// history for a drive that simply isn't plugged in.
 ///
 /// Adds and full clears are mirrored to `NSDocumentController` so system surfaces (e.g. the Dock
 /// menu) stay in sync. Single-entry removal has no such API, so a removed entry may linger there
-/// until it ages out - an accepted cosmetic divergence.
+/// until it ages out - an accepted cosmetic divergence, as is the double listing a file picks up
+/// when it moves and its bookmark resolves to a new URL.
 @MainActor
 @Observable
 final class RecentDocumentsStore {
 
     static let shared = RecentDocumentsStore()
 
-    private static let defaultsKey = "RecentDocumentBookmarks"
+    private static let defaultsKey = "RecentDocuments"
 
-    private struct Entry {
-        let url: URL
-        let bookmarkData: Data
-    }
+    /// Keys from when recents and playback positions were stored separately. Read by nothing now;
+    /// removed on launch so they don't linger in the preferences file.
+    private static let legacyDefaultsKeys = ["RecentDocumentBookmarks", "PlaybackPositions"]
 
     private let defaults: UserDefaults
 
-    private let positionStore: PlaybackPositionStore
+    private let bookmarks: BookmarkProviding
 
-    private var entries: [Entry] = []
-
-    var recentURLs: [URL] {
-        entries.map(\.url)
-    }
+    private(set) var documents: [RecentDocument]
 
     init(
         defaults: UserDefaults = .standard,
-        positionStore: PlaybackPositionStore = .shared
+        bookmarks: BookmarkProviding = SecurityScopedBookmarkProvider()
     ) {
         self.defaults = defaults
-        self.positionStore = positionStore
+        self.bookmarks = bookmarks
 
-        entries = Self.loadPersistedEntries(from: defaults)
-        trim()
-        // Entries dropped above never went through `removeRecentDocument`, so write the pruned
-        // list back and discard the positions they left behind.
-        persist()
-        positionStore.retainOnly(urls: recentURLs)
+        let stored = defaults.data(forKey: Self.defaultsKey) ?? Data()
+        documents = (try? JSONDecoder().decode([RecentDocument].self, from: stored)) ?? []
+
+        for key in Self.legacyDefaultsKeys {
+            defaults.removeObject(forKey: key)
+        }
     }
 
-    /// Adds a URL to the front of the recent documents list, or moves it to the front if it's
-    /// already present.
+    /// Resolves a URL into something playable without yet committing it to the list.
     ///
-    /// `url` must currently have active security-scoped access (true right after it was chosen
-    /// via an open panel or drag-and-drop, or after `startAccessingRecentDocument(_:)`) if it's
-    /// not already tracked, since a bookmark needs to be created from it.
-    func noteRecentDocument(_ url: URL) {
-        if let existingIndex = entries.firstIndex(where: { $0.url == url }) {
-            let entry = entries.remove(at: existingIndex)
-            entries.insert(entry, at: 0)
+    /// Returns `nil` if the file can't be reached - it was deleted, its volume is unmounted, or
+    /// access was revoked - and for URLs that can't be bookmarked at all, such as remote ones.
+    ///
+    /// Matching `url` against a tracked record is a lookup heuristic, not identity; once matched,
+    /// everything downstream keys off `id`.
+    func prepareToOpen(_ url: URL) -> PreparedDocument? {
+        guard let existing = documents.first(where: { $0.url == url }) else {
+            guard let bookmarkData = try? bookmarks.makeBookmark(for: url) else { return nil }
+            return PreparedDocument(
+                id: UUID(), url: url, bookmarkData: bookmarkData, savedPosition: nil, access: nil)
+        }
+
+        guard let resolved = try? bookmarks.resolve(existing.bookmarkData),
+            let access = bookmarks.startAccess(to: resolved.url)
+        else { return nil }
+
+        var bookmarkData = existing.bookmarkData
+        if resolved.isStale, let refreshed = try? bookmarks.makeBookmark(for: resolved.url) {
+            bookmarkData = refreshed
+        }
+
+        return PreparedDocument(
+            id: existing.id, url: resolved.url, bookmarkData: bookmarkData,
+            savedPosition: existing.position, access: access)
+    }
+
+    /// Commits a prepared document to the front of the list, once playback has actually started.
+    func confirmOpened(_ prepared: PreparedDocument) {
+        var document: RecentDocument
+        if let index = documents.firstIndex(where: { $0.id == prepared.id }) {
+            // Keep the live position rather than the snapshot taken at prepare time, and adopt the
+            // URL and bookmark in case resolution moved them.
+            document = documents.remove(at: index)
+            document.url = prepared.url
+            document.bookmarkData = prepared.bookmarkData
         } else {
-            let didStartAccess = url.startAccessingSecurityScopedResource()
-            defer {
-                if didStartAccess {
-                    url.stopAccessingSecurityScopedResource()
-                }
-            }
-            guard
-                let bookmarkData = try? url.bookmarkData(
-                    options: [.withSecurityScope, .securityScopeAllowOnlyReadAccess],
-                    includingResourceValuesForKeys: nil, relativeTo: nil)
-            else { return }
-            entries.insert(Entry(url: url, bookmarkData: bookmarkData), at: 0)
+            document = RecentDocument(
+                id: prepared.id, url: prepared.url, bookmarkData: prepared.bookmarkData,
+                position: prepared.savedPosition)
         }
 
-        let droppedEntries = trim()
+        documents.insert(document, at: 0)
+        trim()
         persist()
 
-        for dropped in droppedEntries {
-            positionStore.clearPosition(for: dropped.url)
-        }
-
-        NSDocumentController.shared.noteNewRecentDocumentURL(url)
+        NSDocumentController.shared.noteNewRecentDocumentURL(prepared.url)
     }
 
-    /// Removes a single entry, e.g. because the file could no longer be opened.
-    func removeRecentDocument(_ url: URL) {
-        entries.removeAll { $0.url == url }
+    /// Removes a single record, e.g. because the file could no longer be opened. Does nothing for
+    /// an id that was prepared but never committed.
+    func remove(_ id: RecentDocument.ID) {
+        guard documents.contains(where: { $0.id == id }) else { return }
+        documents.removeAll { $0.id == id }
         persist()
-        positionStore.clearPosition(for: url)
     }
 
-    /// Empties the recent documents list.
     func clear() {
-        let urls = entries.map(\.url)
-        entries.removeAll()
+        guard !documents.isEmpty else { return }
+        documents.removeAll()
         persist()
-
-        for url in urls {
-            positionStore.clearPosition(for: url)
-        }
 
         NSDocumentController.shared.clearRecentDocuments(nil)
     }
 
-    /// Resolves a recent document's security-scoped bookmark and starts access to it.
-    ///
-    /// The caller is responsible for calling `stopAccessingSecurityScopedResource()` on the
-    /// returned URL once done with it. Returns `nil` if `url` isn't a tracked recent document, or
-    /// its bookmark can no longer be resolved (e.g. the file was deleted or permission was
-    /// revoked).
-    func startAccessingRecentDocument(_ url: URL) -> URL? {
-        guard let index = entries.firstIndex(where: { $0.url == url }) else { return nil }
-
-        var isStale = false
-        guard
-            let resolvedURL = try? URL(
-                resolvingBookmarkData: entries[index].bookmarkData, options: [.withSecurityScope],
-                relativeTo: nil, bookmarkDataIsStale: &isStale)
-        else { return nil }
-
-        guard resolvedURL.startAccessingSecurityScopedResource() else { return nil }
-
-        if isStale,
-            let refreshedData = try? resolvedURL.bookmarkData(
-                options: [.withSecurityScope, .securityScopeAllowOnlyReadAccess],
-                includingResourceValuesForKeys: nil, relativeTo: nil)
-        {
-            entries[index] = Entry(url: resolvedURL, bookmarkData: refreshedData)
-            persist()
-        }
-
-        return resolvedURL
+    func setPosition(_ time: TimeInterval, for id: RecentDocument.ID) {
+        update(id) { $0.position = time }
     }
 
-    /// Trims `entries` down to `NSDocumentController.shared.maximumRecentDocumentCount` and
-    /// returns the entries that were dropped.
-    @discardableResult
-    private func trim() -> [Entry] {
+    func clearPosition(for id: RecentDocument.ID) {
+        update(id) { $0.position = nil }
+    }
+
+    /// Applies `change` and persists, skipping the write when nothing actually changed - pause,
+    /// termination, and a periodic save can all land on the same position.
+    private func update(_ id: RecentDocument.ID, _ change: (inout RecentDocument) -> Void) {
+        guard let index = documents.firstIndex(where: { $0.id == id }) else { return }
+
+        var document = documents[index]
+        change(&document)
+        guard document != documents[index] else { return }
+
+        documents[index] = document
+        persist()
+    }
+
+    /// Trims the list down to `NSDocumentController.shared.maximumRecentDocumentCount`, the user's
+    /// Recent Items preference. Dropped records take their positions with them.
+    private func trim() {
         let maxCount = max(0, NSDocumentController.shared.maximumRecentDocumentCount)
-        guard entries.count > maxCount else { return [] }
-        let dropped = Array(entries[maxCount...])
-        entries = Array(entries[..<maxCount])
-        return dropped
+        guard documents.count > maxCount else { return }
+        documents.removeSubrange(maxCount...)
     }
 
     private func persist() {
-        let bookmarks = entries.map(\.bookmarkData)
-        defaults.set(bookmarks, forKey: Self.defaultsKey)
-    }
-
-    private static func loadPersistedEntries(from defaults: UserDefaults) -> [Entry] {
-        let bookmarks = defaults.array(forKey: defaultsKey) as? [Data] ?? []
-        return bookmarks.compactMap { data in
-            var isStale = false
-            guard
-                let url = try? URL(
-                    resolvingBookmarkData: data, options: [.withSecurityScope], relativeTo: nil,
-                    bookmarkDataIsStale: &isStale)
-            else { return nil }
-            return Entry(url: url, bookmarkData: data)
-        }
+        guard let data = try? JSONEncoder().encode(documents) else { return }
+        defaults.set(data, forKey: Self.defaultsKey)
     }
 }

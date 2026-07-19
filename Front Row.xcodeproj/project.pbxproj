@@ -35,12 +35,18 @@
 		FADE00000000000000000004 /* FileOpening.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000003 /* FileOpening.swift */; };
 		FADE00000000000000000006 /* WelcomeWindowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000005 /* WelcomeWindowCoordinator.swift */; };
 		FADE00000000000000000008 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000007 /* WelcomeView.swift */; };
-		FADE0000000000000000000A /* PlaybackPositionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000009 /* PlaybackPositionStore.swift */; };
 		FADE0000000000000000001B /* ResumePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE0000000000000000001A /* ResumePolicy.swift */; };
 		FADE00000000000000000021 /* ResumePolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000031 /* ResumePolicyTests.swift */; };
-		FADE00000000000000000022 /* PlaybackPositionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000032 /* PlaybackPositionStoreTests.swift */; };
 		FADE00000000000000000023 /* RecentDocumentsStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000033 /* RecentDocumentsStoreTests.swift */; };
 		FADE00000000000000000024 /* TestDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000034 /* TestDefaults.swift */; };
+		FADE00000000000000000300 /* BookmarkCanaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000200 /* BookmarkCanaryTests.swift */; };
+		FADE00000000000000000301 /* RecentDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000201 /* RecentDocument.swift */; };
+		FADE00000000000000000302 /* PreparedDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000202 /* PreparedDocument.swift */; };
+		FADE00000000000000000303 /* ScopedAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000203 /* ScopedAccess.swift */; };
+		FADE00000000000000000304 /* BookmarkProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000204 /* BookmarkProviding.swift */; };
+		FADE00000000000000000305 /* SecurityScopedBookmarkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000205 /* SecurityScopedBookmarkProvider.swift */; };
+		FADE00000000000000000306 /* FakeBookmarkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000206 /* FakeBookmarkProvider.swift */; };
+		FADE00000000000000000307 /* ScopedAccessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000207 /* ScopedAccessTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,14 +89,20 @@
 		FADE00000000000000000003 /* FileOpening.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileOpening.swift; sourceTree = "<group>"; };
 		FADE00000000000000000005 /* WelcomeWindowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeWindowCoordinator.swift; sourceTree = "<group>"; };
 		FADE00000000000000000007 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
-		FADE00000000000000000009 /* PlaybackPositionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackPositionStore.swift; sourceTree = "<group>"; };
 		FADE0000000000000000000B /* FrontRow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FrontRow.entitlements; sourceTree = "<group>"; };
 		FADE0000000000000000001A /* ResumePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumePolicy.swift; sourceTree = "<group>"; };
 		FADE00000000000000000031 /* ResumePolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumePolicyTests.swift; sourceTree = "<group>"; };
-		FADE00000000000000000032 /* PlaybackPositionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackPositionStoreTests.swift; sourceTree = "<group>"; };
 		FADE00000000000000000033 /* RecentDocumentsStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentDocumentsStoreTests.swift; sourceTree = "<group>"; };
 		FADE00000000000000000034 /* TestDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDefaults.swift; sourceTree = "<group>"; };
 		FADE00000000000000000040 /* Front Row Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Front Row Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FADE00000000000000000200 /* BookmarkCanaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCanaryTests.swift; sourceTree = "<group>"; };
+		FADE00000000000000000201 /* RecentDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentDocument.swift; sourceTree = "<group>"; };
+		FADE00000000000000000202 /* PreparedDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparedDocument.swift; sourceTree = "<group>"; };
+		FADE00000000000000000203 /* ScopedAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedAccess.swift; sourceTree = "<group>"; };
+		FADE00000000000000000204 /* BookmarkProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkProviding.swift; sourceTree = "<group>"; };
+		FADE00000000000000000205 /* SecurityScopedBookmarkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityScopedBookmarkProvider.swift; sourceTree = "<group>"; };
+		FADE00000000000000000206 /* FakeBookmarkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeBookmarkProvider.swift; sourceTree = "<group>"; };
+		FADE00000000000000000207 /* ScopedAccessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedAccessTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,12 +205,16 @@
 		03EA686C2B968D86003348BE /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				FADE00000000000000000205 /* SecurityScopedBookmarkProvider.swift */,
+				FADE00000000000000000204 /* BookmarkProviding.swift */,
+				FADE00000000000000000203 /* ScopedAccess.swift */,
+				FADE00000000000000000202 /* PreparedDocument.swift */,
+				FADE00000000000000000201 /* RecentDocument.swift */,
 				03EA686D2B968D92003348BE /* Extensions.swift */,
 				FADE00000000000000000003 /* FileOpening.swift */,
 				03DEE9E52DE5600B002E05B9 /* KeyDownListener.swift */,
 				03DEE9E22DE54F90002E05B9 /* NowPlayable.swift */,
 				032EAF5C2DE9132600D31519 /* NowPlayable+RemoteCommands.swift */,
-				FADE00000000000000000009 /* PlaybackPositionStore.swift */,
 				03EA68662B9654A0003348BE /* PlayEngine.swift */,
 				03EE7B0D2BAA5176009F68C5 /* PresentedViewManager.swift */,
 				FADE00000000000000000001 /* RecentDocumentsStore.swift */,
@@ -212,7 +228,9 @@
 		FADE00000000000000000050 /* Front Row Tests */ = {
 			isa = PBXGroup;
 			children = (
-				FADE00000000000000000032 /* PlaybackPositionStoreTests.swift */,
+				FADE00000000000000000207 /* ScopedAccessTests.swift */,
+				FADE00000000000000000206 /* FakeBookmarkProvider.swift */,
+				FADE00000000000000000200 /* BookmarkCanaryTests.swift */,
 				FADE00000000000000000033 /* RecentDocumentsStoreTests.swift */,
 				FADE00000000000000000031 /* ResumePolicyTests.swift */,
 				FADE00000000000000000034 /* TestDefaults.swift */,
@@ -362,6 +380,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FADE00000000000000000305 /* SecurityScopedBookmarkProvider.swift in Sources */,
+				FADE00000000000000000304 /* BookmarkProviding.swift in Sources */,
+				FADE00000000000000000303 /* ScopedAccess.swift in Sources */,
+				FADE00000000000000000302 /* PreparedDocument.swift in Sources */,
+				FADE00000000000000000301 /* RecentDocument.swift in Sources */,
 				03E78C582BA7D2D40063BF06 /* OpenURLView.swift in Sources */,
 				03DEE9E62DE5600F002E05B9 /* KeyDownListener.swift in Sources */,
 				033D450A2BB37FCA001AEBAA /* SeekSliderView.swift in Sources */,
@@ -386,7 +409,6 @@
 				FADE00000000000000000004 /* FileOpening.swift in Sources */,
 				FADE00000000000000000006 /* WelcomeWindowCoordinator.swift in Sources */,
 				FADE00000000000000000008 /* WelcomeView.swift in Sources */,
-				FADE0000000000000000000A /* PlaybackPositionStore.swift in Sources */,
 				FADE0000000000000000001B /* ResumePolicy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,8 +417,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FADE00000000000000000307 /* ScopedAccessTests.swift in Sources */,
+				FADE00000000000000000306 /* FakeBookmarkProvider.swift in Sources */,
+				FADE00000000000000000300 /* BookmarkCanaryTests.swift in Sources */,
 				FADE00000000000000000021 /* ResumePolicyTests.swift in Sources */,
-				FADE00000000000000000022 /* PlaybackPositionStoreTests.swift in Sources */,
 				FADE00000000000000000023 /* RecentDocumentsStoreTests.swift in Sources */,
 				FADE00000000000000000024 /* TestDefaults.swift in Sources */,
 			);

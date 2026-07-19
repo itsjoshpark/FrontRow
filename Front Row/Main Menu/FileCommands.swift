@@ -9,6 +9,10 @@ import AVKit
 import SwiftUI
 
 struct FileCommands: Commands {
+
+    // Held rather than accessed statically so the Open Recent menu re-renders when recents change.
+    @State private var recentDocumentsStore = RecentDocumentsStore.shared
+
     var body: some Commands {
         CommandGroup(replacing: .newItem) {
             Button {
@@ -34,33 +38,33 @@ struct FileCommands: Commands {
             .keyboardShortcut("O", modifiers: [.command, .shift])
 
             Menu {
-                ForEach(RecentDocumentsStore.shared.recentURLs, id: \.self) { url in
+                ForEach(recentDocumentsStore.documents) { document in
                     Button {
                         Task {
-                            await openRecentDocumentAndPresent(url: url)
+                            await openRecentDocumentAndPresent(id: document.id)
                         }
                     } label: {
                         Label {
-                            Text(url.lastPathComponent)
+                            Text(document.url.lastPathComponent)
                         } icon: {
-                            Image(nsImage: url.recentDocumentIcon)
+                            Image(nsImage: document.url.recentDocumentIcon)
                         }
                     }
                 }
 
-                if !RecentDocumentsStore.shared.recentURLs.isEmpty {
+                if !recentDocumentsStore.documents.isEmpty {
                     Divider()
                 }
 
                 Button {
-                    RecentDocumentsStore.shared.clear()
+                    recentDocumentsStore.clear()
                 } label: {
                     Text(
                         "Clear Menu",
                         comment: "Clears the Open Recent menu's list of recently opened files"
                     )
                 }
-                .disabled(RecentDocumentsStore.shared.recentURLs.isEmpty)
+                .disabled(recentDocumentsStore.documents.isEmpty)
             } label: {
                 Text(
                     "Open Recent",

@@ -50,7 +50,7 @@ struct OpenURLView: View {
                         return
                     }
                     displayLoading = true
-                    guard await openFileAndPresent(url: url) else {
+                    guard await openRemoteAndPresent(url: url) else {
                         withAnimation {
                             displayLoading = false
                             displayError = true

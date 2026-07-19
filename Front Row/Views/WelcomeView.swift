@@ -13,8 +13,8 @@ struct WelcomeView: View {
     @Environment(PresentedViewManager.self) private var presentedViewManager: PresentedViewManager
     @State private var recentDocumentsStore = RecentDocumentsStore.shared
 
-    private var mostRecentURL: URL? {
-        recentDocumentsStore.recentURLs.first
+    private var mostRecentDocument: RecentDocument? {
+        recentDocumentsStore.documents.first
     }
 
     private var appVersion: String {
@@ -61,21 +61,21 @@ struct WelcomeView: View {
                         presentedViewManager.isPresentingOpenURLView.toggle()
                     }
 
-                    if let mostRecentURL {
+                    if let mostRecentDocument {
                         WelcomeActionRow {
                             Image(systemName: "play.circle")
                         } title: {
                             Text(
-                                "Resume \(mostRecentURL.lastPathComponent)",
+                                "Resume \(mostRecentDocument.url.lastPathComponent)",
                                 comment:
                                     "Welcome window button to resume the most recently played file"
                             )
                         } action: {
                             Task {
-                                await openRecentDocumentAndPresent(url: mostRecentURL)
+                                await openRecentDocumentAndPresent(id: mostRecentDocument.id)
                             }
                         }
-                        .help(mostRecentURL.lastPathComponent)
+                        .help(mostRecentDocument.url.lastPathComponent)
                     }
                 }
 
@@ -125,7 +125,7 @@ struct WelcomeView: View {
 
     @ViewBuilder
     private var recentFilesList: some View {
-        if recentDocumentsStore.recentURLs.isEmpty {
+        if recentDocumentsStore.documents.isEmpty {
             VStack {
                 Spacer()
                 Text(
@@ -137,17 +137,17 @@ struct WelcomeView: View {
         } else {
             ScrollView {
                 LazyVStack(spacing: 2) {
-                    ForEach(recentDocumentsStore.recentURLs, id: \.self) { url in
-                        RecentFileRow(url: url) {
+                    ForEach(recentDocumentsStore.documents) { document in
+                        RecentFileRow(url: document.url) {
                             Task {
-                                await openRecentDocumentAndPresent(url: url)
+                                await openRecentDocumentAndPresent(id: document.id)
                             }
                         }
                         .contextMenu {
                             Button(
                                 "Remove from Recents",
                                 action: {
-                                    recentDocumentsStore.removeRecentDocument(url)
+                                    recentDocumentsStore.remove(document.id)
                                 }
                             )
                         }
