@@ -6,6 +6,9 @@
 # Build (matches CI)
 xcodebuild clean build analyze -project "Front Row.xcodeproj" -scheme "Front Row" CODE_SIGNING_ALLOWED=NO
 
+# Test — must pass before a PR merges
+xcodebuild test -project "Front Row.xcodeproj" -scheme "Front Row" -destination "platform=macOS" CODE_SIGNING_ALLOWED=NO
+
 # Lint — must pass before a PR merges
 swift-format lint -s -p -r ./
 

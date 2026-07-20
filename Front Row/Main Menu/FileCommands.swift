@@ -10,7 +10,6 @@ import SwiftUI
 
 struct FileCommands: Commands {
 
-    // Held rather than accessed statically so the Open Recent menu re-renders when recents change.
     @State private var recentDocumentsStore = RecentDocumentsStore.shared
 
     var body: some Commands {
