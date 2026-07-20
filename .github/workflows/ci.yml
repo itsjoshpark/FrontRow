@@ -16,9 +16,10 @@ jobs:
         with:
           xcode-version: latest-stable
 
-      - name: Build and Analyze
+      - name: Build, Analyze, and Test
         run: >
-          xcodebuild clean build analyze
+          xcodebuild clean build analyze test
           -project "Front Row.xcodeproj"
           -scheme "Front Row"
+          -destination "platform=macOS"
           CODE_SIGNING_ALLOWED=NO | xcpretty && exit ${PIPESTATUS[0]}

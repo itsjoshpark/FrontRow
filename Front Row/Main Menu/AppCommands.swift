@@ -29,7 +29,7 @@ struct AppCommands: Commands {
                                     "https://media.developer.dolby.com/DDP/MP4_HPL40_30fps_channel_id_51.mp4"
                             )
                         else { return }
-                        await PlayEngine.shared.openFile(url: url)
+                        await openRemoteAndPresent(url: url)
                     }
                 } label: {
                     Text("Experience Spatial Audio")
