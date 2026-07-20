@@ -205,20 +205,20 @@
 		03EA686C2B968D86003348BE /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				FADE00000000000000000205 /* SecurityScopedBookmarkProvider.swift */,
 				FADE00000000000000000204 /* BookmarkProviding.swift */,
-				FADE00000000000000000203 /* ScopedAccess.swift */,
-				FADE00000000000000000202 /* PreparedDocument.swift */,
-				FADE00000000000000000201 /* RecentDocument.swift */,
 				03EA686D2B968D92003348BE /* Extensions.swift */,
 				FADE00000000000000000003 /* FileOpening.swift */,
 				03DEE9E52DE5600B002E05B9 /* KeyDownListener.swift */,
 				03DEE9E22DE54F90002E05B9 /* NowPlayable.swift */,
 				032EAF5C2DE9132600D31519 /* NowPlayable+RemoteCommands.swift */,
 				03EA68662B9654A0003348BE /* PlayEngine.swift */,
+				FADE00000000000000000202 /* PreparedDocument.swift */,
 				03EE7B0D2BAA5176009F68C5 /* PresentedViewManager.swift */,
+				FADE00000000000000000201 /* RecentDocument.swift */,
 				FADE00000000000000000001 /* RecentDocumentsStore.swift */,
 				FADE0000000000000000001A /* ResumePolicy.swift */,
+				FADE00000000000000000203 /* ScopedAccess.swift */,
+				FADE00000000000000000205 /* SecurityScopedBookmarkProvider.swift */,
 				FADE00000000000000000005 /* WelcomeWindowCoordinator.swift */,
 				032BBB1D2B9FF671003D2FA8 /* WindowController.swift */,
 			);
@@ -228,11 +228,11 @@
 		FADE00000000000000000050 /* Front Row Tests */ = {
 			isa = PBXGroup;
 			children = (
-				FADE00000000000000000207 /* ScopedAccessTests.swift */,
-				FADE00000000000000000206 /* FakeBookmarkProvider.swift */,
 				FADE00000000000000000200 /* BookmarkCanaryTests.swift */,
+				FADE00000000000000000206 /* FakeBookmarkProvider.swift */,
 				FADE00000000000000000033 /* RecentDocumentsStoreTests.swift */,
 				FADE00000000000000000031 /* ResumePolicyTests.swift */,
+				FADE00000000000000000207 /* ScopedAccessTests.swift */,
 				FADE00000000000000000034 /* TestDefaults.swift */,
 			);
 			path = "Front Row Tests";
