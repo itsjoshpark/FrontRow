@@ -30,11 +30,6 @@ import SwiftUI
         30,
     ]
 
-    // Resume thresholds (seconds): a saved position is only resumed if it's past
-    // `resumeMinimumPosition` and more than `resumeEndBuffer` from the end.
-    private static let resumeMinimumPosition: TimeInterval = 3
-    private static let resumeEndBuffer: TimeInterval = 5
-
     /// How often (in seconds of playback) the current position is saved while playing.
     private static let periodicPositionSaveInterval: TimeInterval = 5
 
@@ -175,9 +170,7 @@ import SwiftUI
                 guard let self else { return }
                 self.timeControlStatus = status
                 self.updateNowPlayingInfo()
-                // Skip when paused because playback reached the end - that position is cleared by
-                // the play-to-end observer, so persisting here would just leave an orphan entry.
-                if status == .paused, !self.isPlaybackAtEnd {
+                if status == .paused {
                     self.persistCurrentPlaybackPosition()
                 }
             }
@@ -309,7 +302,7 @@ import SwiftUI
         NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime, object: playerItem)
             .receive(on: DispatchQueue.main)
             .sink { _ in
-                PlaybackPositionStore.shared.clearPosition(for: url)
+                RecentDocumentsStore.shared.clearPosition(for: url)
             }
             .store(in: &currentItemSubs)
     }
@@ -317,27 +310,27 @@ import SwiftUI
     /// Seeks to a previously saved position if one exists and is worth resuming from (far enough
     /// in, but not effectively finished).
     private func resumeIfNeeded(url: URL, duration: TimeInterval) async {
-        guard let saved = PlaybackPositionStore.shared.position(for: url),
-            !duration.isNaN,
-            saved > Self.resumeMinimumPosition,
-            saved < duration - Self.resumeEndBuffer
-        else { return }
+        let saved = RecentDocumentsStore.shared.position(for: url)
+        guard let target = ResumePolicy.resumePosition(saved: saved, duration: duration) else {
+            return
+        }
 
-        await player.seek(to: CMTimeMakeWithSeconds(saved, preferredTimescale: 1))
+        await player.seek(to: CMTimeMakeWithSeconds(target, preferredTimescale: 1))
     }
 
     /// Whether playback is effectively at the end, using the same buffer as resume so a position
     /// this close to the end wouldn't be resumed from anyway.
     private var isPlaybackAtEnd: Bool {
-        guard duration > 0 else { return false }
-        return _currentTime >= duration - Self.resumeEndBuffer
+        ResumePolicy.isAtEnd(currentTime: _currentTime, duration: duration)
     }
 
     /// Saves the current playback position immediately, as a safety net on pause, before switching
-    /// files, and on termination. Only files in the recent documents list are tracked.
+    /// files, and on termination. Only files in the recent documents list are tracked, and a
+    /// position this close to the end is skipped - it was just cleared by the play-to-end
+    /// observer, so persisting here would just leave an orphan entry.
     func persistCurrentPlaybackPosition() {
-        guard let fileURL, RecentDocumentsStore.shared.recentURLs.contains(fileURL) else { return }
-        PlaybackPositionStore.shared.setPosition(_currentTime, for: fileURL)
+        guard let fileURL, !isPlaybackAtEnd else { return }
+        RecentDocumentsStore.shared.setPosition(_currentTime, for: fileURL)
     }
 
     func cancelLoading() {
