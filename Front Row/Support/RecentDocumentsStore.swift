@@ -5,7 +5,6 @@
 //  Created by Joshua Park on 7/17/26.
 //
 
-import AppKit
 import SwiftUI
 
 /// Manages the recently opened files shown in File > Open Recent and the welcome window, along
@@ -22,10 +21,10 @@ import SwiftUI
 /// distinguish a deleted file from one on an unmounted volume - pruning eagerly would throw away
 /// history for a drive that simply isn't plugged in.
 ///
-/// Adds and full clears are mirrored to `NSDocumentController` so system surfaces (e.g. the Dock
-/// menu) stay in sync. Single-entry removal has no such API, so a removed entry may linger there
-/// until it ages out - an accepted cosmetic divergence, as is the double listing a file picks up
-/// when it moves and its bookmark resolves to a new URL.
+/// Adds and full clears are mirrored to the system recents list so surfaces this doesn't draw
+/// (e.g. the Dock menu) stay in sync. Single-entry removal has no such API, so a removed entry may
+/// linger there until it ages out - an accepted cosmetic divergence, as is the double listing a
+/// file picks up when it moves and its bookmark resolves to a new URL.
 @MainActor
 @Observable
 final class RecentDocumentsStore {
@@ -42,14 +41,18 @@ final class RecentDocumentsStore {
 
     private let bookmarks: BookmarkProviding
 
+    private let systemRecents: SystemRecentsMirroring
+
     private(set) var documents: [RecentDocument]
 
     init(
         defaults: UserDefaults = .standard,
-        bookmarks: BookmarkProviding = SecurityScopedBookmarkProvider()
+        bookmarks: BookmarkProviding = SecurityScopedBookmarkProvider(),
+        systemRecents: SystemRecentsMirroring = DocumentControllerRecents()
     ) {
         self.defaults = defaults
         self.bookmarks = bookmarks
+        self.systemRecents = systemRecents
 
         let stored = defaults.data(forKey: Self.defaultsKey) ?? Data()
         documents = (try? JSONDecoder().decode([RecentDocument].self, from: stored)) ?? []
@@ -59,13 +62,15 @@ final class RecentDocumentsStore {
         }
     }
 
-    /// Resolves a URL into something playable without yet committing it to the list.
+    /// Resolves a URL the user just supplied - from the open panel, a drop, or Finder - into
+    /// something playable, without yet committing it to the list.
     ///
     /// Returns `nil` if the file can't be reached - it was deleted, its volume is unmounted, or
     /// access was revoked - and for URLs that can't be bookmarked at all, such as remote ones.
     ///
-    /// Matching `url` against a tracked record is a lookup heuristic, not identity; once matched,
-    /// everything downstream keys off `id`.
+    /// Matching `url` against a tracked record is a lookup heuristic, not identity: two records can
+    /// list the same URL once a file has moved. Opening something the user picked out of the
+    /// recents list must go through `prepareToReopen(_:)` so the id they picked is what's honored.
     func prepareToOpen(_ url: URL) -> PreparedDocument? {
         guard let existing = documents.first(where: { $0.url == url }) else {
             guard let bookmarkData = try? bookmarks.makeBookmark(for: url) else { return nil }
@@ -73,6 +78,19 @@ final class RecentDocumentsStore {
                 id: UUID(), url: url, bookmarkData: bookmarkData, savedPosition: nil, access: nil)
         }
 
+        return prepare(existing)
+    }
+
+    /// Resolves a record the user picked out of the recents list, keyed by the id it was listed
+    /// under. Returns `nil` for an unknown id, or if the file can't be reached.
+    func prepareToReopen(_ id: RecentDocument.ID) -> PreparedDocument? {
+        guard let existing = documents.first(where: { $0.id == id }) else { return nil }
+        return prepare(existing)
+    }
+
+    /// Resolves a tracked record's bookmark and takes a grant on whatever it points at now,
+    /// refreshing the bookmark in the returned document if it resolved stale.
+    private func prepare(_ existing: RecentDocument) -> PreparedDocument? {
         guard let resolved = try? bookmarks.resolve(existing.bookmarkData),
             let access = bookmarks.startAccess(to: resolved.url)
         else { return nil }
@@ -106,7 +124,7 @@ final class RecentDocumentsStore {
         trim()
         persist()
 
-        NSDocumentController.shared.noteNewRecentDocumentURL(prepared.url)
+        systemRecents.note(prepared.url)
     }
 
     /// Removes a single record, e.g. because the file could no longer be opened. Does nothing for
@@ -122,7 +140,7 @@ final class RecentDocumentsStore {
         documents.removeAll()
         persist()
 
-        NSDocumentController.shared.clearRecentDocuments(nil)
+        systemRecents.clearAll()
     }
 
     func setPosition(_ time: TimeInterval, for id: RecentDocument.ID) {
@@ -146,10 +164,10 @@ final class RecentDocumentsStore {
         persist()
     }
 
-    /// Trims the list down to `NSDocumentController.shared.maximumRecentDocumentCount`, the user's
-    /// Recent Items preference. Dropped records take their positions with them.
+    /// Trims the list down to the user's Recent Items preference. Dropped records take their
+    /// positions with them.
     private func trim() {
-        let maxCount = max(0, NSDocumentController.shared.maximumRecentDocumentCount)
+        let maxCount = max(0, systemRecents.maximumCount)
         guard documents.count > maxCount else { return }
         documents.removeSubrange(maxCount...)
     }

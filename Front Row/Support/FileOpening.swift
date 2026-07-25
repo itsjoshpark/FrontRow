@@ -35,15 +35,7 @@ func presentOpenFilePanel() async -> URL? {
 @discardableResult
 func openFileAndPresent(url: URL) async -> Bool {
     guard let prepared = RecentDocumentsStore.shared.prepareToOpen(url) else { return false }
-
-    guard await PlayEngine.shared.open(prepared) else {
-        RecentDocumentsStore.shared.remove(prepared.id)
-        return false
-    }
-
-    RecentDocumentsStore.shared.confirmOpened(prepared)
-    WelcomeWindowCoordinator.shared.presentMainWindow()
-    return true
+    return await playAndPresent(prepared)
 }
 
 /// Opens a remote resource and brings the main player window forward. Remote URLs can't be
@@ -58,13 +50,34 @@ func openRemoteAndPresent(url: URL) async -> Bool {
 
 /// Opens a file that's already in recent documents. On failure, shows an alert and removes the
 /// broken entry from history.
+///
+/// Resolution goes through the id rather than the record's URL, since a file that has moved can
+/// leave two records listing the same URL - looking that URL back up could open the other one.
 @MainActor
 func openRecentDocumentAndPresent(id: RecentDocument.ID) async {
     guard let document = RecentDocumentsStore.shared.documents.first(where: { $0.id == id })
     else { return }
 
-    guard !(await openFileAndPresent(url: document.url)) else { return }
+    if let prepared = RecentDocumentsStore.shared.prepareToReopen(id),
+        await playAndPresent(prepared)
+    {
+        return
+    }
 
     RecentDocumentsStore.shared.remove(id)
     PresentedViewManager.shared.brokenRecentFileName = document.url.lastPathComponent
+}
+
+/// Plays a prepared document and commits it to recents, dropping the record again if playback
+/// never starts.
+@MainActor
+private func playAndPresent(_ prepared: PreparedDocument) async -> Bool {
+    guard await PlayEngine.shared.open(prepared) else {
+        RecentDocumentsStore.shared.remove(prepared.id)
+        return false
+    }
+
+    RecentDocumentsStore.shared.confirmOpened(prepared)
+    WelcomeWindowCoordinator.shared.presentMainWindow()
+    return true
 }

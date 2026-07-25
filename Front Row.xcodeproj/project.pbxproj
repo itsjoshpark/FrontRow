@@ -47,6 +47,9 @@
 		FADE00000000000000000305 /* SecurityScopedBookmarkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000205 /* SecurityScopedBookmarkProvider.swift */; };
 		FADE00000000000000000306 /* FakeBookmarkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000206 /* FakeBookmarkProvider.swift */; };
 		FADE00000000000000000307 /* ScopedAccessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000207 /* ScopedAccessTests.swift */; };
+		FADE00000000000000000308 /* SystemRecentsMirroring.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000208 /* SystemRecentsMirroring.swift */; };
+		FADE00000000000000000309 /* DocumentControllerRecents.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE00000000000000000209 /* DocumentControllerRecents.swift */; };
+		FADE0000000000000000030A /* FakeSystemRecents.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE0000000000000000020A /* FakeSystemRecents.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +106,9 @@
 		FADE00000000000000000205 /* SecurityScopedBookmarkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityScopedBookmarkProvider.swift; sourceTree = "<group>"; };
 		FADE00000000000000000206 /* FakeBookmarkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeBookmarkProvider.swift; sourceTree = "<group>"; };
 		FADE00000000000000000207 /* ScopedAccessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedAccessTests.swift; sourceTree = "<group>"; };
+		FADE00000000000000000208 /* SystemRecentsMirroring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemRecentsMirroring.swift; sourceTree = "<group>"; };
+		FADE00000000000000000209 /* DocumentControllerRecents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentControllerRecents.swift; sourceTree = "<group>"; };
+		FADE0000000000000000020A /* FakeSystemRecents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeSystemRecents.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				FADE00000000000000000204 /* BookmarkProviding.swift */,
+				FADE00000000000000000209 /* DocumentControllerRecents.swift */,
 				03EA686D2B968D92003348BE /* Extensions.swift */,
 				FADE00000000000000000003 /* FileOpening.swift */,
 				03DEE9E52DE5600B002E05B9 /* KeyDownListener.swift */,
@@ -219,6 +226,7 @@
 				FADE0000000000000000001A /* ResumePolicy.swift */,
 				FADE00000000000000000203 /* ScopedAccess.swift */,
 				FADE00000000000000000205 /* SecurityScopedBookmarkProvider.swift */,
+				FADE00000000000000000208 /* SystemRecentsMirroring.swift */,
 				FADE00000000000000000005 /* WelcomeWindowCoordinator.swift */,
 				032BBB1D2B9FF671003D2FA8 /* WindowController.swift */,
 			);
@@ -230,6 +238,7 @@
 			children = (
 				FADE00000000000000000200 /* BookmarkCanaryTests.swift */,
 				FADE00000000000000000206 /* FakeBookmarkProvider.swift */,
+				FADE0000000000000000020A /* FakeSystemRecents.swift */,
 				FADE00000000000000000033 /* RecentDocumentsStoreTests.swift */,
 				FADE00000000000000000031 /* ResumePolicyTests.swift */,
 				FADE00000000000000000207 /* ScopedAccessTests.swift */,
@@ -380,6 +389,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FADE00000000000000000309 /* DocumentControllerRecents.swift in Sources */,
+				FADE00000000000000000308 /* SystemRecentsMirroring.swift in Sources */,
 				FADE00000000000000000305 /* SecurityScopedBookmarkProvider.swift in Sources */,
 				FADE00000000000000000304 /* BookmarkProviding.swift in Sources */,
 				FADE00000000000000000303 /* ScopedAccess.swift in Sources */,
@@ -419,6 +430,7 @@
 			files = (
 				FADE00000000000000000307 /* ScopedAccessTests.swift in Sources */,
 				FADE00000000000000000306 /* FakeBookmarkProvider.swift in Sources */,
+				FADE0000000000000000030A /* FakeSystemRecents.swift in Sources */,
 				FADE00000000000000000300 /* BookmarkCanaryTests.swift in Sources */,
 				FADE00000000000000000021 /* ResumePolicyTests.swift in Sources */,
 				FADE00000000000000000023 /* RecentDocumentsStoreTests.swift in Sources */,

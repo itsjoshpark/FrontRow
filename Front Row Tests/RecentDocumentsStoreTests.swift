@@ -21,15 +21,30 @@ struct RecentDocumentsStoreTests {
 
     private let defaults = TestDefaults()
     private let bookmarks = FakeBookmarkProvider()
+    private let systemRecents = FakeSystemRecents()
 
-    private func makeStore() -> RecentDocumentsStore {
-        RecentDocumentsStore(defaults: defaults.suite, bookmarks: bookmarks)
+    /// The cap is pinned rather than read from the Recent Items preference, which is a user setting
+    /// and can legitimately be as low as zero on the machine running the tests.
+    private func makeStore(maximumCount: Int = 10) -> RecentDocumentsStore {
+        systemRecents.maximumCount = maximumCount
+        return RecentDocumentsStore(
+            defaults: defaults.suite, bookmarks: bookmarks, systemRecents: systemRecents)
     }
 
     /// Opens `url` end to end, the way `openFileAndPresent` does on success.
     @discardableResult
     private func open(_ url: URL, in store: RecentDocumentsStore) -> PreparedDocument? {
         guard let prepared = store.prepareToOpen(url) else { return nil }
+        store.confirmOpened(prepared)
+        return prepared
+    }
+
+    /// Reopens a tracked record by id, the way `openRecentDocumentAndPresent` does.
+    @discardableResult
+    private func reopen(_ id: RecentDocument.ID, in store: RecentDocumentsStore)
+        -> PreparedDocument?
+    {
+        guard let prepared = store.prepareToReopen(id) else { return nil }
         store.confirmOpened(prepared)
         return prepared
     }
@@ -122,6 +137,34 @@ struct RecentDocumentsStoreTests {
         #expect(store.documents.count == 1)
     }
 
+    /// Regression test: a moved file leaves two records listing the same URL, and the URL-matching
+    /// lookup can only ever find the first. Reopening has to follow the id the user picked.
+    @Test func reopeningFollowsTheIDWhenTwoRecordsShareAURL() throws {
+        let store = makeStore()
+        let a = try #require(open(fileA, in: store))
+        store.setPosition(11, for: a.id)
+        let b = try #require(open(fileB, in: store))
+        store.setPosition(22, for: b.id)
+
+        // fileB moves onto fileA's path, so both records now list fileA.
+        bookmarks.redirect(b.bookmarkData, to: fileA)
+        let moved = try #require(reopen(b.id, in: store))
+        try #require(store.documents.filter { $0.url == fileA }.count == 2)
+
+        let reopened = try #require(store.prepareToReopen(a.id))
+
+        #expect(reopened.id == a.id)
+        #expect(reopened.savedPosition == 11)
+        // The URL-matching path can't tell the two apart - it finds whichever is nearer the front.
+        #expect(store.prepareToOpen(fileA)?.id == moved.id)
+    }
+
+    @Test func reopeningAnUnknownIDFails() {
+        let store = makeStore()
+
+        #expect(store.prepareToReopen(UUID()) == nil)
+    }
+
     @Test func staleBookmarkIsRefreshedInPlace() throws {
         let store = makeStore()
         let first = try #require(open(fileA, in: store))
@@ -210,19 +253,41 @@ struct RecentDocumentsStoreTests {
 
         #expect(store.documents.isEmpty)
         #expect(makeStore().documents.isEmpty)
+        #expect(systemRecents.clearCount == 1)
     }
 
-    @Test func trimDropsTheOldestPastTheCap() throws {
-        let store = makeStore()
-        let cap = max(0, NSDocumentController.shared.maximumRecentDocumentCount)
-        try #require(cap > 0)
+    // MARK: - System mirroring
 
-        for index in 0...cap {
+    /// The system list has to be told the URL the bookmark resolved to, not the one the caller
+    /// asked for, or its entry reopens something else.
+    @Test func confirmingMirrorsTheResolvedURL() throws {
+        let store = makeStore()
+        let first = try #require(open(fileA, in: store))
+
+        bookmarks.redirect(first.bookmarkData, to: fileB)
+        reopen(first.id, in: store)
+
+        #expect(systemRecents.noted == [fileA, fileB])
+    }
+
+    @Test func trimDropsTheOldestPastTheCap() {
+        let store = makeStore(maximumCount: 3)
+
+        for index in 0...3 {
             open(URL(filePath: "/tmp/file-\(index).mp4"), in: store)
         }
 
-        #expect(store.documents.count == cap)
+        #expect(store.documents.count == 3)
         #expect(!store.documents.contains { $0.url.lastPathComponent == "file-0.mp4" })
+    }
+
+    /// Recent Items can be set to None, which must drop everything rather than trap on the trim.
+    @Test func aZeroCapKeepsNothing() {
+        let store = makeStore(maximumCount: 0)
+
+        open(fileA, in: store)
+
+        #expect(store.documents.isEmpty)
     }
 
     // MARK: - Loading
