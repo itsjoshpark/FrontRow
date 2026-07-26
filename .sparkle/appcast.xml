@@ -8,6 +8,28 @@
     <item>
       <title>New Version Available</title>
       <link>https://github.com/itsjoshpark/FrontRow</link>
+      <sparkle:version>23</sparkle:version>
+      <sparkle:shortVersionString>2.9.2 (23)</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>15.6</sparkle:minimumSystemVersion>
+      <sparkle:fullReleaseNotesLink>https://github.com/itsjoshpark/FrontRow/releases</sparkle:fullReleaseNotesLink>
+      <pubDate>Sun, 26 Jul 2026 19:55:58 +0000</pubDate>
+      <enclosure
+        url="https://github.com/itsjoshpark/FrontRow/releases/download/v2.9.2/FrontRow_v2.9.2.dmg"
+        sparkle:edSignature="JPJWjHNi5CH9RCCb4Cwr1Y69uYiZernpSCwczD386XGNKcol9RsloqJ4emuNVcWm8mUnGAIMp+qFnGsdLxNVAQ=="
+        length="3707379"
+        type="application/octet-stream" />
+      <description><![CDATA[
+      <ul>
+      <li>Fixed: Restoring playback positions of recently opened files</li>
+      </ul>
+      <p><strong>Note</strong>: The list of recently opened files will be reset due to a change in how it is stored.</p>
+      ]]>
+      </description>
+    </item>
+
+    <item>
+      <title>New Version Available</title>
+      <link>https://github.com/itsjoshpark/FrontRow</link>
       <sparkle:version>22</sparkle:version>
       <sparkle:shortVersionString>2.9.1 (22)</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>15.6</sparkle:minimumSystemVersion>
