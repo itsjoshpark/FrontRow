@@ -57,8 +57,9 @@ func openFileAndPresent(url: URL) async -> FileOpenResult {
     return .opened
 }
 
-/// Opens a file that's already in recent documents. On failure, explains why and leaves the entry
-/// alone - the alert offers to remove it, since a drive that's merely unplugged will be back.
+/// Opens a file that's already in recent documents. On failure, explains why - and only a
+/// disconnected drive keeps its entry, since that one is coming back. Where the volume is present
+/// and the file still wouldn't open, dismissing the alert clears it.
 @MainActor
 func openRecentDocumentAndPresent(url: URL) async {
     let result = await openFileAndPresent(url: url)

@@ -103,8 +103,9 @@ final class RecentDocumentsStore {
         NSDocumentController.shared.noteNewRecentDocumentURL(entries[0].url)
     }
 
-    /// Removes a single entry. Only ever called because the user asked: an entry that can't be
-    /// opened right now stays put, since the reason is often temporary.
+    /// Removes a single entry. Nothing here drops one on its own - it goes when the user picks
+    /// Remove from Recents, or dismisses a failed open that was diagnosed as gone. A file whose
+    /// drive is merely disconnected keeps its entry, and the playback position inside it.
     func removeRecentDocument(_ url: URL) {
         guard let index = index(of: url) else { return }
         entries.remove(at: index)

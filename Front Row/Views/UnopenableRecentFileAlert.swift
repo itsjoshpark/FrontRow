@@ -9,8 +9,8 @@ import SwiftUI
 
 /// What the "couldn't open a recent file" alert should say and do.
 ///
-/// Kept apart from the view so the mapping - which button is the default, and which of them drops
-/// the entry - can be tested without AVFoundation or a window.
+/// Kept apart from the view so the mapping - which buttons appear, and which of them drops the
+/// entry - can be tested without AVFoundation or a window.
 enum UnopenableRecentFileAlert: Equatable {
 
     /// The file's volume isn't mounted, so the file itself is probably fine.

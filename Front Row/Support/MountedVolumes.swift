@@ -5,8 +5,7 @@
 //  Created by Joshua Park on 8/2/26.
 //
 
-import AppKit
-import SwiftUI
+import Foundation
 
 /// Wraps the set of currently mounted volumes so a recent document on a disconnected drive can be
 /// told apart from one that's genuinely gone, and so tests can simulate ejecting a drive.
