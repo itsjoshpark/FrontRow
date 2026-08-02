@@ -1,145 +1,288 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "\"%@\" could not be found and has been removed from your recent files." : {
-      "comment" : "Alert message shown when a recent file can no longer be opened",
+    "\"%@\" could not be opened." : {
+      "comment" : "Alert message shown when a file won't play",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@을(를) 찾을 수 없어 최근 항목에서 제거되었습니다."
+            "state" : "new",
+            "value" : "\"%@\" could not be opened."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" could not be opened."
+          }
+        }
+      }
+    },
+    "\"%@\" isn't available" : {
+      "comment" : "Alert title shown when a recent file can't be reached",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't available"
           }
         }
       }
@@ -1137,6 +1280,149 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "速度降低 5%"
+          }
+        }
+      }
+    },
+    "Do you want to remove it from your recent files?" : {
+      "comment" : "Alert message shown when a recent file can't be reached",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you want to remove it from your recent files?"
           }
         }
       }
@@ -5120,6 +5406,149 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "上一個影格"
+          }
+        }
+      }
+    },
+    "Remove" : {
+      "comment" : "Removes an unavailable file from recent files",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove"
           }
         }
       }

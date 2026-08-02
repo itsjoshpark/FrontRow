@@ -32,6 +32,12 @@ struct SecurityScopedBookmarkProvider: BookmarkProviding {
         return (url, isStale)
     }
 
+    func url(fromBookmarkData data: Data) -> URL? {
+        guard let path = URL.resourceValues(forKeys: [.pathKey], fromBookmarkData: data)?.path
+        else { return nil }
+        return URL(filePath: path)
+    }
+
     func startAccessingSecurityScopedResource(_ url: URL) -> Bool {
         url.startAccessingSecurityScopedResource()
     }

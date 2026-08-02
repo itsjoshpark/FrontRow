@@ -16,19 +16,30 @@ final class FakeBookmarkProvider: BookmarkProviding {
 
     var deletedURLs: Set<URL> = []
     var staleURLs: Set<URL> = []
+    var accessDeniedURLs: Set<URL> = []
+
+    /// How many times a bookmark has been resolved, so tests can assert that loading doesn't.
+    private(set) var resolveCount = 0
 
     func bookmarkData(for url: URL) -> Data? {
         url.absoluteString.data(using: .utf8)
     }
 
     func resolveBookmark(_ data: Data) -> (url: URL, isStale: Bool)? {
-        guard let string = String(data: data, encoding: .utf8), let url = URL(string: string)
-        else { return nil }
+        resolveCount += 1
+        guard let url = url(fromBookmarkData: data) else { return nil }
         guard !deletedURLs.contains(url) else { return nil }
         return (url, staleURLs.contains(url))
     }
 
+    /// Deliberately ignores `deletedURLs`: reading the path recorded in a bookmark doesn't depend
+    /// on the file still being there, which is the whole point of the real implementation.
+    func url(fromBookmarkData data: Data) -> URL? {
+        guard let string = String(data: data, encoding: .utf8) else { return nil }
+        return URL(string: string)
+    }
+
     func startAccessingSecurityScopedResource(_ url: URL) -> Bool {
-        true
+        !accessDeniedURLs.contains(url)
     }
 }

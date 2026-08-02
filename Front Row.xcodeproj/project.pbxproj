@@ -41,6 +41,8 @@
 		FADEFEED0000000000000013 /* BookmarkProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000012 /* BookmarkProviding.swift */; };
 		FADEFEED0000000000000015 /* SecurityScopedBookmarkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000014 /* SecurityScopedBookmarkProvider.swift */; };
 		FADEFEED0000000000000017 /* ResumePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000016 /* ResumePolicy.swift */; };
+		FADEFEED0000000000000019 /* RecentDocumentAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000018 /* RecentDocumentAlerts.swift */; };
+		FADEFEED000000000000001B /* SecurityScopedBookmarkProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED000000000000001A /* SecurityScopedBookmarkProviderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +93,8 @@
 		FADEFEED0000000000000012 /* BookmarkProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkProviding.swift; sourceTree = "<group>"; };
 		FADEFEED0000000000000014 /* SecurityScopedBookmarkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityScopedBookmarkProvider.swift; sourceTree = "<group>"; };
 		FADEFEED0000000000000016 /* ResumePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumePolicy.swift; sourceTree = "<group>"; };
+		FADEFEED0000000000000018 /* RecentDocumentAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentDocumentAlerts.swift; sourceTree = "<group>"; };
+		FADEFEED000000000000001A /* SecurityScopedBookmarkProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityScopedBookmarkProviderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +188,7 @@
 				03E78C572BA7D2D40063BF06 /* OpenURLView.swift */,
 				03B2590F2BB249310071FF7C /* PlayerControlsView.swift */,
 				03B2590D2BB242620071FF7C /* PlayerView.swift */,
+				FADEFEED0000000000000018 /* RecentDocumentAlerts.swift */,
 				033D45092BB37FCA001AEBAA /* SeekSliderView.swift */,
 				FADE00000000000000000007 /* WelcomeView.swift */,
 			);
@@ -216,6 +221,7 @@
 				FADEFEED0000000000000002 /* FakeBookmarkProvider.swift */,
 				FADEFEED0000000000000004 /* RecentDocumentsStoreTests.swift */,
 				FADEFEED0000000000000006 /* ResumePolicyTests.swift */,
+				FADEFEED000000000000001A /* SecurityScopedBookmarkProviderTests.swift */,
 			);
 			path = "Front Row Tests";
 			sourceTree = "<group>";
@@ -398,6 +404,7 @@
 				FADEFEED0000000000000013 /* BookmarkProviding.swift in Sources */,
 				FADEFEED0000000000000015 /* SecurityScopedBookmarkProvider.swift in Sources */,
 				FADEFEED0000000000000017 /* ResumePolicy.swift in Sources */,
+				FADEFEED0000000000000019 /* RecentDocumentAlerts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +415,7 @@
 				FADEFEED0000000000000003 /* FakeBookmarkProvider.swift in Sources */,
 				FADEFEED0000000000000005 /* RecentDocumentsStoreTests.swift in Sources */,
 				FADEFEED0000000000000007 /* ResumePolicyTests.swift in Sources */,
+				FADEFEED000000000000001B /* SecurityScopedBookmarkProviderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

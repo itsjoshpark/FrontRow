@@ -194,14 +194,17 @@ import SwiftUI
         addPeriodicTimeObserver()
     }
 
-    /// Attempts to open file at url. If its not playable, returns false.
+    /// Attempts to open file at url.
     /// - Parameter url: A URL to a local, remote, or HTTP Live Streaming media resource.
-    /// - Returns: A Boolean value that indicates whether an asset contains playable content.
-    @discardableResult func openFile(url originalURL: URL) async -> Bool {
+    /// - Returns: Whether the file opened, and if not, whether it couldn't be reached or simply
+    ///   holds no playable content.
+    @discardableResult func openFile(url originalURL: URL) async -> OpenFileOutcome {
         persistCurrentPlaybackPosition()
-        lastPeriodicPositionSaveTime = 0
 
-        let url = resolveAccessibleURL(originalURL)
+        // Bail before touching the player, so an unreachable file leaves current playback intact.
+        guard let url = resolveAccessibleURL(originalURL) else { return .unavailable }
+
+        lastPeriodicPositionSaveTime = 0
 
         if asset != nil {
             asset!.cancelLoading()
@@ -212,7 +215,7 @@ import SwiftUI
         var mediaDuration: TimeInterval = .nan
         do {
             let isPlayable = try await newAsset.load(.isPlayable)
-            guard isPlayable else { return false }
+            guard isPlayable else { return .unplayable }
 
             self.subtitleGroup = try? await newAsset.loadMediaSelectionGroup(for: .legible)
             self.audioGroup = try? await newAsset.loadMediaSelectionGroup(for: .audible)
@@ -220,7 +223,7 @@ import SwiftUI
                 mediaDuration = loadedDuration.seconds
             }
         } catch {
-            return false
+            return .unplayable
         }
 
         let playerItem = AVPlayerItem(asset: newAsset)
@@ -235,25 +238,35 @@ import SwiftUI
         self.subtitle = subtitleGroup?.options.first
         self.audioTrack = audioGroup?.options.first
 
-        return true
+        return .opened
     }
 
-    /// Resolves the URL to open into one this process can actually read.
+    /// Resolves the URL to open into one this process can actually read, or `nil` if it can't be
+    /// reached right now.
     ///
     /// Reopening a previously selected file (recents/resume) requires resolving its
     /// security-scoped bookmark, since the access granted by the open panel/drag-and-drop doesn't
     /// survive relaunch. A first-time URL already has ambient access, so it's used as-is.
-    private func resolveAccessibleURL(_ originalURL: URL) -> URL {
+    ///
+    /// Access to the outgoing file is released only once the incoming one is known to be reachable,
+    /// so a failed open doesn't revoke access to whatever is still playing.
+    private func resolveAccessibleURL(_ originalURL: URL) -> URL? {
+        switch RecentDocumentsStore.shared.startAccessingRecentDocument(originalURL) {
+        case .granted(let accessibleURL):
+            releaseSecurityScopedAccess()
+            accessingSecurityScopedURL = accessibleURL
+            return accessibleURL
+        case .notTracked:
+            releaseSecurityScopedAccess()
+            return originalURL
+        case .unavailable:
+            return nil
+        }
+    }
+
+    private func releaseSecurityScopedAccess() {
         accessingSecurityScopedURL?.stopAccessingSecurityScopedResource()
         accessingSecurityScopedURL = nil
-
-        guard
-            let accessibleURL = RecentDocumentsStore.shared.startAccessingRecentDocument(
-                originalURL)
-        else { return originalURL }
-
-        accessingSecurityScopedURL = accessibleURL
-        return accessibleURL
     }
 
     private func installObservers(on playerItem: AVPlayerItem, url: URL) {

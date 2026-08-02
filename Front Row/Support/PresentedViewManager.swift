@@ -16,21 +16,38 @@ import SwiftUI
 
     var isPresentingGoToTimeView = false
 
-    /// The name of a recent file that could not be opened (e.g. it was moved or deleted).
+    /// A recent document that couldn't be reached (e.g. its volume isn't mounted, or it was
+    /// deleted).
     ///
-    /// Setting this presents an alert. It's set back to `nil` once the alert is dismissed.
-    var brokenRecentFileName: String?
+    /// Setting this asks whether to remove it from recents. It's set back to `nil` once the alert
+    /// is dismissed.
+    var unavailableRecentDocument: URL?
 
-    var isPresentingBrokenRecentFileAlert: Bool {
-        get { brokenRecentFileName != nil }
+    var isPresentingUnavailableRecentDocumentAlert: Bool {
+        get { unavailableRecentDocument != nil }
         set {
             if !newValue {
-                brokenRecentFileName = nil
+                unavailableRecentDocument = nil
+            }
+        }
+    }
+
+    /// The name of a file that was reached but holds no playable content.
+    ///
+    /// Setting this presents an alert. It's set back to `nil` once the alert is dismissed.
+    var unplayableFileName: String?
+
+    var isPresentingUnplayableFileAlert: Bool {
+        get { unplayableFileName != nil }
+        set {
+            if !newValue {
+                unplayableFileName = nil
             }
         }
     }
 
     var isPresenting: Bool {
-        isPresentingOpenURLView || isPresentingGoToTimeView || isPresentingBrokenRecentFileAlert
+        isPresentingOpenURLView || isPresentingGoToTimeView
+            || isPresentingUnavailableRecentDocumentAlert || isPresentingUnplayableFileAlert
     }
 }

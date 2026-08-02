@@ -8,6 +8,18 @@
 import AppKit
 import SwiftUI
 
+/// The result of trying to reach a recent document's file.
+enum RecentDocumentAccess: Equatable {
+    case granted(URL)
+
+    /// Not a tracked recent document; the caller already has ambient access to its URL.
+    case notTracked
+
+    /// Tracked, but its bookmark won't resolve or access was refused right now - e.g. its volume
+    /// isn't mounted. Says nothing about whether the file still exists.
+    case unavailable
+}
+
 /// Manages the recently opened files shown in File > Open Recent and the welcome window, along
 /// with each file's saved playback position.
 ///
@@ -19,9 +31,14 @@ import SwiftUI
 /// (created while that access is still active) and resolves it when reopening the file.
 ///
 /// A playback position lives inside its entry, so a file and its resume point can never drift
-/// apart: dropping an entry (e.g. because its bookmark no longer resolves - the file was deleted)
-/// drops its position in the same step, and there's only ever one identity to look a position up
-/// by.
+/// apart: dropping an entry drops its position in the same step, and there's only ever one identity
+/// to look a position up by.
+///
+/// Loading never resolves a bookmark. Resolution answers "where is this file now?", not "does this
+/// file still exist?" - it fails just as readily for a file on a detached volume as for a deleted
+/// one, and it can stall on an unreachable volume. Each entry's URL is therefore read from the path
+/// cached inside its bookmark, which needs no volume, and bookmarks are resolved only when the user
+/// plays something. An entry survives until the user removes it or it ages out.
 ///
 /// Adds and full clears are mirrored to `NSDocumentController` so system surfaces (e.g. the Dock
 /// menu) stay in sync. Single-entry removal has no such API, so a removed entry may linger there
@@ -121,19 +138,23 @@ final class RecentDocumentsStore {
 
     /// Resolves a recent document's security-scoped bookmark and starts access to it.
     ///
-    /// The caller is responsible for calling `stopAccessingSecurityScopedResource()` on the
-    /// returned URL once done with it. Returns `nil` if `url` isn't a tracked recent document, or
-    /// its bookmark can no longer be resolved (e.g. the file was deleted or permission was
-    /// revoked).
-    func startAccessingRecentDocument(_ url: URL) -> URL? {
-        guard let index = entries.firstIndex(where: { $0.url == url }) else { return nil }
+    /// This is the only place a bookmark is resolved, and so the only place a document's
+    /// availability is known. On `.granted` the caller is responsible for calling
+    /// `stopAccessingSecurityScopedResource()` on the returned URL once done with it.
+    ///
+    /// Refreshing a stale bookmark also updates the entry's URL, so a file moved on disk corrects
+    /// its listing the first time it's played again.
+    func startAccessingRecentDocument(_ url: URL) -> RecentDocumentAccess {
+        guard let index = entries.firstIndex(where: { $0.url == url }) else { return .notTracked }
 
         guard
             let (resolvedURL, isStale) = bookmarkProvider.resolveBookmark(
                 entries[index].bookmarkData)
-        else { return nil }
+        else { return .unavailable }
 
-        guard bookmarkProvider.startAccessingSecurityScopedResource(resolvedURL) else { return nil }
+        guard bookmarkProvider.startAccessingSecurityScopedResource(resolvedURL) else {
+            return .unavailable
+        }
 
         if isStale, let refreshedData = bookmarkProvider.bookmarkData(for: resolvedURL) {
             entries[index].url = resolvedURL
@@ -141,7 +162,7 @@ final class RecentDocumentsStore {
             persist()
         }
 
-        return resolvedURL
+        return .granted(resolvedURL)
     }
 
     /// Trims `entries` down to `NSDocumentController.shared.maximumRecentDocumentCount`.
@@ -166,8 +187,10 @@ final class RecentDocumentsStore {
             let stored = try? PropertyListDecoder().decode([StoredEntry].self, from: data)
         else { return [] }
 
+        // Reads each URL from its bookmark rather than resolving it, so an entry on a detached
+        // volume is listed instead of purged. Only an unreadable bookmark drops a record.
         return stored.compactMap { record in
-            guard let (url, _) = bookmarkProvider.resolveBookmark(record.bookmarkData) else {
+            guard let url = bookmarkProvider.url(fromBookmarkData: record.bookmarkData) else {
                 return nil
             }
             return Entry(url: url, bookmarkData: record.bookmarkData, position: record.position)

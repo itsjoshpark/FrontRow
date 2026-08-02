@@ -18,6 +18,12 @@ protocol BookmarkProviding {
     /// e.g. because the file was deleted or permission was revoked.
     func resolveBookmark(_ data: Data) -> (url: URL, isStale: Bool)?
 
+    /// The file path recorded inside bookmark data, read without resolving it.
+    ///
+    /// Unlike resolution this still works while the file's volume is detached, so it can't double
+    /// as a liveness test - it says where the file was, not whether it's there now.
+    func url(fromBookmarkData data: Data) -> URL?
+
     /// Starts security-scoped access to a resolved URL. Returns whether access was granted.
     func startAccessingSecurityScopedResource(_ url: URL) -> Bool
 }

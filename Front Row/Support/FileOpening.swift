@@ -13,6 +13,20 @@ enum WindowID {
     static let welcome = "welcome"
 }
 
+/// Why opening a file did or didn't work.
+///
+/// Distinguishing the two failures matters for recent documents: one warrants offering to forget
+/// the file, the other doesn't.
+enum OpenFileOutcome {
+    case opened
+
+    /// The file couldn't be reached - e.g. its volume isn't mounted, or it was deleted.
+    case unavailable
+
+    /// The file was reached but holds no playable content.
+    case unplayable
+}
+
 /// Presents the Open File panel and returns the user's chosen URL, or `nil` if they canceled.
 @MainActor
 func presentOpenFilePanel() async -> URL? {
@@ -32,19 +46,26 @@ func presentOpenFilePanel() async -> URL? {
 /// and the welcome-to-player transition stay consistent.
 @MainActor
 @discardableResult
-func openFileAndPresent(url: URL) async -> Bool {
-    guard await PlayEngine.shared.openFile(url: url) else { return false }
+func openFileAndPresent(url: URL) async -> OpenFileOutcome {
+    let outcome = await PlayEngine.shared.openFile(url: url)
+    guard outcome == .opened else { return outcome }
     RecentDocumentsStore.shared.noteRecentDocument(url)
     WelcomeWindowCoordinator.shared.presentMainWindow()
-    return true
+    return .opened
 }
 
-/// Opens a file that's already in recent documents. On failure, shows an alert and removes the
-/// broken entry from history.
+/// Opens a file that's already in recent documents, presenting the appropriate alert on failure.
+///
+/// An unreachable file is never removed here - the volume may just be detached - so the alert asks
+/// whether to forget it and leaves the entry and its saved position alone otherwise.
 @MainActor
 func openRecentDocumentAndPresent(url: URL) async {
-    guard !(await openFileAndPresent(url: url)) else { return }
-
-    RecentDocumentsStore.shared.removeRecentDocument(url)
-    PresentedViewManager.shared.brokenRecentFileName = url.lastPathComponent
+    switch await openFileAndPresent(url: url) {
+    case .opened:
+        break
+    case .unavailable:
+        PresentedViewManager.shared.unavailableRecentDocument = url
+    case .unplayable:
+        PresentedViewManager.shared.unplayableFileName = url.lastPathComponent
+    }
 }
