@@ -9,18 +9,32 @@ import SwiftUI
 
 /// The alert shown when a recent document couldn't be opened.
 ///
-/// Attached to both the player and welcome scenes, since either can be frontmost when an open
-/// fails - File > Open Recent is reachable from both.
+/// Applied to both the player and welcome scenes, since File > Open Recent is reachable from
+/// either. Only the scene the failure was raised in presents: both can be alive at once, and a
+/// dismissed one would otherwise show a second copy and resurface its own window doing so.
 private struct RecentDocumentAlerts: ViewModifier {
+    let scene: AlertScene
+
     @Environment(PresentedViewManager.self) private var presentedViewManager: PresentedViewManager
 
-    func body(content: Content) -> some View {
-        @Bindable var presentedViewManager = presentedViewManager
+    /// True only for the scene the alert was raised in, so the other scene stays quiet instead of
+    /// presenting a duplicate.
+    private var isPresented: Binding<Bool> {
+        Binding(
+            get: { presentedViewManager.unopenableRecentDocument?.scene == scene },
+            set: { isPresented in
+                if !isPresented {
+                    presentedViewManager.unopenableRecentDocument = nil
+                }
+            }
+        )
+    }
 
+    func body(content: Content) -> some View {
         content
             .alert(
                 presentedViewManager.unopenableRecentDocument?.alertTitle ?? Text(verbatim: ""),
-                isPresented: $presentedViewManager.isPresentingUnopenableRecentDocumentAlert,
+                isPresented: isPresented,
                 presenting: presentedViewManager.unopenableRecentDocument
             ) { document in
                 Button(role: .destructive) {
@@ -43,9 +57,9 @@ private struct RecentDocumentAlerts: ViewModifier {
 }
 
 extension View {
-    /// Presents the alert for a recent document that couldn't be opened. Apply once per window
-    /// scene.
-    func recentDocumentAlerts() -> some View {
-        modifier(RecentDocumentAlerts())
+    /// Presents the alert for a recent document that couldn't be opened, when it was raised in
+    /// `scene`. Apply once per window scene.
+    func recentDocumentAlerts(in scene: AlertScene) -> some View {
+        modifier(RecentDocumentAlerts(scene: scene))
     }
 }

@@ -104,7 +104,7 @@ struct WelcomeView: View {
             OpenURLView()
                 .frame(minWidth: 600)
         }
-        .recentDocumentAlerts()
+        .recentDocumentAlerts(in: .welcome)
         .task {
             WelcomeWindowCoordinator.shared.openMainWindow = { openWindow(id: WindowID.main) }
             WelcomeWindowCoordinator.shared.dismissWelcomeWindow = {

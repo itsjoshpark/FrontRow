@@ -48,7 +48,7 @@ struct FrontRowApp: App {
                 } message: {
                     Text("Enter the time you want to go to")
                 }
-                .recentDocumentAlerts()
+                .recentDocumentAlerts(in: .player)
                 .onReceive(
                     NotificationCenter.default.publisher(
                         for: NSWindow.willEnterFullScreenNotification)

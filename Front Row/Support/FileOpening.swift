@@ -67,5 +67,6 @@ func openRecentDocumentAndPresent(url: URL) async {
     case .unplayable: reason = .unplayable
     }
 
-    PresentedViewManager.shared.unopenableRecentDocument = .init(url: url, reason: reason)
+    PresentedViewManager.shared.unopenableRecentDocument = .init(
+        url: url, reason: reason, scene: .current)
 }

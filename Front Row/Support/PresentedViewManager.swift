@@ -7,6 +7,23 @@
 
 import SwiftUI
 
+/// Which window scene presents an alert.
+///
+/// Both scenes can be on screen at once, and a dismissed `Window` scene stays alive and will still
+/// present - resurfacing itself in the process - so an alert has to name the scene it belongs to
+/// rather than relying on only one being around to show it.
+enum AlertScene {
+    case player
+    case welcome
+
+    /// The scene to present in right now. The welcome window takes over only while the player
+    /// window isn't on screen, so there's always exactly one valid target.
+    @MainActor
+    static var current: AlertScene {
+        WindowController.shared.mainWindow?.isVisible == true ? .player : .welcome
+    }
+}
+
 /// A recent document that failed to open, and why.
 ///
 /// The reason affects only how the alert is worded - either way the user is asked whether to forget
@@ -24,6 +41,7 @@ struct UnopenableRecentDocument: Equatable {
 
     let url: URL
     let reason: Reason
+    let scene: AlertScene
 
     /// Present tense on purpose: neither reason claims the file will never open.
     var alertTitle: Text {
