@@ -194,10 +194,10 @@ import SwiftUI
         addPeriodicTimeObserver()
     }
 
-    /// Attempts to open file at url. If its not playable, returns false.
+    /// Attempts to open the file at url.
     /// - Parameter url: A URL to a local, remote, or HTTP Live Streaming media resource.
-    /// - Returns: A Boolean value that indicates whether an asset contains playable content.
-    @discardableResult func openFile(url originalURL: URL) async -> Bool {
+    /// - Returns: Whether the asset opened, and if not, which kind of failure it was.
+    @discardableResult func openFile(url originalURL: URL) async -> FileOpenResult {
         persistCurrentPlaybackPosition()
         lastPeriodicPositionSaveTime = 0
 
@@ -212,7 +212,7 @@ import SwiftUI
         var mediaDuration: TimeInterval = .nan
         do {
             let isPlayable = try await newAsset.load(.isPlayable)
-            guard isPlayable else { return false }
+            guard isPlayable else { return .unplayable }
 
             self.subtitleGroup = try? await newAsset.loadMediaSelectionGroup(for: .legible)
             self.audioGroup = try? await newAsset.loadMediaSelectionGroup(for: .audible)
@@ -220,7 +220,7 @@ import SwiftUI
                 mediaDuration = loadedDuration.seconds
             }
         } catch {
-            return false
+            return .unreadable
         }
 
         let playerItem = AVPlayerItem(asset: newAsset)
@@ -235,7 +235,7 @@ import SwiftUI
         self.subtitle = subtitleGroup?.options.first
         self.audioTrack = audioGroup?.options.first
 
-        return true
+        return .opened
     }
 
     /// Resolves the URL to open into one this process can actually read.

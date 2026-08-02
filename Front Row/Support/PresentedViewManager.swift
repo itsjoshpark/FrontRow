@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+/// A recent file that couldn't be opened, and everything needed to explain why.
+struct UnopenableRecentFile {
+    var url: URL
+    var result: FileOpenResult
+    /// The disconnected volume the file lives on, if that's why it wouldn't open.
+    var unavailableVolumeName: String?
+}
+
 @MainActor
 @Observable public final class PresentedViewManager {
 
@@ -16,21 +24,22 @@ import SwiftUI
 
     var isPresentingGoToTimeView = false
 
-    /// The name of a recent file that could not be opened (e.g. it was moved or deleted).
+    /// A recent file that could not be opened.
     ///
     /// Setting this presents an alert. It's set back to `nil` once the alert is dismissed.
-    var brokenRecentFileName: String?
+    var unopenableRecentFile: UnopenableRecentFile?
 
-    var isPresentingBrokenRecentFileAlert: Bool {
-        get { brokenRecentFileName != nil }
+    var isPresentingUnopenableRecentFileAlert: Bool {
+        get { unopenableRecentFile != nil }
         set {
             if !newValue {
-                brokenRecentFileName = nil
+                unopenableRecentFile = nil
             }
         }
     }
 
     var isPresenting: Bool {
-        isPresentingOpenURLView || isPresentingGoToTimeView || isPresentingBrokenRecentFileAlert
+        isPresentingOpenURLView || isPresentingGoToTimeView
+            || isPresentingUnopenableRecentFileAlert
     }
 }

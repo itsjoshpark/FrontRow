@@ -22,6 +22,17 @@ struct SecurityScopedBookmarkProvider: BookmarkProviding {
             includingResourceValuesForKeys: nil, relativeTo: nil)
     }
 
+    func metadata(from data: Data) -> BookmarkMetadata? {
+        guard
+            let values = URL.resourceValues(
+                forKeys: [.pathKey, .volumeURLKey, .volumeNameKey], fromBookmarkData: data),
+            let path = values.path
+        else { return nil }
+
+        return BookmarkMetadata(
+            url: URL(filePath: path), volumeURL: values.volume, volumeName: values.volumeName)
+    }
+
     func resolveBookmark(_ data: Data) -> (url: URL, isStale: Bool)? {
         var isStale = false
         guard
