@@ -45,6 +45,7 @@
 		FADEFEED0000000000000023 /* UnopenableRecentFileAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000022 /* UnopenableRecentFileAlert.swift */; };
 		FADEFEED0000000000000025 /* FakeMountedVolumesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000024 /* FakeMountedVolumesProvider.swift */; };
 		FADEFEED0000000000000027 /* UnopenableRecentFileAlertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000026 /* UnopenableRecentFileAlertTests.swift */; };
+		FADEFEED0000000000000029 /* SecurityScopedBookmarkProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000028 /* SecurityScopedBookmarkProviderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		FADEFEED0000000000000022 /* UnopenableRecentFileAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnopenableRecentFileAlert.swift; sourceTree = "<group>"; };
 		FADEFEED0000000000000024 /* FakeMountedVolumesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMountedVolumesProvider.swift; sourceTree = "<group>"; };
 		FADEFEED0000000000000026 /* UnopenableRecentFileAlertTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnopenableRecentFileAlertTests.swift; sourceTree = "<group>"; };
+		FADEFEED0000000000000028 /* SecurityScopedBookmarkProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityScopedBookmarkProviderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +229,7 @@
 				FADEFEED0000000000000024 /* FakeMountedVolumesProvider.swift */,
 				FADEFEED0000000000000004 /* RecentDocumentsStoreTests.swift */,
 				FADEFEED0000000000000006 /* ResumePolicyTests.swift */,
+				FADEFEED0000000000000028 /* SecurityScopedBookmarkProviderTests.swift */,
 				FADEFEED0000000000000026 /* UnopenableRecentFileAlertTests.swift */,
 			);
 			path = "Front Row Tests";
@@ -423,6 +426,7 @@
 				FADEFEED0000000000000025 /* FakeMountedVolumesProvider.swift in Sources */,
 				FADEFEED0000000000000005 /* RecentDocumentsStoreTests.swift in Sources */,
 				FADEFEED0000000000000007 /* ResumePolicyTests.swift in Sources */,
+				FADEFEED0000000000000029 /* SecurityScopedBookmarkProviderTests.swift in Sources */,
 				FADEFEED0000000000000027 /* UnopenableRecentFileAlertTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
