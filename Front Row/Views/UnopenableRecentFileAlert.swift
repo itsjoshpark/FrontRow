@@ -73,34 +73,26 @@ enum UnopenableRecentFileAlert: Equatable {
 }
 
 extension View {
-    /// Presents the "couldn't open a recent file" alert, but only when this view's window is the
-    /// key one.
-    ///
-    /// The alert state is app-wide, and the welcome and player windows can both be open at once
-    /// (the welcome window is reachable from the Window menu while a file plays). Without the
-    /// gate, both would raise their own copy of the same alert.
-    func unopenableRecentFileAlert() -> some View {
-        modifier(UnopenableRecentFileAlertModifier())
+    /// Presents the "couldn't open a recent file" alert when it was raised in `scene`. Apply once
+    /// per window scene.
+    func unopenableRecentFileAlert(in scene: AlertScene) -> some View {
+        modifier(UnopenableRecentFileAlertModifier(scene: scene))
     }
 }
 
 private struct UnopenableRecentFileAlertModifier: ViewModifier {
-    @Environment(\.controlActiveState) private var controlActiveState
+    let scene: AlertScene
+
     @Environment(PresentedViewManager.self) private var presentedViewManager: PresentedViewManager
 
-    /// Falls to `false` when the window stops being key, which dismisses the alert without
-    /// clearing the underlying state - so it comes back when the user returns to this window.
-    ///
-    /// The setter only clears while this window is still key, since SwiftUI may write the
-    /// getter's own `false` back on a focus change; a real dismissal comes from a button, which
-    /// clears the state itself.
+    /// True only for the scene the failure was raised in, so the other stays quiet rather than
+    /// presenting a duplicate. Nothing here depends on focus, so `false` can only arrive from a
+    /// real dismissal - which is what makes clearing in the setter safe.
     private var isPresented: Binding<Bool> {
         Binding(
-            get: {
-                presentedViewManager.unopenableRecentFile != nil && controlActiveState == .key
-            },
+            get: { presentedViewManager.unopenableRecentFile?.scene == scene },
             set: { isPresented in
-                if !isPresented, controlActiveState == .key {
+                if !isPresented {
                     presentedViewManager.unopenableRecentFile = nil
                 }
             }
@@ -160,14 +152,9 @@ private struct AlertButton: View {
         }
     }
 
-    /// Clears the alert state itself rather than leaving that to the `isPresented` binding, whose
-    /// value also tracks window focus - so dismissal can't be confused with the window merely
-    /// losing key.
     private func act() {
-        if alert.removesEntry(button) {
-            RecentDocumentsStore.shared.removeRecentDocument(file.url)
-        }
-        PresentedViewManager.shared.unopenableRecentFile = nil
+        guard alert.removesEntry(button) else { return }
+        RecentDocumentsStore.shared.removeRecentDocument(file.url)
     }
 }
 

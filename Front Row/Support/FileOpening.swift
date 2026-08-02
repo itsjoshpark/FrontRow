@@ -68,6 +68,7 @@ func openRecentDocumentAndPresent(url: URL) async {
     PresentedViewManager.shared.unopenableRecentFile = UnopenableRecentFile(
         url: url,
         result: result,
-        unavailableVolumeName: RecentDocumentsStore.shared.unavailableVolumeName(for: url)
+        unavailableVolumeName: RecentDocumentsStore.shared.unavailableVolumeName(for: url),
+        scene: .current
     )
 }

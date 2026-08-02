@@ -104,7 +104,7 @@ struct WelcomeView: View {
             OpenURLView()
                 .frame(minWidth: 600)
         }
-        .unopenableRecentFileAlert()
+        .unopenableRecentFileAlert(in: .welcome)
         .task {
             WelcomeWindowCoordinator.shared.openMainWindow = { openWindow(id: WindowID.main) }
             WelcomeWindowCoordinator.shared.dismissWelcomeWindow = {

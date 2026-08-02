@@ -18,7 +18,7 @@ struct UnopenableRecentFileAlertTests {
     func aDisconnectedVolumeIsDiagnosedAndDismissesWithoutRemoving() {
         let alert = UnopenableRecentFileAlert(
             file: UnopenableRecentFile(
-                url: file, result: .unreadable, unavailableVolumeName: "Media"))
+                url: file, result: .unreadable, unavailableVolumeName: "Media", scene: .player))
 
         #expect(alert == .volumeOffline(volumeName: "Media"))
         #expect(alert.defaultButton == .ok)
@@ -33,7 +33,7 @@ struct UnopenableRecentFileAlertTests {
     func anUnreadableFileOffersOnlyOKAndClearsTheEntry() {
         let alert = UnopenableRecentFileAlert(
             file: UnopenableRecentFile(
-                url: file, result: .unreadable, unavailableVolumeName: nil))
+                url: file, result: .unreadable, unavailableVolumeName: nil, scene: .player))
 
         #expect(alert == .unreadable)
         #expect(alert.defaultButton == .ok)
@@ -47,7 +47,7 @@ struct UnopenableRecentFileAlertTests {
     func anUnplayableFileOffersOnlyOKAndStillClearsTheEntry() {
         let alert = UnopenableRecentFileAlert(
             file: UnopenableRecentFile(
-                url: file, result: .unplayable, unavailableVolumeName: nil))
+                url: file, result: .unplayable, unavailableVolumeName: nil, scene: .player))
 
         #expect(alert == .unplayable)
         #expect(alert.defaultButton == .ok)
@@ -61,7 +61,7 @@ struct UnopenableRecentFileAlertTests {
     func unplayableTakesPrecedenceOverVolumeState() {
         let alert = UnopenableRecentFileAlert(
             file: UnopenableRecentFile(
-                url: file, result: .unplayable, unavailableVolumeName: "Media"))
+                url: file, result: .unplayable, unavailableVolumeName: "Media", scene: .player))
 
         #expect(alert == .unplayable)
     }
