@@ -1,145 +1,437 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "\"%@\" could not be found and has been removed from your recent files." : {
-      "comment" : "Alert message shown when a recent file can no longer be opened",
+    "\"%@\" couldn't be opened. It may have been moved or deleted." : {
+      "comment" : "Alert message shown when a recent file can no longer be found",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@을(를) 찾을 수 없어 최근 항목에서 제거되었습니다."
+            "state" : "new",
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
+          }
+        }
+      }
+    },
+    "\"%@\" is on \"%@\", which isn't connected. Connect it and try again." : {
+      "comment" : "Alert message shown when a recent file's drive or network share is not mounted",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
+          }
+        }
+      }
+    },
+    "\"%@\" isn't a format Front Row can play." : {
+      "comment" : "Alert message shown when a recent file exists but cannot be decoded",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play."
           }
         }
       }
@@ -857,6 +1149,7 @@
       }
     },
     "Couldn't Open File" : {
+      "comment" : "Title of the alert shown when a recent file could not be opened",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -3986,6 +4279,7 @@
       }
     },
     "OK" : {
+      "comment" : "Dismisses the alert shown when a recent file couldn't be opened",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -5125,6 +5419,7 @@
       }
     },
     "Remove from Recents" : {
+      "comment" : "Alert button that drops a file from the recent files list",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
