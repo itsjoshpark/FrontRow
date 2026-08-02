@@ -7,6 +7,39 @@
 
 import SwiftUI
 
+/// A recent document that failed to open, and why.
+///
+/// The reason affects only how the alert is worded - either way the user is asked whether to forget
+/// the entry. A file that won't play clutters the list just as much as one that's out of reach, and
+/// neither failure is reliably permanent: an incomplete download, an unmaterialized cloud file or a
+/// flaky share all fail to load now and play later.
+struct UnopenableRecentDocument: Equatable {
+    enum Reason {
+        /// Couldn't be reached - e.g. its volume isn't mounted, or it was deleted.
+        case unavailable
+
+        /// Reached, but holds no playable content.
+        case unplayable
+    }
+
+    let url: URL
+    let reason: Reason
+
+    /// Present tense on purpose: neither reason claims the file will never open.
+    var alertTitle: Text {
+        switch reason {
+        case .unavailable:
+            Text(
+                "\"\(url.lastPathComponent)\" isn't available",
+                comment: "Alert title shown when a recent file can't be reached")
+        case .unplayable:
+            Text(
+                "\"\(url.lastPathComponent)\" can't be played",
+                comment: "Alert title shown when a recent file holds no playable content")
+        }
+    }
+}
+
 @MainActor
 @Observable public final class PresentedViewManager {
 
@@ -16,38 +49,23 @@ import SwiftUI
 
     var isPresentingGoToTimeView = false
 
-    /// A recent document that couldn't be reached (e.g. its volume isn't mounted, or it was
-    /// deleted).
+    /// A recent document that couldn't be opened.
     ///
     /// Setting this asks whether to remove it from recents. It's set back to `nil` once the alert
     /// is dismissed.
-    var unavailableRecentDocument: URL?
+    var unopenableRecentDocument: UnopenableRecentDocument?
 
-    var isPresentingUnavailableRecentDocumentAlert: Bool {
-        get { unavailableRecentDocument != nil }
+    var isPresentingUnopenableRecentDocumentAlert: Bool {
+        get { unopenableRecentDocument != nil }
         set {
             if !newValue {
-                unavailableRecentDocument = nil
-            }
-        }
-    }
-
-    /// The name of a file that was reached but holds no playable content.
-    ///
-    /// Setting this presents an alert. It's set back to `nil` once the alert is dismissed.
-    var unplayableFileName: String?
-
-    var isPresentingUnplayableFileAlert: Bool {
-        get { unplayableFileName != nil }
-        set {
-            if !newValue {
-                unplayableFileName = nil
+                unopenableRecentDocument = nil
             }
         }
     }
 
     var isPresenting: Bool {
         isPresentingOpenURLView || isPresentingGoToTimeView
-            || isPresentingUnavailableRecentDocumentAlert || isPresentingUnplayableFileAlert
+            || isPresentingUnopenableRecentDocumentAlert
     }
 }

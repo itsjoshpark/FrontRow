@@ -1,145 +1,145 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "\"%@\" could not be opened." : {
-      "comment" : "Alert message shown when a file won't play",
+    "\"%@\" can't be played" : {
+      "comment" : "Alert title shown when a recent file holds no playable content",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be opened."
+            "value" : "\"%@\" can't be played"
           }
         }
       }
@@ -573,6 +573,7 @@
       }
     },
     "Cancel" : {
+      "comment" : "Keeps a file that won't open in recent files",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -999,148 +1000,6 @@
         }
       }
     },
-    "Couldn't Open File" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "파일을 열 수 없습니다"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
-          }
-        }
-      }
-    },
     "Decrease by 5%" : {
       "comment" : "Decrease playback speed by 5%",
       "localizations" : {
@@ -1285,7 +1144,7 @@
       }
     },
     "Do you want to remove it from your recent files?" : {
-      "comment" : "Alert message shown when a recent file can't be reached",
+      "comment" : "Alert message shown when a recent file couldn't be opened",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -5411,7 +5270,7 @@
       }
     },
     "Remove" : {
-      "comment" : "Removes an unavailable file from recent files",
+      "comment" : "Removes a file that won't open from recent files",
       "localizations" : {
         "ar" : {
           "stringUnit" : {

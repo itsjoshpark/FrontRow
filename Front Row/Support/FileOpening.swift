@@ -54,18 +54,18 @@ func openFileAndPresent(url: URL) async -> OpenFileOutcome {
     return .opened
 }
 
-/// Opens a file that's already in recent documents, presenting the appropriate alert on failure.
+/// Opens a file that's already in recent documents, asking whether to forget it if it won't open.
 ///
-/// An unreachable file is never removed here - the volume may just be detached - so the alert asks
-/// whether to forget it and leaves the entry and its saved position alone otherwise.
+/// A failed entry is never removed here - neither failure is reliably permanent - so the alert
+/// asks, and leaves the entry and its saved position alone unless the user says otherwise.
 @MainActor
 func openRecentDocumentAndPresent(url: URL) async {
+    let reason: UnopenableRecentDocument.Reason
     switch await openFileAndPresent(url: url) {
-    case .opened:
-        break
-    case .unavailable:
-        PresentedViewManager.shared.unavailableRecentDocument = url
-    case .unplayable:
-        PresentedViewManager.shared.unplayableFileName = url.lastPathComponent
+    case .opened: return
+    case .unavailable: reason = .unavailable
+    case .unplayable: reason = .unplayable
     }
+
+    PresentedViewManager.shared.unopenableRecentDocument = .init(url: url, reason: reason)
 }

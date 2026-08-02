@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// The alerts shown when a file couldn't be opened.
+/// The alert shown when a recent document couldn't be opened.
 ///
 /// Attached to both the player and welcome scenes, since either can be frontmost when an open
 /// fails - File > Open Recent is reachable from both.
@@ -19,45 +19,32 @@ private struct RecentDocumentAlerts: ViewModifier {
 
         content
             .alert(
-                Text(
-                    "\"\(presentedViewManager.unavailableRecentDocument?.lastPathComponent ?? "")\" isn't available",
-                    comment: "Alert title shown when a recent file can't be reached"
-                ),
-                isPresented: $presentedViewManager.isPresentingUnavailableRecentDocumentAlert,
-                presenting: presentedViewManager.unavailableRecentDocument
-            ) { url in
+                presentedViewManager.unopenableRecentDocument?.alertTitle ?? Text(verbatim: ""),
+                isPresented: $presentedViewManager.isPresentingUnopenableRecentDocumentAlert,
+                presenting: presentedViewManager.unopenableRecentDocument
+            ) { document in
                 Button(role: .destructive) {
-                    RecentDocumentsStore.shared.removeRecentDocument(url)
+                    RecentDocumentsStore.shared.removeRecentDocument(document.url)
                 } label: {
-                    Text("Remove", comment: "Removes an unavailable file from recent files")
+                    Text("Remove", comment: "Removes a file that won't open from recent files")
                 }
 
                 Button(role: .cancel) {
                 } label: {
-                    Text("Cancel", comment: "Keeps an unavailable file in recent files")
+                    Text("Cancel", comment: "Keeps a file that won't open in recent files")
                 }
             } message: { _ in
                 Text(
                     "Do you want to remove it from your recent files?",
-                    comment: "Alert message shown when a recent file can't be reached"
-                )
-            }
-            .alert(
-                Text("Couldn't Open File", comment: "Alert title shown when a file won't play"),
-                isPresented: $presentedViewManager.isPresentingUnplayableFileAlert
-            ) {
-                Button("OK") {}
-            } message: {
-                Text(
-                    "\"\(presentedViewManager.unplayableFileName ?? "")\" could not be opened.",
-                    comment: "Alert message shown when a file won't play"
+                    comment: "Alert message shown when a recent file couldn't be opened"
                 )
             }
     }
 }
 
 extension View {
-    /// Presents the alerts for files that couldn't be opened. Apply once per window scene.
+    /// Presents the alert for a recent document that couldn't be opened. Apply once per window
+    /// scene.
     func recentDocumentAlerts() -> some View {
         modifier(RecentDocumentAlerts())
     }
