@@ -215,7 +215,7 @@ import SwiftUI
         var mediaDuration: TimeInterval = .nan
         do {
             let isPlayable = try await newAsset.load(.isPlayable)
-            guard isPlayable else { return .unplayable }
+            guard isPlayable else { return .unplayable(url: url) }
 
             self.subtitleGroup = try? await newAsset.loadMediaSelectionGroup(for: .legible)
             self.audioGroup = try? await newAsset.loadMediaSelectionGroup(for: .audible)
@@ -223,7 +223,7 @@ import SwiftUI
                 mediaDuration = loadedDuration.seconds
             }
         } catch {
-            return .unplayable
+            return .unplayable(url: url)
         }
 
         let playerItem = AVPlayerItem(asset: newAsset)
@@ -238,7 +238,7 @@ import SwiftUI
         self.subtitle = subtitleGroup?.options.first
         self.audioTrack = audioGroup?.options.first
 
-        return .opened
+        return .opened(url: url)
     }
 
     /// Resolves the URL to open into one this process can actually read, or `nil` if it can't be
@@ -248,8 +248,9 @@ import SwiftUI
     /// security-scoped bookmark, since the access granted by the open panel/drag-and-drop doesn't
     /// survive relaunch. A first-time URL already has ambient access, so it's used as-is.
     ///
-    /// Access to the outgoing file is released only once the incoming one is known to be reachable,
-    /// so a failed open doesn't revoke access to whatever is still playing.
+    /// Access to the outgoing file is released only once the incoming one is known to be
+    /// reachable, so an unreachable file leaves whatever is still playing untouched. A file that
+    /// resolves but turns out to be unplayable is already past that point, and does disturb it.
     private func resolveAccessibleURL(_ originalURL: URL) -> URL? {
         switch RecentDocumentsStore.shared.startAccessingRecentDocument(originalURL) {
         case .granted(let accessibleURL):

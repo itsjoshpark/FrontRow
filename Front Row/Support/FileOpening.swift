@@ -15,16 +15,22 @@ enum WindowID {
 
 /// Why opening a file did or didn't work.
 ///
-/// Distinguishing the two failures matters for recent documents: one warrants offering to forget
-/// the file, the other doesn't.
-enum OpenFileOutcome {
-    case opened
+/// The two failures are distinguished to word the prompt accurately, not to decide whether to
+/// prompt - either way the user is asked whether to forget the entry.
+///
+/// Reaching a file resolves its bookmark, which can land somewhere other than the URL passed in if
+/// the file has moved, so the cases that got that far carry the URL actually used. Callers that
+/// identify the file afterwards must use that one: the store re-keys a moved entry to it, and the
+/// URL passed in no longer matches.
+enum OpenFileOutcome: Equatable {
+    case opened(url: URL)
 
-    /// The file couldn't be reached - e.g. its volume isn't mounted, or it was deleted.
+    /// The file couldn't be reached - e.g. its volume isn't mounted, or it was deleted. Never
+    /// re-keys the entry, so the URL passed in is still its identity.
     case unavailable
 
     /// The file was reached but holds no playable content.
-    case unplayable
+    case unplayable(url: URL)
 }
 
 /// Presents the Open File panel and returns the user's chosen URL, or `nil` if they canceled.
@@ -48,10 +54,10 @@ func presentOpenFilePanel() async -> URL? {
 @discardableResult
 func openFileAndPresent(url: URL) async -> OpenFileOutcome {
     let outcome = await PlayEngine.shared.openFile(url: url)
-    guard outcome == .opened else { return outcome }
-    RecentDocumentsStore.shared.noteRecentDocument(url)
+    guard case .opened(let openedURL) = outcome else { return outcome }
+    RecentDocumentsStore.shared.noteRecentDocument(openedURL)
     WelcomeWindowCoordinator.shared.presentMainWindow()
-    return .opened
+    return outcome
 }
 
 /// Opens a file that's already in recent documents, asking whether to forget it if it won't open.
@@ -60,13 +66,15 @@ func openFileAndPresent(url: URL) async -> OpenFileOutcome {
 /// asks, and leaves the entry and its saved position alone unless the user says otherwise.
 @MainActor
 func openRecentDocumentAndPresent(url: URL) async {
-    let reason: UnopenableRecentDocument.Reason
+    let unopenable: UnopenableRecentDocument
     switch await openFileAndPresent(url: url) {
-    case .opened: return
-    case .unavailable: reason = .unavailable
-    case .unplayable: reason = .unplayable
+    case .opened:
+        return
+    case .unavailable:
+        unopenable = .init(url: url, reason: .unavailable, scene: .current)
+    case .unplayable(let openedURL):
+        unopenable = .init(url: openedURL, reason: .unplayable, scene: .current)
     }
 
-    PresentedViewManager.shared.unopenableRecentDocument = .init(
-        url: url, reason: reason, scene: .current)
+    PresentedViewManager.shared.unopenableRecentDocument = unopenable
 }

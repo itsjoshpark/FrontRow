@@ -50,7 +50,7 @@ struct OpenURLView: View {
                         return
                     }
                     displayLoading = true
-                    guard await openFileAndPresent(url: url) == .opened else {
+                    guard case .opened = await openFileAndPresent(url: url) else {
                         withAnimation {
                             displayLoading = false
                             displayError = true

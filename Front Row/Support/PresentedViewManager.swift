@@ -16,11 +16,16 @@ enum AlertScene {
     case player
     case welcome
 
-    /// The scene to present in right now. The welcome window takes over only while the player
-    /// window isn't on screen, so there's always exactly one valid target.
+    /// The scene to present in right now.
+    ///
+    /// Keyed on whether the player window exists rather than whether it's on screen: presenting
+    /// the main window dismisses the welcome window for good - nothing reopens it - so once the
+    /// player scene exists it's the only target left. Visibility would misroute while the player
+    /// is merely miniaturized or the app is hidden, naming a scene that can't present and leaving
+    /// the alert stuck unshown.
     @MainActor
     static var current: AlertScene {
-        WindowController.shared.mainWindow?.isVisible == true ? .player : .welcome
+        WindowController.shared.mainWindow == nil ? .welcome : .player
     }
 }
 
