@@ -35,9 +35,6 @@ struct FileCommands: Commands {
 
             Menu {
                 ForEach(RecentDocumentsStore.shared.recentURLs, id: \.self) { url in
-                    let unavailableVolumeName = RecentDocumentsStore.shared.unavailableVolumeName(
-                        for: url)
-
                     Button {
                         Task {
                             await openRecentDocumentAndPresent(url: url)
@@ -46,25 +43,9 @@ struct FileCommands: Commands {
                         Label {
                             Text(url.lastPathComponent)
                         } icon: {
-                            // Menu items can't be dimmed without disabling them, so a disconnected
-                            // file is flagged by swapping its icon instead. It stays clickable: the
-                            // resulting alert is what explains the problem.
-                            if unavailableVolumeName == nil {
-                                Image(nsImage: url.recentDocumentIcon)
-                            } else {
-                                Image(systemName: "externaldrive.badge.xmark")
-                            }
+                            Image(nsImage: url.recentDocumentIcon)
                         }
                     }
-                    .help(
-                        unavailableVolumeName.map {
-                            String(
-                                localized: "On \"\($0)\", which isn't connected",
-                                comment:
-                                    "Tooltip for an Open Recent menu item whose drive is not mounted"
-                            )
-                        } ?? ""
-                    )
                 }
 
                 if !RecentDocumentsStore.shared.recentURLs.isEmpty {

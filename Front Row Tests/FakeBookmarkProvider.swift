@@ -27,6 +27,11 @@ final class FakeBookmarkProvider: BookmarkProviding {
     /// Display names for volumes, keyed by volume URL.
     var volumeNames: [URL: String] = [:]
 
+    /// The path a bookmark reads back as, for URLs whose bookmark resolves symlinks away. Standing
+    /// in for a real bookmark, whose recorded path is always fully resolved even when the URL it
+    /// was made from wasn't.
+    var canonicalURLs: [URL: URL] = [:]
+
     func bookmarkData(for url: URL) -> Data? {
         url.absoluteString.data(using: .utf8)
     }
@@ -34,9 +39,10 @@ final class FakeBookmarkProvider: BookmarkProviding {
     func metadata(from data: Data) -> BookmarkMetadata? {
         guard let url = decodeURL(from: data) else { return nil }
 
-        let volumeURL = volumeURLs[url] ?? URL(filePath: "/")
+        let canonicalURL = canonicalURLs[url] ?? url
+        let volumeURL = volumeURLs[canonicalURL] ?? volumeURLs[url] ?? URL(filePath: "/")
         return BookmarkMetadata(
-            url: url, volumeURL: volumeURL, volumeName: volumeNames[volumeURL])
+            url: canonicalURL, volumeURL: volumeURL, volumeName: volumeNames[volumeURL])
     }
 
     func resolveBookmark(_ data: Data) -> (url: URL, isStale: Bool)? {

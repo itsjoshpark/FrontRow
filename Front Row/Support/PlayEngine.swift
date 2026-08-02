@@ -199,6 +199,7 @@ import SwiftUI
     /// - Returns: Whether the asset opened, and if not, which kind of failure it was.
     @discardableResult func openFile(url originalURL: URL) async -> FileOpenResult {
         persistCurrentPlaybackPosition()
+
         lastPeriodicPositionSaveTime = 0
 
         let url = resolveAccessibleURL(originalURL)
@@ -222,6 +223,10 @@ import SwiftUI
         } catch {
             return .unreadable
         }
+
+        // Recorded here rather than waiting for the item to become ready, so callers can ask what
+        // actually opened - which is where a file renamed outside the app now lives.
+        fileURL = url
 
         let playerItem = AVPlayerItem(asset: newAsset)
         installObservers(on: playerItem, url: url)
@@ -270,7 +275,6 @@ import SwiftUI
                     self.isLoaded = true
                     self.isLocalFile = FileManager.default.fileExists(
                         atPath: url.path(percentEncoded: false))
-                    self.fileURL = url
                     NowPlayable.shared.setNowPlayingMetadata(
                         NowPlayableStaticMetadata(
                             assetURL: url,

@@ -25,7 +25,6 @@ enum UnopenableRecentFileAlert: Equatable {
     enum Button: Equatable {
         case ok
         case removeFromRecents
-        case cancel
     }
 
     init(file: UnopenableRecentFile) {
@@ -41,21 +40,15 @@ enum UnopenableRecentFileAlert: Equatable {
         }
     }
 
-    var defaultButton: Button {
-        switch self {
-        // The drive will be back, so dismissing shouldn't cost the user their entry.
-        case .volumeOffline: .ok
-        // Nothing is coming back, so clearing the entry is the likely intent.
-        case .unreadable: .removeFromRecents
-        case .unplayable: .ok
-        }
-    }
+    /// Every case leads with OK. Whether that also drops the entry is `removesEntry(_:)`'s call.
+    var defaultButton: Button { .ok }
 
+    /// Only the offline drive needs a second button, since it's the one case where OK leaves the
+    /// entry behind and the user might still want it gone.
     var secondaryButton: Button? {
         switch self {
         case .volumeOffline: .removeFromRecents
-        case .unreadable: .cancel
-        case .unplayable: nil
+        case .unreadable, .unplayable: nil
         }
     }
 
@@ -64,12 +57,17 @@ enum UnopenableRecentFileAlert: Equatable {
         switch button {
         case .removeFromRecents:
             true
-        // An unplayable file should never have made it into recents - entries are only added
-        // after a successful open - so its single OK cleans up rather than just dismissing.
         case .ok:
-            self == .unplayable
-        case .cancel:
-            false
+            switch self {
+            // The drive is coming back, so the entry and the playback position inside it have to
+            // survive being dismissed. This is the case the offline check exists to catch.
+            case .volumeOffline: false
+            // Whatever's recoverable was already caught as `.volumeOffline`: the volume is right
+            // there and the file still wouldn't open, so it's taken as gone. An unplayable file
+            // shouldn't have been listed at all, since entries are only added after a successful
+            // open. Either way the single OK cleans up rather than just dismissing.
+            case .unreadable, .unplayable: true
+            }
         }
     }
 }
@@ -92,13 +90,17 @@ private struct UnopenableRecentFileAlertModifier: ViewModifier {
 
     /// Falls to `false` when the window stops being key, which dismisses the alert without
     /// clearing the underlying state - so it comes back when the user returns to this window.
+    ///
+    /// The setter only clears while this window is still key, since SwiftUI may write the
+    /// getter's own `false` back on a focus change; a real dismissal comes from a button, which
+    /// clears the state itself.
     private var isPresented: Binding<Bool> {
         Binding(
             get: {
                 presentedViewManager.unopenableRecentFile != nil && controlActiveState == .key
             },
             set: { isPresented in
-                if !isPresented {
+                if !isPresented, controlActiveState == .key {
                     presentedViewManager.unopenableRecentFile = nil
                 }
             }
@@ -149,25 +151,23 @@ private struct AlertButton: View {
                 )
             }
         case .removeFromRecents:
-            Button(action: act) {
+            Button(role: .destructive, action: act) {
                 Text(
                     "Remove from Recents",
                     comment: "Alert button that drops a file from the recent files list"
                 )
             }
-        case .cancel:
-            Button(role: .cancel, action: act) {
-                Text(
-                    "Cancel",
-                    comment: "Dismisses the alert without changing the recent files list"
-                )
-            }
         }
     }
 
+    /// Clears the alert state itself rather than leaving that to the `isPresented` binding, whose
+    /// value also tracks window focus - so dismissal can't be confused with the window merely
+    /// losing key.
     private func act() {
-        guard alert.removesEntry(button) else { return }
-        RecentDocumentsStore.shared.removeRecentDocument(file.url)
+        if alert.removesEntry(button) {
+            RecentDocumentsStore.shared.removeRecentDocument(file.url)
+        }
+        PresentedViewManager.shared.unopenableRecentFile = nil
     }
 }
 

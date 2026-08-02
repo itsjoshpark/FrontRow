@@ -128,11 +128,7 @@ struct WelcomeView: View {
             ScrollView {
                 LazyVStack(spacing: 2) {
                     ForEach(recentDocumentsStore.recentURLs, id: \.self) { url in
-                        RecentFileRow(
-                            url: url,
-                            unavailableVolumeName: recentDocumentsStore.unavailableVolumeName(
-                                for: url)
-                        ) {
+                        RecentFileRow(url: url) {
                             Task {
                                 await openRecentDocumentAndPresent(url: url)
                             }
@@ -201,13 +197,9 @@ private struct WelcomeActionRow<Icon: View, Title: View>: View {
 
 private struct RecentFileRow: View {
     let url: URL
-    /// Set when the file's drive or share isn't connected, which dims the row and adds a badge.
-    let unavailableVolumeName: String?
     let action: () -> Void
 
     @State private var isHovering = false
-
-    private var isReachable: Bool { unavailableVolumeName == nil }
 
     var body: some View {
         Button(action: action) {
@@ -215,19 +207,12 @@ private struct RecentFileRow: View {
                 Image(nsImage: url.recentDocumentIcon)
                     .resizable()
                     .frame(width: 32, height: 32)
-                    .opacity(isReachable ? 1 : 0.5)
 
                 Text(url.lastPathComponent)
                     .font(.system(size: 13, weight: .medium))
                     .lineLimit(1)
-                    .foregroundStyle(isReachable ? .primary : .secondary)
 
                 Spacer()
-
-                if !isReachable {
-                    Image(systemName: "externaldrive.badge.xmark")
-                        .foregroundStyle(.secondary)
-                }
             }
             .padding(.horizontal, 10)
             .padding(.vertical, 6)
@@ -240,16 +225,7 @@ private struct RecentFileRow: View {
         }
         .buttonStyle(.plain)
         .onHover { isHovering = $0 }
-        .help(helpText)
-    }
-
-    private var helpText: String {
-        guard let unavailableVolumeName else { return url.lastPathComponent }
-        return String(
-            localized:
-                "\(url.lastPathComponent) — on \"\(unavailableVolumeName)\", which isn't connected",
-            comment: "Tooltip for a recent file whose drive or network share is not mounted"
-        )
+        .help(url.lastPathComponent)
     }
 }
 

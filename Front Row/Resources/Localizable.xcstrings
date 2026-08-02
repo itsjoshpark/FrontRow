@@ -1,148 +1,22 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "\"%@\" could not be found and has been removed from your recent files." : {
-      "comment" : "Alert message shown when a recent file can no longer be opened",
+    "\"%@\" couldn't be opened. It may have been moved or deleted." : {
+      "comment" : "Alert message shown when a recent file can no longer be found"
+    },
+    "\"%@\" is on \"%@\", which isn't connected. Connect it and try again." : {
+      "comment" : "Alert message shown when a recent file's drive or network share is not mounted",
       "localizations" : {
-        "ar" : {
+        "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@을(를) 찾을 수 없어 최근 항목에서 제거되었습니다."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" could not be found and has been removed from your recent files."
+            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
           }
         }
       }
+    },
+    "\"%@\" isn't a format Front Row can play." : {
+      "comment" : "Alert message shown when a recent file exists but cannot be decoded"
     },
     "%llds" : {
       "comment" : "Label displaying seconds",
@@ -857,6 +731,7 @@
       }
     },
     "Couldn't Open File" : {
+      "comment" : "Title of the alert shown when a recent file could not be opened",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -3986,6 +3861,7 @@
       }
     },
     "OK" : {
+      "comment" : "Dismisses the alert shown when a recent file couldn't be opened",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -5125,6 +5001,7 @@
       }
     },
     "Remove from Recents" : {
+      "comment" : "Alert button that drops a file from the recent files list",
       "localizations" : {
         "ar" : {
           "stringUnit" : {

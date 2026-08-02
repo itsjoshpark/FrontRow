@@ -27,17 +27,18 @@ struct UnopenableRecentFileAlertTests {
         #expect(alert.removesEntry(.removeFromRecents))
     }
 
-    /// With the volume mounted, an unreadable file really is gone, so removing leads.
+    /// With the volume mounted, the recoverable case has already been ruled out - so an unreadable
+    /// file is taken as gone, and its single OK clears the entry rather than just dismissing.
     @Test
-    func anUnreadableFileOnAMountedVolumeLeadsWithRemoval() {
+    func anUnreadableFileOffersOnlyOKAndClearsTheEntry() {
         let alert = UnopenableRecentFileAlert(
             file: UnopenableRecentFile(
                 url: file, result: .unreadable, unavailableVolumeName: nil))
 
         #expect(alert == .unreadable)
-        #expect(alert.defaultButton == .removeFromRecents)
-        #expect(alert.secondaryButton == .cancel)
-        #expect(!alert.removesEntry(.cancel))
+        #expect(alert.defaultButton == .ok)
+        #expect(alert.secondaryButton == nil)
+        #expect(alert.removesEntry(.ok))
     }
 
     /// An unplayable file is present and intact, so it must never be described as missing. Its

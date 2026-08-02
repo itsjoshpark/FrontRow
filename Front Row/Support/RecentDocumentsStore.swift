@@ -21,8 +21,11 @@ import SwiftUI
 /// Loading deliberately reads each bookmark's *metadata* instead of resolving it. Resolution
 /// depends on the file being reachable right now, so resolving at launch would drop every entry on
 /// a sleeping NAS or an unplugged drive - and take their playback positions with them - as well as
-/// risking a blocking mount during startup. Reachability decides how an entry is displayed, never
-/// whether it exists.
+/// risking a blocking mount during startup.
+///
+/// Entries are listed the same way whether or not their volume is mounted. A drive that looks
+/// absent may be moments from answering, and an entry that opens fine shouldn't be marked as
+/// broken; the volume is only consulted once an open has actually failed, to say why.
 ///
 /// A playback position lives inside its entry, so a file and its resume point can never drift
 /// apart: dropping an entry drops its position in the same step, and there's only ever one
@@ -81,7 +84,7 @@ final class RecentDocumentsStore {
     /// via an open panel or drag-and-drop, or after `startAccessingRecentDocument(_:)`) if it's
     /// not already tracked, since a bookmark needs to be created from it.
     func noteRecentDocument(_ url: URL) {
-        if let existingIndex = entries.firstIndex(where: { $0.url == url }) {
+        if let existingIndex = index(of: url) {
             let entry = entries.remove(at: existingIndex)
             entries.insert(entry, at: 0)
         } else {
@@ -95,13 +98,16 @@ final class RecentDocumentsStore {
         trim()
         persist()
 
-        NSDocumentController.shared.noteNewRecentDocumentURL(url)
+        // The entry's own URL, not the caller's, so system surfaces list the same path this store
+        // keys by.
+        NSDocumentController.shared.noteNewRecentDocumentURL(entries[0].url)
     }
 
     /// Removes a single entry. Only ever called because the user asked: an entry that can't be
     /// opened right now stays put, since the reason is often temporary.
     func removeRecentDocument(_ url: URL) {
-        entries.removeAll { $0.url == url }
+        guard let index = index(of: url) else { return }
+        entries.remove(at: index)
         persist()
     }
 
@@ -118,10 +124,10 @@ final class RecentDocumentsStore {
     /// to it, so asking the filesystem would report every recent document as missing; the entry's
     /// recorded volume can be checked without any such access. An entry whose volume isn't known
     /// counts as reachable - not knowing isn't evidence of absence.
-    func isReachable(_ url: URL) -> Bool {
+    private func isReachable(_ url: URL) -> Bool {
         guard url.isFileURL,
-            let entry = entries.first(where: { $0.url == url }),
-            let volumeURL = entry.metadata.volumeURL
+            let index = index(of: url),
+            let volumeURL = entries[index].metadata.volumeURL
         else { return true }
 
         return mountedVolumes.mountedVolumeURLs.contains {
@@ -130,30 +136,31 @@ final class RecentDocumentsStore {
     }
 
     /// The name of the disconnected volume `url` lives on, or `nil` if it's reachable.
+    ///
+    /// Only asked after an open has failed, to tell "the drive isn't here" apart from "the file is
+    /// gone" - never to decide how the entry is drawn.
     func unavailableVolumeName(for url: URL) -> String? {
-        guard !isReachable(url), let entry = entries.first(where: { $0.url == url }) else {
-            return nil
-        }
-        return entry.metadata.volumeName ?? entry.metadata.volumeURL?.lastPathComponent
+        guard !isReachable(url), let index = index(of: url) else { return nil }
+        let metadata = entries[index].metadata
+        return metadata.volumeName ?? metadata.volumeURL?.lastPathComponent
     }
 
     /// The saved playback position for `url`, if it's a tracked recent document with one.
     func position(for url: URL) -> TimeInterval? {
-        entries.first { $0.url == url }?.position
+        guard let index = index(of: url) else { return nil }
+        return entries[index].position
     }
 
     /// Saves a playback position for `url`. No-op if `url` isn't a tracked recent document.
     func setPosition(_ time: TimeInterval, for url: URL) {
-        guard let index = entries.firstIndex(where: { $0.url == url }) else { return }
+        guard let index = index(of: url) else { return }
         entries[index].position = time
         persist()
     }
 
     /// Clears the saved playback position for `url`, if any.
     func clearPosition(for url: URL) {
-        guard let index = entries.firstIndex(where: { $0.url == url }),
-            entries[index].position != nil
-        else { return }
+        guard let index = index(of: url), entries[index].position != nil else { return }
         entries[index].position = nil
         persist()
     }
@@ -165,7 +172,7 @@ final class RecentDocumentsStore {
     /// its bookmark can no longer be resolved (e.g. the file was deleted or permission was
     /// revoked).
     func startAccessingRecentDocument(_ url: URL) -> URL? {
-        guard let index = entries.firstIndex(where: { $0.url == url }) else { return nil }
+        guard let index = index(of: url) else { return nil }
 
         guard
             let (resolvedURL, isStale) = bookmarkProvider.resolveBookmark(
@@ -183,6 +190,20 @@ final class RecentDocumentsStore {
         }
 
         return resolvedURL
+    }
+
+    /// Finds the entry for `url`, tolerating a caller that holds a different but equivalent path.
+    ///
+    /// Entries are keyed by the path baked into their bookmark, which is fully symlink-resolved. A
+    /// URL straight from the open panel or a drop isn't, so a file reached through a symlinked
+    /// folder needs a second look before it counts as untracked. Only the miss pays for that -
+    /// URLs taken from `recentURLs` are already resolved and match outright.
+    private func index(of url: URL) -> Int? {
+        if let index = entries.firstIndex(where: { $0.url == url }) { return index }
+
+        let resolved = url.resolvingSymlinksInPath()
+        guard resolved != url else { return nil }
+        return entries.firstIndex { $0.url == resolved }
     }
 
     /// Re-derives an entry's bookmark and display metadata from where its file actually is now.

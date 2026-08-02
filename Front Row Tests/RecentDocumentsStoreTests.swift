@@ -91,9 +91,10 @@ struct RecentDocumentsStoreTests {
         #expect(store.position(for: survivingFile) == 17)
     }
 
-    /// Reachability drives presentation, so it has to track the volume actually being there.
+    /// A failed open has to be able to name the drive that isn't there, so the volume lookup has to
+    /// track the volume actually being mounted.
     @Test
-    func reachabilityFollowsWhetherTheVolumeIsMounted() {
+    func anUnmountedVolumeIsNamedForTheFailedOpenAlert() {
         let defaults = makeDefaults(#function)
         let provider = FakeBookmarkProvider()
         let volumes = FakeMountedVolumesProvider()
@@ -110,30 +111,30 @@ struct RecentDocumentsStoreTests {
         store.noteRecentDocument(externalFile)
         store.noteRecentDocument(localFile)
 
-        #expect(store.isReachable(externalFile))
         #expect(store.unavailableVolumeName(for: externalFile) == nil)
 
         volumes.unmount(externalVolume)
 
-        #expect(!store.isReachable(externalFile))
         #expect(store.unavailableVolumeName(for: externalFile) == "Media")
 
         // A file on the boot volume is unaffected by another volume being ejected.
-        #expect(store.isReachable(localFile))
         #expect(store.unavailableVolumeName(for: localFile) == nil)
     }
 
-    /// A URL that isn't tracked at all can't be judged unreachable - callers use this for files
-    /// they're about to open, so guessing "missing" would be worse than saying nothing.
+    /// A URL that isn't tracked at all can't be judged unreachable - callers ask about files
+    /// they've just tried to open, so blaming a drive would be worse than saying nothing.
     @Test
-    func untrackedURLsCountAsReachable() {
+    func untrackedURLsNameNoUnavailableVolume() {
         let defaults = makeDefaults(#function)
         let store = RecentDocumentsStore(
             defaults: defaults, bookmarkProvider: FakeBookmarkProvider(),
             mountedVolumes: FakeMountedVolumesProvider())
 
-        #expect(store.isReachable(URL(fileURLWithPath: "/tmp/never-seen.mov")))
-        #expect(store.isReachable(URL(string: "https://example.com/stream.m3u8")!))
+        #expect(
+            store.unavailableVolumeName(for: URL(fileURLWithPath: "/tmp/never-seen.mov")) == nil)
+        #expect(
+            store.unavailableVolumeName(for: URL(string: "https://example.com/stream.m3u8")!) == nil
+        )
     }
 
     /// Reopening a file already in recents moves it to the front of the list; its saved position
@@ -158,6 +159,45 @@ struct RecentDocumentsStoreTests {
 
         #expect(store.recentURLs.first == file)
         #expect(store.position(for: file) == 90)
+    }
+
+    /// A bookmark records a fully symlink-resolved path, so a file opened through a symlinked
+    /// folder is filed under a URL the caller never has. Both must reach the same entry: otherwise
+    /// its position is written into nothing, and reopening the file appends a duplicate that
+    /// collides in the `id: \.self` lists that draw recents.
+    @Test
+    func aFileOpenedThroughASymlinkIsTrackedOnce() throws {
+        let root = URL.temporaryDirectory.appending(path: UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: root) }
+
+        let realDirectory = root.appending(path: "real")
+        try FileManager.default.createDirectory(
+            at: realDirectory, withIntermediateDirectories: true)
+        try Data().write(to: realDirectory.appending(path: "movie.mov"))
+        try FileManager.default.createSymbolicLink(
+            at: root.appending(path: "link"), withDestinationURL: realDirectory)
+
+        let openedFile = root.appending(path: "link/movie.mov")
+        let canonicalFile = openedFile.resolvingSymlinksInPath()
+        #expect(openedFile != canonicalFile)
+
+        let provider = FakeBookmarkProvider()
+        provider.canonicalURLs[openedFile] = canonicalFile
+
+        let store = RecentDocumentsStore(
+            defaults: makeDefaults(#function), bookmarkProvider: provider,
+            mountedVolumes: FakeMountedVolumesProvider())
+        store.noteRecentDocument(openedFile)
+        store.setPosition(75, for: openedFile)
+
+        #expect(store.recentURLs == [canonicalFile])
+        #expect(store.position(for: openedFile) == 75)
+        #expect(store.position(for: canonicalFile) == 75)
+
+        store.noteRecentDocument(openedFile)
+
+        #expect(store.recentURLs == [canonicalFile])
+        #expect(store.position(for: openedFile) == 75)
     }
 
     /// When a bookmark is resolved as stale and refreshed, the entry's saved position must
@@ -211,5 +251,32 @@ struct RecentDocumentsStoreTests {
 
         #expect(store.recentURLs.contains(renamedFile))
         #expect(store.position(for: renamedFile) == 55)
+    }
+
+    /// Opening a renamed file catches its entry up mid-open, so what gets noted afterwards is the
+    /// new URL. That has to land on the existing entry - noting the name it opened under must move
+    /// the file to the front rather than being dropped for matching nothing.
+    @Test
+    func notingAFileUnderItsNewNameMovesTheExistingEntry() {
+        let provider = FakeBookmarkProvider()
+
+        let originalFile = URL(fileURLWithPath: "/tmp/movie.mov")
+        let renamedFile = URL(fileURLWithPath: "/tmp/renamed.mov")
+        let otherFile = URL(fileURLWithPath: "/tmp/other.mov")
+
+        let store = RecentDocumentsStore(
+            defaults: makeDefaults(#function), bookmarkProvider: provider,
+            mountedVolumes: FakeMountedVolumesProvider())
+        store.noteRecentDocument(originalFile)
+        store.setPosition(30, for: originalFile)
+        store.noteRecentDocument(otherFile)
+
+        provider.movedURLs[originalFile] = renamedFile
+        _ = store.startAccessingRecentDocument(originalFile)
+
+        store.noteRecentDocument(renamedFile)
+
+        #expect(store.recentURLs == [renamedFile, otherFile])
+        #expect(store.position(for: renamedFile) == 30)
     }
 }

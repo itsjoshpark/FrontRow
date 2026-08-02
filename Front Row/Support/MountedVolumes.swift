@@ -15,38 +15,20 @@ protocol MountedVolumesProviding {
     var mountedVolumeURLs: [URL] { get }
 }
 
-/// The real `MountedVolumesProviding`, kept current by mount/unmount notifications.
+/// The real `MountedVolumesProviding`.
 ///
-/// `@Observable` so the recent files list redraws by itself when a drive is connected or ejected.
+/// Read on demand rather than cached, since the only thing that asks is a file that just failed to
+/// open - rare enough that keeping a mount/unmount-observed copy in sync would cost more than it
+/// saves, and a fresh answer is always the correct one.
 @MainActor
-@Observable
 final class MountedVolumes: MountedVolumesProviding {
 
     static let shared = MountedVolumes()
 
-    private(set) var mountedVolumeURLs: [URL] = []
+    private init() {}
 
-    private var observationTasks: [Task<Void, Never>] = []
-
-    private init() {
-        refresh()
-
-        let center = NSWorkspace.shared.notificationCenter
-        for name in [NSWorkspace.didMountNotification, NSWorkspace.didUnmountNotification] {
-            observationTasks.append(
-                Task { [weak self] in
-                    for await _ in center.notifications(named: name) {
-                        self?.refresh()
-                    }
-                })
-        }
-    }
-
-    private func refresh() {
-        mountedVolumeURLs =
-            FileManager.default.mountedVolumeURLs(
-                includingResourceValuesForKeys: nil, options: []
-            )?
+    var mountedVolumeURLs: [URL] {
+        FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: nil, options: [])?
             .map(\.standardizedFileURL) ?? []
     }
 }

@@ -49,7 +49,10 @@ func openFileAndPresent(url: URL) async -> FileOpenResult {
     let result = await PlayEngine.shared.openFile(url: url)
     guard result == .opened else { return result }
 
-    RecentDocumentsStore.shared.noteRecentDocument(url)
+    // What actually opened, not what was asked for: a bookmark tracks file identity, so a file
+    // renamed outside the app opens from its new location. Noting the stale URL would match no
+    // entry and quietly leave the file out of recents.
+    RecentDocumentsStore.shared.noteRecentDocument(PlayEngine.shared.fileURL ?? url)
     WelcomeWindowCoordinator.shared.presentMainWindow()
     return .opened
 }
