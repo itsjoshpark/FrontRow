@@ -143,7 +143,7 @@ private struct AlertButton: View {
                 )
             }
         case .removeFromRecents:
-            Button(role: .destructive, action: act) {
+            Button(action: act) {
                 Text(
                     "Remove from Recents",
                     comment: "Alert button that drops a file from the recent files list"
