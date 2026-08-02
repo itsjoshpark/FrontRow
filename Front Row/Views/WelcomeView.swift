@@ -104,17 +104,7 @@ struct WelcomeView: View {
             OpenURLView()
                 .frame(minWidth: 600)
         }
-        .alert(
-            "Couldn't Open File",
-            isPresented: $presentedViewManager.isPresentingBrokenRecentFileAlert
-        ) {
-            Button("OK") {}
-        } message: {
-            Text(
-                "\"\(presentedViewManager.brokenRecentFileName ?? "")\" could not be found and has been removed from your recent files.",
-                comment: "Alert message shown when a recent file can no longer be opened"
-            )
-        }
+        .unopenableRecentFileAlert(in: .welcome)
         .task {
             WelcomeWindowCoordinator.shared.openMainWindow = { openWindow(id: WindowID.main) }
             WelcomeWindowCoordinator.shared.dismissWelcomeWindow = {

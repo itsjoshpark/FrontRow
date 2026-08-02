@@ -48,6 +48,7 @@ struct ContentView: View {
         .background {
             Color.black.ignoresSafeArea()
         }
+        .unopenableRecentFileAlert(in: .player)
         .onAppear {
             resetMouseIdleTimer()
         }

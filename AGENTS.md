@@ -36,7 +36,7 @@ swift-format format -p -r -i ./
 - When making a `ForEach` out of an `enumerated` sequence, do not convert it to an array first. So, prefer `ForEach(x.enumerated(), id: \.element.id)` instead of `ForEach(Array(x.enumerated()), id: \.element.id)`.
 - Place view logic into view models or similar, so it can be tested.
 - Avoid `AnyView` unless it is absolutely required.
-- Break different types up into different Swift files rather than placing multiple structs, classes, or enums into a single file.
+- Keep each Swift file focused on one concern. Closely related types can share a file — a protocol with its return type, or a type with the small helpers only it uses. Split a file when it starts doing more than one job.
 
 ## GitHub PRs
 

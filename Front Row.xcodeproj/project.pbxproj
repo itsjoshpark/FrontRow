@@ -41,6 +41,11 @@
 		FADEFEED0000000000000013 /* BookmarkProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000012 /* BookmarkProviding.swift */; };
 		FADEFEED0000000000000015 /* SecurityScopedBookmarkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000014 /* SecurityScopedBookmarkProvider.swift */; };
 		FADEFEED0000000000000017 /* ResumePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000016 /* ResumePolicy.swift */; };
+		FADEFEED0000000000000021 /* MountedVolumes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000020 /* MountedVolumes.swift */; };
+		FADEFEED0000000000000023 /* UnopenableRecentFileAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000022 /* UnopenableRecentFileAlert.swift */; };
+		FADEFEED0000000000000025 /* FakeMountedVolumesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000024 /* FakeMountedVolumesProvider.swift */; };
+		FADEFEED0000000000000027 /* UnopenableRecentFileAlertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000026 /* UnopenableRecentFileAlertTests.swift */; };
+		FADEFEED0000000000000029 /* SecurityScopedBookmarkProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000028 /* SecurityScopedBookmarkProviderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +96,11 @@
 		FADEFEED0000000000000012 /* BookmarkProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkProviding.swift; sourceTree = "<group>"; };
 		FADEFEED0000000000000014 /* SecurityScopedBookmarkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityScopedBookmarkProvider.swift; sourceTree = "<group>"; };
 		FADEFEED0000000000000016 /* ResumePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumePolicy.swift; sourceTree = "<group>"; };
+		FADEFEED0000000000000020 /* MountedVolumes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MountedVolumes.swift; sourceTree = "<group>"; };
+		FADEFEED0000000000000022 /* UnopenableRecentFileAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnopenableRecentFileAlert.swift; sourceTree = "<group>"; };
+		FADEFEED0000000000000024 /* FakeMountedVolumesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMountedVolumesProvider.swift; sourceTree = "<group>"; };
+		FADEFEED0000000000000026 /* UnopenableRecentFileAlertTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnopenableRecentFileAlertTests.swift; sourceTree = "<group>"; };
+		FADEFEED0000000000000028 /* SecurityScopedBookmarkProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityScopedBookmarkProviderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +195,7 @@
 				03B2590F2BB249310071FF7C /* PlayerControlsView.swift */,
 				03B2590D2BB242620071FF7C /* PlayerView.swift */,
 				033D45092BB37FCA001AEBAA /* SeekSliderView.swift */,
+				FADEFEED0000000000000022 /* UnopenableRecentFileAlert.swift */,
 				FADE00000000000000000007 /* WelcomeView.swift */,
 			);
 			path = Views;
@@ -197,6 +208,7 @@
 				03EA686D2B968D92003348BE /* Extensions.swift */,
 				FADE00000000000000000003 /* FileOpening.swift */,
 				03DEE9E52DE5600B002E05B9 /* KeyDownListener.swift */,
+				FADEFEED0000000000000020 /* MountedVolumes.swift */,
 				03DEE9E22DE54F90002E05B9 /* NowPlayable.swift */,
 				032EAF5C2DE9132600D31519 /* NowPlayable+RemoteCommands.swift */,
 				03EA68662B9654A0003348BE /* PlayEngine.swift */,
@@ -214,8 +226,11 @@
 			isa = PBXGroup;
 			children = (
 				FADEFEED0000000000000002 /* FakeBookmarkProvider.swift */,
+				FADEFEED0000000000000024 /* FakeMountedVolumesProvider.swift */,
 				FADEFEED0000000000000004 /* RecentDocumentsStoreTests.swift */,
 				FADEFEED0000000000000006 /* ResumePolicyTests.swift */,
+				FADEFEED0000000000000028 /* SecurityScopedBookmarkProviderTests.swift */,
+				FADEFEED0000000000000026 /* UnopenableRecentFileAlertTests.swift */,
 			);
 			path = "Front Row Tests";
 			sourceTree = "<group>";
@@ -396,6 +411,8 @@
 				FADE00000000000000000006 /* WelcomeWindowCoordinator.swift in Sources */,
 				FADE00000000000000000008 /* WelcomeView.swift in Sources */,
 				FADEFEED0000000000000013 /* BookmarkProviding.swift in Sources */,
+				FADEFEED0000000000000021 /* MountedVolumes.swift in Sources */,
+				FADEFEED0000000000000023 /* UnopenableRecentFileAlert.swift in Sources */,
 				FADEFEED0000000000000015 /* SecurityScopedBookmarkProvider.swift in Sources */,
 				FADEFEED0000000000000017 /* ResumePolicy.swift in Sources */,
 			);
@@ -406,8 +423,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FADEFEED0000000000000003 /* FakeBookmarkProvider.swift in Sources */,
+				FADEFEED0000000000000025 /* FakeMountedVolumesProvider.swift in Sources */,
 				FADEFEED0000000000000005 /* RecentDocumentsStoreTests.swift in Sources */,
 				FADEFEED0000000000000007 /* ResumePolicyTests.swift in Sources */,
+				FADEFEED0000000000000029 /* SecurityScopedBookmarkProviderTests.swift in Sources */,
+				FADEFEED0000000000000027 /* UnopenableRecentFileAlertTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
