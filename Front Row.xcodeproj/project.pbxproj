@@ -38,13 +38,13 @@
 		FADEFEED0000000000000003 /* FakeBookmarkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000002 /* FakeBookmarkProvider.swift */; };
 		FADEFEED0000000000000005 /* RecentDocumentsStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000004 /* RecentDocumentsStoreTests.swift */; };
 		FADEFEED0000000000000007 /* ResumePolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000006 /* ResumePolicyTests.swift */; };
+		FADEFEED0000000000000013 /* BookmarkProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000012 /* BookmarkProviding.swift */; };
+		FADEFEED0000000000000015 /* SecurityScopedBookmarkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000014 /* SecurityScopedBookmarkProvider.swift */; };
+		FADEFEED0000000000000017 /* ResumePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000016 /* ResumePolicy.swift */; };
 		FADEFEED0000000000000021 /* MountedVolumes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000020 /* MountedVolumes.swift */; };
 		FADEFEED0000000000000023 /* UnopenableRecentFileAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000022 /* UnopenableRecentFileAlert.swift */; };
 		FADEFEED0000000000000025 /* FakeMountedVolumesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000024 /* FakeMountedVolumesProvider.swift */; };
 		FADEFEED0000000000000027 /* UnopenableRecentFileAlertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000026 /* UnopenableRecentFileAlertTests.swift */; };
-		FADEFEED0000000000000013 /* BookmarkProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000012 /* BookmarkProviding.swift */; };
-		FADEFEED0000000000000015 /* SecurityScopedBookmarkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000014 /* SecurityScopedBookmarkProvider.swift */; };
-		FADEFEED0000000000000017 /* ResumePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADEFEED0000000000000016 /* ResumePolicy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,13 +92,13 @@
 		FADEFEED0000000000000002 /* FakeBookmarkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeBookmarkProvider.swift; sourceTree = "<group>"; };
 		FADEFEED0000000000000004 /* RecentDocumentsStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentDocumentsStoreTests.swift; sourceTree = "<group>"; };
 		FADEFEED0000000000000006 /* ResumePolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumePolicyTests.swift; sourceTree = "<group>"; };
+		FADEFEED0000000000000012 /* BookmarkProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkProviding.swift; sourceTree = "<group>"; };
+		FADEFEED0000000000000014 /* SecurityScopedBookmarkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityScopedBookmarkProvider.swift; sourceTree = "<group>"; };
+		FADEFEED0000000000000016 /* ResumePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumePolicy.swift; sourceTree = "<group>"; };
 		FADEFEED0000000000000020 /* MountedVolumes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MountedVolumes.swift; sourceTree = "<group>"; };
 		FADEFEED0000000000000022 /* UnopenableRecentFileAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnopenableRecentFileAlert.swift; sourceTree = "<group>"; };
 		FADEFEED0000000000000024 /* FakeMountedVolumesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMountedVolumesProvider.swift; sourceTree = "<group>"; };
 		FADEFEED0000000000000026 /* UnopenableRecentFileAlertTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnopenableRecentFileAlertTests.swift; sourceTree = "<group>"; };
-		FADEFEED0000000000000012 /* BookmarkProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkProviding.swift; sourceTree = "<group>"; };
-		FADEFEED0000000000000014 /* SecurityScopedBookmarkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityScopedBookmarkProvider.swift; sourceTree = "<group>"; };
-		FADEFEED0000000000000016 /* ResumePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumePolicy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
