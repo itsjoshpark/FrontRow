@@ -18,7 +18,9 @@ struct SecurityScopedBookmarkProviderTests {
     func pathIsReadableFromBookmarkDataAfterTheFileIsGone() throws {
         let provider = SecurityScopedBookmarkProvider()
 
-        let file = URL.temporaryDirectory.appending(path: "\(UUID().uuidString).mov")
+        // A name needing percent-encoding, so reading the path back has to decode it the same way
+        // `lastPathComponent` does.
+        let file = URL.temporaryDirectory.appending(path: "réal môvie \(UUID().uuidString).mov")
         try Data("front row".utf8).write(to: file)
 
         let bookmarkData = try #require(provider.bookmarkData(for: file))
@@ -26,12 +28,15 @@ struct SecurityScopedBookmarkProviderTests {
         // Compares the bookmark's own reading before and after, rather than against the URL it was
         // made from: a bookmark records the canonical path, and canonicalization doesn't survive
         // the file being deleted, which would make a direct comparison test the wrong thing.
-        let pathWhileFileExists = try #require(provider.url(fromBookmarkData: bookmarkData)?.path())
+        let pathWhileFileExists = try #require(
+            provider.url(fromBookmarkData: bookmarkData)?.path(percentEncoded: false))
         #expect(pathWhileFileExists.hasSuffix(file.lastPathComponent))
 
         try FileManager.default.removeItem(at: file)
 
         #expect(provider.resolveBookmark(bookmarkData) == nil)
-        #expect(provider.url(fromBookmarkData: bookmarkData)?.path() == pathWhileFileExists)
+        #expect(
+            provider.url(fromBookmarkData: bookmarkData)?.path(percentEncoded: false)
+                == pathWhileFileExists)
     }
 }
