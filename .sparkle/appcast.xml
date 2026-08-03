@@ -8,6 +8,28 @@
     <item>
       <title>New Version Available</title>
       <link>https://github.com/itsjoshpark/FrontRow</link>
+      <sparkle:version>24</sparkle:version>
+      <sparkle:shortVersionString>2.10 (24)</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>15.6</sparkle:minimumSystemVersion>
+      <sparkle:fullReleaseNotesLink>https://github.com/itsjoshpark/FrontRow/releases</sparkle:fullReleaseNotesLink>
+      <pubDate>Mon, 03 Aug 2026 00:15:00 +0000</pubDate>
+      <enclosure
+        url="https://github.com/itsjoshpark/FrontRow/releases/download/v2.10/FrontRow_v2.10.dmg"
+        sparkle:edSignature="ZtvJbSZ86SPlZHCxtjn1cA/iFRICymLAyWqHVttkPKqb3/7nsU4XT7IGr4C671QiQUldBxvaNaefoU4J49rjBA=="
+        length="3729232"
+        type="application/octet-stream" />
+      <description><![CDATA[
+      <ul>
+      <li>Changed: Recently opened files that are unavailable will no longer be automatically removed from the list. This is useful if a file is temporarily unavailable, such as when its external drive is disconnected</li>
+      <li>Updated: App localizations</li>
+      </ul>
+      ]]>
+      </description>
+    </item>
+
+    <item>
+      <title>New Version Available</title>
+      <link>https://github.com/itsjoshpark/FrontRow</link>
       <sparkle:version>23</sparkle:version>
       <sparkle:shortVersionString>2.9.2 (23)</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>15.6</sparkle:minimumSystemVersion>
