@@ -19,10 +19,9 @@ enum VideoWindowLayout {
     static func frame(forVideoSize videoSize: CGSize, in screenFrame: CGRect) -> CGRect? {
         guard videoSize != .zero else { return nil }
 
-        let fittedSize =
+        let fitsOnScreen =
             videoSize.width < screenFrame.width && videoSize.height < screenFrame.height
-            ? videoSize
-            : videoSize.shrink(toSize: screenFrame.size)
+        let fittedSize = fitsOnScreen ? videoSize : videoSize.shrink(toSize: screenFrame.size)
 
         let origin = CGPoint(
             x: screenFrame.origin.x + (screenFrame.width - fittedSize.width) / 2,

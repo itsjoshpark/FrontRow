@@ -13,8 +13,6 @@ struct ContentView: View {
     @State private var chrome = PlayerChromeVisibility()
 
     var body: some View {
-        @Bindable var playEngine = playEngine
-
         ZStack(alignment: .bottom) {
             PlayerView(player: playEngine.player)
                 .mediaFileDropDestination()

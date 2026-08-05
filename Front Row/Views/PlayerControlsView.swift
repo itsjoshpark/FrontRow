@@ -12,6 +12,10 @@ import SwiftUI
 enum PlayerControlColor {
     static let foreground = Color.white.opacity(0.7)
     static let disabled = Color(nsColor: .disabledControlTextColor)
+
+    static func text(isEnabled: Bool) -> Color {
+        isEnabled ? foreground : disabled
+    }
 }
 
 struct PlayerControlsView: View {
@@ -54,8 +58,7 @@ private struct CurrentTimeLabel: View {
     var body: some View {
         Text(verbatim: playEngine.currentTime.asTimecode(using: playEngine.duration))
             .font(.system(size: 11))
-            .foregroundStyle(
-                playEngine.isLoaded ? PlayerControlColor.foreground : PlayerControlColor.disabled)
+            .foregroundStyle(PlayerControlColor.text(isEnabled: playEngine.isLoaded))
             .frame(minWidth: 50, alignment: .center)
     }
 }
@@ -72,9 +75,7 @@ private struct DurationLabel: View {
                 : playEngine.duration.asTimecode(using: playEngine.duration)
         )
         .font(.system(size: 11))
-        .foregroundStyle(
-            playEngine.isLoaded ? PlayerControlColor.foreground : PlayerControlColor.disabled
-        )
+        .foregroundStyle(PlayerControlColor.text(isEnabled: playEngine.isLoaded))
         .frame(minWidth: 50, alignment: .center)
         .onHover { inside in
             if inside {
