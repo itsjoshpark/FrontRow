@@ -26,7 +26,7 @@ swift-format format -p -r -i ./
 - Prefer Swift-native alternatives to Foundation methods where they exist, such as using `replacing("hello", with: "world")` with strings rather than `replacingOccurrences(of: "hello", with: "world")`.
 - Prefer modern Foundation API, for example `URL.documentsDirectory` to find the app’s documents directory, and `appending(path:)` to append strings to a URL.
 - Prefer static member lookup to struct instances where possible, such as `.circle` rather than `Circle()`, and `.borderedProminent` rather than `BorderedProminentButtonStyle()`.
-- Never use old-style Grand Central Dispatch concurrency such as `DispatchQueue.main.async()`. If behavior like this is needed, always use modern Swift concurrency.
+- New code should use modern Swift concurrency rather than old-style Grand Central Dispatch — prefer `Task { @MainActor in }` or actor isolation to `DispatchQueue.main.async()`. Leave working GCD code alone; some APIs only take a queue, and the replacements differ in delivery semantics.
 - Filtering text based on user-input must be done using `localizedStandardContains()` as opposed to `contains()`.
 - Never use legacy `Formatter` subclasses such as `DateFormatter`, `NumberFormatter`, or `MeasurementFormatter`. Always use the modern `FormatStyle` API instead. For example, to format a date, use `myDate.formatted(date: .abbreviated, time: .shortened)`. To parse a date from a string, use `Date(inputString, strategy: .iso8601)`. For numbers, use `myNumber.formatted(.number)` or custom format styles.
 - Comments shape: 1-3 short lines; Add comment only if it explains something that isn't immediately obvious from reading the code. No syntax narration, PR/user-specific lore, or obvious mechanics.
