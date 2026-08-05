@@ -160,7 +160,7 @@ import SwiftUI
         observationTasks = [
             Task { [weak self] in
                 guard let player = self?.player else { return }
-                for await status in player.publisher(for: \.timeControlStatus).values {
+                for await status in observedValues(of: player, at: \.timeControlStatus) {
                     guard let self else { return }
                     timeControlStatus = status
                     updateNowPlayingInfo()
@@ -171,15 +171,18 @@ import SwiftUI
             },
             Task { [weak self] in
                 guard let player = self?.player else { return }
-                for await _ in player.publisher(for: \.rate).values {
+                for await _ in observedValues(of: player, at: \.rate) {
                     guard let self else { return }
                     updateNowPlayingInfo()
                 }
             },
             Task { [weak self] in
                 guard let player = self?.player else { return }
-                for await isMuted in player.publisher(for: \.isMuted).removeDuplicates().values {
+                var last: Bool?
+                for await isMuted in observedValues(of: player, at: \.isMuted) {
                     guard let self else { return }
+                    guard isMuted != last else { continue }
+                    last = isMuted
                     _isMuted = isMuted
                 }
             },
@@ -258,8 +261,12 @@ import SwiftUI
 
         currentItemTasks = [
             Task { [weak self] in
-                for await status in playerItem.publisher(for: \.status).removeDuplicates().values {
+                var last: AVPlayerItem.Status?
+                for await status in observedValues(of: playerItem, at: \.status) {
                     guard let self else { return }
+                    guard status != last else { continue }
+                    last = status
+
                     switch status {
                     case .readyToPlay:
                         isLoaded = true
@@ -283,9 +290,11 @@ import SwiftUI
                 }
             },
             Task { [weak self] in
-                let sizes = playerItem.publisher(for: \.presentationSize).removeDuplicates()
-                for await size in sizes.values {
+                var last: CGSize?
+                for await size in observedValues(of: playerItem, at: \.presentationSize) {
                     guard let self else { return }
+                    guard size != last else { continue }
+                    last = size
                     videoSize = size
                     fitToVideoSize(skipResize: WindowController.shared.isFullscreen)
                 }
