@@ -23,13 +23,6 @@ import SwiftUI
         .wav,
     ]
 
-    static let skipIntervals: [Int] = [
-        5,
-        10,
-        15,
-        30,
-    ]
-
     /// How often (in seconds of playback) the current position is saved while playing.
     private static let periodicPositionSaveInterval: TimeInterval = 5
 
@@ -98,9 +91,9 @@ import SwiftUI
         }
     }
 
-    @ObservationIgnored @AppStorage("SkipInterval") private var _skipInterval: Int = 5
+    @ObservationIgnored @AppStorage("SkipInterval") private var _skipInterval: SkipInterval = .five
 
-    var skipInterval: Int {
+    var skipInterval: SkipInterval {
         get {
             access(keyPath: \.skipInterval)
             return _skipInterval
@@ -373,7 +366,7 @@ import SwiftUI
 
         let time = CMTimeAdd(
             player.currentTime(),
-            CMTimeMakeWithSeconds(Double(skipInterval), preferredTimescale: 1)
+            CMTimeMakeWithSeconds(skipInterval.seconds, preferredTimescale: 1)
         )
         await player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
 
@@ -388,7 +381,7 @@ import SwiftUI
 
         let time = CMTimeSubtract(
             player.currentTime(),
-            CMTimeMakeWithSeconds(Double(skipInterval), preferredTimescale: 1)
+            CMTimeMakeWithSeconds(skipInterval.seconds, preferredTimescale: 1)
         )
         await player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
 

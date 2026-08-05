@@ -42,7 +42,7 @@ extension NowPlayable {
 
         commandCenter.skipForwardCommand.isEnabled = true
         commandCenter.skipForwardCommand.preferredIntervals = [
-            NSNumber(value: playEngine.skipInterval)
+            NSNumber(value: playEngine.skipInterval.rawValue)
         ]
         commandCenter.skipForwardCommand.addTarget { _ in
             Task {
@@ -53,7 +53,7 @@ extension NowPlayable {
 
         commandCenter.skipBackwardCommand.isEnabled = true
         commandCenter.skipBackwardCommand.preferredIntervals = [
-            NSNumber(value: playEngine.skipInterval)
+            NSNumber(value: playEngine.skipInterval.rawValue)
         ]
         commandCenter.skipBackwardCommand.addTarget { _ in
             Task {

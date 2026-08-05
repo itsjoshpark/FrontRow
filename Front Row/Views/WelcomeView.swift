@@ -87,7 +87,7 @@ struct WelcomeView: View {
             .frame(maxHeight: .infinity)
             .background(Color.black.opacity(0.25))
 
-            recentFilesList
+            RecentFilesList(recentDocumentsStore: recentDocumentsStore)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .frame(width: 640, height: 340)
@@ -112,9 +112,12 @@ struct WelcomeView: View {
             }
         }
     }
+}
 
-    @ViewBuilder
-    private var recentFilesList: some View {
+private struct RecentFilesList: View {
+    let recentDocumentsStore: RecentDocumentsStore
+
+    var body: some View {
         if recentDocumentsStore.recentURLs.isEmpty {
             VStack {
                 Spacer()
