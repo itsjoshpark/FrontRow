@@ -15,7 +15,8 @@ struct WindowAccessor: NSViewRepresentable {
 
     func makeNSView(context: Context) -> NSView {
         let view = NSView()
-        DispatchQueue.main.async { [weak view] in
+        // The view has no window until it's been added to one, which hasn't happened yet.
+        Task { [weak view] in
             guard let window = view?.window else { return }
             callback(window)
         }

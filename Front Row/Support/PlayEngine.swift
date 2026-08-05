@@ -125,7 +125,9 @@ import SwiftUI
 
     private var videoSize = CGSize.zero
 
-    private var subs = Set<AnyCancellable>()
+    private var observationTasks: [Task<Void, Never>] = []
+
+    private var currentItemTasks: [Task<Void, Never>] = []
 
     private var currentItemSubs = Set<AnyCancellable>()
 
@@ -142,34 +144,46 @@ import SwiftUI
         player.preventsDisplaySleepDuringVideoPlayback = true
         player.appliesMediaSelectionCriteriaAutomatically = false
 
-        player.publisher(for: \.timeControlStatus)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] status in
-                guard let self else { return }
-                self.timeControlStatus = status
-                self.updateNowPlayingInfo()
-                if status == .paused {
-                    self.persistCurrentPlaybackPosition()
-                }
-            }
-            .store(in: &subs)
-
-        player.publisher(for: \.rate)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] rate in
-                self?.updateNowPlayingInfo()
-            }
-            .store(in: &subs)
-
-        player.publisher(for: \.isMuted)
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] isMuted in
-                self?._isMuted = isMuted
-            }
-            .store(in: &subs)
-
+        installPlayerObservers()
         addPeriodicTimeObserver()
+    }
+
+    /// Mirrors the player's own state onto this object.
+    ///
+    /// `AVPlayer` reports these through KVO, so a publisher is still the bridge - but the values
+    /// are consumed as an async sequence on this actor, which is where every one of them is read
+    /// from, rather than being hopped onto a dispatch queue.
+    ///
+    /// The publishers emit their current value on subscription, so nothing is missed by these
+    /// loops starting after `init` returns.
+    private func installPlayerObservers() {
+        observationTasks = [
+            Task { [weak self] in
+                guard let player = self?.player else { return }
+                for await status in player.publisher(for: \.timeControlStatus).values {
+                    guard let self else { return }
+                    timeControlStatus = status
+                    updateNowPlayingInfo()
+                    if status == .paused {
+                        persistCurrentPlaybackPosition()
+                    }
+                }
+            },
+            Task { [weak self] in
+                guard let player = self?.player else { return }
+                for await _ in player.publisher(for: \.rate).values {
+                    guard let self else { return }
+                    updateNowPlayingInfo()
+                }
+            },
+            Task { [weak self] in
+                guard let player = self?.player else { return }
+                for await isMuted in player.publisher(for: \.isMuted).removeDuplicates().values {
+                    guard let self else { return }
+                    _isMuted = isMuted
+                }
+            },
+        ]
     }
 
     /// Attempts to open the file at url.
@@ -239,47 +253,47 @@ import SwiftUI
     }
 
     private func installObservers(on playerItem: AVPlayerItem, url: URL) {
-        for sub in currentItemSubs { sub.cancel() }
+        for task in currentItemTasks { task.cancel() }
         currentItemSubs.removeAll()
 
-        playerItem.publisher(for: \.status)
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] status in
-                guard let self else { return }
-                switch status {
-                case .readyToPlay:
-                    self.isLoaded = true
-                    self.isLocalFile = FileManager.default.fileExists(
-                        atPath: url.path(percentEncoded: false))
-                    NowPlayable.shared.setNowPlayingMetadata(
-                        NowPlayableStaticMetadata(
-                            assetURL: url,
-                            mediaType: self.videoSize == .zero ? .audio : .video,
-                            title: url.lastPathComponent
-                        ))
-                    self.updateNowPlayingInfo()
-                case .failed:
-                    self.isLoaded = false
-                    self.isLocalFile = false
-                    self.fileURL = nil
-                    NowPlayable.shared.sessionEnd()
-                default:
-                    break
+        currentItemTasks = [
+            Task { [weak self] in
+                for await status in playerItem.publisher(for: \.status).removeDuplicates().values {
+                    guard let self else { return }
+                    switch status {
+                    case .readyToPlay:
+                        isLoaded = true
+                        isLocalFile = FileManager.default.fileExists(
+                            atPath: url.path(percentEncoded: false))
+                        NowPlayable.shared.setNowPlayingMetadata(
+                            NowPlayableStaticMetadata(
+                                assetURL: url,
+                                mediaType: videoSize == .zero ? .audio : .video,
+                                title: url.lastPathComponent
+                            ))
+                        updateNowPlayingInfo()
+                    case .failed:
+                        isLoaded = false
+                        isLocalFile = false
+                        fileURL = nil
+                        NowPlayable.shared.sessionEnd()
+                    default:
+                        break
+                    }
                 }
-            }
-            .store(in: &currentItemSubs)
+            },
+            Task { [weak self] in
+                let sizes = playerItem.publisher(for: \.presentationSize).removeDuplicates()
+                for await size in sizes.values {
+                    guard let self else { return }
+                    videoSize = size
+                    fitToVideoSize(skipResize: WindowController.shared.isFullscreen)
+                }
+            },
+        ]
 
-        playerItem.publisher(for: \.presentationSize)
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] size in
-                guard let self else { return }
-                self.videoSize = size
-                self.fitToVideoSize(skipResize: WindowController.shared.isFullscreen)
-            }
-            .store(in: &currentItemSubs)
-
+        // The one that stays on Combine: `Notification` isn't `Sendable`, so it can't be carried
+        // to this actor by an async sequence, and the hop has to remain explicit.
         NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime, object: playerItem)
             .receive(on: DispatchQueue.main)
             .sink { _ in
@@ -437,6 +451,8 @@ import SwiftUI
         item.select(option, in: group)
     }
 
+    /// The other place a dispatch queue survives: `addPeriodicTimeObserver` has no async form, and
+    /// naming the main queue is how it's told where to call back.
     private func addPeriodicTimeObserver() {
         let interval = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
 
