@@ -33,5 +33,4 @@ jobs:
           -project "Front Row.xcodeproj"
           -scheme "Front Row"
           -destination "platform=macOS"
-          CODE_SIGN_IDENTITY="-" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=YES
-          | xcpretty && exit ${PIPESTATUS[0]}
+          CODE_SIGNING_ALLOWED=NO | xcpretty && exit ${PIPESTATUS[0]}
