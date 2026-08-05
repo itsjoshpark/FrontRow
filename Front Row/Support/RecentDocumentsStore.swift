@@ -7,6 +7,7 @@
 
 import AppKit
 import SwiftUI
+import UniformTypeIdentifiers
 
 /// Manages the recently opened files shown in File > Open Recent and the welcome window, along
 /// with each file's saved playback position.
@@ -247,5 +248,16 @@ final class RecentDocumentsStore {
             return Entry(
                 metadata: metadata, bookmarkData: record.bookmarkData, position: record.position)
         }
+    }
+}
+
+extension URL {
+    /// An icon suitable for representing this URL in the Open Recent menu / welcome screen,
+    /// whether it points to a local file or a remote resource.
+    var recentDocumentIcon: NSImage {
+        if isFileURL {
+            return NSWorkspace.shared.icon(forFile: path(percentEncoded: false))
+        }
+        return NSWorkspace.shared.icon(for: .url)
     }
 }

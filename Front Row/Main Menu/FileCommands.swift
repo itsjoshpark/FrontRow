@@ -84,10 +84,4 @@ struct FileCommands: Commands {
             .disabled(!PlayEngine.shared.isLocalFile)
         }
     }
-
-    @MainActor
-    private func showOpenFileDialog() async {
-        guard let url = await presentOpenFilePanel() else { return }
-        await openFileAndPresent(url: url)
-    }
 }

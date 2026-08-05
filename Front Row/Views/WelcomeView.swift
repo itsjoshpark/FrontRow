@@ -148,12 +148,6 @@ struct WelcomeView: View {
             .ignoresSafeArea(.container, edges: .top)
         }
     }
-
-    @MainActor
-    private func showOpenFileDialog() async {
-        guard let url = await presentOpenFilePanel() else { return }
-        await openFileAndPresent(url: url)
-    }
 }
 
 private struct WelcomeActionRow<Icon: View, Title: View>: View {

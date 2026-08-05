@@ -36,9 +36,7 @@ struct FrontRowApp: App {
                 .preferredColorScheme(.dark)
                 .ignoresSafeArea()
                 .navigationTitle(playEngine.fileURL?.lastPathComponent ?? "Front Row")
-                .if(playEngine.isLocalFile) { view in
-                    view.navigationDocument(playEngine.fileURL!)
-                }
+                .navigationDocument(ifLocal: playEngine.isLocalFile ? playEngine.fileURL : nil)
                 .sheet(isPresented: $presentedViewManager.isPresentingOpenURLView) {
                     OpenURLView()
                         .frame(minWidth: 600)
@@ -107,6 +105,19 @@ struct FrontRowApp: App {
         .defaultLaunchBehavior(.presented)
         .defaultPosition(.center)
         .restorationBehavior(.disabled)
+    }
+}
+
+extension View {
+    /// Gives the window a proxy icon for the file being played. Only a local file has one to
+    /// represent; a streamed URL has no document behind it.
+    @ViewBuilder
+    fileprivate func navigationDocument(ifLocal url: URL?) -> some View {
+        if let url {
+            navigationDocument(url)
+        } else {
+            self
+        }
     }
 }
 
