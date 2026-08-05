@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct GoToTimeView: View {
+    @Environment(PlayEngine.self) private var playEngine: PlayEngine
     @Namespace private var timeNamespace
     @State private var timecode = ""
 
@@ -19,7 +20,7 @@ struct GoToTimeView: View {
                 .prefersDefaultFocus(in: timeNamespace)
 
             Button("Go") {
-                Task { await PlayEngine.shared.goToTime(timecode) }
+                Task { await playEngine.goToTime(timecode) }
             }
 
             Button("Cancel", role: .cancel) {
@@ -32,4 +33,5 @@ struct GoToTimeView: View {
 
 #Preview {
     GoToTimeView()
+        .environment(PlayEngine.shared)
 }

@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct WindowCommands: Commands {
+    private let playEngine = PlayEngine.shared
+    private let windowController = WindowController.shared
+
     var body: some Commands {
         CommandGroup(after: .windowSize) {
             Section {
                 Button {
-                    PlayEngine.shared.fitToVideoSize()
+                    playEngine.fitToVideoSize()
                 } label: {
                     Text(
                         "Natural Size",
@@ -20,7 +23,7 @@ struct WindowCommands: Commands {
                     )
                 }
                 .keyboardShortcut("0", modifiers: [.command])
-                .disabled(!PlayEngine.shared.isLoaded || WindowController.shared.isFullscreen)
+                .disabled(!playEngine.isLoaded || windowController.isFullscreen)
             }
         }
     }

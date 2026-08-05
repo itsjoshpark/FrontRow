@@ -9,6 +9,10 @@ import AVKit
 import SwiftUI
 
 struct FileCommands: Commands {
+    private let playEngine = PlayEngine.shared
+    private let presentedViewManager = PresentedViewManager.shared
+    private let recentDocumentsStore = RecentDocumentsStore.shared
+
     var body: some Commands {
         CommandGroup(replacing: .newItem) {
             Button {
@@ -24,7 +28,7 @@ struct FileCommands: Commands {
             .keyboardShortcut("O", modifiers: [.command])
 
             Button {
-                PresentedViewManager.shared.isPresentingOpenURLView.toggle()
+                presentedViewManager.isPresentingOpenURLView.toggle()
             } label: {
                 Text(
                     "Open URL...",
@@ -34,7 +38,7 @@ struct FileCommands: Commands {
             .keyboardShortcut("O", modifiers: [.command, .shift])
 
             Menu {
-                ForEach(RecentDocumentsStore.shared.recentURLs, id: \.self) { url in
+                ForEach(recentDocumentsStore.recentURLs, id: \.self) { url in
                     Button {
                         Task {
                             await openRecentDocumentAndPresent(url: url)
@@ -48,19 +52,19 @@ struct FileCommands: Commands {
                     }
                 }
 
-                if !RecentDocumentsStore.shared.recentURLs.isEmpty {
+                if !recentDocumentsStore.recentURLs.isEmpty {
                     Divider()
                 }
 
                 Button {
-                    RecentDocumentsStore.shared.clear()
+                    recentDocumentsStore.clear()
                 } label: {
                     Text(
                         "Clear Menu",
                         comment: "Clears the Open Recent menu's list of recently opened files"
                     )
                 }
-                .disabled(RecentDocumentsStore.shared.recentURLs.isEmpty)
+                .disabled(recentDocumentsStore.recentURLs.isEmpty)
             } label: {
                 Text(
                     "Open Recent",
@@ -71,7 +75,7 @@ struct FileCommands: Commands {
             Divider()
 
             Button {
-                guard let item = PlayEngine.shared.player.currentItem,
+                guard let item = playEngine.player.currentItem,
                     let asset = item.asset as? AVURLAsset
                 else { return }
                 NSWorkspace.shared.activateFileViewerSelecting([asset.url])
@@ -81,7 +85,7 @@ struct FileCommands: Commands {
                     comment: "Show the currently playing file in Finder"
                 )
             }
-            .disabled(!PlayEngine.shared.isLocalFile)
+            .disabled(!playEngine.isLocalFile)
         }
     }
 }

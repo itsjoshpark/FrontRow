@@ -98,6 +98,7 @@ struct FrontRowApp: App {
         Window("Welcome to Front Row", id: WindowID.welcome) {
             WelcomeView()
                 .preferredColorScheme(.dark)
+                .environment(playEngine)
                 .environment(presentedViewManager)
         }
         .windowStyle(.hiddenTitleBar)

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(PlayEngine.self) private var playEngine: PlayEngine
+    @Environment(WindowController.self) private var windowController: WindowController
     @State private var chrome = PlayerChromeVisibility()
 
     var body: some View {
@@ -50,23 +51,23 @@ struct ContentView: View {
             case .ended: chrome.windowHoverChanged(isInside: false)
             }
         }
-        .onChange(of: WindowController.shared.isMouseInTitleBar) { _, isInTitleBar in
+        .onChange(of: windowController.isMouseInTitleBar) { _, isInTitleBar in
             chrome.titleBarHoverChanged(isInside: isInTitleBar)
         }
         // The titlebar fades with the controls: they are one piece of chrome as far as the user
         // is concerned, and it lives in AppKit rather than in this hierarchy.
         .onChange(of: chrome.areControlsVisible) { _, areVisible in
             if areVisible {
-                WindowController.shared.showTitlebar()
+                windowController.showTitlebar()
             } else {
-                WindowController.shared.hideTitlebar()
+                windowController.hideTitlebar()
             }
         }
         .onChange(of: chrome.isCursorHidden) { _, isHidden in
             if isHidden {
-                WindowController.shared.hideCursor()
+                windowController.hideCursor()
             } else {
-                WindowController.shared.showCursor()
+                windowController.showCursor()
             }
         }
     }

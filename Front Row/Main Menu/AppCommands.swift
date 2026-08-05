@@ -10,6 +10,7 @@ import SwiftUI
 
 struct AppCommands: Commands {
     private let updater: SPUUpdater
+    private let playEngine = PlayEngine.shared
 
     var body: some Commands {
         CommandGroup(after: .appInfo) {
@@ -29,7 +30,7 @@ struct AppCommands: Commands {
                                     "https://media.developer.dolby.com/DDP/MP4_HPL40_30fps_channel_id_51.mp4"
                             )
                         else { return }
-                        await PlayEngine.shared.openFile(url: url)
+                        await playEngine.openFile(url: url)
                     }
                 } label: {
                     Text("Experience Spatial Audio")

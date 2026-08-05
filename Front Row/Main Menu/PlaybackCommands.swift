@@ -70,7 +70,7 @@ struct PlaybackCommands: Commands {
             .disabled(!playEngine.isLoaded || presentedViewManager.isPresenting)
 
             Button {
-                PresentedViewManager.shared.isPresentingGoToTimeView.toggle()
+                presentedViewManager.isPresentingGoToTimeView.toggle()
             } label: {
                 Text("Go to Time...")
             }

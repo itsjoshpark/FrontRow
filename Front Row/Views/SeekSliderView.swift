@@ -24,6 +24,8 @@ struct SeekSliderView: NSViewRepresentable {
         }
     }
 
+    /// Reaches for the shared engine rather than an injected one: AppKit builds the cell itself,
+    /// through `cellClass`, so there is no point at which one could be handed in.
     class SeekSliderCell: NSSliderCell {
         override var knobThickness: CGFloat {
             return knobWidth

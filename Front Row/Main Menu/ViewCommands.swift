@@ -8,24 +8,27 @@
 import SwiftUI
 
 struct ViewCommands: Commands {
+    private let playEngine = PlayEngine.shared
+    @Bindable private var windowController = WindowController.shared
+
     var body: some Commands {
         CommandGroup(replacing: .toolbar) {
             Button {
                 NSApplication.shared.mainWindow?.toggleFullScreen(nil)
             } label: {
                 Text(
-                    WindowController.shared.isFullscreen
+                    windowController.isFullscreen
                         ? "Exit Full Screen" : "Enter Full Screen")
             }
             .keyboardShortcut(.return, modifiers: [])
 
-            Toggle(isOn: Bindable(WindowController.shared).isOnTop) {
+            Toggle(isOn: $windowController.isOnTop) {
                 Text("Float on Top")
             }
 
             Divider()
 
-            SubtitlePicker(playEngine: PlayEngine.shared)
+            SubtitlePicker(playEngine: playEngine)
         }
     }
 }
