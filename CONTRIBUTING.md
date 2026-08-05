@@ -5,10 +5,10 @@ Thank you for your interest in contributing!
 Please review the following guidelines to help keep the project in a good shape.
 
 
-## <a name="rules"></a> Gated Check-in
+## <a name="rules"></a> Continuous Integration
 
-To prevent broken or inconsistent code from being checked-in, all Pull Request will go through a gated check-in process.
-This process will check that the code builds without errors and that it meets [swift-format](https://github.com/apple/swift-format)'s standards.
+To prevent broken or inconsistent code from being checked-in, every Pull Request runs the CI workflow.
+This checks that the code builds and tests without errors and that it meets [swift-format](https://github.com/apple/swift-format)'s standards.
 
 
 ## <a name="commit"></a> Pull Request Commit Message Format
