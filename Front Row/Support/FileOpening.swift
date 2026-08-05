@@ -28,7 +28,16 @@ func presentOpenFilePanel() async -> URL? {
     panel.allowsMultipleSelection = false
     panel.canChooseDirectories = false
     panel.canChooseFiles = true
-    let response = await panel.beginSheetModal(for: NSApplication.shared.mainWindow!)
+
+    // Sheeted onto the main window where there is one. Opening a file is also how the app is
+    // started, and at that point there may be no window to hang a sheet from.
+    let response: NSApplication.ModalResponse
+    if let window = NSApplication.shared.mainWindow {
+        response = await panel.beginSheetModal(for: window)
+    } else {
+        response = await panel.begin()
+    }
+
     guard response == .OK else { return nil }
     return panel.url
 }

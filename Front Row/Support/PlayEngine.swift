@@ -10,7 +10,7 @@ import Combine
 import SwiftUI
 
 @MainActor
-@Observable public final class PlayEngine {
+@Observable final class PlayEngine {
 
     static let shared = PlayEngine()
 
@@ -182,9 +182,8 @@ import SwiftUI
 
         let url = resolveAccessibleURL(originalURL)
 
-        if asset != nil {
-            asset!.cancelLoading()
-        }
+        asset?.cancelLoading()
+
         let newAsset = AVURLAsset(url: url)
         asset = newAsset
 
@@ -462,12 +461,6 @@ import SwiftUI
                 }
             }
         }
-    }
-
-    private func removePeriodicTimeObserver() {
-        guard let timeObserver else { return }
-        player.removeTimeObserver(timeObserver)
-        self.timeObserver = nil
     }
 
     private func updateNowPlayingInfo() {
