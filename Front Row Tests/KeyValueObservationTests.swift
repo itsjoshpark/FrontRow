@@ -11,6 +11,15 @@ import Testing
 /// Stands in for the AVFoundation objects the player observes, which can't be driven to order.
 private final class Probe: NSObject, @unchecked Sendable {
     @objc dynamic var value: Int = 0
+    @objc dynamic var status: Status = .unknown
+}
+
+/// Shaped like the enums the player actually watches - `AVPlayerItem.Status` and
+/// `AVPlayer.TimeControlStatus` are both `@objc` enums, and they are the ones that broke.
+@objc private enum Status: Int {
+    case unknown
+    case ready
+    case failed
 }
 
 @Suite(.timeLimit(.minutes(1)))
@@ -48,6 +57,26 @@ struct KeyValueObservationTests {
 
         let received = [await values.next(), await values.next(), await values.next()]
         #expect(received == [1, 2, 3])
+    }
+
+    /// The second half of the same defect, and the half that survived the first fix.
+    ///
+    /// KVO reports a change as an `NSNumber`, which won't cast back to an imported `@objc` enum,
+    /// so reading the change dictionary gave nil and the change looked like it never happened.
+    /// A `CGSize` bridges cleanly, which is why the window resized while the player never noticed
+    /// its item had become ready.
+    @Test
+    func changesToAnObjCEnumPropertyAreDelivered() async {
+        let probe = Probe()
+        var values = observedValues(of: probe, at: \Probe.status).makeAsyncIterator()
+
+        let seed = await values.next()
+        #expect(seed == .unknown)
+
+        probe.status = .ready
+
+        let next = await values.next()
+        #expect(next == .ready)
     }
 
     @Test

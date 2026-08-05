@@ -18,16 +18,20 @@ import Foundation
 /// Buffering every change here means a value can arrive late, but never go missing.
 func observedValues<Object: NSObject, Value: Sendable>(
     of object: Object,
-    at keyPath: KeyPath<Object, Value>
+    at keyPath: any KeyPath<Object, Value> & Sendable
 ) -> AsyncStream<Value> {
     AsyncStream(bufferingPolicy: .unbounded) { continuation in
         // Seeded from here rather than through the `.initial` option, so the current value is
         // read in the caller's context instead of KVO's.
         continuation.yield(object[keyPath: keyPath])
 
-        let observation = object.observe(keyPath, options: [.new]) { _, change in
-            guard let value = change.newValue else { return }
-            continuation.yield(value)
+        // The value is read back off the object rather than taken from the change dictionary.
+        // KVO stores it as an `NSNumber`, and for a property whose Swift type is an imported
+        // `@objc` enum - `AVPlayerItem.Status`, `AVPlayer.TimeControlStatus` - that number won't
+        // cast back to the enum, so `change.newValue` is nil and the change looks like it never
+        // happened. Reading the property is always correctly typed.
+        let observation = object.observe(keyPath) { object, _ in
+            continuation.yield(object[keyPath: keyPath])
         }
 
         continuation.onTermination = { _ in
