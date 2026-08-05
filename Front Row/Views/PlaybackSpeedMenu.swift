@@ -85,7 +85,7 @@ struct PlaybackSpeedIndicator: View {
     let playEngine: PlayEngine
 
     var body: some View {
-        if !Float.isApproxEqual(lhs: playEngine.playbackSpeed, rhs: 1.0) {
+        if !PlaybackSpeed.isDefault(playEngine.playbackSpeed) {
             Menu {
                 Text("Speed")
                     .font(.system(size: 11).weight(.semibold))
@@ -94,14 +94,16 @@ struct PlaybackSpeedIndicator: View {
                 PlaybackSpeedButton(action: .decrease, playEngine: playEngine)
                 PlaybackSpeedButton(action: .reset, playEngine: playEngine)
             } label: {
-                Text(
-                    verbatim:
-                        "\(playEngine.playbackSpeed.formatted(.number.precision(.fractionLength(2))))×"
-                )
-                .font(.system(size: 11))
+                Text(verbatim: formattedSpeed)
+                    .font(.system(size: 11))
             }
             .menuStyle(.borderlessButton)
             .frame(width: 50)
         }
+    }
+
+    private var formattedSpeed: String {
+        let speed = playEngine.playbackSpeed.formatted(.number.precision(.fractionLength(2)))
+        return "\(speed)×"
     }
 }
