@@ -28,6 +28,8 @@ struct PlayerView: NSViewRepresentable {
         }
 
         override func rightMouseUp(with event: NSEvent) {
+            // The shared engine rather than an injected one: this is an AppKit event handler, with
+            // no SwiftUI environment to read from.
             PlayEngine.shared.playPause()
             super.rightMouseUp(with: event)
         }

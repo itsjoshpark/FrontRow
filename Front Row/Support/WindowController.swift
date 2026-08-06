@@ -8,7 +8,7 @@
 import SwiftUI
 
 @MainActor
-@Observable public final class WindowController {
+@Observable final class WindowController {
 
     static let shared = WindowController()
 
@@ -22,8 +22,9 @@ import SwiftUI
 
     // MARK: - Mouse Tracking
 
+    /// Whether the pointer is over the titlebar, which SwiftUI can't report since the titlebar
+    /// isn't part of the view hierarchy. `PlayerChromeVisibility` decides what to do about it.
     private(set) var isMouseInTitleBar = false
-    var isMouseInPlayerControls = false
 
     private init() {
         setupMouseTracking()

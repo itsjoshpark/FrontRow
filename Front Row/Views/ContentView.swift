@@ -8,16 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(PlayEngine.self) var playEngine: PlayEngine
-    @State private var mouseIdleTimer: Timer!
-    @State private var mouseInsideWindow = false
-    @State private var playerControlsShown = true
+    @Environment(PlayEngine.self) private var playEngine: PlayEngine
+    @Environment(WindowController.self) private var windowController: WindowController
+    @State private var chrome = PlayerChromeVisibility()
 
     var body: some View {
-        @Bindable var playEngine = playEngine
-
         ZStack(alignment: .bottom) {
-            PlayerView(player: PlayEngine.shared.player)
+            PlayerView(player: playEngine.player)
                 .mediaFileDropDestination()
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 .ignoresSafeArea()
@@ -32,99 +29,44 @@ struct ContentView: View {
             PlayerControlsView()
                 .onContinuousHover { phase in
                     switch phase {
-                    case .active:
-                        WindowController.shared.isMouseInPlayerControls = true
-                        resetMouseIdleTimer()
-                        showPlayerControls()
-                        WindowController.shared.showTitlebar()
-                        WindowController.shared.showCursor()
-                    case .ended:
-                        WindowController.shared.isMouseInPlayerControls = false
+                    case .active: chrome.controlsHoverChanged(isInside: true)
+                    case .ended: chrome.controlsHoverChanged(isInside: false)
                     }
                 }
-                .animation(.linear(duration: 0.4), value: playerControlsShown)
-                .opacity(playerControlsShown ? 1.0 : 0.0)
+                .animation(.linear(duration: 0.4), value: chrome.areControlsVisible)
+                .opacity(chrome.areControlsVisible ? 1.0 : 0.0)
         }
         .background {
             Color.black.ignoresSafeArea()
         }
         .unopenableRecentFileAlert(in: .player)
         .onAppear {
-            resetMouseIdleTimer()
+            chrome.mouseMoved()
         }
         .onContinuousHover { phase in
             switch phase {
-            case .active:
-                mouseInsideWindow = true
-                resetMouseIdleTimer()
-                showPlayerControls()
-                WindowController.shared.showTitlebar()
-                WindowController.shared.showCursor()
-            case .ended:
-                mouseInsideWindow = false
-                // Only hide if mouse is not hovering over title bar or controls
-                let isHoveringInteractiveArea =
-                    WindowController.shared.isMouseInTitleBar
-                    || WindowController.shared.isMouseInPlayerControls
-                if !isHoveringInteractiveArea {
-                    hidePlayerControls()
-                    WindowController.shared.hideTitlebar()
-                }
-                WindowController.shared.showCursor()
+            case .active: chrome.windowHoverChanged(isInside: true)
+            case .ended: chrome.windowHoverChanged(isInside: false)
             }
         }
-        .onChange(of: WindowController.shared.isMouseInTitleBar) { _, isInTitleBar in
-            if isInTitleBar {
-                // When mouse enters title bar, show controls and reset idle timer
-                showPlayerControls()
-                WindowController.shared.showTitlebar()
-                resetMouseIdleTimer()
-            } else if !mouseInsideWindow && !WindowController.shared.isMouseInPlayerControls {
-                // When mouse leaves title bar and is not in content area or controls, hide UI
-                hidePlayerControls()
-                WindowController.shared.hideTitlebar()
+        .onChange(of: windowController.isMouseInTitleBar) { _, isInTitleBar in
+            chrome.titleBarHoverChanged(isInside: isInTitleBar)
+        }
+        // The titlebar fades with the controls: they are one piece of chrome as far as the user
+        // is concerned, and it lives in AppKit rather than in this hierarchy.
+        .onChange(of: chrome.areControlsVisible) { _, areVisible in
+            if areVisible {
+                windowController.showTitlebar()
+            } else {
+                windowController.hideTitlebar()
             }
         }
-    }
-
-    private func hidePlayerControls() {
-        withAnimation {
-            playerControlsShown = false
-        }
-    }
-
-    private func showPlayerControls() {
-        withAnimation {
-            playerControlsShown = true
-        }
-    }
-
-    private func resetMouseIdleTimer() {
-        if mouseIdleTimer != nil {
-            mouseIdleTimer.invalidate()
-            mouseIdleTimer = nil
-        }
-
-        mouseIdleTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { _ in
-            MainActor.assumeIsolated {
-                self.mouseIdleTimerAction()
+        .onChange(of: chrome.isCursorHidden) { _, isHidden in
+            if isHidden {
+                windowController.hideCursor()
+            } else {
+                windowController.showCursor()
             }
-        }
-    }
-
-    private func mouseIdleTimerAction() {
-        let isHoveringInteractiveArea =
-            WindowController.shared.isMouseInTitleBar
-            || WindowController.shared.isMouseInPlayerControls
-
-        // Only hide controls if mouse is not hovering over title bar or controls
-        if !isHoveringInteractiveArea {
-            hidePlayerControls()
-            WindowController.shared.hideTitlebar()
-        }
-        // Only hide cursor if mouse is in content area (not title bar or controls)
-        if mouseInsideWindow && !isHoveringInteractiveArea {
-            WindowController.shared.hideCursor()
         }
     }
 }

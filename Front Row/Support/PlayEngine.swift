@@ -10,7 +10,7 @@ import Combine
 import SwiftUI
 
 @MainActor
-@Observable public final class PlayEngine {
+@Observable final class PlayEngine {
 
     static let shared = PlayEngine()
 
@@ -21,13 +21,6 @@ import SwiftUI
         .mpeg4Movie,
         .quickTimeMovie,
         .wav,
-    ]
-
-    static let skipIntervals: [Int] = [
-        5,
-        10,
-        15,
-        30,
     ]
 
     /// How often (in seconds of playback) the current position is saved while playing.
@@ -76,31 +69,16 @@ import SwiftUI
         }
         set {
             withMutation(keyPath: \.playbackSpeed) {
-                if Float.isApproxEqual(lhs: newValue, rhs: 1.0) {
-                    player.rate = 1.0
-                    player.defaultRate = 1.0
-                    return
-                }
-
-                if newValue > player.defaultRate {
-                    let newSpeed = min(newValue, 2.0)
-                    player.rate = newSpeed
-                    player.defaultRate = newSpeed
-                } else if newValue < player.defaultRate {
-                    let newSpeed = max(newValue, 0.05)
-                    player.rate = newSpeed
-                    player.defaultRate = newSpeed
-                } else {
-                    player.rate = newValue
-                    player.defaultRate = newValue
-                }
+                let speed = PlaybackSpeed.clamped(newValue)
+                player.rate = speed
+                player.defaultRate = speed
             }
         }
     }
 
-    @ObservationIgnored @AppStorage("SkipInterval") private var _skipInterval: Int = 5
+    @ObservationIgnored @AppStorage("SkipInterval") private var _skipInterval: SkipInterval = .five
 
-    var skipInterval: Int {
+    var skipInterval: SkipInterval {
         get {
             access(keyPath: \.skipInterval)
             return _skipInterval
@@ -204,9 +182,8 @@ import SwiftUI
 
         let url = resolveAccessibleURL(originalURL)
 
-        if asset != nil {
-            asset!.cancelLoading()
-        }
+        asset?.cancelLoading()
+
         let newAsset = AVURLAsset(url: url)
         asset = newAsset
 
@@ -373,7 +350,7 @@ import SwiftUI
 
         let time = CMTimeAdd(
             player.currentTime(),
-            CMTimeMakeWithSeconds(Double(skipInterval), preferredTimescale: 1)
+            CMTimeMakeWithSeconds(skipInterval.seconds, preferredTimescale: 1)
         )
         await player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
 
@@ -388,7 +365,7 @@ import SwiftUI
 
         let time = CMTimeSubtract(
             player.currentTime(),
-            CMTimeMakeWithSeconds(Double(skipInterval), preferredTimescale: 1)
+            CMTimeMakeWithSeconds(skipInterval.seconds, preferredTimescale: 1)
         )
         await player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
 
@@ -404,23 +381,11 @@ import SwiftUI
     }
 
     func goToTime(_ timecode: String) async {
-        guard isLoaded, let item = player.currentItem else { return }
+        guard isLoaded, let item = player.currentItem,
+            let seconds = Timecode.parse(timecode)
+        else { return }
 
-        let split = Array(timecode.split(separator: ":").reversed())
-
-        let _hour: Int? = split.count > 2 ? Int(split[2]) : nil
-        let _minute: Int? = split.count > 1 ? Int(split[1]) : nil
-        let _second: Double? = !split.isEmpty ? Double(split[0]) : nil
-
-        if _hour == nil && _minute == nil && _second == nil {
-            return
-        }
-
-        let hour = _hour ?? 0
-        let minute = _minute ?? 0
-        let second = _second ?? 0.0
-        let time = CMTimeMakeWithSeconds(
-            Double(hour * 3600 + minute * 60) + second, preferredTimescale: 1)
+        let time = CMTimeMakeWithSeconds(seconds, preferredTimescale: 1)
 
         let validRange = CMTimeRange(start: .zero, end: item.duration)
         guard validRange.containsTime(time) else { return }
@@ -436,30 +401,19 @@ import SwiftUI
     }
 
     func fitToVideoSize(skipResize: Bool = false) {
-        guard let window = WindowController.shared.mainWindow else { return }
-        guard videoSize != CGSize.zero else {
+        guard let window = WindowController.shared.mainWindow,
+            let screen = window.screen ?? NSScreen.main
+        else { return }
+
+        guard
+            let newFrame = VideoWindowLayout.frame(
+                forVideoSize: videoSize, in: screen.visibleFrame)
+        else {
             /// reset aspect ratio setting
             window.resizeIncrements = NSMakeSize(1.0, 1.0)
             return
         }
 
-        let screenFrame = (window.screen ?? NSScreen.main!).visibleFrame
-        let newFrame: NSRect
-
-        if videoSize.width < screenFrame.width && videoSize.height < screenFrame.height {
-            let newOrigin = CGPoint(
-                x: screenFrame.origin.x + (screenFrame.width - videoSize.width) / 2,
-                y: screenFrame.origin.y + (screenFrame.height - videoSize.height) / 2
-            )
-            newFrame = NSRect(origin: newOrigin, size: videoSize)
-        } else {
-            let newSize = videoSize.shrink(toSize: screenFrame.size)
-            let newOrigin = CGPoint(
-                x: screenFrame.origin.x + (screenFrame.width - newSize.width) / 2,
-                y: screenFrame.origin.y + (screenFrame.height - newSize.height) / 2
-            )
-            newFrame = NSRect(origin: newOrigin, size: newSize)
-        }
         if !skipResize {
             window.setFrame(newFrame, display: true, animate: true)
         }
@@ -507,12 +461,6 @@ import SwiftUI
                 }
             }
         }
-    }
-
-    private func removePeriodicTimeObserver() {
-        guard let timeObserver else { return }
-        player.removeTimeObserver(timeObserver)
-        self.timeObserver = nil
     }
 
     private func updateNowPlayingInfo() {

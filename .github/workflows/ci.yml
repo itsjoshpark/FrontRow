@@ -3,6 +3,8 @@ name: CI
 on:
   push:
     branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 jobs:
   build:
@@ -15,6 +17,15 @@ jobs:
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest-stable
+
+      - name: Install swift-format
+        run: |
+          brew update
+          brew install swift-format
+
+      - name: Lint using swift-format
+        run: |
+          /opt/homebrew/bin/swift-format lint -s -p -r ./
 
       - name: Build, Analyze, and Test
         run: >

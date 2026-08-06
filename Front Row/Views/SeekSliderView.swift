@@ -24,6 +24,8 @@ struct SeekSliderView: NSViewRepresentable {
         }
     }
 
+    /// Reaches for the shared engine rather than an injected one: AppKit builds the cell itself,
+    /// through `cellClass`, so there is no point at which one could be handed in.
     class SeekSliderCell: NSSliderCell {
         override var knobThickness: CGFloat {
             return knobWidth
@@ -87,7 +89,9 @@ struct SeekSliderView: NSViewRepresentable {
         }
 
         override func knobRect(flipped: Bool) -> NSRect {
-            let slider = self.controlView as! NSSlider
+            let rect = super.knobRect(flipped: flipped)
+            guard let slider = controlView as? NSSlider else { return rect }
+
             let barRect = barRect(flipped: flipped)
             var percentage = slider.doubleValue / (slider.maxValue - slider.minValue)
             if percentage.isNaN {
@@ -96,7 +100,6 @@ struct SeekSliderView: NSViewRepresentable {
             /// The usable width of the bar is reduced by the width of the knob.
             let effectiveBarWidth = barRect.width - knobWidth
             let pos = barRect.origin.x + CGFloat(percentage) * effectiveBarWidth
-            let rect = super.knobRect(flipped: flipped)
 
             let height = (barRect.origin.y - rect.origin.y) * 2 + barRect.height
             return NSMakeRect(pos, rect.origin.y, knobWidth, height)

@@ -7,12 +7,6 @@
 
 import SwiftUI
 
-/// Identifiers for the app's `Window` scenes.
-enum WindowID {
-    static let main = "main"
-    static let welcome = "welcome"
-}
-
 /// The outcome of trying to open a media file.
 ///
 /// AVFoundation distinguishes "couldn't read this" from "read it, can't decode it", and the two
@@ -34,9 +28,25 @@ func presentOpenFilePanel() async -> URL? {
     panel.allowsMultipleSelection = false
     panel.canChooseDirectories = false
     panel.canChooseFiles = true
-    let response = await panel.beginSheetModal(for: NSApplication.shared.mainWindow!)
+
+    // Sheeted onto the main window where there is one. Opening a file is also how the app is
+    // started, and at that point there may be no window to hang a sheet from.
+    let response: NSApplication.ModalResponse
+    if let window = NSApplication.shared.mainWindow {
+        response = await panel.beginSheetModal(for: window)
+    } else {
+        response = await panel.begin()
+    }
+
     guard response == .OK else { return nil }
     return panel.url
+}
+
+/// Presents the Open File panel and opens whatever the user picks.
+@MainActor
+func showOpenFileDialog() async {
+    guard let url = await presentOpenFilePanel() else { return }
+    await openFileAndPresent(url: url)
 }
 
 /// Opens a file, records it in recent documents, and brings the main player window forward.

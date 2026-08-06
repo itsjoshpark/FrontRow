@@ -42,7 +42,7 @@ extension NowPlayable {
 
         commandCenter.skipForwardCommand.isEnabled = true
         commandCenter.skipForwardCommand.preferredIntervals = [
-            NSNumber(value: playEngine.skipInterval)
+            NSNumber(value: playEngine.skipInterval.rawValue)
         ]
         commandCenter.skipForwardCommand.addTarget { _ in
             Task {
@@ -53,7 +53,7 @@ extension NowPlayable {
 
         commandCenter.skipBackwardCommand.isEnabled = true
         commandCenter.skipBackwardCommand.preferredIntervals = [
-            NSNumber(value: playEngine.skipInterval)
+            NSNumber(value: playEngine.skipInterval.rawValue)
         ]
         commandCenter.skipBackwardCommand.addTarget { _ in
             Task {
@@ -61,15 +61,5 @@ extension NowPlayable {
             }
             return .success
         }
-    }
-
-    func removeRemoteCommandHandlers() {
-        let commandCenter = MPRemoteCommandCenter.shared()
-        commandCenter.playCommand.removeTarget(nil)
-        commandCenter.pauseCommand.removeTarget(nil)
-        commandCenter.togglePlayPauseCommand.removeTarget(nil)
-        commandCenter.changePlaybackPositionCommand.removeTarget(nil)
-        commandCenter.skipForwardCommand.removeTarget(nil)
-        commandCenter.skipBackwardCommand.removeTarget(nil)
     }
 }

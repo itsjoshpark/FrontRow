@@ -9,6 +9,7 @@ import SwiftUI
 
 struct OpenURLView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(PlayEngine.self) private var playEngine: PlayEngine
     @State private var url = ""
     @State private var displayLoading = false
     @State private var displayError = false
@@ -34,7 +35,7 @@ struct OpenURLView: View {
                 )
             ) {}
             .onChange(of: url) {
-                PlayEngine.shared.cancelLoading()
+                playEngine.cancelLoading()
                 withAnimation {
                     displayLoading = false
                     displayError = false
@@ -75,4 +76,5 @@ struct OpenURLView: View {
 
 #Preview {
     OpenURLView()
+        .environment(PlayEngine.shared)
 }

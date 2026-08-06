@@ -5,7 +5,6 @@
 //  Created by Joshua Park on 3/4/24.
 //
 
-import AVKit
 import SwiftUI
 
 struct PlaybackCommands: Commands {
@@ -36,54 +35,14 @@ struct PlaybackCommands: Commands {
             .keyboardShortcut(.leftArrow, modifiers: [.command])
             .disabled(!playEngine.isLoaded || presentedViewManager.isPresenting)
 
-            Menu {
-                Button {
-                    playEngine.playbackSpeed += 0.05
-                } label: {
-                    Text(
-                        "Increase by 5%",
-                        comment: "Increase playback speed by 5%"
-                    )
-                }
-                .keyboardShortcut("]", modifiers: [.command])
-                .disabled(!playEngine.isLoaded)
-
-                Button {
-                    playEngine.playbackSpeed -= 0.05
-                } label: {
-                    Text(
-                        "Decrease by 5%",
-                        comment: "Decrease playback speed by 5%"
-                    )
-                }
-                .keyboardShortcut("[", modifiers: [.command])
-                .disabled(!playEngine.isLoaded)
-
-                Divider()
-
-                Button {
-                    playEngine.playbackSpeed = 1.0
-                } label: {
-                    Text(
-                        "Reset",
-                        comment: "Reset playback speed to 100%"
-                    )
-                }
-                .keyboardShortcut("/", modifiers: [.command])
-                .disabled(!playEngine.isLoaded)
-            } label: {
-                Text(
-                    "Speed",
-                    comment: "Playback speed"
-                )
-            }
+            PlaybackSpeedMenu(playEngine: playEngine)
 
             Divider()
 
             Picker(selection: $playEngine.skipInterval) {
-                ForEach(PlayEngine.skipIntervals, id: \.self) { interval in
+                ForEach(SkipInterval.allCases) { interval in
                     Text(
-                        "\(interval)s",
+                        "\(interval.rawValue)s",
                         comment: "Label displaying seconds"
                     ).tag(interval)
                 }
@@ -97,7 +56,7 @@ struct PlaybackCommands: Commands {
             Button {
                 Task { await playEngine.goForwards() }
             } label: {
-                Text("Go Forward \(playEngine.skipInterval)s")
+                Text("Go Forward \(playEngine.skipInterval.rawValue)s")
             }
             .keyboardShortcut(.rightArrow, modifiers: [])
             .disabled(!playEngine.isLoaded || presentedViewManager.isPresenting)
@@ -105,13 +64,13 @@ struct PlaybackCommands: Commands {
             Button {
                 Task { await playEngine.goBackwards() }
             } label: {
-                Text("Go Backward \(playEngine.skipInterval)s")
+                Text("Go Backward \(playEngine.skipInterval.rawValue)s")
             }
             .keyboardShortcut(.leftArrow, modifiers: [])
             .disabled(!playEngine.isLoaded || presentedViewManager.isPresenting)
 
             Button {
-                PresentedViewManager.shared.isPresentingGoToTimeView.toggle()
+                presentedViewManager.isPresentingGoToTimeView.toggle()
             } label: {
                 Text("Go to Time...")
             }
@@ -138,28 +97,12 @@ struct PlaybackCommands: Commands {
 
             Divider()
 
-            audioTrackPicker
+            AudioTrackPicker(playEngine: playEngine)
 
             Toggle(isOn: $playEngine.isMuted) {
                 Text("Mute")
             }
             .keyboardShortcut("M", modifiers: [])
-        }
-    }
-
-    @ViewBuilder private var audioTrackPicker: some View {
-        if let group = playEngine.audioGroup {
-            Picker("Audio Track", selection: $playEngine.audioTrack) {
-                Text("Off").tag(nil as AVMediaSelectionOption?)
-                ForEach(group.options, id: \.stableID) { option in
-                    Text(verbatim: option.displayName).tag(Optional(option))
-                }
-            }
-        } else {
-            Picker("Audio Track", selection: .constant(0)) {
-                Text("None").tag(0)
-            }
-            .disabled(true)
         }
     }
 }

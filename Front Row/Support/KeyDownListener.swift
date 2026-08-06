@@ -27,7 +27,7 @@ final class KeyDownListener {
         }
     }
 
-    public func startMonitoringKeyEvents() {
+    func startMonitoringKeyEvents() {
         if eventMonitor != nil {
             return
         }
@@ -59,7 +59,7 @@ final class KeyDownListener {
         }
     }
 
-    public func stopMonitoringKeyEvents() {
+    func stopMonitoringKeyEvents() {
         if let eventMonitor = eventMonitor {
             NSEvent.removeMonitor(eventMonitor)
         }
