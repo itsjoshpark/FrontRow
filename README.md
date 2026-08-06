@@ -63,6 +63,10 @@ Note:
 - Add `-c:s mov_text` after `-c copy` if there are built in subtitles
 - Use `-tag:v hvc1` for video streams encoded in H265. Use `-tag:v avc1` instead for H264
 
+### This is too complicated for me, what's `ffmpeg` anyway?
+
+You can use [Subler](https://subler.org/) to convert mkv to mp4 and [Handbrake](https://handbrake.fr/) for other formats.
+
 ### I don't hear spatial audio through my supported device
 
 First, make sure that the audio track contains more than 2 channels. Also, make sure to turn on spatial audio under the audio menu bar while the video is playing.
