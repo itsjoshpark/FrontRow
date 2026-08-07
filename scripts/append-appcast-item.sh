@@ -41,7 +41,25 @@ done
 
 [[ -f "$appcast" ]] || die "appcast not found: $appcast"
 [[ -f "$notes" ]] || die "notes file not found: $notes"
-[[ "$build" =~ ^[0-9]+$ ]] || die "build must be a number, got '$build'"
+
+# Every value below is interpolated into XML. Checking the format matters more
+# than it looks: a value like `1" x="2` yields *well-formed* XML with a bogus
+# attribute, so validating the result afterwards would not catch it. Two-part
+# versions are still accepted so the recovery path can amend older entries.
+[[ "$build" =~ ^[0-9]+$ ]] || die "build must be a whole number, got '$build'"
+[[ "$length" =~ ^[0-9]+$ ]] || die "length must be a whole number, got '$length'"
+[[ "$version" =~ ^[0-9]+(\.[0-9]+){1,2}$ ]] || die "version must be X.Y or X.Y.Z, got '$version'"
+[[ "$minimum_system_version" =~ ^[0-9]+(\.[0-9]+){0,2}$ ]] ||
+  die "minimum system version must be numeric, got '$minimum_system_version'"
+[[ "$signature" =~ ^[A-Za-z0-9+/=]+$ ]] || die "signature must be base64, got '$signature'"
+
+# Anything that could close an attribute or open an element.
+markup='["<>&]'
+
+[[ "$url" == https://* ]] || die "url must be an https URL, got '$url'"
+[[ ! "$url" =~ $markup ]] || die "url must not contain quotes or markup, got '$url'"
+[[ ! "$url" =~ [[:space:]] ]] || die "url must not contain whitespace, got '$url'"
+[[ ! "$pub_date" =~ $markup ]] || die "pub date must not contain quotes or markup, got '$pub_date'"
 
 # A CDATA terminator inside the notes would close the section early and corrupt
 # the feed.

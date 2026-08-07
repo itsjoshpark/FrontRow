@@ -155,6 +155,45 @@ else
   check "rejects notes containing a CDATA terminator" pass
 fi
 
+# Every value is interpolated into XML, so each needs a format check. A bad
+# length is the dangerous case: it produces well-formed XML that Sparkle cannot
+# use, so the well-formedness check downstream would not catch it.
+# A fresh fixture per case: a value that slips through would otherwise mutate
+# the shared appcast and make every later case pass for the wrong reason.
+reject() {
+  local description="$1"; shift
+  local target="$workdir/reject.xml"
+  make_appcast "$target"
+  if "$append" --appcast "$target" --notes "$notes" --pub-date d \
+    --minimum-system-version 15.6 "$@" >/dev/null 2>&1; then
+    check "$description" fail
+  else
+    check "$description" pass
+  fi
+}
+
+reject "rejects a non-numeric length"      --version 2.11.0 --build 206 --url "https://e.com/a.dmg" --signature "S==" --length abc
+reject "rejects a length with a quote"     --version 2.11.0 --build 206 --url "https://e.com/a.dmg" --signature "S==" --length '1" x="2'
+reject "rejects an empty length"           --version 2.11.0 --build 206 --url "https://e.com/a.dmg" --signature "S==" --length ""
+reject "rejects a malformed version"       --version "not.a.version" --build 206 --url "https://e.com/a.dmg" --signature "S==" --length 100
+reject "rejects a version with markup"     --version '2.11.0</sparkle:shortVersionString>' --build 206 --url "https://e.com/a.dmg" --signature "S==" --length 100
+reject "rejects a non-https url"           --version 2.11.0 --build 206 --url "javascript:alert(1)" --signature "S==" --length 100
+reject "rejects a url with a quote"        --version 2.11.0 --build 206 --url 'https://e.com/a.dmg" onload="x' --signature "S==" --length 100
+reject "rejects a non-base64 signature"    --version 2.11.0 --build 206 --url "https://e.com/a.dmg" --signature 'S" x="y' --length 100
+reject "rejects a bad minimum system version" --version 2.11.0 --build 206 --url "https://e.com/a.dmg" --signature "S==" --length 100 --minimum-system-version "15.6<"
+reject "rejects a pub date with markup"    --version 2.11.0 --build 206 --url "https://e.com/a.dmg" --signature "S==" --length 100 --pub-date 'Fri<script>'
+
+# Two-part versions still work, for hand-running the recovery path on old entries.
+appcast3="$workdir/appcast3.xml"
+make_appcast "$appcast3"
+if "$append" --appcast "$appcast3" --version 2.12 --build 300 \
+  --url "https://example.com/a.dmg" --signature "SIG==" --length 100 \
+  --notes "$notes" --pub-date d --minimum-system-version 15.6 >/dev/null 2>&1; then
+  check "accepts a two-part version" pass
+else
+  check "accepts a two-part version" fail
+fi
+
 # Failed runs must not have modified the file.
 if diff -q <(make_appcast /dev/stdout) "$appcast2" >/dev/null 2>&1; then
   check "leaves the appcast untouched when validation fails" pass
