@@ -6,10 +6,13 @@
 	<string>developer-id</string>
 	<key>teamID</key>
 	<string>TCQ6328PP6</string>
-	<!-- Cloud-managed signing: xcodebuild fetches the Developer ID certificate
-	     using the App Store Connect API key, so no certificate is named here. -->
+	<!-- The certificate is imported into an ephemeral keychain by the workflow.
+	     Naming it explicitly avoids an ambiguous match if more than one
+	     identity is present. -->
 	<key>signingStyle</key>
-	<string>automatic</string>
+	<string>manual</string>
+	<key>signingCertificate</key>
+	<string>Developer ID Application</string>
 	<key>destination</key>
 	<string>export</string>
 </dict>

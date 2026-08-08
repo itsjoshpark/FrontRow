@@ -12,13 +12,16 @@
 # Nothing outside the runner is touched until notarization succeeds, so a failed
 # run leaves no tag, no release, and no feed change behind — just run it again.
 #
-# Signing is cloud-managed, so there is no certificate to export or renew — the
-# App Store Connect API key is what authorizes signing, and it does not expire.
-#
 # 🚨 GITHUB SECRETS REQUIRED:
+#         - DEVELOPER_ID_CERT_P12_BASE64: Developer ID Application certificate
+#           exported from Keychain Access with its private key, as .p12, then
+#           `base64 -i cert.p12 | pbcopy`
+#         - DEVELOPER_ID_CERT_PASSWORD: password set during that export
 #         - AC_API_KEY_P8_BASE64: App Store Connect API key (.p8), base64 encoded
 #         - AC_API_KEY_ID / AC_API_ISSUER_ID: shown alongside the key
 #         - SPARKLE_ED_PRIVATE_KEY: EdDSA key, via `generate_keys -x key.txt`
+#
+# The certificate expires (5 years); the API key and EdDSA key do not.
 
 name: 🚀 Release
 
@@ -140,10 +143,6 @@ jobs:
 
           echo "Releasing $version ($build), bumped from $current"
 
-      # Signing is cloud-managed: Apple holds the Developer ID private key and
-      # xcodebuild fetches signing assets using this key, so there is no .p12 to
-      # store or renew. The key is written once here and used by archive, export,
-      # and notarization.
       - name: Prepare App Store Connect API key
         env:
           AC_API_KEY_P8_BASE64: ${{ secrets.AC_API_KEY_P8_BASE64 }}
@@ -155,14 +154,81 @@ jobs:
           [[ -s "$key" ]] || { echo "::error::AC_API_KEY_P8_BASE64 decoded to an empty file"; exit 1; }
           echo "AC_KEY_PATH=$key" >>"$GITHUB_ENV"
 
-      # Proves the credential works before spending ~15 minutes on a build that
-      # would otherwise fail at signing or notarization with a cryptic error.
+      # The certificate is imported rather than provisioned on demand: with
+      # -allowProvisioningUpdates, a fresh runner has no private key, so Apple
+      # issues a brand new certificate on every run and they accumulate against
+      # the account limit. Importing a .p12 the runner already holds creates none.
+      - name: Import signing certificate
+        env:
+          CERT_P12_BASE64: ${{ secrets.DEVELOPER_ID_CERT_P12_BASE64 }}
+          CERT_PASSWORD: ${{ secrets.DEVELOPER_ID_CERT_PASSWORD }}
+        run: |
+          set -euo pipefail
+          keychain="$RUNNER_TEMP/build.keychain-db"
+          # Ephemeral keychain, discarded with the runner, so the password only
+          # needs to be unguessable for this run.
+          keychain_password="$(openssl rand -base64 32)"
+
+          security create-keychain -p "$keychain_password" "$keychain"
+          security set-keychain-settings -lut 21600 "$keychain"
+          security unlock-keychain -p "$keychain_password" "$keychain"
+
+          printf '%s' "$CERT_P12_BASE64" | base64 --decode >"$RUNNER_TEMP/cert.p12"
+          security import "$RUNNER_TEMP/cert.p12" -k "$keychain" -P "$CERT_PASSWORD" \
+            -T /usr/bin/codesign -T /usr/bin/security
+          rm -f "$RUNNER_TEMP/cert.p12"
+
+          security set-key-partition-list -S apple-tool:,apple:,codesign: \
+            -s -k "$keychain_password" "$keychain" >/dev/null
+          security list-keychain -d user -s "$keychain" login.keychain-db
+
+      # Everything here is cheap and runs before the ~15 minute build, so a bad
+      # credential or an expired certificate fails in seconds rather than at
+      # signing or notarization with a far less obvious error.
       - name: Preflight — verify credentials
         env:
           AC_API_KEY_ID: ${{ secrets.AC_API_KEY_ID }}
           AC_API_ISSUER_ID: ${{ secrets.AC_API_ISSUER_ID }}
         run: |
           set -euo pipefail
+          keychain="$RUNNER_TEMP/build.keychain-db"
+
+          identity="$(security find-identity -v -p codesigning "$keychain" |
+            sed -n 's/.*"\(Developer ID Application[^"]*\)".*/\1/p' | head -1)"
+          if [[ -z "$identity" ]]; then
+            echo "::error::No Developer ID Application identity in the keychain. Check DEVELOPER_ID_CERT_P12_BASE64 and DEVELOPER_ID_CERT_PASSWORD, and that the .p12 was exported with its private key."
+            security find-identity -v "$keychain" || true
+            exit 1
+          fi
+          echo "Signing identity: $identity"
+
+          # Developer ID certificates last 5 years, and a lapsed Apple Developer
+          # Program membership invalidates them sooner. Already-shipped builds
+          # are unaffected — they carry a secure timestamp that outlives the
+          # certificate.
+          # Never let this check itself fail the release: it is diagnostic, and
+          # only an actually-expired certificate should stop a build.
+          certs="$RUNNER_TEMP/certcheck"
+          rm -rf "$certs" && mkdir -p "$certs"
+          expiry=""
+          if security find-certificate -c "$identity" -p "$keychain" >"$certs/cert.pem" 2>/dev/null &&
+            [[ -s "$certs/cert.pem" ]]; then
+            expiry="$(openssl x509 -in "$certs/cert.pem" -noout -enddate 2>/dev/null | cut -d= -f2 || true)"
+          fi
+          expiry_epoch="$(date -j -f "%b %d %T %Y %Z" "$expiry" +%s 2>/dev/null || echo 0)"
+          if (( expiry_epoch > 0 )); then
+            days=$(( (expiry_epoch - $(date +%s)) / 86400 ))
+            echo "Certificate expires in $days days ($expiry)"
+            if (( days < 0 )); then
+              echo "::error::The signing certificate expired on $expiry. Create a new Developer ID Application certificate and update DEVELOPER_ID_CERT_P12_BASE64."
+              exit 1
+            elif (( days < 30 )); then
+              echo "::warning::The signing certificate expires in $days days ($expiry). Renew it before the next release."
+            fi
+          else
+            echo "::warning::Could not parse the certificate expiry ('$expiry')"
+          fi
+
           if ! xcrun notarytool history \
             --key "$AC_KEY_PATH" --key-id "$AC_API_KEY_ID" --issuer "$AC_API_ISSUER_ID" \
             >/dev/null 2>&1; then
@@ -172,9 +238,6 @@ jobs:
           echo "App Store Connect API key accepted"
 
       - name: Archive
-        env:
-          AC_API_KEY_ID: ${{ secrets.AC_API_KEY_ID }}
-          AC_API_ISSUER_ID: ${{ secrets.AC_API_ISSUER_ID }}
         run: |
           set -euo pipefail
           xcodebuild archive \
@@ -184,29 +247,19 @@ jobs:
             -destination "generic/platform=macOS" \
             -archivePath "$ARCHIVE_PATH" \
             -derivedDataPath "$DERIVED_DATA" \
-            -allowProvisioningUpdates \
-            -authenticationKeyPath "$AC_KEY_PATH" \
-            -authenticationKeyID "$AC_API_KEY_ID" \
-            -authenticationKeyIssuerID "$AC_API_ISSUER_ID" \
             CURRENT_PROJECT_VERSION=${{ steps.version.outputs.build }} \
             MARKETING_VERSION=${{ steps.version.outputs.version }} \
-            CODE_SIGN_STYLE=Automatic \
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="Developer ID Application" \
             DEVELOPMENT_TEAM="$TEAM_ID"
 
       - name: Export archive
-        env:
-          AC_API_KEY_ID: ${{ secrets.AC_API_KEY_ID }}
-          AC_API_ISSUER_ID: ${{ secrets.AC_API_ISSUER_ID }}
         run: |
           set -euo pipefail
           xcodebuild -exportArchive \
             -archivePath "$ARCHIVE_PATH" \
             -exportPath "$EXPORT_PATH" \
-            -exportOptionsPlist .github/ExportOptions.plist \
-            -allowProvisioningUpdates \
-            -authenticationKeyPath "$AC_KEY_PATH" \
-            -authenticationKeyID "$AC_API_KEY_ID" \
-            -authenticationKeyIssuerID "$AC_API_ISSUER_ID"
+            -exportOptionsPlist .github/ExportOptions.plist
 
       - name: Verify the exported app
         run: |
@@ -224,36 +277,15 @@ jobs:
 
           codesign --verify --deep --strict --verbose=2 "$app"
 
-          # Confirm it was actually signed for distribution. Cloud signing can
-          # fall back to a development certificate, which notarization would
-          # reject much later and less clearly.
+          # Confirm the export actually re-signed for distribution. The archive
+          # itself may carry a development signature, and notarization would
+          # reject that much later and far less clearly. Expiry is checked in
+          # preflight, before the build.
           authority="$(codesign -dvvv "$app" 2>&1 | sed -n 's/^Authority=//p' | head -1)"
           case "$authority" in
             "Developer ID Application"*) ;;
             *) echo "::error::Signed by '$authority', expected a Developer ID Application certificate"; exit 1 ;;
           esac
-
-          # Developer ID certificates last 5 years, and a lapsed Apple Developer
-          # Program membership invalidates them sooner. Warn before a release
-          # fails outright. Already-shipped builds keep working: they carry a
-          # secure timestamp, which outlives the certificate.
-          certs="$RUNNER_TEMP/signing-certs"
-          rm -rf "$certs" && mkdir -p "$certs"
-          codesign -d --extract-certificates="$certs/cert" "$app" 2>/dev/null
-          expiry="$(openssl x509 -inform DER -in "$certs/cert0" -noout -enddate | cut -d= -f2)"
-          expiry_epoch="$(date -j -f "%b %d %T %Y %Z" "$expiry" +%s 2>/dev/null || echo 0)"
-          if (( expiry_epoch > 0 )); then
-            days=$(( (expiry_epoch - $(date +%s)) / 86400 ))
-            echo "Signing certificate expires in $days days ($expiry)"
-            if (( days < 0 )); then
-              echo "::error::The signing certificate expired on $expiry"
-              exit 1
-            elif (( days < 30 )); then
-              echo "::warning::The signing certificate expires in $days days ($expiry). Renew it before the next release."
-            fi
-          else
-            echo "::warning::Could not parse the signing certificate expiry ('$expiry')"
-          fi
 
           echo "Verified $actual_version ($actual_build), signed by: $authority"
 
