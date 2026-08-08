@@ -314,12 +314,16 @@ jobs:
             --wait
 
           xcrun stapler staple "$dmg"
-          xcrun stapler validate "$dmg"
 
-          # Assess the stapled dmg, which is what users actually download. The
-          # exported app copy is never stapled, so assessing it would depend on
-          # an online notary lookup and could fail on a transient network blip.
-          spctl -a -vvv -t open --context context:primary-signature "$dmg"
+          # stapler validate is the check that matters, and it is offline: it
+          # proves the notarization ticket is attached to what users download.
+          #
+          # spctl is deliberately not used on the dmg. The dmg is built with
+          # --no-code-sign, so it carries a ticket but no signature of its own,
+          # and spctl -t open reports "no usable signature" regardless of
+          # notarization. The app's signing identity is already asserted in
+          # "Verify the exported app".
+          xcrun stapler validate "$dmg"
 
       - name: Remove the API key
         if: always()
