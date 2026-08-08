@@ -155,11 +155,8 @@ else
   check "rejects notes containing a CDATA terminator" pass
 fi
 
-# Every value is interpolated into XML, so each needs a format check. A bad
-# length is the dangerous case: it produces well-formed XML that Sparkle cannot
-# use, so the well-formedness check downstream would not catch it.
-# A fresh fixture per case: a value that slips through would otherwise mutate
-# the shared appcast and make every later case pass for the wrong reason.
+# A fresh fixture per case, so a value that slips through cannot mutate the
+# appcast and make later cases pass for the wrong reason.
 reject() {
   local description="$1"; shift
   local target="$workdir/reject.xml"

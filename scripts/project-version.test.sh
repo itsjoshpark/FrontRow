@@ -105,8 +105,7 @@ fi
 # One occurrence means the project no longer matches the assumed layout.
 lopsided="$workdir/lopsided.pbxproj"
 make_pbxproj "$lopsided"
-# Delete only the first MARKETING_VERSION line. BSD sed has no 0,/re/ range, so
-# do it with awk.
+# Delete only the first MARKETING_VERSION line. BSD sed has no 0,/re/ range.
 awk '!done && /MARKETING_VERSION/ { done = 1; next } { print }' "$lopsided" >"$lopsided.tmp"
 mv "$lopsided.tmp" "$lopsided"
 [[ "$(grep -c 'MARKETING_VERSION' "$lopsided")" == "1" ]] ||

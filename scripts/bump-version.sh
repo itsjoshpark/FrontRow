@@ -4,8 +4,7 @@
 #   bump-version.sh v2.10 minor   ->  2.11.0
 #
 # Input may be two- or three-part, with or without a leading "v"; output is
-# always normalized to X.Y.Z. Older tags used a two-part form (v2.10, v2.9),
-# so this has to keep reading them even though it no longer emits them.
+# always normalized to X.Y.Z.
 
 set -euo pipefail
 
@@ -26,9 +25,8 @@ esac
 version="${current#v}"
 [[ -n "$version" ]] || die "version is required"
 
-# Leading zeros are rejected rather than normalized: $(( )) reads 08 and 09 as
-# invalid octal, and the resulting error does not stop the script, so it would
-# print an unbumped version and exit 0.
+# Leading zeros are rejected: $(( )) reads 08 and 09 as invalid octal, and that
+# error does not stop the script — it would print an unbumped version and exit 0.
 if [[ ! "$version" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(\.(0|[1-9][0-9]*))?$ ]]; then
   die "cannot parse version '$current' (expected X.Y or X.Y.Z, no leading zeros)"
 fi
@@ -36,7 +34,6 @@ fi
 IFS=. read -r major minor patch <<<"$version"
 patch="${patch:-0}"
 
-# Belt and braces: evaluate in base 10 in case the pattern above is ever loosened.
 major=$((10#$major)) minor=$((10#$minor)) patch=$((10#$patch))
 
 case "$release_type" in
