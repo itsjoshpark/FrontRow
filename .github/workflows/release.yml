@@ -2,7 +2,7 @@
 # Builds, signs, notarizes, and publishes a new release, then adds it to the
 # Sparkle appcast. Triggered manually from the Actions tab.
 #         1. Choose release type (major, minor, patch)
-#         2. Write release notes to .sparkle/notes/<version>.html beforehand
+#         2. Write release notes to .sparkle/notes/next.html beforehand
 #
 # The marketing version is read from project.pbxproj and bumped by the chosen
 # amount; the build number is the commit count and is never read back as input.
@@ -124,9 +124,17 @@ jobs:
             exit 1
           fi
 
-          notes=".sparkle/notes/$version.html"
+          notes=".sparkle/notes/next.html"
           if [[ ! -f "$notes" ]]; then
-            echo "::error::Missing release notes: $notes"
+            echo "::error::Missing $notes. Copy .sparkle/notes/TEMPLATE.html to it and write the release notes."
+            exit 1
+          fi
+          if cmp -s "$notes" .sparkle/notes/TEMPLATE.html; then
+            echo "::error::$notes is still the unedited template. Write the release notes before releasing."
+            exit 1
+          fi
+          if [[ -e ".sparkle/notes/$version.html" ]]; then
+            echo "::error::.sparkle/notes/$version.html already exists, so the archived notes for this release would be overwritten."
             exit 1
           fi
 
@@ -364,7 +372,12 @@ jobs:
           ./scripts/project-version.sh write "Front Row.xcodeproj/project.pbxproj" \
             "$version" "${{ steps.version.outputs.build }}"
 
-          git add .sparkle/appcast.xml "Front Row.xcodeproj/project.pbxproj"
+          # Archive the notes under the version they shipped as, and leave a
+          # fresh template ready for the next release.
+          git mv .sparkle/notes/next.html ".sparkle/notes/$version.html"
+          cp .sparkle/notes/TEMPLATE.html .sparkle/notes/next.html
+
+          git add .sparkle/appcast.xml "Front Row.xcodeproj/project.pbxproj" .sparkle/notes
           git commit -m "chore: release $version (${{ steps.version.outputs.build }}) [skip ci]"
 
           # The release is already public by this point, so a rejected push would
