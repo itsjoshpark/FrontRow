@@ -8,10 +8,6 @@
 # MARKETING_VERSION and CURRENT_PROJECT_VERSION both live at the project level,
 # so each appears exactly twice — once per configuration. Anything else means
 # the project no longer matches what this assumes, and writing would be a guess.
-#
-# agvtool is not used: its marketing-version commands fail on this project
-# because the test target has no INFOPLIST_FILE, so agvtool falls back to
-# reading GENERATE_INFOPLIST_FILE = YES as a file path.
 
 set -euo pipefail
 

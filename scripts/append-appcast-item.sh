@@ -2,12 +2,6 @@
 # Inserts a new <item> at the top of the Sparkle appcast, preserving the rest of
 # the file byte for byte.
 #
-# Sparkle's own generate_appcast is not used here: it rewrites every entry whose
-# archive it sees, which drops hand-written release notes and rebuilds
-# shortVersionString from the bundle (losing the "2.10 (24)" convention). It also
-# prunes old entries by default. This does the one thing needed instead, and
-# leaves history alone.
-#
 # The signature and length come from Sparkle's sign_update.
 
 set -euo pipefail
@@ -42,10 +36,9 @@ done
 [[ -f "$appcast" ]] || die "appcast not found: $appcast"
 [[ -f "$notes" ]] || die "notes file not found: $notes"
 
-# Every value below is interpolated into XML. Checking the format matters more
-# than it looks: a value like `1" x="2` yields *well-formed* XML with a bogus
-# attribute, so validating the result afterwards would not catch it. Two-part
-# versions are still accepted so the recovery path can amend older entries.
+# Every value below is interpolated into XML, and a value like `1" x="2` yields
+# well-formed XML with a bogus attribute, so the check downstream would not
+# catch it. Two-part versions are accepted so older entries can be amended.
 [[ "$build" =~ ^[0-9]+$ ]] || die "build must be a whole number, got '$build'"
 [[ "$length" =~ ^[0-9]+$ ]] || die "length must be a whole number, got '$length'"
 [[ "$version" =~ ^[0-9]+(\.[0-9]+){1,2}$ ]] || die "version must be X.Y or X.Y.Z, got '$version'"

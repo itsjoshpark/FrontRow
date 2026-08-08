@@ -71,13 +71,10 @@ jobs:
         with:
           xcode-version: latest-stable
 
-      # Build output must live outside the workspace. The app target's
-      # swift-format lint build phase runs `-r ./` from $SRCROOT, so a
-      # derivedDataPath inside the repo puts SPM's checkout of Sparkle in its
-      # path and the archive fails on Sparkle's code style. Keeping it out also
-      # leaves the working tree clean for the appcast commit.
-      # Set here rather than in job-level env, where the runner context is
-      # unavailable and would silently expand to an empty string.
+      # Build output must stay outside the workspace: the app target's
+      # swift-format lint phase runs `-r ./` from $SRCROOT and would lint SPM's
+      # checkout of Sparkle. The runner context is unavailable in job-level env,
+      # so these are set here.
       - name: Set build paths
         run: |
           set -euo pipefail
@@ -87,8 +84,7 @@ jobs:
             echo "DERIVED_DATA=$RUNNER_TEMP/build/DerivedData"
           } >>"$GITHUB_ENV"
 
-      # Runs before anything depends on these scripts, so a regression in them
-      # cannot produce a wrong version first and fail validation afterwards.
+      # Before anything depends on these scripts.
       - name: Verify script tests pass
         run: |
           ./scripts/bump-version.test.sh
@@ -154,10 +150,6 @@ jobs:
           [[ -s "$key" ]] || { echo "::error::AC_API_KEY_P8_BASE64 decoded to an empty file"; exit 1; }
           echo "AC_KEY_PATH=$key" >>"$GITHUB_ENV"
 
-      # The certificate is imported rather than provisioned on demand: with
-      # -allowProvisioningUpdates, a fresh runner has no private key, so Apple
-      # issues a brand new certificate on every run and they accumulate against
-      # the account limit. Importing a .p12 the runner already holds creates none.
       - name: Import signing certificate
         env:
           CERT_P12_BASE64: ${{ secrets.DEVELOPER_ID_CERT_P12_BASE64 }}
@@ -182,9 +174,7 @@ jobs:
             -s -k "$keychain_password" "$keychain" >/dev/null
           security list-keychain -d user -s "$keychain" login.keychain-db
 
-      # Everything here is cheap and runs before the ~15 minute build, so a bad
-      # credential or an expired certificate fails in seconds rather than at
-      # signing or notarization with a far less obvious error.
+      # Cheap checks, before the ~15 minute build.
       - name: Preflight — verify credentials
         env:
           AC_API_KEY_ID: ${{ secrets.AC_API_KEY_ID }}
@@ -202,12 +192,8 @@ jobs:
           fi
           echo "Signing identity: $identity"
 
-          # Developer ID certificates last 5 years, and a lapsed Apple Developer
-          # Program membership invalidates them sooner. Already-shipped builds
-          # are unaffected — they carry a secure timestamp that outlives the
-          # certificate.
-          # Never let this check itself fail the release: it is diagnostic, and
-          # only an actually-expired certificate should stop a build.
+          # Diagnostic only: an unreadable certificate warns, but an expired one
+          # stops the build.
           certs="$RUNNER_TEMP/certcheck"
           rm -rf "$certs" && mkdir -p "$certs"
           expiry=""
@@ -269,8 +255,6 @@ jobs:
           actual_build="$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$app/Contents/Info.plist")"
           actual_version="$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$app/Contents/Info.plist")"
 
-          # The command-line overrides are the whole versioning mechanism; if they
-          # did not land, everything downstream would be silently wrong.
           [[ "$actual_build" == "${{ steps.version.outputs.build }}" ]] ||
             { echo "::error::CFBundleVersion is $actual_build, expected ${{ steps.version.outputs.build }}"; exit 1; }
           [[ "$actual_version" == "${{ steps.version.outputs.version }}" ]] ||
@@ -278,10 +262,8 @@ jobs:
 
           codesign --verify --deep --strict --verbose=2 "$app"
 
-          # Confirm the export actually re-signed for distribution. The archive
-          # itself may carry a development signature, and notarization would
-          # reject that much later and far less clearly. Expiry is checked in
-          # preflight, before the build.
+          # The archive may carry a development signature; only the export
+          # re-signs for distribution.
           authority="$(codesign -dvvv "$app" 2>&1 | sed -n 's/^Authority=//p' | head -1)"
           case "$authority" in
             "Developer ID Application"*) ;;
@@ -314,15 +296,6 @@ jobs:
             --wait
 
           xcrun stapler staple "$dmg"
-
-          # stapler validate is the check that matters, and it is offline: it
-          # proves the notarization ticket is attached to what users download.
-          #
-          # spctl is deliberately not used on the dmg. The dmg is built with
-          # --no-code-sign, so it carries a ticket but no signature of its own,
-          # and spctl -t open reports "no usable signature" regardless of
-          # notarization. The app's signing identity is already asserted in
-          # "Verify the exported app".
           xcrun stapler validate "$dmg"
 
       - name: Remove the API key
