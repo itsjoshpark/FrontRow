@@ -251,6 +251,7 @@ jobs:
             MARKETING_VERSION=${{ steps.version.outputs.version }} \
             CODE_SIGN_STYLE=Manual \
             CODE_SIGN_IDENTITY="Developer ID Application" \
+            PROVISIONING_PROFILE_SPECIFIER="" \
             DEVELOPMENT_TEAM="$TEAM_ID"
 
       - name: Export archive
