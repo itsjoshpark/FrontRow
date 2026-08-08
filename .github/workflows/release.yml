@@ -54,9 +54,6 @@ jobs:
       contents: write
     env:
       TEAM_ID: TCQ6328PP6
-      ARCHIVE_PATH: ${{ github.workspace }}/build/FrontRow.xcarchive
-      EXPORT_PATH: ${{ github.workspace }}/build/export
-      DERIVED_DATA: ${{ github.workspace }}/build/DerivedData
 
     steps:
       - name: Checkout
@@ -70,6 +67,22 @@ jobs:
         uses: maxim-lobanov/setup-xcode@ed7a3b1fda3918c0306d1b724322adc0b8cc0a90 # v1
         with:
           xcode-version: latest-stable
+
+      # Build output must live outside the workspace. The app target's
+      # swift-format lint build phase runs `-r ./` from $SRCROOT, so a
+      # derivedDataPath inside the repo puts SPM's checkout of Sparkle in its
+      # path and the archive fails on Sparkle's code style. Keeping it out also
+      # leaves the working tree clean for the appcast commit.
+      # Set here rather than in job-level env, where the runner context is
+      # unavailable and would silently expand to an empty string.
+      - name: Set build paths
+        run: |
+          set -euo pipefail
+          {
+            echo "ARCHIVE_PATH=$RUNNER_TEMP/build/FrontRow.xcarchive"
+            echo "EXPORT_PATH=$RUNNER_TEMP/build/export"
+            echo "DERIVED_DATA=$RUNNER_TEMP/build/DerivedData"
+          } >>"$GITHUB_ENV"
 
       # Runs before anything depends on these scripts, so a regression in them
       # cannot produce a wrong version first and fail validation afterwards.
