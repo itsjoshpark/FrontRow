@@ -16,7 +16,9 @@ struct InspectorGeneralTab: View {
         InspectorForm {
             if let video = inspection.video {
                 InspectorSectionHeader(
-                    title: Text("Video", comment: "Inspector section heading"), isFirst: true)
+                    title: Text(
+                        "Video", comment: "The file's video, as a section heading and a track type"),
+                    isFirst: true)
                 Group {
                     InspectorRow(label: Text("Format"), value: video.formatCode)
                     InspectorRow(label: Text("Codec"), value: video.codecName)
@@ -73,7 +75,10 @@ struct InspectorGeneralTab: View {
             }
 
             if let audio = inspection.audio {
-                InspectorSectionHeader(title: Text("Audio", comment: "Inspector section heading"))
+                InspectorSectionHeader(
+                    title: Text(
+                        "Audio", comment: "The file's audio, as a section heading and a track type")
+                )
                 Group {
                     InspectorRow(label: Text("Format"), value: audio.formatCode)
                     InspectorRow(label: Text("Codec"), value: audio.codecName)

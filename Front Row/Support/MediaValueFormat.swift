@@ -63,8 +63,14 @@ enum MediaValueFormat {
 
     static func kindName(_ kind: TrackKind) -> String {
         switch kind {
-        case .video: String(localized: "Video", comment: "A video track")
-        case .audio: String(localized: "Audio", comment: "An audio track")
+        case .video:
+            String(
+                localized: "Video",
+                comment: "The file's video, as a section heading and a track type")
+        case .audio:
+            String(
+                localized: "Audio",
+                comment: "The file's audio, as a section heading and a track type")
         case .subtitle: String(localized: "Subtitle", comment: "A subtitle track")
         case .text: String(localized: "Text", comment: "A text track, such as a chapter track")
         case .closedCaption:

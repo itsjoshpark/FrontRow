@@ -28,7 +28,8 @@ struct InspectorView: View {
             Picker(selection: $selectedTab) {
                 Text("General", comment: "Inspector tab").tag(InspectorTab.general)
                 Text("Tracks", comment: "Inspector tab").tag(InspectorTab.tracks)
-                Text("File", comment: "Inspector tab").tag(InspectorTab.file)
+                Text("File", comment: "The media file, as a section heading and a tab").tag(
+                    InspectorTab.file)
             } label: {
                 EmptyView()
             }
@@ -59,6 +60,15 @@ struct InspectorView: View {
         // Reloads when the window opens, and again once a newly opened file is ready to describe.
         .task(id: playEngine.isLoaded ? playEngine.fileURL : nil) {
             await model.reload(playEngine: playEngine)
+        }
+        // Closing by the panel's own button has to reach the Window menu too. `onDisappear` can't
+        // do it: SwiftUI builds this view once at launch, before the window is ever shown.
+        .onReceive(NotificationCenter.default.publisher(for: NSWindow.willCloseNotification)) {
+            notification in
+            guard let window = notification.object as? NSWindow,
+                window.identifier?.rawValue == WindowID.inspector
+            else { return }
+            WindowController.shared.setIsInspectorOpen(false)
         }
         // The HUD style draws its own dark, translucent background and leaves only a close
         // button, so the content sits on it unpainted.

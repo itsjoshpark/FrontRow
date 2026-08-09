@@ -27,7 +27,8 @@ struct InspectorFileTab: View {
                 .gridCellColumns(2)
             }
 
-            InspectorSectionHeader(title: Text("File", comment: "Inspector section heading"))
+            InspectorSectionHeader(
+                title: Text("File", comment: "The media file, as a section heading and a tab"))
             Group {
                 InspectorRow(
                     label: Text("Size"), value: file.byteSize.map(MediaValueFormat.byteSize))

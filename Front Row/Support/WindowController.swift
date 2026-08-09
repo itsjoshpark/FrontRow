@@ -69,6 +69,16 @@ import SwiftUI
         self.isFullscreen = isFullscreen
     }
 
+    // MARK: - Inspector
+
+    /// Whether the Inspector panel is open, so the Window menu can offer the action the user
+    /// doesn't already have. Stays true while the panel is merely hidden by the app deactivating.
+    private(set) var isInspectorOpen = false
+
+    func setIsInspectorOpen(_ isOpen: Bool) {
+        isInspectorOpen = isOpen
+    }
+
     // MARK: - Float on Top
 
     /// Targets the player window specifically. `NSApp.mainWindow` would follow focus, so with the
