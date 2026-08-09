@@ -61,15 +61,6 @@ struct InspectorView: View {
         .task(id: playEngine.isLoaded ? playEngine.fileURL : nil) {
             await model.reload(playEngine: playEngine)
         }
-        // Closing by the panel's own button has to reach the Window menu too. `onDisappear` can't
-        // do it: SwiftUI builds this view once at launch, before the window is ever shown.
-        .onReceive(NotificationCenter.default.publisher(for: NSWindow.willCloseNotification)) {
-            notification in
-            guard let window = notification.object as? NSWindow,
-                window.identifier?.rawValue == WindowID.inspector
-            else { return }
-            WindowController.shared.setIsInspectorOpen(false)
-        }
         // The HUD style draws its own dark, translucent background and leaves only a close
         // button, so the content sits on it unpainted.
         .background(
