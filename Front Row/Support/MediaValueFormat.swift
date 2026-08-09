@@ -66,6 +66,7 @@ enum MediaValueFormat {
         case .video: String(localized: "Video", comment: "A video track")
         case .audio: String(localized: "Audio", comment: "An audio track")
         case .subtitle: String(localized: "Subtitle", comment: "A subtitle track")
+        case .text: String(localized: "Text", comment: "A text track, such as a chapter track")
         case .closedCaption:
             String(localized: "Closed Captions", comment: "A closed caption track")
         case .other(let mediaType): mediaType

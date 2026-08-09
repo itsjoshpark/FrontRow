@@ -258,7 +258,8 @@ private struct TrackDetails {
         switch mediaType {
         case .video: .video
         case .audio: .audio
-        case .subtitle, .text: .subtitle
+        case .subtitle: .subtitle
+        case .text: .text
         case .closedCaption: .closedCaption
         default: .other(mediaType.rawValue)
         }

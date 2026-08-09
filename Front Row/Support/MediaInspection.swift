@@ -55,6 +55,7 @@ enum TrackKind: Equatable {
     case video
     case audio
     case subtitle
+    case text
     case closedCaption
     case other(String)
 }
