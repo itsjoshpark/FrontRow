@@ -152,6 +152,17 @@ enum MediaFormatNames {
         colourNames[constant] ?? constant
     }
 
+    private static let hdrFormatNames: [String: String] = [
+        "ITU_R_2100_HLG": "HLG",
+        "SMPTE_ST_2084_PQ": "PQ",
+    ]
+
+    /// The HDR curve's short name. Which curve a file uses is worth more than the bare fact that
+    /// it is HDR, and it is the only thing the transfer function says that the primaries don't.
+    static func hdrFormatName(forTransferFunction constant: String) -> String? {
+        hdrFormatNames[constant]
+    }
+
     /// The clockwise rotation a video track's preferred transform applies, in degrees.
     static func rotationDegrees(for transform: CGAffineTransform) -> Int {
         let radians = atan2(transform.b, transform.a)

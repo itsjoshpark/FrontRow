@@ -55,6 +55,15 @@ enum MediaValueFormat {
         String(localized: "\(bits)-bit", comment: "Colour or audio bit depth, e.g. 10-bit")
     }
 
+    /// Names the HDR curve when the file says which one it uses, since HLG and PQ are handled
+    /// differently downstream. A named curve outranks the track's own HDR flag.
+    static func hdr(isHDR: Bool, formatName: String?) -> String {
+        if let formatName { return formatName }
+        return isHDR
+            ? String(localized: "Yes", comment: "The video is HDR")
+            : String(localized: "No", comment: "The video is not HDR")
+    }
+
     static func duration(_ seconds: TimeInterval) -> String {
         seconds.asTimecode(using: seconds)
     }

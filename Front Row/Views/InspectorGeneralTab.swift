@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-/// What the file is made of, at a glance: the video and audio the player actually chose, and the
-/// colour pipeline the picture was encoded against.
+/// What the file is made of, at a glance: the video and audio the player actually chose, down to
+/// the colour the picture was encoded against.
 struct InspectorGeneralTab: View {
     let inspection: MediaInspection
 
@@ -44,18 +44,16 @@ struct InspectorGeneralTab: View {
                     InspectorRow(
                         label: Text("Frame Rate"),
                         value: video.frameRate.map(MediaValueFormat.frameRate))
-                }
-            }
-
-            if let colour = inspection.colour {
-                InspectorSectionHeader(title: Text("Color", comment: "Inspector section heading"))
-                Group {
-                    InspectorRow(label: Text("Primaries"), value: colour.primaries)
-                    InspectorRow(label: Text("Transfer Function"), value: colour.transferFunction)
-                    InspectorRow(label: Text("Matrix"), value: colour.matrix)
+                    InspectorRow(
+                        label: Text("Bit Depth"),
+                        value: video.bitDepth.map(MediaValueFormat.bitDepth))
+                    InspectorRow(
+                        label: Text(
+                            "Color", comment: "Inspector row: the video's colour primaries"),
+                        value: video.colorPrimaries)
                     InspectorRow(
                         label: Text("Range"),
-                        value: colour.isFullRange.map {
+                        value: video.isFullRange.map {
                             $0
                                 ? String(localized: "Full", comment: "Full-range video levels")
                                 : String(
@@ -63,21 +61,17 @@ struct InspectorGeneralTab: View {
                         }
                     )
                     InspectorRow(
-                        label: Text("Bit Depth"),
-                        value: colour.bitDepth.map(MediaValueFormat.bitDepth))
-                    InspectorRow(
                         label: Text("HDR"),
-                        value: colour.isHDR
-                            ? String(localized: "Yes", comment: "The video is HDR")
-                            : String(localized: "No", comment: "The video is not HDR")
-                    )
+                        value: MediaValueFormat.hdr(
+                            isHDR: video.isHDR, formatName: video.hdrFormatName))
                 }
             }
 
             if let audio = inspection.audio {
                 InspectorSectionHeader(
                     title: Text(
-                        "Audio", comment: "The file's audio, as a section heading and a track type")
+                        "Audio", comment: "The file's audio, as a section heading and a track type"),
+                    isFirst: inspection.video == nil
                 )
                 Group {
                     InspectorRow(label: Text("Format"), value: audio.formatCode)

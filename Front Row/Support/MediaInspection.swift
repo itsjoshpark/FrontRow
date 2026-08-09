@@ -15,7 +15,6 @@ import Foundation
 /// "N/A".
 struct MediaInspection: Equatable {
     var video: VideoSummary?
-    var colour: ColourSummary?
     var audio: AudioSummary?
     var tracks: [TrackSummary] = []
     var file: FileSummary
@@ -30,16 +29,12 @@ struct VideoSummary: Equatable {
     var rotationDegrees: Int
     var bitRate: Double?
     var frameRate: Double?
-}
-
-/// The colour pipeline the video was encoded against.
-struct ColourSummary: Equatable {
-    var primaries: String?
-    var transferFunction: String?
-    var matrix: String?
-    var isFullRange: Bool?
     var bitDepth: Int?
+    var colorPrimaries: String?
+    var isFullRange: Bool?
     var isHDR: Bool
+    /// The HDR curve's short name, such as `HLG`, when the file names one.
+    var hdrFormatName: String?
 }
 
 struct AudioSummary: Equatable {

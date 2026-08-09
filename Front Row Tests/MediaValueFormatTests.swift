@@ -79,6 +79,19 @@ struct MediaValueFormatTests {
         #expect(MediaValueFormat.rotation(90) == "90°")
     }
 
+    @Test
+    func hdrNamesTheCurveWhenTheFileGivesOne() {
+        #expect(MediaValueFormat.hdr(isHDR: true, formatName: "HLG") == "HLG")
+        #expect(MediaValueFormat.hdr(isHDR: true, formatName: nil) == "Yes")
+        #expect(MediaValueFormat.hdr(isHDR: false, formatName: nil) == "No")
+    }
+
+    /// A recognised curve is the more specific claim, so it wins over a track that wasn't flagged.
+    @Test
+    func aNamedCurveOutranksTheHDRFlag() {
+        #expect(MediaValueFormat.hdr(isHDR: false, formatName: "PQ") == "PQ")
+    }
+
     private func track(
         id: CMPersistentTrackID = 1,
         kind: TrackKind = .video,

@@ -36,7 +36,6 @@ enum MediaInspectionLoader {
 
         var tracks: [TrackSummary] = []
         var video: VideoSummary?
-        var colour: ColourSummary?
         var audio: AudioSummary?
 
         for assetTrack in assetTracks {
@@ -46,7 +45,6 @@ enum MediaInspectionLoader {
 
             if video == nil, details.mediaType == .video {
                 video = details.videoSummary
-                colour = details.colourSummary
             }
             if audio == nil, details.mediaType == .audio {
                 audio = details.audioSummary
@@ -55,7 +53,6 @@ enum MediaInspectionLoader {
 
         return MediaInspection(
             video: video,
-            colour: colour,
             audio: audio,
             tracks: tracks,
             file: await fileSummary(asset: asset, url: url)
@@ -289,25 +286,14 @@ private struct TrackDetails {
             dimensions: dimensions,
             rotationDegrees: MediaFormatNames.rotationDegrees(for: transform),
             bitRate: bitRate,
-            frameRate: frameRate > 0 ? Double(frameRate) : nil
-        )
-    }
-
-    var colourSummary: ColourSummary? {
-        let summary = ColourSummary(
-            primaries: stringExtension(.colorPrimaries).map(MediaFormatNames.colourName(for:)),
-            transferFunction: stringExtension(.transferFunction).map(
-                MediaFormatNames.colourName(for:)),
-            matrix: stringExtension(.yCbCrMatrix).map(MediaFormatNames.colourName(for:)),
-            isFullRange: numberExtension(.fullRangeVideo).map { $0 != 0 },
+            frameRate: frameRate > 0 ? Double(frameRate) : nil,
             bitDepth: numberExtension(.bitsPerComponent),
-            isHDR: characteristics.contains(.containsHDRVideo)
+            colorPrimaries: stringExtension(.colorPrimaries).map(MediaFormatNames.colourName(for:)),
+            isFullRange: numberExtension(.fullRangeVideo).map { $0 != 0 },
+            isHDR: characteristics.contains(.containsHDRVideo),
+            hdrFormatName: stringExtension(.transferFunction)
+                .flatMap(MediaFormatNames.hdrFormatName(forTransferFunction:))
         )
-
-        let isEmpty =
-            summary.primaries == nil && summary.transferFunction == nil && summary.matrix == nil
-            && summary.isFullRange == nil && summary.bitDepth == nil && !summary.isHDR
-        return isEmpty ? nil : summary
     }
 
     var audioSummary: AudioSummary? {

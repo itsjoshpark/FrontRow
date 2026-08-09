@@ -121,6 +121,18 @@ struct MediaFormatNamesTests {
     }
 
     @Test
+    func theHDRCurveIsNamedByItsTransferFunction() {
+        #expect(MediaFormatNames.hdrFormatName(forTransferFunction: "ITU_R_2100_HLG") == "HLG")
+        #expect(MediaFormatNames.hdrFormatName(forTransferFunction: "SMPTE_ST_2084_PQ") == "PQ")
+    }
+
+    /// An SDR curve names no HDR format, which is what lets the HDR row fall back to a plain yes.
+    @Test
+    func anSDRTransferFunctionNamesNoHDRFormat() {
+        #expect(MediaFormatNames.hdrFormatName(forTransferFunction: "ITU_R_709_2") == nil)
+    }
+
+    @Test
     func rotationIsReadFromThePreferredTransform() {
         #expect(MediaFormatNames.rotationDegrees(for: .identity) == 0)
         #expect(
