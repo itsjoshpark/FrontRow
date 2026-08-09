@@ -6905,6 +6905,9 @@
     "Unknown" : {
       "comment" : "Inspector value for a missing field"
     },
+    "Untitled" : {
+      "comment" : "A chapter with no name of its own"
+    },
     "Version %@" : {
       "localizations" : {
         "ar" : {

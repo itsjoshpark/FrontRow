@@ -60,12 +60,13 @@ struct InspectorView: View {
         .task(id: playEngine.isLoaded ? playEngine.fileURL : nil) {
             await model.reload(playEngine: playEngine)
         }
-        // A panel alongside the player has nowhere useful to minimise or zoom to, so closing is
-        // the only control it needs. Resizing by the window's edges still works.
+        // The HUD style is what makes this read as an inspector rather than a document window -
+        // the same one QuickTime Player and IINA use. It draws its own dark, translucent
+        // background and leaves only a close button, so the content sits on it unpainted.
         .background(
             WindowAccessor { window in
-                window.standardWindowButton(.miniaturizeButton)?.isHidden = true
-                window.standardWindowButton(.zoomButton)?.isHidden = true
+                window.styleMask.insert(.hudWindow)
+                window.hidesOnDeactivate = true
             }
         )
     }
