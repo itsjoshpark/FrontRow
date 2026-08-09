@@ -87,9 +87,19 @@ enum MediaInspectionLoader {
     }
 
     private static func chapters(of asset: AVAsset) async -> [ChapterSummary] {
-        let groups =
+        var groups =
             (try? await asset.loadChapterMetadataGroups(
                 bestMatchingPreferredLanguages: Locale.preferredLanguages)) ?? []
+
+        // A chapter track is tagged with its own language, and matching against the viewer's
+        // finds nothing when the two differ - the chapters would vanish for want of a
+        // translation. Whichever language the file does carry is better than none.
+        if groups.isEmpty {
+            let locales = (try? await asset.load(.availableChapterLocales)) ?? []
+            groups =
+                (try? await asset.loadChapterMetadataGroups(
+                    bestMatchingPreferredLanguages: locales.map(\.identifier))) ?? []
+        }
 
         var chapters: [ChapterSummary] = []
         for (index, group) in groups.enumerated() {
