@@ -2,7 +2,10 @@
 # Builds, signs, notarizes, and publishes a new release, then adds it to the
 # Sparkle appcast. Triggered manually from the Actions tab.
 #         1. Choose release type (major, minor, patch)
-#         2. Write release notes to .sparkle/notes/next.html beforehand
+#         2. Write release notes to .sparkle/notes/next.md beforehand
+#
+# The notes go to GitHub as Markdown and to the appcast as HTML, rendered by
+# cmark-gfm so both read the same.
 #
 # The marketing version is read from project.pbxproj and bumped by the chosen
 # amount; the build number is the commit count and is never read back as input.
@@ -84,12 +87,16 @@ jobs:
             echo "DERIVED_DATA=$RUNNER_TEMP/build/DerivedData"
           } >>"$GITHUB_ENV"
 
+      - name: Install cmark-gfm
+        run: brew install cmark-gfm
+
       # Before anything depends on these scripts.
       - name: Verify script tests pass
         run: |
           ./scripts/bump-version.test.sh
           ./scripts/project-version.test.sh
           ./scripts/append-appcast-item.test.sh
+          ./scripts/render-notes.test.sh
 
       # Everything below the build is expensive; fail here instead.
       - name: Resolve version and build number
@@ -124,17 +131,17 @@ jobs:
             exit 1
           fi
 
-          notes=".sparkle/notes/next.html"
+          notes=".sparkle/notes/next.md"
           if [[ ! -f "$notes" ]]; then
-            echo "::error::Missing $notes. Copy .sparkle/notes/TEMPLATE.html to it and write the release notes."
+            echo "::error::Missing $notes. Copy .sparkle/notes/TEMPLATE.md to it and write the release notes."
             exit 1
           fi
-          if cmp -s "$notes" .sparkle/notes/TEMPLATE.html; then
+          if cmp -s "$notes" .sparkle/notes/TEMPLATE.md; then
             echo "::error::$notes is still the unedited template. Write the release notes before releasing."
             exit 1
           fi
-          if [[ -e ".sparkle/notes/$version.html" ]]; then
-            echo "::error::.sparkle/notes/$version.html already exists, so the archived notes for this release would be overwritten."
+          if [[ -e ".sparkle/notes/$version.md" ]]; then
+            echo "::error::.sparkle/notes/$version.md already exists, so the archived notes for this release would be overwritten."
             exit 1
           fi
 
@@ -146,6 +153,16 @@ jobs:
           } >>"$GITHUB_OUTPUT"
 
           echo "Releasing $version ($build), bumped from $current"
+
+      # GitHub gets the Markdown as written; the appcast gets this. Rendered
+      # here so malformed notes fail before the build rather than after it.
+      - name: Render the release notes for the appcast
+        run: |
+          set -euo pipefail
+          html="$RUNNER_TEMP/notes.html"
+          ./scripts/render-notes.sh "${{ steps.version.outputs.notes }}" >"$html"
+          echo "NOTES_HTML=$html" >>"$GITHUB_ENV"
+          cat "$html"
 
       - name: Prepare App Store Connect API key
         env:
@@ -363,7 +380,7 @@ jobs:
             --url "https://github.com/${{ github.repository }}/releases/download/v$version/${{ steps.version.outputs.dmg }}" \
             --signature "$signature" \
             --length "$length" \
-            --notes "${{ steps.version.outputs.notes }}" \
+            --notes "$NOTES_HTML" \
             --pub-date "$(date -u '+%a, %d %b %Y %H:%M:%S +0000')" \
             --minimum-system-version "$minimum_system_version"
 
@@ -374,8 +391,8 @@ jobs:
 
           # Archive the notes under the version they shipped as, and leave a
           # fresh template ready for the next release.
-          git mv .sparkle/notes/next.html ".sparkle/notes/$version.html"
-          cp .sparkle/notes/TEMPLATE.html .sparkle/notes/next.html
+          git mv .sparkle/notes/next.md ".sparkle/notes/$version.md"
+          cp .sparkle/notes/TEMPLATE.md .sparkle/notes/next.md
 
           git add .sparkle/appcast.xml "Front Row.xcodeproj/project.pbxproj" .sparkle/notes
           git commit -m "chore: release $version (${{ steps.version.outputs.build }}) [skip ci]"
