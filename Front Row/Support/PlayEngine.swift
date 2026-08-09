@@ -320,6 +320,45 @@ import SwiftUI
         asset.cancelLoading()
     }
 
+    /// Unloads the file, leaving the engine as it was before anything was opened.
+    ///
+    /// Closing the player window usually takes the app with it, so the state that outlives the
+    /// window only shows when another window keeps the app running. What's left behind would
+    /// otherwise still answer for a file with nowhere to play it.
+    func closeFile() {
+        persistCurrentPlaybackPosition()
+        lastPeriodicPositionSaveTime = 0
+
+        for sub in currentItemSubs { sub.cancel() }
+        currentItemSubs.removeAll()
+
+        player.pause()
+        player.replaceCurrentItem(with: nil)
+
+        asset?.cancelLoading()
+        asset = nil
+
+        // Cleared before the selections, whose observers go no further once the group is gone.
+        subtitleGroup = nil
+        audioGroup = nil
+        subtitle = nil
+        audioTrack = nil
+
+        isLoaded = false
+        isLocalFile = false
+        fileURL = nil
+
+        _currentTime = 0
+        duration = 0
+        timeRemaining = 0
+        videoSize = .zero
+
+        accessingSecurityScopedURL?.stopAccessingSecurityScopedResource()
+        accessingSecurityScopedURL = nil
+
+        NowPlayable.shared.sessionEnd()
+    }
+
     func play() {
         guard isLoaded else { return }
 

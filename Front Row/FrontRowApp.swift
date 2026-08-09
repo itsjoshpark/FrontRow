@@ -72,7 +72,7 @@ struct FrontRowApp: App {
                     guard let closingWindow = notification.object as? NSWindow,
                         closingWindow == windowController.mainWindow
                     else { return }
-                    playEngine.pause()
+                    playEngine.closeFile()
                 }
                 .background(
                     WindowAccessor { window in
