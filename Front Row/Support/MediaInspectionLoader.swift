@@ -244,6 +244,13 @@ private struct TrackDetails {
         (format?.extensions[key]?.propertyListRepresentation as? NSNumber)?.intValue
     }
 
+    /// CoreMedia states the depth for HEVC but leaves it out for H.264, where the answer is always
+    /// 8 - AVFoundation won't play a deeper H.264 stream at all.
+    private var videoBitDepth: Int? {
+        if let stated = numberExtension(.bitsPerComponent) { return stated }
+        return subType == kCMVideoCodecType_H264 ? 8 : nil
+    }
+
     var summary: TrackSummary {
         TrackSummary(
             id: trackID,
@@ -287,7 +294,7 @@ private struct TrackDetails {
             rotationDegrees: MediaFormatNames.rotationDegrees(for: transform),
             bitRate: bitRate,
             frameRate: frameRate > 0 ? Double(frameRate) : nil,
-            bitDepth: numberExtension(.bitsPerComponent),
+            bitDepth: videoBitDepth,
             colorPrimaries: stringExtension(.colorPrimaries).map(MediaFormatNames.colourName(for:)),
             isFullRange: numberExtension(.fullRangeVideo).map { $0 != 0 },
             isHDR: characteristics.contains(.containsHDRVideo),
