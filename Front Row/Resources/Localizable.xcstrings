@@ -36,8 +36,8 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "No se pudo abrir \"%@. Puede que se haya movido o eliminado."
+            "state" : "needs_review",
+            "value" : "No se pudo abrir \"%@\". Puede que se haya movido o eliminado."
           }
         },
         "fi" : {
@@ -120,8 +120,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\" Не вдалося відкрити%@\". Можливо, його переміщено або видалено."
+            "state" : "needs_review",
+            "value" : "Не вдалося відкрити \"%@\". Можливо, його переміщено або видалено."
           }
         },
         "vi" : {
@@ -269,8 +269,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%1$@\" на \"%2$@, який не підключений. Підключіть його і повторіть спробу."
+            "state" : "needs_review",
+            "value" : "\"%1$@\" на \"%2$@\", який не підключений. Підключіть його і повторіть спробу."
           }
         },
         "vi" : {
@@ -304,20 +304,20 @@
         },
         "cs" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" není formát předního řádku."
+            "state" : "needs_review",
+            "value" : "\"%@\" není formát, který umí Front Row přehrát."
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" er ikke et format Front Række kan spille."
+            "state" : "needs_review",
+            "value" : "\"%@\" er ikke et format, som Front Row kan afspille."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" ist kein Format, in dem Frontzeile gespielt werden kann."
+            "state" : "needs_review",
+            "value" : "\"%@\" ist kein Format, das Front Row abspielen kann."
           }
         },
         "el" : {
@@ -328,8 +328,8 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" no es un formato que pueda reproducirse."
+            "state" : "needs_review",
+            "value" : "\"%@\" no es un formato que Front Row pueda reproducir."
           }
         },
         "fi" : {
@@ -340,8 +340,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Le format \"%@\" n'est pas un format de la ligne frontale peut jouer."
+            "state" : "needs_review",
+            "value" : "\"%@\" n'est pas un format que Front Row peut lire."
           }
         },
         "he" : {
@@ -358,8 +358,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" non è un formato che la riga anteriore può riprodurre."
+            "state" : "needs_review",
+            "value" : "\"%@\" non è un formato che Front Row può riprodurre."
           }
         },
         "ja" : {
@@ -376,14 +376,14 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" is geen indeling voor de rij kan spelen."
+            "state" : "needs_review",
+            "value" : "\"%@\" is geen indeling die Front Row kan afspelen."
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" nie jest formatem wiersza głównego."
+            "state" : "needs_review",
+            "value" : "\"%@\" nie jest formatem, który Front Row może odtworzyć."
           }
         },
         "ro" : {
@@ -394,14 +394,14 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" не может воспроизвести формат передней строки."
+            "state" : "needs_review",
+            "value" : "Front Row не может воспроизвести формат \"%@\"."
           }
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" är inte ett format främre raden kan spela."
+            "state" : "needs_review",
+            "value" : "\"%@\" är inte ett format som Front Row kan spela upp."
           }
         },
         "tr" : {
@@ -412,8 +412,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" не має формату, який може програвати передній рядок."
+            "state" : "needs_review",
+            "value" : "\"%@\" — формат, який Front Row не може відтворити."
           }
         },
         "vi" : {
@@ -424,8 +424,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" 不是一个前列可以播放的格式。"
+            "state" : "needs_review",
+            "value" : "\"%@\" 不是 Front Row 可以播放的格式。"
           }
         },
         "zh-Hant" : {
@@ -1521,8 +1521,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lyd Spor"
+            "state" : "needs_review",
+            "value" : "Lydspor"
           }
         },
         "de" : {
@@ -1587,8 +1587,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Audio spoor"
+            "state" : "needs_review",
+            "value" : "Audiospoor"
           }
         },
         "pl" : {
@@ -2012,8 +2012,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "annuleren"
+            "state" : "needs_review",
+            "value" : "Annuleren"
           }
         },
         "pl" : {
@@ -3374,8 +3374,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Verlangsamen auf 5%"
+            "state" : "needs_review",
+            "value" : "Um 5 % verlangsamen"
           }
         },
         "el" : {
@@ -3422,8 +3422,8 @@
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "速度を5%低下させる"
+            "state" : "needs_review",
+            "value" : "速度を5%下げる"
           }
         },
         "ko" : {
@@ -3882,20 +3882,20 @@
         },
         "cs" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zadejte celou obrazovku"
+            "state" : "needs_review",
+            "value" : "Přejít na celou obrazovku"
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Angiv Fuld Skærm"
+            "state" : "needs_review",
+            "value" : "Slå fuld skærm til"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vollbildmodus"
+            "state" : "needs_review",
+            "value" : "Vollbildmodus aktivieren"
           }
         },
         "el" : {
@@ -3954,8 +3954,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Schermvullende weergave invoeren"
+            "state" : "needs_review",
+            "value" : "Schermvullende weergave"
           }
         },
         "pl" : {
@@ -4451,8 +4451,8 @@
         },
         "cs" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zkušený prostorový zvuk"
+            "state" : "needs_review",
+            "value" : "Vyzkoušejte prostorový zvuk"
           }
         },
         "da" : {
@@ -4517,14 +4517,14 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "공간 음향을 겸험"
+            "state" : "needs_review",
+            "value" : "공간 음향 체험하기"
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ruimtelijke Audio Ervaar"
+            "state" : "needs_review",
+            "value" : "Ervaar ruimtelijke audio"
           }
         },
         "pl" : {
@@ -4559,8 +4559,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Досвід просторового аудіо"
+            "state" : "needs_review",
+            "value" : "Спробуйте просторове аудіо"
           }
         },
         "vi" : {
@@ -4688,20 +4688,20 @@
         },
         "cs" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Plovoucí nahoru"
+            "state" : "needs_review",
+            "value" : "Vždy navrchu"
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Flydende øverst"
+            "state" : "needs_review",
+            "value" : "Altid øverst"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Oben schweben"
+            "state" : "needs_review",
+            "value" : "Immer im Vordergrund"
           }
         },
         "el" : {
@@ -4760,14 +4760,14 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zwevend bovenaan"
+            "state" : "needs_review",
+            "value" : "Altijd op de voorgrond"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pływaj na górze"
+            "state" : "needs_review",
+            "value" : "Zawsze na wierzchu"
           }
         },
         "ro" : {
@@ -4778,14 +4778,14 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Плавать сверху"
+            "state" : "needs_review",
+            "value" : "Поверх других окон"
           }
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Flyta högst upp"
+            "state" : "needs_review",
+            "value" : "Visa överst"
           }
         },
         "tr" : {
@@ -4796,8 +4796,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Плавати зверху"
+            "state" : "needs_review",
+            "value" : "Поверх інших вікон"
           }
         },
         "vi" : {
@@ -4814,8 +4814,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "浮動於上方"
+            "state" : "needs_review",
+            "value" : "視窗置頂"
           }
         }
       }
@@ -5535,8 +5535,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Идти"
+            "state" : "needs_review",
+            "value" : "Перейти"
           }
         },
         "sv" : {
@@ -5565,14 +5565,14 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "去"
+            "state" : "needs_review",
+            "value" : "前往"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "去"
+            "state" : "needs_review",
+            "value" : "前往"
           }
         }
       }
@@ -5991,8 +5991,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "去时间"
+            "state" : "needs_review",
+            "value" : "跳转到时间"
           }
         },
         "zh-Hant" : {
@@ -6103,8 +6103,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Время..."
+            "state" : "needs_review",
+            "value" : "Перейти к времени..."
           }
         },
         "sv" : {
@@ -6133,8 +6133,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "去时间..."
+            "state" : "needs_review",
+            "value" : "跳转到时间..."
           }
         },
         "zh-Hant" : {
@@ -6687,8 +6687,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Beschleunigen auf 5%"
+            "state" : "needs_review",
+            "value" : "Um 5 % beschleunigen"
           }
         },
         "el" : {
@@ -6735,8 +6735,8 @@
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "速度が5%増加します"
+            "state" : "needs_review",
+            "value" : "速度を5%上げる"
           }
         },
         "ko" : {
@@ -8055,8 +8055,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Næste Ramme"
+            "state" : "needs_review",
+            "value" : "Næste billede"
           }
         },
         "de" : {
@@ -8127,8 +8127,8 @@
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Następna ramka"
+            "state" : "needs_review",
+            "value" : "Następna klatka"
           }
         },
         "ro" : {
@@ -8145,8 +8145,8 @@
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nästa ram"
+            "state" : "needs_review",
+            "value" : "Nästa bildruta"
           }
         },
         "tr" : {
@@ -8976,8 +8976,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "UIT"
+            "state" : "needs_review",
+            "value" : "Uit"
           }
         },
         "pl" : {
@@ -9250,8 +9250,8 @@
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "最近使項目開く"
+            "state" : "needs_review",
+            "value" : "最近使った項目を開く"
           }
         },
         "ko" : {
@@ -9653,8 +9653,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ouvrir"
+            "state" : "needs_review",
+            "value" : "Lire"
           }
         },
         "he" : {
@@ -9671,8 +9671,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Apri"
+            "state" : "needs_review",
+            "value" : "Riproduci"
           }
         },
         "ja" : {
@@ -9707,8 +9707,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Играть"
+            "state" : "needs_review",
+            "value" : "Воспроизвести"
           }
         },
         "sv" : {
@@ -9759,8 +9759,8 @@
         },
         "cs" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Přehrát"
+            "state" : "needs_review",
+            "value" : "Přehrávání"
           }
         },
         "da" : {
@@ -9819,8 +9819,8 @@
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "制御"
+            "state" : "needs_review",
+            "value" : "再生"
           }
         },
         "ko" : {
@@ -10002,8 +10002,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Forrige Ramme"
+            "state" : "needs_review",
+            "value" : "Forrige billede"
           }
         },
         "de" : {
@@ -10074,8 +10074,8 @@
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Poprzednia ramka"
+            "state" : "needs_review",
+            "value" : "Poprzednia klatka"
           }
         },
         "ro" : {
@@ -10092,8 +10092,8 @@
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Föregående ram"
+            "state" : "needs_review",
+            "value" : "Föregående bildruta"
           }
         },
         "tr" : {
@@ -10528,8 +10528,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aus \"Letzte Apps\" entfernen"
+            "state" : "needs_review",
+            "value" : "Aus benutzten Dokumenten entfernen"
           }
         },
         "el" : {
@@ -10552,8 +10552,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Retirer des applications récentes"
+            "state" : "needs_review",
+            "value" : "Retirer des éléments récents"
           }
         },
         "he" : {
@@ -10576,8 +10576,8 @@
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "アプリ履歴から削除"
+            "state" : "needs_review",
+            "value" : "最近使った項目から削除"
           }
         },
         "ko" : {
@@ -10594,8 +10594,8 @@
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Usuń z ostatnich aplikacji"
+            "state" : "needs_review",
+            "value" : "Usuń z ostatnich plików"
           }
         },
         "ro" : {
@@ -10718,8 +10718,8 @@
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "問題を報告します"
+            "state" : "needs_review",
+            "value" : "問題を報告"
           }
         },
         "ko" : {
@@ -10801,14 +10801,14 @@
         },
         "cs" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reset"
+            "state" : "needs_review",
+            "value" : "Obnovit"
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reset"
+            "state" : "needs_review",
+            "value" : "Nulstil"
           }
         },
         "de" : {
@@ -10879,8 +10879,8 @@
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reset"
+            "state" : "needs_review",
+            "value" : "Resetuj"
           }
         },
         "ro" : {
@@ -10891,14 +10891,14 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reset"
+            "state" : "needs_review",
+            "value" : "Сброс"
           }
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reset"
+            "state" : "needs_review",
+            "value" : "Återställ"
           }
         },
         "tr" : {
@@ -10909,8 +10909,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reset"
+            "state" : "needs_review",
+            "value" : "Скинути"
           }
         },
         "vi" : {
@@ -12226,8 +12226,8 @@
         },
         "cs" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Podtitulek"
+            "state" : "needs_review",
+            "value" : "Titulky"
           }
         },
         "da" : {
@@ -12304,8 +12304,8 @@
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Podtytuł"
+            "state" : "needs_review",
+            "value" : "Napisy"
           }
         },
         "ro" : {
@@ -13411,8 +13411,8 @@
         },
         "cs" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
+            "state" : "needs_review",
+            "value" : "Verze %@"
           }
         },
         "da" : {
@@ -13790,8 +13790,8 @@
         },
         "cs" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vítejte na frontě řádku"
+            "state" : "needs_review",
+            "value" : "Vítejte ve Front Row"
           }
         },
         "da" : {
@@ -13802,8 +13802,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Willkommen bei der Front Row"
+            "state" : "needs_review",
+            "value" : "Willkommen bei Front Row"
           }
         },
         "el" : {
@@ -13844,32 +13844,32 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Benvenuto nella riga anteriore"
+            "state" : "needs_review",
+            "value" : "Benvenuto in Front Row"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "最前列へようこそ"
+            "state" : "needs_review",
+            "value" : "Front Row へようこそ"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "시작 윈도우"
+            "state" : "needs_review",
+            "value" : "Front Row에 오신 것을 환영합니다"
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Welkom bij de frontrij"
+            "state" : "needs_review",
+            "value" : "Welkom bij Front Row"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Witaj w wierszu z przodu"
+            "state" : "needs_review",
+            "value" : "Witaj w Front Row"
           }
         },
         "ro" : {
@@ -13880,14 +13880,14 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Добро пожаловать в переднюю строку"
+            "state" : "needs_review",
+            "value" : "Добро пожаловать в Front Row"
           }
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Välkommen till främre raden"
+            "state" : "needs_review",
+            "value" : "Välkommen till Front Row"
           }
         },
         "tr" : {
@@ -13898,8 +13898,8 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ласкаво просимо до Переднього рядка"
+            "state" : "needs_review",
+            "value" : "Ласкаво просимо до Front Row"
           }
         },
         "vi" : {
@@ -13910,8 +13910,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "欢迎使用前行"
+            "state" : "needs_review",
+            "value" : "欢迎使用 Front Row"
           }
         },
         "zh-Hant" : {
