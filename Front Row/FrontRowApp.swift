@@ -117,6 +117,9 @@ struct FrontRowApp: App {
         .defaultSize(width: 460, height: 520)
         .defaultLaunchBehavior(.suppressed)
         .defaultPosition(.center)
+        // The scene contributes its own View menu item, whose title is fixed at "Hide Inspector"
+        // however the panel is. The Window menu's item says which way it goes.
+        .commandsRemoved()
     }
 }
 
