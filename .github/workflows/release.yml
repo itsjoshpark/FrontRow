@@ -311,7 +311,7 @@ jobs:
         run: rm -f "$RUNNER_TEMP/AuthKey.p8"
 
       - name: Upload dmg as an artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ steps.version.outputs.dmg }}
           path: ${{ env.EXPORT_PATH }}/${{ steps.version.outputs.dmg }}
