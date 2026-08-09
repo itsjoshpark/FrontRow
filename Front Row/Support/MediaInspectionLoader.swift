@@ -36,7 +36,6 @@ enum MediaInspectionLoader {
 
         var tracks: [TrackSummary] = []
         var video: VideoSummary?
-        var colour: ColourSummary?
         var audio: AudioSummary?
 
         for assetTrack in assetTracks {
@@ -46,7 +45,6 @@ enum MediaInspectionLoader {
 
             if video == nil, details.mediaType == .video {
                 video = details.videoSummary
-                colour = details.colourSummary
             }
             if audio == nil, details.mediaType == .audio {
                 audio = details.audioSummary
@@ -55,7 +53,6 @@ enum MediaInspectionLoader {
 
         return MediaInspection(
             video: video,
-            colour: colour,
             audio: audio,
             tracks: tracks,
             file: await fileSummary(asset: asset, url: url)
@@ -237,7 +234,7 @@ private struct TrackDetails {
         }
     }
 
-    /// A format-description extension read as a string, which is how the colour constants and the
+    /// A format-description extension read as a string, which is how the color constants and the
     /// encoder name are stored.
     private func stringExtension(_ key: CMFormatDescription.Extensions.Key) -> String? {
         format?.extensions[key]?.propertyListRepresentation as? String
@@ -245,6 +242,13 @@ private struct TrackDetails {
 
     private func numberExtension(_ key: CMFormatDescription.Extensions.Key) -> Int? {
         (format?.extensions[key]?.propertyListRepresentation as? NSNumber)?.intValue
+    }
+
+    /// CoreMedia states the depth for HEVC but leaves it out for H.264, where the answer is always
+    /// 8 - AVFoundation won't play a deeper H.264 stream at all.
+    private var videoBitDepth: Int? {
+        if let stated = numberExtension(.bitsPerComponent) { return stated }
+        return subType == kCMVideoCodecType_H264 ? 8 : nil
     }
 
     var summary: TrackSummary {
@@ -289,25 +293,14 @@ private struct TrackDetails {
             dimensions: dimensions,
             rotationDegrees: MediaFormatNames.rotationDegrees(for: transform),
             bitRate: bitRate,
-            frameRate: frameRate > 0 ? Double(frameRate) : nil
-        )
-    }
-
-    var colourSummary: ColourSummary? {
-        let summary = ColourSummary(
-            primaries: stringExtension(.colorPrimaries).map(MediaFormatNames.colourName(for:)),
-            transferFunction: stringExtension(.transferFunction).map(
-                MediaFormatNames.colourName(for:)),
-            matrix: stringExtension(.yCbCrMatrix).map(MediaFormatNames.colourName(for:)),
+            frameRate: frameRate > 0 ? Double(frameRate) : nil,
+            bitDepth: videoBitDepth,
+            colorPrimaries: stringExtension(.colorPrimaries).map(MediaFormatNames.colorName(for:)),
             isFullRange: numberExtension(.fullRangeVideo).map { $0 != 0 },
-            bitDepth: numberExtension(.bitsPerComponent),
-            isHDR: characteristics.contains(.containsHDRVideo)
+            isHDR: characteristics.contains(.containsHDRVideo),
+            hdrFormatName: stringExtension(.transferFunction)
+                .flatMap(MediaFormatNames.hdrFormatName(forTransferFunction:))
         )
-
-        let isEmpty =
-            summary.primaries == nil && summary.transferFunction == nil && summary.matrix == nil
-            && summary.isFullRange == nil && summary.bitDepth == nil && !summary.isHDR
-        return isEmpty ? nil : summary
     }
 
     var audioSummary: AudioSummary? {

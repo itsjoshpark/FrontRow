@@ -109,15 +109,27 @@ struct MediaFormatNamesTests {
     }
 
     @Test
-    func colourConstantsAreRewrittenTheWayTheStandardIsWritten() {
-        #expect(MediaFormatNames.colourName(for: "ITU_R_709_2") == "ITU-R BT.709")
-        #expect(MediaFormatNames.colourName(for: "ITU_R_2020") == "ITU-R BT.2020")
-        #expect(MediaFormatNames.colourName(for: "SMPTE_ST_2084_PQ") == "SMPTE ST 2084 (PQ)")
+    func colorConstantsAreRewrittenTheWayTheStandardIsWritten() {
+        #expect(MediaFormatNames.colorName(for: "ITU_R_709_2") == "ITU-R BT.709")
+        #expect(MediaFormatNames.colorName(for: "ITU_R_2020") == "ITU-R BT.2020")
+        #expect(MediaFormatNames.colorName(for: "SMPTE_ST_2084_PQ") == "SMPTE ST 2084 (PQ)")
     }
 
     @Test
-    func anUnknownColourConstantPassesThrough() {
-        #expect(MediaFormatNames.colourName(for: "Some_New_Standard") == "Some_New_Standard")
+    func anUnknownColorConstantPassesThrough() {
+        #expect(MediaFormatNames.colorName(for: "Some_New_Standard") == "Some_New_Standard")
+    }
+
+    @Test
+    func theHDRCurveIsNamedByItsTransferFunction() {
+        #expect(MediaFormatNames.hdrFormatName(forTransferFunction: "ITU_R_2100_HLG") == "HLG")
+        #expect(MediaFormatNames.hdrFormatName(forTransferFunction: "SMPTE_ST_2084_PQ") == "PQ")
+    }
+
+    /// An SDR curve names no HDR format, which is what lets the HDR row fall back to a plain yes.
+    @Test
+    func anSDRTransferFunctionNamesNoHDRFormat() {
+        #expect(MediaFormatNames.hdrFormatName(forTransferFunction: "ITU_R_709_2") == nil)
     }
 
     @Test
