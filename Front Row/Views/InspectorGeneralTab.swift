@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// What the file is made of, at a glance: the video and audio the player actually chose, down to
-/// the colour the picture was encoded against.
+/// the color the picture was encoded against.
 struct InspectorGeneralTab: View {
     let inspection: MediaInspection
 
@@ -49,7 +49,7 @@ struct InspectorGeneralTab: View {
                         value: video.bitDepth.map(MediaValueFormat.bitDepth))
                     InspectorRow(
                         label: Text(
-                            "Color", comment: "Inspector row: the video's colour primaries"),
+                            "Color", comment: "Inspector row: the video's color primaries"),
                         value: video.colorPrimaries)
                     InspectorRow(
                         label: Text("Range"),

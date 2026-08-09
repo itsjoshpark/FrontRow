@@ -1295,7 +1295,7 @@
       }
     },
     "%lld-bit" : {
-      "comment" : "Colour or audio bit depth, e.g. 10-bit",
+      "comment" : "Color or audio bit depth, e.g. 10-bit",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -3718,7 +3718,7 @@
       }
     },
     "Color" : {
-      "comment" : "Inspector row: the video's colour primaries",
+      "comment" : "Inspector row: the video's color primaries",
       "localizations" : {
         "ar" : {
           "stringUnit" : {

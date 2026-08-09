@@ -234,7 +234,7 @@ private struct TrackDetails {
         }
     }
 
-    /// A format-description extension read as a string, which is how the colour constants and the
+    /// A format-description extension read as a string, which is how the color constants and the
     /// encoder name are stored.
     private func stringExtension(_ key: CMFormatDescription.Extensions.Key) -> String? {
         format?.extensions[key]?.propertyListRepresentation as? String
@@ -295,7 +295,7 @@ private struct TrackDetails {
             bitRate: bitRate,
             frameRate: frameRate > 0 ? Double(frameRate) : nil,
             bitDepth: videoBitDepth,
-            colorPrimaries: stringExtension(.colorPrimaries).map(MediaFormatNames.colourName(for:)),
+            colorPrimaries: stringExtension(.colorPrimaries).map(MediaFormatNames.colorName(for:)),
             isFullRange: numberExtension(.fullRangeVideo).map { $0 != 0 },
             isHDR: characteristics.contains(.containsHDRVideo),
             hdrFormatName: stringExtension(.transferFunction)

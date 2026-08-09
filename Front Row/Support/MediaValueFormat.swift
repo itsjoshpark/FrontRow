@@ -52,7 +52,7 @@ enum MediaValueFormat {
     }
 
     static func bitDepth(_ bits: Int) -> String {
-        String(localized: "\(bits)-bit", comment: "Colour or audio bit depth, e.g. 10-bit")
+        String(localized: "\(bits)-bit", comment: "Color or audio bit depth, e.g. 10-bit")
     }
 
     /// Names the HDR curve when the file says which one it uses, since HLG and PQ are handled

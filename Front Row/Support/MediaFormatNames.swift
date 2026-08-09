@@ -10,7 +10,7 @@ import CoreAudio
 import CoreMedia
 import Foundation
 
-/// Turns the raw identifiers AVFoundation reports - four-character codes, CoreVideo colour
+/// Turns the raw identifiers AVFoundation reports - four-character codes, CoreVideo color
 /// constants, channel layout tags - into something worth showing in the Inspector.
 ///
 /// Kept free of AVFoundation objects so it can be tested without a media file.
@@ -127,7 +127,7 @@ enum MediaFormatNames {
         }
     }
 
-    private static let colourNames: [String: String] = [
+    private static let colorNames: [String: String] = [
         "ITU_R_709_2": "ITU-R BT.709",
         "ITU_R_601_4": "ITU-R BT.601",
         "ITU_R_2020": "ITU-R BT.2020",
@@ -146,10 +146,10 @@ enum MediaFormatNames {
         "UseGamma": "Gamma",
     ]
 
-    /// Rewrites a CoreVideo colour constant - primaries, transfer function, or matrix - the way
+    /// Rewrites a CoreVideo color constant - primaries, transfer function, or matrix - the way
     /// the standard is normally written. Unrecognised constants pass through as-is.
-    static func colourName(for constant: String) -> String {
-        colourNames[constant] ?? constant
+    static func colorName(for constant: String) -> String {
+        colorNames[constant] ?? constant
     }
 
     private static let hdrFormatNames: [String: String] = [
