@@ -66,6 +66,19 @@ assert_contains "$result" "<strong>Inspector</strong>" "renders bold"
 assert_contains "$result" '<a href="https://example.com">the docs</a>' "renders links"
 assert_contains "$result" "<p><strong>Note</strong>: Recents will reset.</p>" "renders paragraphs"
 
+# The GitHub-flavored constructs, which plain CommonMark leaves as literal text.
+gfm="$("$render" "$(write_notes '| Shortcut | Does |
+| --- | --- |
+| Command-I | Inspector |
+
+- [x] Added: A thing
+- Fixed: ~~almost~~ everything
+')")"
+assert_contains "$gfm" "<table>" "renders tables"
+assert_contains "$gfm" "<th>Shortcut</th>" "renders table headers"
+assert_contains "$gfm" '<input type="checkbox" checked="" disabled="" />' "renders task lists"
+assert_contains "$gfm" "<del>almost</del>" "renders strikethrough"
+
 if [[ "$(grep -c '^      <' <<<"$result")" == "$(grep -c '^ *<' <<<"$result")" ]]; then
   check "indents every rendered line six spaces" pass
 else
@@ -80,13 +93,19 @@ fi
 
 # The rendered fragment is embedded in the appcast, which append-appcast-item.sh
 # validates as XML.
-wrapped="$workdir/wrapped.xml"
-printf '<root>\n%s\n</root>\n' "$result" >"$wrapped"
-if python3 -c "import xml.dom.minidom,sys; xml.dom.minidom.parse(sys.argv[1])" "$wrapped" 2>/dev/null; then
-  check "produces well-formed markup" pass
-else
-  check "produces well-formed markup" fail
-fi
+assert_well_formed() {
+  local fragment="$1" description="$2"
+  local wrapped="$workdir/wrapped.xml"
+  printf '<root>\n%s\n</root>\n' "$fragment" >"$wrapped"
+  if python3 -c "import xml.dom.minidom,sys; xml.dom.minidom.parse(sys.argv[1])" "$wrapped" 2>/dev/null; then
+    check "$description" pass
+  else
+    check "$description" fail
+  fi
+}
+
+assert_well_formed "$result" "produces well-formed markup"
+assert_well_formed "$gfm" "produces well-formed markup for tables and task lists"
 
 # --- guards -----------------------------------------------------------------
 reject "rejects raw HTML block tags" '<ul><li>Added: A thing</li></ul>'

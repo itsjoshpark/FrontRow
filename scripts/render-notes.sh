@@ -22,9 +22,13 @@ die() {
 command -v cmark-gfm >/dev/null ||
   die "cmark-gfm is not installed. Run: brew install cmark-gfm"
 
-# Without --unsafe, raw HTML becomes a placeholder comment rather than passing
-# through, which is how the tag check below catches it.
-html="$(cmark-gfm --to html --extension strikethrough --extension autolink "$notes")" ||
+# The extensions GitHub itself renders, so a table is a table in both places.
+# Footnotes are left off: they emit valueless attributes, which are HTML but not
+# XML. Without --unsafe, raw HTML becomes a placeholder comment rather than
+# passing through, which is how the tag check below catches it.
+html="$(cmark-gfm --to html \
+  --extension table --extension tasklist \
+  --extension strikethrough --extension autolink "$notes")" ||
   die "cmark-gfm could not render $notes"
 
 if [[ "$html" == *"<!-- raw HTML omitted -->"* ]]; then

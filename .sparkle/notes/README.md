@@ -19,12 +19,17 @@ commits:
 **Note**: Anything worth calling out before updating.
 ```
 
-Lists, paragraphs, bold, italic, and links are all fine. Two things are
-rejected, because they break one of the two destinations:
+Lists, paragraphs, bold, italic, links, tables, task lists, and strikethrough
+all work. Two things are rejected, because each would reach one destination and
+not the other:
 
-- **HTML tags**, which GitHub would print as source rather than render.
-- **Code blocks**, including a line indented four spaces — the appcast is
-  indented to match, which would show inside a `<pre>`.
+- **HTML tags**. GitHub renders them, but the appcast conversion drops them, so
+  the release page and Sparkle's dialog would disagree.
+- **Code blocks**, including a line indented four spaces. The appcast is
+  indented to match, and that indentation would show inside a `<pre>`.
+
+Footnotes are the one GitHub construct left unsupported, and render as literal
+`[^1]` markers.
 
 Rendering uses [cmark-gfm](https://github.com/github/cmark-gfm), GitHub's own
 Markdown implementation, so Sparkle shows what the release page shows. To run
