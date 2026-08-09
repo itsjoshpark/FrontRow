@@ -66,7 +66,7 @@ struct InspectorChapterRow: View {
             Text(verbatim: start)
                 .monospacedDigit()
                 .foregroundStyle(.secondary)
-                .gridColumnAlignment(.trailing)
+                .gridColumnAlignment(.leading)
 
             if let title {
                 Text(verbatim: title)
@@ -90,7 +90,7 @@ private struct InspectorFieldName: View {
     var body: some View {
         (name + Text(verbatim: ":"))
             .fontWeight(.semibold)
-            .gridColumnAlignment(.trailing)
+            .gridColumnAlignment(.leading)
     }
 }
 
