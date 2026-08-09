@@ -17,9 +17,7 @@ struct InspectorRow: View {
 
     var body: some View {
         GridRow {
-            label
-                .fontWeight(.semibold)
-                .gridColumnAlignment(.trailing)
+            InspectorFieldName(name: label)
 
             if let value {
                 Text(verbatim: value)
@@ -41,9 +39,7 @@ struct InspectorFlagsRow: View {
 
     var body: some View {
         GridRow {
-            label
-                .fontWeight(.semibold)
-                .gridColumnAlignment(.trailing)
+            InspectorFieldName(name: label)
 
             HStack(spacing: 10) {
                 ForEach(flags.indices, id: \.self) { index in
@@ -53,6 +49,43 @@ struct InspectorFlagsRow: View {
             }
             .gridColumnAlignment(.leading)
         }
+    }
+}
+
+/// One entry in the chapter list. The time takes the field-name column but is a value rather than
+/// a name, so it goes without the trailing colon.
+struct InspectorChapterRow: View {
+    let start: String
+    let title: String?
+
+    var body: some View {
+        GridRow {
+            Text(verbatim: start)
+                .monospacedDigit()
+                .foregroundStyle(.secondary)
+                .gridColumnAlignment(.trailing)
+
+            if let title {
+                Text(verbatim: title)
+                    .gridColumnAlignment(.leading)
+            } else {
+                Text("Untitled", comment: "A chapter with no name of its own")
+                    .foregroundStyle(.tertiary)
+                    .gridColumnAlignment(.leading)
+            }
+        }
+    }
+}
+
+/// Names the field in the row beside it. The colon marks it as a label rather than another value,
+/// which matters once the two columns sit close together.
+private struct InspectorFieldName: View {
+    let name: Text
+
+    var body: some View {
+        (name + Text(verbatim: ":"))
+            .fontWeight(.semibold)
+            .gridColumnAlignment(.trailing)
     }
 }
 
@@ -69,7 +102,8 @@ struct InspectorSectionHeader: View {
                 .foregroundStyle(.secondary)
                 .textCase(.uppercase)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, isFirst ? 0 : 14)
+                .padding(.top, isFirst ? 0 : 12)
+                .padding(.bottom, 2)
                 .gridCellColumns(2)
         }
     }
@@ -95,12 +129,12 @@ struct InspectorForm<Content: View>: View {
 
     var body: some View {
         ScrollView {
-            Grid(alignment: .leading, horizontalSpacing: 14, verticalSpacing: 7) {
+            Grid(alignment: .leading, horizontalSpacing: 8, verticalSpacing: 2) {
                 content
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 20)
-            .padding(.vertical, 16)
+            .padding(.vertical, 14)
         }
         .textSelection(.enabled)
     }

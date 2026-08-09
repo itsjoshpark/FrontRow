@@ -60,9 +60,12 @@ struct InspectorView: View {
         .task(id: playEngine.isLoaded ? playEngine.fileURL : nil) {
             await model.reload(playEngine: playEngine)
         }
+        // A panel alongside the player has nowhere useful to minimise or zoom to, so closing is
+        // the only control it needs. Resizing by the window's edges still works.
         .background(
             WindowAccessor { window in
-                window.level = .floating
+                window.standardWindowButton(.miniaturizeButton)?.isHidden = true
+                window.standardWindowButton(.zoomButton)?.isHidden = true
             }
         )
     }

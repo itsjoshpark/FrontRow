@@ -436,6 +436,27 @@
         }
       }
     },
+    "%@ bps" : {
+      "comment" : "Bits per second"
+    },
+    "%@ channels" : {
+      "comment" : "Audio channel count when the layout has no name"
+    },
+    "%@ fps" : {
+      "comment" : "Frames per second"
+    },
+    "%@ kbps" : {
+      "comment" : "Kilobits per second"
+    },
+    "%@ kHz" : {
+      "comment" : "Audio sample rate in kilohertz"
+    },
+    "%@ Mbps" : {
+      "comment" : "Megabits per second"
+    },
+    "%lld-bit" : {
+      "comment" : "Colour or audio bit depth, e.g. 10-bit"
+    },
     "%llds" : {
       "comment" : "Label displaying seconds",
       "localizations" : {
@@ -579,6 +600,15 @@
         }
       }
     },
+    "Album" : {
+      "comment" : "Media metadata field"
+    },
+    "Artist" : {
+      "comment" : "Media metadata field"
+    },
+    "Audio" : {
+      "comment" : "An audio track\nInspector section heading"
+    },
     "Audio Track" : {
       "localizations" : {
         "ar" : {
@@ -721,6 +751,15 @@
         }
       }
     },
+    "Author" : {
+      "comment" : "Media metadata field"
+    },
+    "Bit Depth" : {
+
+    },
+    "Bit Rate" : {
+
+    },
     "Cancel" : {
       "localizations" : {
         "ar" : {
@@ -862,6 +901,15 @@
           }
         }
       }
+    },
+    "Channels" : {
+
+    },
+    "Chapter List" : {
+      "comment" : "Inspector section heading"
+    },
+    "Chapters" : {
+
     },
     "Check for Updates…" : {
       "localizations" : {
@@ -1148,6 +1196,18 @@
         }
       }
     },
+    "Closed Captions" : {
+      "comment" : "A closed caption track"
+    },
+    "Codec" : {
+
+    },
+    "Color" : {
+      "comment" : "Inspector section heading"
+    },
+    "Copyright" : {
+      "comment" : "Media metadata field"
+    },
     "Couldn't Open File" : {
       "comment" : "Title of the alert shown when a recent file could not be opened",
       "localizations" : {
@@ -1291,6 +1351,12 @@
         }
       }
     },
+    "Created" : {
+      "comment" : "Media metadata field"
+    },
+    "Data Size" : {
+
+    },
     "Decrease by 5%" : {
       "comment" : "Decrease playback speed by 5%",
       "localizations" : {
@@ -1433,6 +1499,18 @@
           }
         }
       }
+    },
+    "Description" : {
+      "comment" : "Media metadata field"
+    },
+    "Duration" : {
+
+    },
+    "Enabled" : {
+      "comment" : "Track property"
+    },
+    "Encoder" : {
+
     },
     "Enter Full Screen" : {
       "localizations" : {
@@ -2145,6 +2223,9 @@
         }
       }
     },
+    "File" : {
+      "comment" : "Inspector section heading\nInspector tab"
+    },
     "Float on Top" : {
       "localizations" : {
         "ar" : {
@@ -2287,6 +2368,15 @@
         }
       }
     },
+    "Forced" : {
+      "comment" : "Track property: forced subtitles"
+    },
+    "Format" : {
+
+    },
+    "Frame Rate" : {
+
+    },
     "Front Row" : {
       "localizations" : {
         "ar" : {
@@ -2428,6 +2518,12 @@
           }
         }
       }
+    },
+    "Full" : {
+      "comment" : "Full-range video levels"
+    },
+    "General" : {
+      "comment" : "Inspector tab"
     },
     "Go" : {
       "localizations" : {
@@ -3139,6 +3235,15 @@
         }
       }
     },
+    "Hardware Decoding" : {
+
+    },
+    "HDR" : {
+
+    },
+    "ID" : {
+
+    },
     "Improve Translation" : {
       "localizations" : {
         "ar" : {
@@ -3424,6 +3529,33 @@
         }
       }
     },
+    "Inspector" : {
+      "comment" : "Opens the media Inspector window"
+    },
+    "Language" : {
+
+    },
+    "Limited" : {
+      "comment" : "Limited-range video levels"
+    },
+    "Location" : {
+      "comment" : "Inspector section heading for a path or URL"
+    },
+    "Main" : {
+      "comment" : "Track property: main program content"
+    },
+    "Matrix" : {
+
+    },
+    "Metadata" : {
+      "comment" : "Inspector section heading for embedded tags"
+    },
+    "Modified" : {
+
+    },
+    "Mono" : {
+      "comment" : "Single-channel audio"
+    },
     "Mute" : {
       "localizations" : {
         "ar" : {
@@ -3565,6 +3697,9 @@
           }
         }
       }
+    },
+    "N/A" : {
+      "comment" : "Inspector value for a field the file doesn't provide"
     },
     "Natural Size" : {
       "comment" : "Fit window to video size",
@@ -3851,6 +3986,12 @@
         }
       }
     },
+    "No" : {
+      "comment" : "The video is not HDR"
+    },
+    "No media is playing." : {
+      "comment" : "Inspector placeholder when nothing is open"
+    },
     "No Recent Files" : {
       "comment" : "Placeholder shown when there are no recent files",
       "localizations" : {
@@ -4135,6 +4276,9 @@
           }
         }
       }
+    },
+    "Not supported" : {
+      "comment" : "This Mac cannot decode the codec in hardware"
     },
     "Off" : {
       "localizations" : {
@@ -5276,6 +5420,9 @@
         }
       }
     },
+    "Playing" : {
+      "comment" : "Track property"
+    },
     "Previous Frame" : {
       "localizations" : {
         "ar" : {
@@ -5417,6 +5564,18 @@
           }
         }
       }
+    },
+    "Primaries" : {
+
+    },
+    "Properties" : {
+
+    },
+    "Publisher" : {
+      "comment" : "Media metadata field"
+    },
+    "Range" : {
+
     },
     "Remove from Recents" : {
       "comment" : "Alert button that drops a file from the recent files list",
@@ -6132,6 +6291,12 @@
         }
       }
     },
+    "Rotation" : {
+
+    },
+    "Sample Rate" : {
+
+    },
     "Show in Finder" : {
       "comment" : "Show the currently playing file in Finder",
       "localizations" : {
@@ -6274,6 +6439,9 @@
           }
         }
       }
+    },
+    "Size" : {
+
     },
     "Skip Interval" : {
       "comment" : "How many seconds to go forward or backward",
@@ -6418,6 +6586,9 @@
         }
       }
     },
+    "Software" : {
+      "comment" : "Media metadata field"
+    },
     "Speed" : {
       "comment" : "Playback speed",
       "localizations" : {
@@ -6561,7 +6732,11 @@
         }
       }
     },
+    "Stereo" : {
+      "comment" : "Two-channel audio"
+    },
     "Subtitle" : {
+      "comment" : "A subtitle track",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -6702,6 +6877,33 @@
           }
         }
       }
+    },
+    "Supported" : {
+      "comment" : "This Mac can decode the codec in hardware"
+    },
+    "This file has no tracks." : {
+      "comment" : "Inspector placeholder, Tracks tab"
+    },
+    "This file has no video or audio tracks." : {
+      "comment" : "Inspector placeholder for a file with nothing playable in it"
+    },
+    "Title" : {
+      "comment" : "Media metadata field"
+    },
+    "Track" : {
+      "comment" : "Picker choosing which track the Inspector describes"
+    },
+    "Tracks" : {
+      "comment" : "Inspector tab"
+    },
+    "Transfer Function" : {
+
+    },
+    "Type" : {
+
+    },
+    "Unknown" : {
+      "comment" : "Inspector value for a missing field"
     },
     "Version %@" : {
       "localizations" : {
@@ -6844,6 +7046,9 @@
           }
         }
       }
+    },
+    "Video" : {
+      "comment" : "A video track\nInspector section heading"
     },
     "Website" : {
       "localizations" : {
@@ -7128,6 +7333,9 @@
           }
         }
       }
+    },
+    "Yes" : {
+      "comment" : "The video is HDR"
     }
   },
   "version" : "1.0"

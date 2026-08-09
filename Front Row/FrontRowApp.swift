@@ -107,10 +107,12 @@ struct FrontRowApp: App {
         .defaultPosition(.center)
         .restorationBehavior(.disabled)
 
-        Window("Inspector", id: WindowID.inspector) {
+        // A utility window: a panel that floats over the player, with only a close button.
+        UtilityWindow("Inspector", id: WindowID.inspector) {
             InspectorView()
                 .preferredColorScheme(.dark)
                 .environment(playEngine)
+                .containerBackground(.ultraThinMaterial, for: .window)
         }
         .defaultSize(width: 460, height: 520)
         .defaultLaunchBehavior(.suppressed)
