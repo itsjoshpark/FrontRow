@@ -94,9 +94,9 @@ private struct InspectorFieldName: View {
     }
 }
 
-/// Names the group of rows below it, spanning both columns so it reads as a heading rather than
-/// as another value. Every heading but the first is preceded by a rule, separating one group of
-/// fields from the next.
+/// Names the group of rows below it, sharing the left margin with the field names so the two
+/// line up. Every heading but the first is preceded by a rule, separating one group of fields
+/// from the next.
 struct InspectorSectionHeader: View {
     let title: Text
     var isFirst = false
@@ -112,6 +112,7 @@ struct InspectorSectionHeader: View {
                     .font(.subheadline.weight(.bold))
                     .foregroundStyle(.secondary)
                     .textCase(.uppercase)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
             .frame(maxWidth: .infinity)
             .padding(.top, isFirst ? 0 : 10)
