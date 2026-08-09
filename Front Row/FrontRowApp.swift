@@ -114,7 +114,7 @@ struct FrontRowApp: App {
                 .preferredColorScheme(.dark)
                 .environment(playEngine)
         }
-        .defaultSize(width: 460, height: 520)
+        .defaultSize(width: 460, height: 920)
         .defaultLaunchBehavior(.suppressed)
         .defaultPosition(.topTrailing)
         .restorationBehavior(.disabled)

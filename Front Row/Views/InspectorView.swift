@@ -55,7 +55,7 @@ struct InspectorView: View {
                         comment: "Inspector placeholder when nothing is open"))
             }
         }
-        .frame(minWidth: 420, minHeight: 320)
+        .frame(minWidth: 420, minHeight: 920)
         // Reloads when the window opens, and again once a newly opened file is ready to describe.
         .task(id: playEngine.isLoaded ? playEngine.fileURL : nil) {
             await model.reload(playEngine: playEngine)

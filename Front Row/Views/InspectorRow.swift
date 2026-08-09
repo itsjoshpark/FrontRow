@@ -90,21 +90,28 @@ private struct InspectorFieldName: View {
 }
 
 /// Names the group of rows below it, spanning both columns so it reads as a heading rather than
-/// as another value.
+/// as another value. Every heading but the first is preceded by a rule, which is what separates
+/// one group of fields from the next now that the rows sit close together.
 struct InspectorSectionHeader: View {
     let title: Text
     var isFirst = false
 
     var body: some View {
         GridRow {
-            title
-                .font(.subheadline.weight(.bold))
-                .foregroundStyle(.secondary)
-                .textCase(.uppercase)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, isFirst ? 0 : 12)
-                .padding(.bottom, 2)
-                .gridCellColumns(2)
+            VStack(spacing: 8) {
+                if !isFirst {
+                    Divider()
+                }
+
+                title
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(.secondary)
+                    .textCase(.uppercase)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.top, isFirst ? 0 : 10)
+            .padding(.bottom, 4)
+            .gridCellColumns(2)
         }
     }
 }
