@@ -2514,8 +2514,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ryd Menu"
+            "state" : "needs_review",
+            "value" : "Ryd menu"
           }
         },
         "de" : {
@@ -2586,8 +2586,8 @@
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wyczyść Menu"
+            "state" : "needs_review",
+            "value" : "Wyczyść menu"
           }
         },
         "ro" : {
@@ -3084,8 +3084,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Impossibile Aprire Il File"
+            "state" : "needs_review",
+            "value" : "Impossibile aprire il file"
           }
         },
         "ja" : {
@@ -4315,8 +4315,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Afslut Fuld Skærm"
+            "state" : "needs_review",
+            "value" : "Afslut fuld skærm"
           }
         },
         "de" : {
@@ -4381,8 +4381,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Volledig Scherm afsluiten"
+            "state" : "needs_review",
+            "value" : "Volledig scherm afsluiten"
           }
         },
         "pl" : {
@@ -4457,8 +4457,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Oplev Rumlig Lyd"
+            "state" : "needs_review",
+            "value" : "Oplev rumlig lyd"
           }
         },
         "de" : {
@@ -5593,8 +5593,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gå Tilbage %llds"
+            "state" : "needs_review",
+            "value" : "Gå tilbage %llds"
           }
         },
         "de" : {
@@ -5735,8 +5735,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gå Fremad %llds"
+            "state" : "needs_review",
+            "value" : "Gå fremad %llds"
           }
         },
         "de" : {
@@ -5925,8 +5925,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vai a Tempo"
+            "state" : "needs_review",
+            "value" : "Vai al tempo"
           }
         },
         "ja" : {
@@ -6067,8 +6067,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vai a Tempo..."
+            "state" : "needs_review",
+            "value" : "Vai al tempo..."
           }
         },
         "ja" : {
@@ -6085,8 +6085,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ga naar Tijd..."
+            "state" : "needs_review",
+            "value" : "Ga naar tijd..."
           }
         },
         "pl" : {
@@ -6333,101 +6333,6 @@
         }
       }
     },
-    "Hide Inspector" : {
-      "comment" : "Closes the media Inspector window",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Skrýt inspektora"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Skjul inspektør"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Inspektor ausblenden"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ocultar inspector"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Masquer l’inspecteur"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Nascondi Ispettore"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "インスペクタを隠す"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "인스펙터 가리기"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Inspector verbergen"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ukryj inspektora"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Скрыть инспектор"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Dölj inspektör"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Сховати інспектор"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "隐藏检查器"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "隱藏檢閱器"
-          }
-        }
-      }
-    },
     "ID" : {
       "localizations" : {
         "cs" : {
@@ -6538,8 +6443,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Forbedre Oversættelse"
+            "state" : "needs_review",
+            "value" : "Forbedr oversættelse"
           }
         },
         "de" : {
@@ -6681,8 +6586,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Stigning med 5%"
+            "state" : "needs_review",
+            "value" : "Forøg med 5%"
           }
         },
         "de" : {
@@ -7913,8 +7818,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Naturlig Størrelse"
+            "state" : "needs_review",
+            "value" : "Naturlig størrelse"
           }
         },
         "de" : {
@@ -8293,8 +8198,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ingen Seneste Filer"
+            "state" : "needs_review",
+            "value" : "Ingen seneste filer"
           }
         },
         "de" : {
@@ -8341,8 +8246,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nessun File Recente"
+            "state" : "needs_review",
+            "value" : "Nessun file recente"
           }
         },
         "ja" : {
@@ -8768,14 +8673,14 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ok"
+            "state" : "needs_review",
+            "value" : "OK"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ok"
+            "state" : "needs_review",
+            "value" : "OK"
           }
         },
         "el" : {
@@ -8798,8 +8703,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ok"
+            "state" : "needs_review",
+            "value" : "OK"
           }
         },
         "he" : {
@@ -8834,8 +8739,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ok"
+            "state" : "needs_review",
+            "value" : "OK"
           }
         },
         "pl" : {
@@ -8858,8 +8763,8 @@
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ok"
+            "state" : "needs_review",
+            "value" : "OK"
           }
         },
         "tr" : {
@@ -9053,8 +8958,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Åbn Fil..."
+            "state" : "needs_review",
+            "value" : "Åbn fil..."
           }
         },
         "de" : {
@@ -9071,8 +8976,8 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Abrir Archivo..."
+            "state" : "needs_review",
+            "value" : "Abrir archivo..."
           }
         },
         "fi" : {
@@ -9196,8 +9101,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Åbn Nylige"
+            "state" : "needs_review",
+            "value" : "Åbn nylige"
           }
         },
         "de" : {
@@ -10588,8 +10493,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Verwijder uit Recenten"
+            "state" : "needs_review",
+            "value" : "Verwijder uit recente items"
           }
         },
         "pl" : {
@@ -11407,101 +11312,6 @@
         }
       }
     },
-    "Show Inspector" : {
-      "comment" : "Opens the media Inspector window",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Zobrazit inspektora"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Vis inspektør"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Inspektor einblenden"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Mostrar inspector"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Afficher l’inspecteur"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Mostra Ispettore"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "インスペクタを表示"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "인스펙터 보기"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Inspector tonen"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Pokaż inspektora"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Показать инспектор"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Visa inspektör"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Показати інспектор"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "显示检查器"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "顯示檢閱器"
-          }
-        }
-      }
-    },
     "Show in Finder" : {
       "comment" : "Show the currently playing file in Finder",
       "localizations" : {
@@ -11756,8 +11566,8 @@
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Overspring Interval"
+            "state" : "needs_review",
+            "value" : "Overspring interval"
           }
         },
         "de" : {
