@@ -66,6 +66,7 @@ struct InspectorView: View {
         // button, so the content sits on it unpainted.
         .background(
             WindowAccessor { window in
+                guard !window.styleMask.contains(.hudWindow) else { return }
                 window.styleMask.insert(.hudWindow)
                 window.hidesOnDeactivate = true
             }
@@ -86,6 +87,12 @@ struct InspectorView: View {
             return
         }
 
-        inspection = await MediaInspectionLoader.load(item: item, url: url)
+        let loaded = await MediaInspectionLoader.load(item: item, url: url)
+
+        // A load outrun by the next file describes the one before it, and every `try?` along the
+        // way turns the cancellation into a missing field rather than an error.
+        guard !Task.isCancelled else { return }
+
+        inspection = loaded
     }
 }

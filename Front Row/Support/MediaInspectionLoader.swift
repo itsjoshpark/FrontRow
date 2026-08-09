@@ -98,7 +98,7 @@ enum MediaInspectionLoader {
             let locales = (try? await asset.load(.availableChapterLocales)) ?? []
             groups =
                 (try? await asset.loadChapterMetadataGroups(
-                    bestMatchingPreferredLanguages: locales.map(\.identifier))) ?? []
+                    bestMatchingPreferredLanguages: locales.map { $0.identifier(.bcp47) })) ?? []
         }
 
         var chapters: [ChapterSummary] = []

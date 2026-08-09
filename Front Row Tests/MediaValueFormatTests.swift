@@ -20,6 +20,14 @@ struct MediaValueFormatTests {
         #expect(MediaValueFormat.bitRate(800) == "800 bps")
     }
 
+    /// The kbps branch rounds to whole kilobits, so a rate just short of a megabit would otherwise
+    /// print `1,000 kbps` - four digits and a separator the other units don't use.
+    @Test
+    func aRateRoundingUpToAMegabitCrossesTheUnit() {
+        #expect(MediaValueFormat.bitRate(999_600) == "1 Mbps")
+        #expect(MediaValueFormat.bitRate(999_000) == "999 kbps")
+    }
+
     @Test
     func sampleRatesAreShownInKilohertz() {
         #expect(MediaValueFormat.sampleRate(48000) == "48 kHz")
@@ -46,6 +54,14 @@ struct MediaValueFormatTests {
     func durationsAreShownAsTimecode() {
         #expect(MediaValueFormat.duration(5833.834) == "1:37:14")
         #expect(MediaValueFormat.duration(125) == "02:05")
+    }
+
+    /// A file of exactly one hour has an hour to show, so the boundary belongs inside the longer
+    /// form rather than reading `60:00`.
+    @Test
+    func exactlyOneHourKeepsItsHour() {
+        #expect(MediaValueFormat.duration(3600) == "1:00:00")
+        #expect(MediaValueFormat.duration(3599) == "59:59")
     }
 
     /// A chapter list has to line up, so each position is padded to the length of the whole file.

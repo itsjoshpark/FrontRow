@@ -98,11 +98,12 @@ enum MediaFormatNames {
 
         let name = layout.withUnsafePointer { pointer in
             // The struct declares one channel description inline and the rest trail it, so the
-            // real size depends on how many there are. `sizeInBytes` traps when there are none.
+            // real size depends on how many there are. A tag-only layout carries none and stops
+            // short of the inline one. `sizeInBytes` traps in that case.
             let descriptions = Int(pointer.pointee.mNumberChannelDescriptions)
             let size =
                 MemoryLayout<AudioChannelLayout>.size
-                + max(0, descriptions - 1) * MemoryLayout<AudioChannelDescription>.size
+                + (descriptions - 1) * MemoryLayout<AudioChannelDescription>.size
 
             return copyStringProperty(
                 kAudioFormatProperty_ChannelLayoutName,

@@ -12,6 +12,13 @@ import SwiftUI
 struct InspectorFileTab: View {
     let file: FileSummary
 
+    /// The longest time the chapter column has to show, which every entry is padded to. A stream
+    /// - or any asset that doesn't report a duration - falls back to the last chapter's start,
+    /// since padding each entry to its own magnitude is what leaves the column ragged.
+    private var chapterScale: TimeInterval {
+        file.duration ?? file.chapters.map(\.start).max() ?? 0
+    }
+
     var body: some View {
         InspectorForm {
             InspectorSectionHeader(
@@ -50,8 +57,7 @@ struct InspectorFileTab: View {
                     title: Text("Chapter List", comment: "Inspector section heading"))
                 ForEach(file.chapters) { chapter in
                     InspectorChapterRow(
-                        start: MediaValueFormat.position(
-                            chapter.start, in: file.duration ?? chapter.start),
+                        start: MediaValueFormat.position(chapter.start, in: chapterScale),
                         title: chapter.title
                     )
                 }

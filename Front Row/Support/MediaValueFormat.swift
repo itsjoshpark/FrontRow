@@ -14,7 +14,9 @@ enum MediaValueFormat {
     /// `5997797 bps`.
     static func bitRate(_ bitsPerSecond: Double) -> String {
         let value = bitsPerSecond.rounded()
-        if value >= 1_000_000 {
+        // The kbps branch rounds to whole kilobits, so anything that would reach four digits
+        // there belongs in the larger unit instead.
+        if value >= 999_500 {
             let megabits = (value / 1_000_000).formatted(.number.precision(.fractionLength(0...1)))
             return String(localized: "\(megabits) Mbps", comment: "Megabits per second")
         }
