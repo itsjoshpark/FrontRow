@@ -1,26 +1,35 @@
 # Release notes
 
-Write the next release's notes in `next.html`. There is no version in the name,
+Write the next release's notes in `next.md`. There is no version in the name,
 so nothing has to be decided in advance — the release workflow works out the
-version from the `patch`/`minor`/`major` choice, renames `next.html` to
-`<version>.html`, and drops a fresh copy of `TEMPLATE.html` in its place.
+version from the `patch`/`minor`/`major` choice, renames `next.md` to
+`<version>.md`, and drops a fresh copy of `TEMPLATE.md` in its place.
 
-The workflow refuses to release while `next.html` is still the unedited
-template.
+The workflow refuses to release while `next.md` is still the unedited template.
 
-The contents are embedded directly into the appcast's `<description>` CDATA and
-shown in Sparkle's update dialog, so write for users rather than summarizing
-commits. The same file becomes the GitHub release body.
+The file becomes the GitHub release body verbatim, and `scripts/render-notes.sh`
+converts it to the HTML fragment embedded in the appcast's `<description>` CDATA
+and shown in Sparkle's update dialog. So write for users rather than summarizing
+commits:
 
-Keep it to an HTML fragment — no `<html>` or `<body>` wrapper, and no `]]>`
-anywhere, which would terminate the CDATA section (the workflow rejects it):
+```markdown
+- Added: Something people asked for
+- Fixed: Something that was broken
 
-```html
-      <ul>
-      <li>Added: Something people asked for</li>
-      <li>Fixed: Something that was broken</li>
-      </ul>
+**Note**: Anything worth calling out before updating.
 ```
 
-The older `<version>.html` files are the archive of what shipped in each
-release.
+Lists, paragraphs, bold, italic, and links are all fine. Two things are
+rejected, because they break one of the two destinations:
+
+- **HTML tags**, which GitHub would print as source rather than render.
+- **Code blocks**, including a line indented four spaces — the appcast is
+  indented to match, which would show inside a `<pre>`.
+
+Rendering uses [cmark-gfm](https://github.com/github/cmark-gfm), GitHub's own
+Markdown implementation, so Sparkle shows what the release page shows. To run
+the script tests locally: `brew install cmark-gfm`.
+
+The older `<version>.md` files are the archive of what shipped in each release.
+Notes up to 2.11.0 were written as HTML fragments and have been converted; the
+appcast entries already published keep the HTML they shipped with.
