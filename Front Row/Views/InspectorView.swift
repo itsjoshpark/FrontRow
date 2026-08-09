@@ -55,7 +55,8 @@ struct InspectorView: View {
                         comment: "Inspector placeholder when nothing is open"))
             }
         }
-        .frame(minWidth: 420, minHeight: 920)
+        // The height is IINA's: its inspector holds its tab view to 450pt inside 8pt margins.
+        .frame(minWidth: 420, minHeight: 466)
         // Reloads when the window opens, and again once a newly opened file is ready to describe.
         .task(id: playEngine.isLoaded ? playEngine.fileURL : nil) {
             await model.reload(playEngine: playEngine)
