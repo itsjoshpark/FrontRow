@@ -107,6 +107,19 @@ assert_well_formed() {
 assert_well_formed "$result" "produces well-formed markup"
 assert_well_formed "$gfm" "produces well-formed markup for tables and task lists"
 
+# A raw ]]> would close the appcast's CDATA section early. Nothing rejects one
+# here because nothing has to: the '>' is escaped in text and percent-encoded in
+# URLs, so it cannot reach the output. This holds cmark-gfm to that.
+cdata="$("$render" "$(write_notes '- Fixed: A crash on ]]> in a filename
+- Fixed: A [broken link](https://example.com/]]>)
+')")"
+assert_contains "$cdata" "]]&gt;" "escapes a CDATA terminator in text"
+if grep -qF ']]>' <<<"$cdata"; then
+  check "never emits a raw CDATA terminator" fail
+else
+  check "never emits a raw CDATA terminator" pass
+fi
+
 # --- guards -----------------------------------------------------------------
 reject "rejects raw HTML block tags" '<ul><li>Added: A thing</li></ul>'
 reject "rejects raw HTML inline tags" '- Added: A <b>thing</b>'
