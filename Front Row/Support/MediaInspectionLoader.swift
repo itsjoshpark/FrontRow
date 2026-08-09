@@ -40,7 +40,7 @@ enum MediaInspectionLoader {
         var audio: AudioSummary?
 
         for assetTrack in assetTracks {
-            guard let details = await TrackDetails(track: assetTrack, item: item) else { continue }
+            let details = await TrackDetails(track: assetTrack, item: item)
 
             tracks.append(details.summary)
 
@@ -156,18 +156,22 @@ private struct TrackDetails {
     let title: String?
     let trackID: CMPersistentTrackID
 
-    init?(track: AVAssetTrack, item: AVPlayerItem) async {
-        guard
-            let loaded = try? await track.load(
-                .formatDescriptions, .estimatedDataRate, .nominalFrameRate, .naturalSize,
-                .preferredTransform, .totalSampleDataLength, .isEnabled),
-            let characteristics = try? await track.load(.mediaCharacteristics)
-        else { return nil }
+    init(track: AVAssetTrack, item: AVPlayerItem) async {
+        // Loaded as a batch, but a batch that throws takes every property with it. A track the
+        // asset lists is worth describing from whatever else can be read, so the failure leaves
+        // empty fields rather than dropping the track from the list.
+        let loaded = try? await track.load(
+            .formatDescriptions, .estimatedDataRate, .nominalFrameRate, .naturalSize,
+            .preferredTransform, .totalSampleDataLength, .isEnabled)
 
-        (format, dataRate, frameRate, naturalSize, transform, dataLength, isEnabled) = (
-            loaded.0.first, loaded.1, loaded.2, loaded.3, loaded.4, loaded.5, loaded.6
-        )
-        self.characteristics = characteristics
+        self.format = loaded?.0.first
+        self.dataRate = loaded?.1 ?? 0
+        self.frameRate = loaded?.2 ?? 0
+        self.naturalSize = loaded?.3 ?? .zero
+        self.transform = loaded?.4 ?? .identity
+        self.dataLength = loaded?.5 ?? 0
+        self.isEnabled = loaded?.6 ?? false
+        self.characteristics = (try? await track.load(.mediaCharacteristics)) ?? []
         self.mediaType = track.mediaType
         self.trackID = track.trackID
 

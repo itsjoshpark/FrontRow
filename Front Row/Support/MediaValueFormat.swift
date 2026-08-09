@@ -57,6 +57,12 @@ enum MediaValueFormat {
         seconds.asTimecode(using: seconds)
     }
 
+    /// A position within a file, padded to the length of the whole file rather than to its own
+    /// magnitude, so a column of them lines up instead of gaining an hour partway down.
+    static func position(_ seconds: TimeInterval, in duration: TimeInterval) -> String {
+        seconds.asTimecode(using: duration)
+    }
+
     static func rotation(_ degrees: Int) -> String {
         "\(degrees.formatted(.number))°"
     }

@@ -48,6 +48,15 @@ struct MediaValueFormatTests {
         #expect(MediaValueFormat.duration(125) == "02:05")
     }
 
+    /// A chapter list has to line up, so each position is padded to the length of the whole file.
+    /// Padding each to its own magnitude would give a two-hour film `00:30` near the start and
+    /// `1:05:00` further down.
+    @Test
+    func positionsArePaddedToTheWholeFile() {
+        #expect(MediaValueFormat.position(30, in: 7200) == "0:00:30")
+        #expect(MediaValueFormat.position(30, in: 300) == "00:30")
+    }
+
     @Test
     func bitDepthAndRotationReadAsUnits() {
         #expect(MediaValueFormat.bitDepth(10) == "10-bit")

@@ -50,7 +50,10 @@ struct InspectorFileTab: View {
                     title: Text("Chapter List", comment: "Inspector section heading"))
                 ForEach(file.chapters) { chapter in
                     InspectorChapterRow(
-                        start: MediaValueFormat.duration(chapter.start), title: chapter.title)
+                        start: MediaValueFormat.position(
+                            chapter.start, in: file.duration ?? chapter.start),
+                        title: chapter.title
+                    )
                 }
             }
 
