@@ -1,3 +1,4 @@
-- Added:
-- Changed:
-- Fixed:
+- Added: An Inspector window describing the file you are playing. Open it from the View menu, or press Command-I
+- Fixed: A file exactly one hour long showed its length as 60:00 rather than 1:00:00
+- Fixed: Closing the player window left the file loaded, so the playback controls and menu items stayed active with nothing playing
+- Updated: App localizations
