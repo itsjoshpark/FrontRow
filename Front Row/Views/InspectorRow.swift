@@ -77,8 +77,8 @@ struct InspectorChapterRow: View {
     }
 }
 
-/// Names the field in the row beside it. The colon marks it as a label rather than another value,
-/// which matters once the two columns sit close together.
+/// Names the field in the row beside it. The trailing colon marks it as a label rather than
+/// another value.
 private struct InspectorFieldName: View {
     let name: Text
 
@@ -90,8 +90,8 @@ private struct InspectorFieldName: View {
 }
 
 /// Names the group of rows below it, spanning both columns so it reads as a heading rather than
-/// as another value. Every heading but the first is preceded by a rule, which is what separates
-/// one group of fields from the next now that the rows sit close together.
+/// as another value. Every heading but the first is preceded by a rule, separating one group of
+/// fields from the next.
 struct InspectorSectionHeader: View {
     let title: Text
     var isFirst = false

@@ -55,15 +55,13 @@ struct InspectorView: View {
                         comment: "Inspector placeholder when nothing is open"))
             }
         }
-        // The height is IINA's: its inspector holds its tab view to 450pt inside 8pt margins.
-        .frame(minWidth: 420, minHeight: 466)
+        .frame(minWidth: 468, minHeight: 466)
         // Reloads when the window opens, and again once a newly opened file is ready to describe.
         .task(id: playEngine.isLoaded ? playEngine.fileURL : nil) {
             await model.reload(playEngine: playEngine)
         }
-        // The HUD style is what makes this read as an inspector rather than a document window -
-        // the same one QuickTime Player and IINA use. It draws its own dark, translucent
-        // background and leaves only a close button, so the content sits on it unpainted.
+        // The HUD style draws its own dark, translucent background and leaves only a close
+        // button, so the content sits on it unpainted.
         .background(
             WindowAccessor { window in
                 window.styleMask.insert(.hudWindow)
