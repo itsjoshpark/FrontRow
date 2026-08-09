@@ -17,6 +17,10 @@ xcuserdata/
 ## Obj-C/Swift specific
 *.hmap
 
+## Code coverage, written into the working directory by an instrumented binary
+*.profraw
+*.profdata
+
 ## App packaging
 *.ipa
 *.dSYM.zip

@@ -35,7 +35,7 @@ extension TimeInterval {
     /// - Returns: 0:00 or 0:00:00
     ///
     func asTimecode(using longestTime: TimeInterval) -> String {
-        let hasHour = (longestTime / 3600.0) > 1.0
+        let hasHour = longestTime >= 3600.0
         if hasHour {
             return Duration.seconds(self).formatted(
                 .time(pattern: .hourMinuteSecond(padHourToLength: 0)))

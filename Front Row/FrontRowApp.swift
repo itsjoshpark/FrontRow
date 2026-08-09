@@ -72,7 +72,7 @@ struct FrontRowApp: App {
                     guard let closingWindow = notification.object as? NSWindow,
                         closingWindow == windowController.mainWindow
                     else { return }
-                    playEngine.pause()
+                    playEngine.closeFile()
                 }
                 .background(
                     WindowAccessor { window in
@@ -106,6 +106,18 @@ struct FrontRowApp: App {
         .defaultLaunchBehavior(.presented)
         .defaultPosition(.center)
         .restorationBehavior(.disabled)
+
+        // A utility window: a panel that floats over the player. `InspectorView` gives it the HUD
+        // appearance, which supplies the background.
+        UtilityWindow("Inspector", id: WindowID.inspector) {
+            InspectorView()
+                .preferredColorScheme(.dark)
+                .environment(playEngine)
+        }
+        .defaultSize(width: 460, height: 520)
+        .defaultLaunchBehavior(.suppressed)
+        .defaultPosition(.center)
+        .keyboardShortcut("i", modifiers: [.command])
     }
 }
 
