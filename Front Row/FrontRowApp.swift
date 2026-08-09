@@ -106,6 +106,16 @@ struct FrontRowApp: App {
         .defaultLaunchBehavior(.presented)
         .defaultPosition(.center)
         .restorationBehavior(.disabled)
+
+        Window("Inspector", id: WindowID.inspector) {
+            InspectorView()
+                .preferredColorScheme(.dark)
+                .environment(playEngine)
+        }
+        .defaultSize(width: 460, height: 520)
+        .defaultLaunchBehavior(.suppressed)
+        .defaultPosition(.topTrailing)
+        .restorationBehavior(.disabled)
     }
 }
 

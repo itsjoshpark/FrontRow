@@ -11,6 +11,7 @@ import SwiftUI
 enum WindowID {
     static let main = "main"
     static let welcome = "welcome"
+    static let inspector = "inspector"
 }
 
 /// Bridges SwiftUI's `openWindow`/`dismissWindow` actions to non-View code (`AppDelegate`) and to

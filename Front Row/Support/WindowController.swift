@@ -71,14 +71,16 @@ import SwiftUI
 
     // MARK: - Float on Top
 
+    /// Targets the player window specifically. `NSApp.mainWindow` would follow focus, so with the
+    /// Inspector open the toggle would report - and change - the wrong window's level.
     var isOnTop: Bool {
         get {
             access(keyPath: \.isOnTop)
-            return NSApplication.shared.mainWindow?.level == .floating
+            return mainWindow?.level == .floating
         }
         set {
             withMutation(keyPath: \.isOnTop) {
-                NSApplication.shared.mainWindow?.level = newValue ? .floating : .normal
+                mainWindow?.level = newValue ? .floating : .normal
             }
         }
     }
