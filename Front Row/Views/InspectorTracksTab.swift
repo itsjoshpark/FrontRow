@@ -42,6 +42,8 @@ struct InspectorTracksTab: View {
                 } label: {
                     Text("Track", comment: "Picker choosing which track the Inspector describes")
                 }
+                .controlSize(.small)
+                .font(.subheadline)
                 .padding(.horizontal, 20)
                 .padding(.top, 12)
                 .padding(.bottom, 8)

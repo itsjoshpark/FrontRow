@@ -34,6 +34,7 @@ struct InspectorView: View {
                 EmptyView()
             }
             .pickerStyle(.segmented)
+            .controlSize(.small)
             .labelsHidden()
             .padding(.horizontal, 20)
             .padding(.vertical, 10)

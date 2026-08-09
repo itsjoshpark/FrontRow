@@ -89,7 +89,7 @@ private struct InspectorFieldName: View {
 
     var body: some View {
         (name + Text(verbatim: ":"))
-            .fontWeight(.semibold)
+            .fontWeight(.bold)
             .gridColumnAlignment(.leading)
     }
 }
@@ -109,14 +109,14 @@ struct InspectorSectionHeader: View {
                 }
 
                 title
-                    .font(.subheadline.weight(.bold))
+                    .font(.headline)
                     .foregroundStyle(.secondary)
                     .textCase(.uppercase)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .frame(maxWidth: .infinity)
             .padding(.top, isFirst ? 0 : 10)
-            .padding(.bottom, 4)
+            .padding(.bottom, 2)
             .gridCellColumns(2)
         }
     }
@@ -142,9 +142,10 @@ struct InspectorForm<Content: View>: View {
 
     var body: some View {
         ScrollView {
-            Grid(alignment: .leading, horizontalSpacing: 8, verticalSpacing: 2) {
+            Grid(alignment: .leading, horizontalSpacing: 6, verticalSpacing: 8) {
                 content
             }
+            .font(.subheadline)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 20)
             .padding(.vertical, 14)
