@@ -116,8 +116,7 @@ struct FrontRowApp: App {
         }
         .defaultSize(width: 460, height: 520)
         .defaultLaunchBehavior(.suppressed)
-        .defaultPosition(.topTrailing)
-        .restorationBehavior(.disabled)
+        .defaultPosition(.center)
     }
 }
 

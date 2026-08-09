@@ -21,10 +21,12 @@ struct InspectorRow: View {
 
             if let value {
                 Text(verbatim: value)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .gridColumnAlignment(.leading)
             } else {
                 Text("N/A", comment: "Inspector value for a field the file doesn't provide")
                     .foregroundStyle(.tertiary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .gridColumnAlignment(.leading)
             }
         }
@@ -47,6 +49,7 @@ struct InspectorFlagsRow: View {
                         .foregroundStyle(flags[index].isOn ? .primary : .tertiary)
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .gridColumnAlignment(.leading)
         }
     }
@@ -67,10 +70,12 @@ struct InspectorChapterRow: View {
 
             if let title {
                 Text(verbatim: title)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .gridColumnAlignment(.leading)
             } else {
                 Text("Untitled", comment: "A chapter with no name of its own")
                     .foregroundStyle(.tertiary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .gridColumnAlignment(.leading)
             }
         }
