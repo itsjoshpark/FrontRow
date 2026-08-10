@@ -117,7 +117,9 @@ struct FrontRowApp: App {
         .defaultSize(width: 460, height: 520)
         .defaultLaunchBehavior(.suppressed)
         .defaultPosition(.center)
-        .keyboardShortcut("i", modifiers: [.command])
+        // `WindowCommands` supplies the menu item, so the scene's own is unwanted. It names
+        // itself after the window and can't be placed, labelled, or enabled from here.
+        .commandsRemoved()
     }
 }
 

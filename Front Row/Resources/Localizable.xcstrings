@@ -7989,6 +7989,9 @@
         }
       }
     },
+    "Hide Inspector" : {
+      "comment" : "Closes the media Inspector window"
+    },
     "ID" : {
       "localizations" : {
         "ar" : {
@@ -8417,7 +8420,7 @@
       }
     },
     "Inspector" : {
-      "comment" : "Opens the media Inspector window",
+      "comment" : "Title of the media Inspector window",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -13691,6 +13694,9 @@
           }
         }
       }
+    },
+    "Show Inspector" : {
+      "comment" : "Opens the media Inspector window"
     },
     "Show in Finder" : {
       "comment" : "Show the currently playing file in Finder",
