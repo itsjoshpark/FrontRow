@@ -20,24 +20,43 @@ import SwiftUI
     /// came from.
     private(set) var mainWindow: NSWindow?
 
-    /// Records the player window, reporting whether it's one not seen before. A `true` means the
-    /// window has just been created, so anything that needed it and found nothing has to run now.
-    ///
-    /// A window already held answers `false`, so a repeated report can't re-run window setup and
-    /// undo what the user has done to it since.
-    @discardableResult
-    func adoptMainWindow(_ window: NSWindow) -> Bool {
-        guard mainWindow !== window else { return false }
+    /// Records the player window once it exists. Observed rather than just stored: whether there
+    /// is a window to shape is half of what decides the window's shape.
+    func setMainWindow(_ window: NSWindow) {
+        guard mainWindow !== window else { return }
         mainWindow = window
-        return true
     }
 
-    /// Lets go of the player window as it closes, so a window opened in its place is treated as
-    /// the new one it is. Holding a closed window would have its replacement mistaken for a
-    /// window already set up.
+    /// Lets go of the player window as it closes. A closed window left in place would answer for
+    /// a real one, and its replacement would look like a window already dealt with.
     func releaseMainWindow(_ window: NSWindow) {
         guard mainWindow === window else { return }
         mainWindow = nil
+    }
+
+    // MARK: - Video Sizing
+
+    /// Shapes the player window to the video it's showing: sized to the video where that fits on
+    /// screen, and held to its aspect ratio from then on.
+    ///
+    /// Safe to call whenever either half of that changes, and does nothing until both are known.
+    /// A video with no size to speak of - audio, or a size not published yet - drops the
+    /// constraint instead, since `resizeIncrements` and `aspectRatio` displace each other.
+    func fitToVideoSize(_ videoSize: CGSize, skipResize: Bool = false) {
+        guard let window = mainWindow, let screen = window.screen ?? NSScreen.main else { return }
+
+        guard
+            let newFrame = VideoWindowLayout.frame(
+                forVideoSize: videoSize, in: screen.visibleFrame)
+        else {
+            window.resizeIncrements = NSSize(width: 1.0, height: 1.0)
+            return
+        }
+
+        if !skipResize {
+            window.setFrame(newFrame, display: true, animate: true)
+        }
+        window.aspectRatio = videoSize
     }
 
     // MARK: - Mouse Tracking

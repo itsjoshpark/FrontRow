@@ -14,38 +14,17 @@ struct WindowAccessor: NSViewRepresentable {
     let callback: (NSWindow) -> Void
 
     func makeNSView(context: Context) -> NSView {
-        WindowReportingView(callback: callback)
+        let view = NSView()
+        // The view has no window until it's been added to one, which hasn't happened yet.
+        Task { [weak view] in
+            guard let window = view?.window else { return }
+            callback(window)
+        }
+        return view
     }
 
     func updateNSView(_ nsView: NSView, context: Context) {
-        guard let nsView = nsView as? WindowReportingView else { return }
-        nsView.callback = callback
-        // Reapplied on every update, since SwiftUI can configure the window after its content
-        // goes in and undo what the callback set.
         guard let window = nsView.window else { return }
-        callback(window)
-    }
-}
-
-/// Reports its window the moment AppKit attaches one. A view has no window until it's added to
-/// one, which happens after it's made, so anything asking earlier - or on a guess at how long
-/// that takes - can come away with nothing.
-private final class WindowReportingView: NSView {
-    var callback: (NSWindow) -> Void
-
-    init(callback: @escaping (NSWindow) -> Void) {
-        self.callback = callback
-        super.init(frame: .zero)
-    }
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func viewDidMoveToWindow() {
-        super.viewDidMoveToWindow()
-        guard let window else { return }
         callback(window)
     }
 }

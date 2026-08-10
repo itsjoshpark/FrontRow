@@ -75,18 +75,11 @@ struct FrontRowApp: App {
                     playEngine.closeFile()
                     windowController.releaseMainWindow(closingWindow)
                 }
+                .videoWindowSizing(playEngine: playEngine, windowController: windowController)
                 .background(
                     WindowAccessor { window in
                         window.isMovableByWindowBackground = true
-                        // Left until the next turn: this runs while the window is being attached,
-                        // where changing observed state or the window's own frame would fight the
-                        // update already in progress.
-                        Task { @MainActor in
-                            guard windowController.adoptMainWindow(window) else { return }
-                            // The window is created after the file is already open, so the video's
-                            // size can have been published with nothing to apply it to.
-                            playEngine.fitToVideoSize(skipResize: windowController.isFullscreen)
-                        }
+                        windowController.setMainWindow(window)
                     }
                 )
         }
