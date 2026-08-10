@@ -42,7 +42,7 @@ on:
           - major
       dry-run:
         type: boolean
-        description: "Build and notarize, but do not tag, release, or touch the appcast"
+        description: "Build and notarize only — no tag, release, or appcast update"
         required: false
         default: false
 
