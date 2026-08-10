@@ -15,7 +15,7 @@ struct WindowCommands: Commands {
         CommandGroup(after: .windowSize) {
             Section {
                 Button {
-                    playEngine.fitToVideoSize()
+                    windowController.fitToVideoSize(playEngine.videoSize)
                 } label: {
                     Text(
                         "Natural Size",

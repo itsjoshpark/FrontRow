@@ -123,7 +123,9 @@ import SwiftUI
         }
     }
 
-    private var videoSize = CGSize.zero
+    /// The size the current item presents at, or `.zero` when there's no video to it. Read by the
+    /// player window to decide its shape, which is why it outlives the moment it's published.
+    private(set) var videoSize = CGSize.zero
 
     private var subs = Set<AnyCancellable>()
 
@@ -208,6 +210,10 @@ import SwiftUI
         let playerItem = AVPlayerItem(asset: newAsset)
         installObservers(on: playerItem, url: url)
 
+        // Nothing is known about the new item's size yet, and keeping the old one's would leave
+        // the window shaped to the file that just went away.
+        videoSize = .zero
+
         player.replaceCurrentItem(with: playerItem)
 
         await resumeIfNeeded(url: url, duration: mediaDuration)
@@ -274,9 +280,7 @@ import SwiftUI
             .removeDuplicates()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] size in
-                guard let self else { return }
-                self.videoSize = size
-                self.fitToVideoSize(skipResize: WindowController.shared.isFullscreen)
+                self?.videoSize = size
             }
             .store(in: &currentItemSubs)
 
@@ -437,26 +441,6 @@ import SwiftUI
         guard isLoaded, let item = player.currentItem else { return }
 
         item.step(byCount: byCount)
-    }
-
-    func fitToVideoSize(skipResize: Bool = false) {
-        guard let window = WindowController.shared.mainWindow,
-            let screen = window.screen ?? NSScreen.main
-        else { return }
-
-        guard
-            let newFrame = VideoWindowLayout.frame(
-                forVideoSize: videoSize, in: screen.visibleFrame)
-        else {
-            /// reset aspect ratio setting
-            window.resizeIncrements = NSMakeSize(1.0, 1.0)
-            return
-        }
-
-        if !skipResize {
-            window.setFrame(newFrame, display: true, animate: true)
-        }
-        window.aspectRatio = videoSize
     }
 
     private func pausePlaybackIfNeeded() {

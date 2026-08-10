@@ -18,7 +18,50 @@ import SwiftUI
     /// scene). Used to distinguish it from transient windows (e.g. a menu's own backing window)
     /// when handling window-level notifications that don't otherwise specify which window they
     /// came from.
-    var mainWindow: NSWindow?
+    private(set) var mainWindow: NSWindow?
+
+    /// Records the player window once it exists. Observed rather than just stored: whether there
+    /// is a window to shape is half of what decides the window's shape.
+    func setMainWindow(_ window: NSWindow) {
+        guard mainWindow !== window else { return }
+        mainWindow = window
+    }
+
+    /// Lets go of the player window as it closes. A closed window left in place would answer for
+    /// a real one, and its replacement would look like a window already dealt with.
+    func releaseMainWindow(_ window: NSWindow) {
+        guard mainWindow === window else { return }
+        mainWindow = nil
+    }
+
+    // MARK: - Video Sizing
+
+    /// Shapes the player window to the video it's showing: sized to the video where that fits on
+    /// screen, and held to its aspect ratio from then on.
+    ///
+    /// Safe to call whenever either half of that changes, and does nothing until both are known.
+    /// A video with no size to speak of - audio, or a size not published yet - drops the
+    /// constraint instead, since `resizeIncrements` and `aspectRatio` displace each other.
+    func fitToVideoSize(_ videoSize: CGSize, skipResize: Bool = false) {
+        guard let window = mainWindow else { return }
+
+        // Audio, or a size not published yet. `resizeIncrements` and `aspectRatio` displace each
+        // other, so setting increments is how the constraint comes off.
+        guard videoSize != .zero else {
+            window.resizeIncrements = NSSize(width: 1.0, height: 1.0)
+            return
+        }
+
+        // Only the resize needs somewhere to be placed. The constraint holds regardless, so a
+        // window that can't name a screen yet still comes out the right shape.
+        if !skipResize, let screen = window.screen ?? NSScreen.main,
+            let newFrame = VideoWindowLayout.frame(
+                forVideoSize: videoSize, in: screen.visibleFrame)
+        {
+            window.setFrame(newFrame, display: true, animate: true)
+        }
+        window.aspectRatio = videoSize
+    }
 
     // MARK: - Mouse Tracking
 

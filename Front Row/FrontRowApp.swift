@@ -73,11 +73,18 @@ struct FrontRowApp: App {
                         closingWindow == windowController.mainWindow
                     else { return }
                     playEngine.closeFile()
+                    windowController.releaseMainWindow(closingWindow)
                 }
+                .videoWindowSizing(playEngine: playEngine, windowController: windowController)
                 .background(
                     WindowAccessor { window in
                         window.isMovableByWindowBackground = true
-                        windowController.mainWindow = window
+                        // Left until the next turn: the callback runs inside SwiftUI's update
+                        // pass, and the window is observed by the sizing rule, so recording it
+                        // here would change state the update in progress is already reading.
+                        Task { @MainActor in
+                            windowController.setMainWindow(window)
+                        }
                     }
                 )
         }
