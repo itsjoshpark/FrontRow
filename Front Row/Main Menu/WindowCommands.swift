@@ -34,14 +34,11 @@ struct WindowCommands: Commands {
 }
 
 /// Shows or hides the Inspector.
-///
-/// Written out rather than left to the one SwiftUI generates for the scene, which names itself
-/// after the window and can't be placed, labelled, or enabled from here.
 private struct InspectorMenuItem: View {
     @Environment(\.openWindow) private var openWindow
     @Environment(\.dismissWindow) private var dismissWindow
 
-    private var presentation = InspectorPresentation.shared
+    private let presentation = InspectorPresentation.shared
 
     var body: some View {
         Button {

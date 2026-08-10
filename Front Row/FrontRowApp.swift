@@ -117,8 +117,7 @@ struct FrontRowApp: App {
         .defaultSize(width: 460, height: 520)
         .defaultLaunchBehavior(.suppressed)
         .defaultPosition(.center)
-        // `WindowCommands` supplies the menu item, so the scene's own is unwanted. It names
-        // itself after the window and can't be placed, labelled, or enabled from here.
+        // The menu item comes from `WindowCommands` instead.
         .commandsRemoved()
     }
 }
