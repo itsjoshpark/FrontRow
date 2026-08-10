@@ -32,6 +32,14 @@ import SwiftUI
         return true
     }
 
+    /// Lets go of the player window as it closes, so a window opened in its place is treated as
+    /// the new one it is. Holding a closed window would have its replacement mistaken for a
+    /// window already set up.
+    func releaseMainWindow(_ window: NSWindow) {
+        guard mainWindow === window else { return }
+        mainWindow = nil
+    }
+
     // MARK: - Mouse Tracking
 
     /// Whether the pointer is over the titlebar, which SwiftUI can't report since the titlebar

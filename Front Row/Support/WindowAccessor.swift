@@ -20,6 +20,10 @@ struct WindowAccessor: NSViewRepresentable {
     func updateNSView(_ nsView: NSView, context: Context) {
         guard let nsView = nsView as? WindowReportingView else { return }
         nsView.callback = callback
+        // Reapplied on every update, since SwiftUI can configure the window after its content
+        // goes in and undo what the callback set.
+        guard let window = nsView.window else { return }
+        callback(window)
     }
 }
 
