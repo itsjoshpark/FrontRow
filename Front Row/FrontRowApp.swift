@@ -77,7 +77,10 @@ struct FrontRowApp: App {
                 .background(
                     WindowAccessor { window in
                         window.isMovableByWindowBackground = true
-                        windowController.mainWindow = window
+                        guard windowController.adoptMainWindow(window) else { return }
+                        // The window is created after the file is already open, so the video's
+                        // size can have been published while there was nothing to apply it to.
+                        playEngine.fitToVideoSize(skipResize: windowController.isFullscreen)
                     }
                 )
         }

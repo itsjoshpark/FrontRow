@@ -18,7 +18,19 @@ import SwiftUI
     /// scene). Used to distinguish it from transient windows (e.g. a menu's own backing window)
     /// when handling window-level notifications that don't otherwise specify which window they
     /// came from.
-    var mainWindow: NSWindow?
+    private(set) var mainWindow: NSWindow?
+
+    /// Records the player window, reporting whether it's one not seen before. A `true` means the
+    /// window has just been created, so anything that needed it and found nothing has to run now.
+    ///
+    /// A window already held answers `false`, so a repeated report can't re-run window setup and
+    /// undo what the user has done to it since.
+    @discardableResult
+    func adoptMainWindow(_ window: NSWindow) -> Bool {
+        guard mainWindow !== window else { return false }
+        mainWindow = window
+        return true
+    }
 
     // MARK: - Mouse Tracking
 
