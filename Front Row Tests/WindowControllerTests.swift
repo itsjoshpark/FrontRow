@@ -9,9 +9,14 @@ import Testing
 @testable import Front_Row
 
 /// Exercises the shared controller directly, since it owns the only main-window slot there is.
-/// Each test hands the window back before it ends: the slot decides which scene owns an alert and
-/// which window to shape, so a leftover test window would answer for a real one.
+/// Serialized for the same reason: the tests would otherwise pass windows into one slot at once,
+/// and an animated `setFrame` spins the run loop, which lets them interleave mid-test. Each test
+/// hands its window back before it ends, so a leftover doesn't answer for a real one.
+///
+/// These cover the shaping itself. Which moments it's applied at is `VideoWindowSizing`'s doing,
+/// and lives in the SwiftUI lifecycle rather than here.
 @MainActor
+@Suite(.serialized)
 struct WindowControllerTests {
 
     private let controller = WindowController.shared
@@ -60,17 +65,17 @@ struct WindowControllerTests {
         #expect(controller.mainWindow == nil)
     }
 
-    /// The point of the whole arrangement: a size published before there was a window still
-    /// shapes the window, because fitting reads the size that stands rather than catching the
-    /// moment it arrives.
+    /// Fitting reads the size that stands rather than the moment it arrived, so a size published
+    /// before there was a window still shapes the window once one turns up. This is what lets the
+    /// two arrive in either order.
     @Test
-    func aWindowArrivingAfterTheSizeIsStillShapedByIt() {
+    func aSizePublishedBeforeTheWindowStillShapesIt() {
         let window = makeWindow()
         defer { controller.releaseMainWindow(window) }
 
-        controller.fitToVideoSize(videoSize)  // No window yet - nothing to shape.
+        controller.fitToVideoSize(videoSize, skipResize: true)  // No window yet - nothing to shape.
         controller.setMainWindow(window)
-        controller.fitToVideoSize(videoSize)
+        controller.fitToVideoSize(videoSize, skipResize: true)
 
         #expect(window.aspectRatio == videoSize)
     }
@@ -81,30 +86,30 @@ struct WindowControllerTests {
         defer { controller.releaseMainWindow(window) }
         controller.setMainWindow(window)
 
-        controller.fitToVideoSize(.zero)
-        controller.fitToVideoSize(videoSize)
+        controller.fitToVideoSize(.zero, skipResize: true)
+        controller.fitToVideoSize(videoSize, skipResize: true)
 
         #expect(window.aspectRatio == videoSize)
     }
 
-    /// Audio has no shape to hold the window to, and the constraint has to be dropped rather than
-    /// left at whatever the last video set.
+    /// Audio has no shape to hold the window to, and the constraint has to come off rather than
+    /// be left at whatever the last video set.
     @Test
     func noVideoSizeDropsTheAspectRatio() {
         let window = makeWindow()
         defer { controller.releaseMainWindow(window) }
         controller.setMainWindow(window)
-        controller.fitToVideoSize(videoSize)
+        controller.fitToVideoSize(videoSize, skipResize: true)
 
-        controller.fitToVideoSize(.zero)
+        controller.fitToVideoSize(.zero, skipResize: true)
 
         #expect(window.resizeIncrements == NSSize(width: 1.0, height: 1.0))
     }
 
-    /// Full screen is the window's own shape for as long as it lasts, so a file opened there is
-    /// held to its aspect ratio without being resized out from under it.
+    /// Only the resize needs a screen to place the window on. A window that can't name one yet
+    /// still has to come out the right shape, since nothing would come back to correct it.
     @Test
-    func skippingTheResizeStillHoldsTheAspectRatio() {
+    func theAspectRatioIsHeldEvenWithNoResize() {
         let window = makeWindow()
         defer { controller.releaseMainWindow(window) }
         controller.setMainWindow(window)
@@ -114,5 +119,19 @@ struct WindowControllerTests {
 
         #expect(window.frame == frameBeforeFit)
         #expect(window.aspectRatio == videoSize)
+    }
+
+    /// The window is placed on screen at the video's size when it fits, which is the one path
+    /// that needs a screen.
+    @Test
+    func fittingResizesTheWindowToTheVideo() {
+        let window = makeWindow()
+        defer { controller.releaseMainWindow(window) }
+        controller.setMainWindow(window)
+
+        controller.fitToVideoSize(videoSize)
+
+        #expect(window.aspectRatio == videoSize)
+        #expect(window.frame.size == videoSize)
     }
 }

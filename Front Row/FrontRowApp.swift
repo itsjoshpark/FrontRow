@@ -79,7 +79,12 @@ struct FrontRowApp: App {
                 .background(
                     WindowAccessor { window in
                         window.isMovableByWindowBackground = true
-                        windowController.setMainWindow(window)
+                        // Left until the next turn: the callback runs inside SwiftUI's update
+                        // pass, and the window is observed by the sizing rule, so recording it
+                        // here would change state the update in progress is already reading.
+                        Task { @MainActor in
+                            windowController.setMainWindow(window)
+                        }
                     }
                 )
         }

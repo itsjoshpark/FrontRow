@@ -210,6 +210,10 @@ import SwiftUI
         let playerItem = AVPlayerItem(asset: newAsset)
         installObservers(on: playerItem, url: url)
 
+        // Nothing is known about the new item's size yet, and keeping the old one's would leave
+        // the window shaped to the file that just went away.
+        videoSize = .zero
+
         player.replaceCurrentItem(with: playerItem)
 
         await resumeIfNeeded(url: url, duration: mediaDuration)

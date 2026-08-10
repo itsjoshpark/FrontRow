@@ -43,17 +43,21 @@ import SwiftUI
     /// A video with no size to speak of - audio, or a size not published yet - drops the
     /// constraint instead, since `resizeIncrements` and `aspectRatio` displace each other.
     func fitToVideoSize(_ videoSize: CGSize, skipResize: Bool = false) {
-        guard let window = mainWindow, let screen = window.screen ?? NSScreen.main else { return }
+        guard let window = mainWindow else { return }
 
-        guard
-            let newFrame = VideoWindowLayout.frame(
-                forVideoSize: videoSize, in: screen.visibleFrame)
-        else {
+        // Audio, or a size not published yet. `resizeIncrements` and `aspectRatio` displace each
+        // other, so setting increments is how the constraint comes off.
+        guard videoSize != .zero else {
             window.resizeIncrements = NSSize(width: 1.0, height: 1.0)
             return
         }
 
-        if !skipResize {
+        // Only the resize needs somewhere to be placed. The constraint holds regardless, so a
+        // window that can't name a screen yet still comes out the right shape.
+        if !skipResize, let screen = window.screen ?? NSScreen.main,
+            let newFrame = VideoWindowLayout.frame(
+                forVideoSize: videoSize, in: screen.visibleFrame)
+        {
             window.setFrame(newFrame, display: true, animate: true)
         }
         window.aspectRatio = videoSize

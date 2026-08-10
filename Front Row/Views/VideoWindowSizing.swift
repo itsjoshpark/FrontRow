@@ -12,6 +12,10 @@ import SwiftUI
 /// is created after the file is open, so the size is regularly known first - reading the size
 /// that stands rather than catching the moment it's published is what makes the order stop
 /// mattering.
+///
+/// Full screen suppresses the resize but not the aspect ratio, and isn't a trigger of its own:
+/// leaving full screen restores the frame the window had going in, which is the size to be back
+/// at, and the constraint is already in place by then.
 private struct VideoWindowSizing: ViewModifier {
     let playEngine: PlayEngine
     let windowController: WindowController
