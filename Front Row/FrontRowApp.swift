@@ -117,7 +117,8 @@ struct FrontRowApp: App {
         .defaultSize(width: 460, height: 520)
         .defaultLaunchBehavior(.suppressed)
         .defaultPosition(.center)
-        .keyboardShortcut("i", modifiers: [.command])
+        // The menu item comes from `WindowCommands` instead.
+        .commandsRemoved()
     }
 }
 

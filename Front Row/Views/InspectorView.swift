@@ -62,6 +62,8 @@ struct InspectorView: View {
         .task(id: playEngine.isLoaded ? playEngine.fileURL : nil) {
             await model.reload(playEngine: playEngine)
         }
+        .onAppear { InspectorPresentation.shared.windowAppeared() }
+        .onDisappear { InspectorPresentation.shared.windowDisappeared() }
         // The HUD style draws its own dark, translucent background and leaves only a close
         // button, so the content sits on it unpainted.
         .background(

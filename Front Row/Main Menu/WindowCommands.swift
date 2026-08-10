@@ -25,6 +25,35 @@ struct WindowCommands: Commands {
                 .keyboardShortcut("0", modifiers: [.command])
                 .disabled(!playEngine.isLoaded || windowController.isFullscreen)
             }
+
+            Section {
+                InspectorMenuItem()
+            }
         }
+    }
+}
+
+/// Shows or hides the Inspector.
+private struct InspectorMenuItem: View {
+    @Environment(\.openWindow) private var openWindow
+    @Environment(\.dismissWindow) private var dismissWindow
+
+    private let presentation = InspectorPresentation.shared
+
+    var body: some View {
+        Button {
+            if presentation.isOpen {
+                dismissWindow(id: WindowID.inspector)
+            } else {
+                openWindow(id: WindowID.inspector)
+            }
+        } label: {
+            if presentation.isOpen {
+                Text("Hide Inspector", comment: "Closes the media Inspector window")
+            } else {
+                Text("Show Inspector", comment: "Opens the media Inspector window")
+            }
+        }
+        .keyboardShortcut("i", modifiers: [.command])
     }
 }
