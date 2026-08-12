@@ -92,8 +92,6 @@ struct WelcomeView: View {
         }
         .frame(width: 640, height: 340)
         .background(.regularMaterial)
-        // The window has no titlebar to drag, and the buttons and the list take the clicks that
-        // land on them first.
         .gesture(WindowDragGesture())
         .background(
             WindowAccessor { window in
