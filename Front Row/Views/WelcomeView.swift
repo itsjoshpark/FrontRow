@@ -92,6 +92,7 @@ struct WelcomeView: View {
         }
         .frame(width: 640, height: 340)
         .background(.regularMaterial)
+        .gesture(WindowDragGesture())
         .background(
             WindowAccessor { window in
                 window.isMovableByWindowBackground = true
