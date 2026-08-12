@@ -19,11 +19,23 @@ struct PlayerView: NSViewRepresentable {
             playerLayer
         }
 
+        /// The drag is performed in `mouseDown` instead, so AppKit must not take the click for
+        /// `isMovableByWindowBackground` before this view sees it.
+        override var mouseDownCanMoveWindow: Bool { false }
+
         override func mouseDown(with event: NSEvent) {
-            if event.type == .leftMouseDown && event.clickCount == 2 {
-                NSApplication.shared.mainWindow?.toggleFullScreen(nil)
-            } else {
+            guard let window else {
                 super.mouseDown(with: event)
+                return
+            }
+
+            switch PlayerClickAction(
+                clickCount: event.clickCount,
+                isFullscreen: window.styleMask.contains(.fullScreen)
+            ) {
+            case .moveWindow: window.performDrag(with: event)
+            case .toggleFullScreen: window.toggleFullScreen(nil)
+            case .ignore: super.mouseDown(with: event)
             }
         }
 
