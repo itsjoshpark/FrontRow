@@ -142,7 +142,7 @@ struct InspectorForm<Content: View>: View {
 
     var body: some View {
         ScrollView {
-            Grid(alignment: .leading, horizontalSpacing: 6, verticalSpacing: 8) {
+            Grid(alignment: .leadingFirstTextBaseline, horizontalSpacing: 6, verticalSpacing: 8) {
                 content
             }
             .font(.subheadline)
