@@ -8,6 +8,30 @@
     <item>
       <title>New Version Available</title>
       <link>https://github.com/itsjoshpark/FrontRow</link>
+      <sparkle:version>226</sparkle:version>
+      <sparkle:shortVersionString>2.11.0 (226)</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>15.6</sparkle:minimumSystemVersion>
+      <sparkle:fullReleaseNotesLink>https://github.com/itsjoshpark/FrontRow/releases</sparkle:fullReleaseNotesLink>
+      <pubDate>Sat, 15 Aug 2026 21:34:20 +0000</pubDate>
+      <enclosure
+        url="https://github.com/itsjoshpark/FrontRow/releases/download/v2.11.0/FrontRow_v2.11.0.dmg"
+        sparkle:edSignature="tDpQcDriLrUJqfxA/TclXvZSLQFHFk/EIN6Y1fDm9w5YDh+T8n0bpdTMz536zQBsmZ9vJ0Zf/rhbLvKLwxSaDw=="
+        length="3837541"
+        type="application/octet-stream" />
+      <description><![CDATA[
+      <ul>
+      <li>Added: An Inspector window describing the file you are playing. Open it from the Window menu, or press Command-I</li>
+      <li>Fixed: A file exactly one hour long showed its length as 60:00 rather than 1:00:00</li>
+      <li>Fixed: Closing the player window left the file loaded, so the playback controls and menu items stayed active with nothing playing</li>
+      <li>Updated: App localizations</li>
+      </ul>
+      ]]>
+      </description>
+    </item>
+
+    <item>
+      <title>New Version Available</title>
+      <link>https://github.com/itsjoshpark/FrontRow</link>
       <sparkle:version>24</sparkle:version>
       <sparkle:shortVersionString>2.10 (24)</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>15.6</sparkle:minimumSystemVersion>
