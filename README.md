@@ -39,7 +39,7 @@ I created Front Row to play those rare video files that are in HDR and/or multic
 
 ### Can I play MKV files?
 
-Front Row is based on AVFoundation (which is what QuickTime Player uses) and can't natively open MKV files. However MKV is a container format and it usually contains Apple supported streams such as MPEG-4 video with AAC audio. When that's the case, Front Row will offer to convert it for you.
+Front Row is based on AVKit (the same playback stack as QuickTime Player) and can't natively open MKV files. However, MKV is a container format and it usually contains Apple-supported streams such as MPEG-4 video with AAC audio. When that's the case, Front Row will offer to convert it for you.
 
 This needs [`ffmpeg`](https://ffmpeg.org/download.html) installed:
 
