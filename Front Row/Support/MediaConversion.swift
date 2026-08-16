@@ -119,6 +119,7 @@ enum MediaConversion {
 
         let presented = PresentedViewManager.shared
         let output = RemuxOutputNaming.outputURL(for: offer.url)
+        let working = RemuxOutputNaming.workingURL(besides: output)
         let remuxer = MediaRemuxer(tools: offer.tools)
         let sheet = ConversionProgressSheet(fileName: offer.url.lastPathComponent)
         presented.isConverting = true
@@ -128,7 +129,7 @@ enum MediaConversion {
             do {
                 try await remuxer.remux(
                     input: offer.url,
-                    output: output,
+                    output: working,
                     recipe: recipe,
                     duration: offer.duration
                 ) { fraction in
@@ -144,10 +145,19 @@ enum MediaConversion {
             presented.isConverting = false
 
             if let failure {
-                // A half-written MP4 is worse than none: it would look playable in the Finder and
-                // open to nothing.
-                try? FileManager.default.removeItem(at: output)
+                // Always safe to delete: this path is ours and nothing else knows about it.
+                try? FileManager.default.removeItem(at: working)
                 presentFailure(failure, url: offer.url)
+                return
+            }
+
+            do {
+                // Fails rather than overwrites, so a file that appeared at the destination while
+                // ffmpeg was running is left alone.
+                try FileManager.default.moveItem(at: working, to: output)
+            } catch {
+                try? FileManager.default.removeItem(at: working)
+                presentFailure(error, url: offer.url)
                 return
             }
 
@@ -168,12 +178,24 @@ enum MediaConversion {
         }
     }
 
-    /// Acts on the answer to the cleanup question, then plays the converted file.
+    /// Plays the converted file, then acts on the answer to the cleanup question.
+    ///
+    /// Deliberately in that order. The stream checks are conservative but not infallible, and if
+    /// the converted file turns out not to open then the Matroska original is the only copy of the
+    /// film left - so it has to survive being wrong.
     static func finishConversion(_ cleanup: RemuxCleanup, trashingOriginal: Bool) {
-        if trashingOriginal {
-            try? FileManager.default.trashItem(at: cleanup.originalURL, resultingItemURL: nil)
+        Task {
+            guard await openFileAndPresent(url: cleanup.convertedURL) == .opened else {
+                PresentedViewManager.shared.remuxAlert = .problem(
+                    RemuxProblem(
+                        url: cleanup.convertedURL, reason: .unsupported, scene: hostScene()))
+                return
+            }
+
+            if trashingOriginal {
+                try? FileManager.default.trashItem(at: cleanup.originalURL, resultingItemURL: nil)
+            }
         }
-        Task { await openFileAndPresent(url: cleanup.convertedURL) }
     }
 
     static func openInstallPage(hasHomebrew: Bool) {

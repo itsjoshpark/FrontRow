@@ -5,7 +5,9 @@
 //  Created by Joshua Park on 8/15/26.
 //
 
+import CoreMedia
 import Foundation
+import VideoToolbox
 
 /// An audio track and what has to happen to it.
 struct PlannedAudio: Equatable, Sendable {
@@ -81,6 +83,12 @@ enum RemuxPlanner {
         "h264", "hevc", "av1", "mpeg4", "prores", "mjpeg",
     ]
 
+    /// Whether this Mac can decode AV1.
+    ///
+    /// VideoToolbox has no software AV1 decoder, so where the hardware can't do it - every Mac
+    /// before the M3 - an AV1 MP4 simply won't open, however cleanly ffmpeg wrote it.
+    static let canDecodeAV1: Bool = VTIsHardwareDecodeSupported(kCMVideoCodecType_AV1)
+
     /// Audio codecs AVFoundation decodes from an MP4. Everything else is re-encoded to AAC.
     static let copyableAudioCodecs: Set<String> = [
         "aac", "mp3", "alac", "ac3", "eac3",
@@ -98,7 +106,10 @@ enum RemuxPlanner {
     /// line while 10-bit H.264 does not.
     private static let unsupportedPixelFormatMarkers = ["422", "444", "p12", "p16"]
 
-    static func plan(for streams: [ProbedStream]) -> RemuxPlan {
+    static func plan(
+        for streams: [ProbedStream],
+        canDecodeAV1: Bool = canDecodeAV1
+    ) -> RemuxPlan {
         // Cover art reports itself as video. Muxing it as the video track would produce a file
         // that shows one still frame for its whole duration.
         let videoStreams = streams.filter { $0.kind == .video && !$0.isAttachedPicture }
@@ -112,7 +123,7 @@ enum RemuxPlanner {
         // Extra video tracks are dropped rather than refused: they're almost always thumbnails or
         // alternate angles, and the first track is what the user came to watch.
         let video = videoStreams.first
-        if let video, !isCopyable(video) {
+        if let video, !isCopyable(video, canDecodeAV1: canDecodeAV1) {
             return .unsupported(.video(codec: video.codecName))
         }
 
@@ -155,10 +166,12 @@ enum RemuxPlanner {
         }
     }
 
-    private static func isCopyable(_ stream: ProbedStream) -> Bool {
+    private static func isCopyable(_ stream: ProbedStream, canDecodeAV1: Bool) -> Bool {
         guard let codecName = stream.codecName, copyableVideoCodecs.contains(codecName) else {
             return false
         }
+
+        if codecName == "av1" && !canDecodeAV1 { return false }
 
         if let pixelFormat = stream.pixelFormat {
             let isUnsupportedFormat = unsupportedPixelFormatMarkers.contains {

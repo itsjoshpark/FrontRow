@@ -436,6 +436,95 @@
         }
       }
     },
+    "\"%@\" isn't a format Front Row can play. The file may be damaged or incomplete." : {
+      "comment" : "Alert message shown when a file could not be read at all",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" ist kein Format, das Front Row abspielen kann. Die Datei ist möglicherweise beschädigt oder unvollständig."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" n'est pas un format que Front Row peut lire. Le fichier est peut-être endommagé ou incomplet."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" no es un formato que Front Row pueda reproducir. Puede que el archivo esté dañado o incompleto."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" non è un formato che Front Row può riprodurre. Il file potrebbe essere danneggiato o incompleto."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" is geen indeling die Front Row kan afspelen. Het bestand is mogelijk beschadigd of onvolledig."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" er ikke et format, som Front Row kan afspille. Filen er muligvis beskadiget eller ufuldstændig."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" är inte ett format som Front Row kan spela upp. Filen kan vara skadad eller ofullständig."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" nie jest formatem, który Front Row może odtworzyć. Plik może być uszkodzony lub niekompletny."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Front Row не может воспроизвести формат \"%@\". Возможно, файл повреждён или неполный."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" isn't a format Front Row can play. Dosya hasarlı veya eksik olabilir."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" は、Front Row が再生できる形式ではありません。ファイルが破損しているか、不完全な可能性があります。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" isn't a format Front Row can play. 파일이 손상되었거나 불완전할 수 있습니다."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" 不是 Front Row 可以播放的格式。该文件可能已损坏或不完整。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" isn't a format Front Row can play.檔案可能已損毀或不完整。"
+          }
+        }
+      }
+    },
     "\"%@\" was converted to \"%@\". The original file isn't needed anymore and can be moved to trash." : {
       "comment" : "Alert message shown after a file has been converted",
       "localizations" : {
@@ -16637,95 +16726,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "文字"
-          }
-        }
-      }
-    },
-    "The file may be damaged or incomplete." : {
-      "comment" : "Appended when a file could not be read at all, not merely not decoded",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Die Datei ist möglicherweise beschädigt oder unvollständig."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Le fichier est peut-être endommagé ou incomplet."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Puede que el archivo esté dañado o incompleto."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Il file potrebbe essere danneggiato o incompleto."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Het bestand is mogelijk beschadigd of onvolledig."
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Filen er muligvis beskadiget eller ufuldstændig."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Filen kan vara skadad eller ofullständig."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Plik może być uszkodzony lub niekompletny."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Возможно, файл повреждён или неполный."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dosya hasarlı veya eksik olabilir."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ファイルが破損しているか、不完全な可能性があります。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "파일이 손상되었거나 불완전할 수 있습니다."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "该文件可能已损坏或不完整。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "檔案可能已損毀或不完整。"
           }
         }
       }

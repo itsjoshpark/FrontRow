@@ -61,12 +61,16 @@ struct MediaRemuxer: Sendable {
                     errorBuffer.append(handle.availableData)
                 }
 
-                guard box.adopt(process) else { throw FFmpegError.cancelled }
-                try process.run()
+                guard try box.launch(process) else { throw FFmpegError.cancelled }
                 process.waitUntilExit()
 
                 progressPipe.fileHandleForReading.readabilityHandler = nil
                 errorPipe.fileHandleForReading.readabilityHandler = nil
+
+                // ffmpeg writes its complaint and exits immediately, and the reader queue can lag
+                // behind `waitUntilExit()`. Without this the failure alert has nothing to show
+                // exactly when there is most to explain.
+                errorBuffer.append(errorPipe.fileHandleForReading.readDataToEndOfFile())
 
                 if box.wasCancelled { throw FFmpegError.cancelled }
 

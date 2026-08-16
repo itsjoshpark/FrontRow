@@ -49,6 +49,31 @@ struct RemuxOutputNamingTests {
         #expect(output.deletingLastPathComponent().path() == "/Movies/")
     }
 
+    /// ffmpeg writes here, and the result is only renamed into place once it finishes — so this
+    /// has to sit on the same volume to make that a rename, stay hidden while it is half a film,
+    /// and keep the extension ffmpeg picks its muxer from.
+    @Test
+    func theWorkingFileIsHiddenBesideTheOutput() {
+        let output = URL(fileURLWithPath: "/Movies/The Film.mp4")
+        let working = RemuxOutputNaming.workingURL(besides: output)
+
+        #expect(working.deletingLastPathComponent() == output.deletingLastPathComponent())
+        #expect(working.lastPathComponent.hasPrefix("."))
+        #expect(working.pathExtension == "mp4")
+        #expect(working != output)
+    }
+
+    /// Two conversions running at once must not write to the same scratch path.
+    @Test
+    func everyWorkingFileIsDistinct() {
+        let output = URL(fileURLWithPath: "/Movies/The Film.mp4")
+
+        #expect(
+            RemuxOutputNaming.workingURL(besides: output)
+                != RemuxOutputNaming.workingURL(besides: output)
+        )
+    }
+
     /// Names with dots in them keep everything up to the real extension.
     @Test
     func onlyTheContainerExtensionIsReplaced() {

@@ -93,10 +93,16 @@ final class ProcessBox: @unchecked Sendable {
     private var process: Process?
     private var isCancelled = false
 
-    /// Returns false if cancellation already arrived, in which case the process must not start.
-    func adopt(_ process: Process) -> Bool {
-        lock.withLock {
+    /// Starts `process` and keeps hold of it, or returns false if cancellation got there first -
+    /// in which case nothing is launched.
+    ///
+    /// Launching under the same lock, and only recording the process once it is actually running,
+    /// is what keeps `cancel()` from terminating a process that hasn't started. That raises an
+    /// Objective-C exception Swift cannot catch, so it would take the app down.
+    func launch(_ process: Process) throws -> Bool {
+        try lock.withLock {
             guard !isCancelled else { return false }
+            try process.run()
             self.process = process
             return true
         }

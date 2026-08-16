@@ -104,6 +104,20 @@ struct RemuxPlannerTests {
         #expect(byProfile == .unsupported(.video(codec: "h264")))
     }
 
+    /// VideoToolbox has no software AV1 decoder, so on a Mac without the hardware an AV1 MP4 won't
+    /// open however cleanly ffmpeg wrote it - the exact "converts fine, then won't play" outcome
+    /// this table exists to prevent.
+    @Test
+    func av1FollowsWhetherThisMacCanDecodeIt() {
+        let streams = [video(0, "av1", pixelFormat: "yuv420p"), audio(1, "aac")]
+
+        #expect(
+            RemuxPlanner.plan(for: streams, canDecodeAV1: false)
+                == .unsupported(.video(codec: "av1"))
+        )
+        #expect(RemuxPlanner.plan(for: streams, canDecodeAV1: true).recipe?.videoTag == "av01")
+    }
+
     /// A container swap can't help a codec AVFoundation can't decode, so it must not be offered.
     @Test
     func vp9IsRefusedRatherThanRemuxed() {

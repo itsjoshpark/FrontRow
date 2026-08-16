@@ -21,13 +21,18 @@ enum UnplayableFileMessage {
         )
     }
 
-    /// The same sentence, plus the reason when the file couldn't even be read.
+    /// The same thing said about a file that couldn't be read at all, rather than one that was read
+    /// and rejected.
+    ///
+    /// One whole sentence pair rather than the first sentence with a second glued on: word order
+    /// differs between languages, and a translated opening followed by an untranslated addition -
+    /// in a different script, for some of them - reads worse than either language on its own.
     static func text(for url: URL, mayBeDamaged: Bool) -> String {
         guard mayBeDamaged else { return text(for: url) }
-        return text(for: url) + " "
-            + String(
-                localized: "The file may be damaged or incomplete.",
-                comment: "Appended when a file could not be read at all, not merely not decoded"
-            )
+        return String(
+            localized:
+                "\"\(url.lastPathComponent)\" isn't a format Front Row can play. The file may be damaged or incomplete.",
+            comment: "Alert message shown when a file could not be read at all"
+        )
     }
 }

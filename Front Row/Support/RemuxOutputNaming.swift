@@ -35,6 +35,22 @@ enum RemuxOutputNaming {
             .appendingPathExtension("mp4")
     }
 
+    /// A hidden scratch path beside `output` for ffmpeg to write into.
+    ///
+    /// The conversion is only moved to its real name once it has finished, which means a failed or
+    /// cancelled run never leaves half a film lying around under a name that looks playable, and
+    /// the move refuses to replace anything that appeared at the destination in the meantime.
+    /// Same directory, so the move is a rename rather than a copy, and still `.mp4` so ffmpeg picks
+    /// the muxer from the extension as usual.
+    static func workingURL(besides output: URL) -> URL {
+        let name = output.deletingPathExtension().lastPathComponent
+        return
+            output
+            .deletingLastPathComponent()
+            .appending(path: ".\(name).\(UUID().uuidString)")
+            .appendingPathExtension("mp4")
+    }
+
     /// The same thing, against the real file system.
     static func outputURL(for input: URL) -> URL {
         outputURL(for: input) {
