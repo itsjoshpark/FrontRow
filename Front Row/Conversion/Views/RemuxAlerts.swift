@@ -13,6 +13,9 @@ extension View {
     /// One modifier covering every stage rather than one per stage: a view has a single alert
     /// presentation slot, and stacked `alert` modifiers contend for it - the offer would show, and
     /// the question that follows it would silently not.
+    ///
+    /// The progress sheet isn't here: `ConversionProgressSheet` attaches it to the window as an
+    /// `NSAlert`, not a SwiftUI presentation.
     func remuxAlert(in scene: AlertScene) -> some View {
         modifier(RemuxAlertModifier(scene: scene))
     }

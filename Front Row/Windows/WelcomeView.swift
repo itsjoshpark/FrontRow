@@ -107,7 +107,7 @@ struct WelcomeView: View {
                 .frame(minWidth: 600)
         }
         .unopenableRecentFileAlert(in: .welcome)
-        .mediaConversionPresentation(in: .welcome)
+        .remuxAlert(in: .welcome)
         .task {
             WelcomeWindowCoordinator.shared.openMainWindow = { openWindow(id: WindowID.main) }
             WelcomeWindowCoordinator.shared.dismissWelcomeWindow = {

@@ -7,13 +7,6 @@
 
 import SwiftUI
 
-/// Identifiers for the app's `Window` scenes.
-enum WindowID {
-    static let main = "main"
-    static let welcome = "welcome"
-    static let inspector = "inspector"
-}
-
 /// Bridges SwiftUI's `openWindow`/`dismissWindow` actions to non-View code (`AppDelegate`) and to
 /// helpers that shouldn't have to thread those actions through every call.
 ///
