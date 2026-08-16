@@ -17,6 +17,9 @@ swift-format format -p -r -i ./
 
 - Target macOS Sequoia 15.6 or later.
 - Do not introduce third-party frameworks without asking first.
+- Group source files by feature, not by layer. A feature folder holds its models and its views together.
+- A feature that outgrows one folder splits by kind into `Models/`, `Views/`, and any domain subfolder it needs (`Conversion/FFmpeg/`). Small features stay flat.
+- The root `UI/` and `Models/` folders are only for types used by two or more features. `Main Menu/` and `FrontRowApp` consume everything, so neither justifies a promotion on its own — they count only alongside a second feature.
 
 ## Code
 
@@ -34,7 +37,10 @@ swift-format format -p -r -i ./
 - When making a `ForEach` out of an `enumerated` sequence, do not convert it to an array first. So, prefer `ForEach(x.enumerated(), id: \.element.id)` instead of `ForEach(Array(x.enumerated()), id: \.element.id)`.
 - Place view logic into view models or similar, so it can be tested.
 - Avoid `AnyView` unless it is absolutely required.
-- Keep each Swift file focused on one concern. Closely related types can share a file — a protocol with its return type, or a type with the small helpers only it uses. Split a file when it starts doing more than one job.
+- Name a Swift file after the primary type inside it. That file may also hold the subviews and helpers that exist to serve that type, whatever their size — a screen and the rows, cards and labels only it builds belong together.
+- Split a type out when something that never touches the file's primary type depends on it. That is the test, not line count.
+- Name a screen `…View`, its `@Observable` state `…Model` on the same stem (`InspectorView` / `MediaInspectorModel`), and a component inside a screen for the role it plays — `Row`, `Card`, `Button`, `Menu`, `Picker`, `Label`, `Grid`, `Sheet`, `Alert`. Reach for `…View` on a component only when no role noun fits.
+- A `ViewModifier` is named `…Modifier` and lives in the file with the `extension View` convenience that applies it.
 
 ## Comments
 
