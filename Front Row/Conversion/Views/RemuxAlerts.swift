@@ -24,14 +24,14 @@ extension View {
 private struct RemuxAlertModifier: ViewModifier {
     let scene: AlertScene
 
-    @Environment(PresentedViewManager.self) private var presentedViewManager: PresentedViewManager
+    @Environment(PresentationModel.self) private var presentationModel: PresentationModel
 
     private var isPresented: Binding<Bool> {
         Binding(
-            get: { presentedViewManager.remuxAlert?.scene == scene },
+            get: { presentationModel.remuxAlert?.scene == scene },
             set: { isPresented in
                 if !isPresented {
-                    presentedViewManager.remuxAlert = nil
+                    presentationModel.remuxAlert = nil
                 }
             }
         )
@@ -39,9 +39,9 @@ private struct RemuxAlertModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content.alert(
-            RemuxAlertTitle.text(for: presentedViewManager.remuxAlert),
+            RemuxAlertTitle.text(for: presentationModel.remuxAlert),
             isPresented: isPresented,
-            presenting: presentedViewManager.remuxAlert
+            presenting: presentationModel.remuxAlert
         ) { alert in
             RemuxAlertButtons(alert: alert)
         } message: { alert in

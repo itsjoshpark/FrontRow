@@ -20,7 +20,7 @@ enum MediaConversion {
 
     /// Entry point for a convertible file. Ends by presenting one of the alerts above.
     static func offerConversion(of url: URL) async {
-        let presented = PresentedViewManager.shared
+        let presented = PresentationModel.shared
         let locator = ExternalToolLocator()
 
         guard let tools = await locator.resolveFFmpeg() else {
@@ -65,7 +65,7 @@ enum MediaConversion {
     static func startConversion(_ offer: RemuxOffer) {
         guard let recipe = offer.plan.recipe else { return }
 
-        let presented = PresentedViewManager.shared
+        let presented = PresentationModel.shared
         let output = RemuxOutputNaming.outputURL(for: offer.url)
         let working = RemuxOutputNaming.workingURL(besides: output)
         let remuxer = MediaRemuxer(tools: offer.tools)
@@ -134,7 +134,7 @@ enum MediaConversion {
     static func finishConversion(_ cleanup: RemuxCleanup, trashingOriginal: Bool) {
         Task {
             guard await openFileAndPresent(url: cleanup.convertedURL) == .opened else {
-                PresentedViewManager.shared.remuxAlert = .problem(
+                PresentationModel.shared.remuxAlert = .problem(
                     RemuxProblem(
                         url: cleanup.convertedURL, reason: .unsupported, scene: hostScene()))
                 return

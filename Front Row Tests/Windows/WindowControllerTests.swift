@@ -13,7 +13,7 @@ import Testing
 /// and an animated `setFrame` spins the run loop, which lets them interleave mid-test. Each test
 /// hands its window back before it ends, so a leftover doesn't answer for a real one.
 ///
-/// These cover the shaping itself. Which moments it's applied at is `VideoWindowSizing`'s doing,
+/// These cover the shaping itself. Which moments it's applied at is `VideoWindowSizingModifier`'s doing,
 /// and lives in the SwiftUI lifecycle rather than here.
 @MainActor
 @Suite(.serialized)

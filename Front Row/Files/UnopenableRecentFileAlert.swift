@@ -93,17 +93,17 @@ extension View {
 private struct UnopenableRecentFileAlertModifier: ViewModifier {
     let scene: AlertScene
 
-    @Environment(PresentedViewManager.self) private var presentedViewManager: PresentedViewManager
+    @Environment(PresentationModel.self) private var presentationModel: PresentationModel
 
     /// True only for the scene the failure was raised in, so the other stays quiet rather than
     /// presenting a duplicate. Nothing here depends on focus, so `false` can only arrive from a
     /// real dismissal - which is what makes clearing in the setter safe.
     private var isPresented: Binding<Bool> {
         Binding(
-            get: { presentedViewManager.unopenableRecentFile?.scene == scene },
+            get: { presentationModel.unopenableRecentFile?.scene == scene },
             set: { isPresented in
                 if !isPresented {
-                    presentedViewManager.unopenableRecentFile = nil
+                    presentationModel.unopenableRecentFile = nil
                 }
             }
         )
@@ -116,7 +116,7 @@ private struct UnopenableRecentFileAlertModifier: ViewModifier {
                 comment: "Title of the alert shown when a recent file could not be opened"
             ),
             isPresented: isPresented,
-            presenting: presentedViewManager.unopenableRecentFile
+            presenting: presentationModel.unopenableRecentFile
         ) { file in
             let alert = UnopenableRecentFileAlert(file: file)
             AlertButton(alert.defaultButton, alert: alert, file: file)

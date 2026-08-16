@@ -13,7 +13,7 @@ import SwiftUI
 struct FrontRowApp: App {
     @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
     @State private var playEngine = PlayEngine.shared
-    @State private var presentedViewManager = PresentedViewManager.shared
+    @State private var presentationModel = PresentationModel.shared
     @State private var windowController = WindowController.shared
     private let updaterController: SPUStandardUpdaterController
     private let keyDownListener = KeyDownListener()
@@ -37,11 +37,11 @@ struct FrontRowApp: App {
                 .ignoresSafeArea()
                 .navigationTitle(playEngine.fileURL?.lastPathComponent ?? "Front Row")
                 .navigationDocument(ifLocal: playEngine.isLocalFile ? playEngine.fileURL : nil)
-                .sheet(isPresented: $presentedViewManager.isPresentingOpenURLView) {
+                .sheet(isPresented: $presentationModel.isPresentingOpenURLView) {
                     OpenURLView()
                         .frame(minWidth: 600)
                 }
-                .alert("Go to Time", isPresented: $presentedViewManager.isPresentingGoToTimeView) {
+                .alert("Go to Time", isPresented: $presentationModel.isPresentingGoToTimeView) {
                     GoToTimeView()
                 } message: {
                     Text("Enter the time you want to go to")
@@ -77,7 +77,7 @@ struct FrontRowApp: App {
                 }
                 .videoWindowSizing(playEngine: playEngine, windowController: windowController)
                 .background(
-                    WindowAccessor { window in
+                    WindowReader { window in
                         window.isMovableByWindowBackground = true
                         // Left until the next turn: the callback runs inside SwiftUI's update
                         // pass, and the window is observed by the sizing rule, so recording it
@@ -91,7 +91,7 @@ struct FrontRowApp: App {
         .defaultLaunchBehavior(.suppressed)
         .restorationBehavior(.disabled)
         .environment(playEngine)
-        .environment(presentedViewManager)
+        .environment(presentationModel)
         .environment(windowController)
         .commands {
             AppCommands(updater: updaterController.updater)
@@ -106,7 +106,7 @@ struct FrontRowApp: App {
             WelcomeView()
                 .preferredColorScheme(.dark)
                 .environment(playEngine)
-                .environment(presentedViewManager)
+                .environment(presentationModel)
         }
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)

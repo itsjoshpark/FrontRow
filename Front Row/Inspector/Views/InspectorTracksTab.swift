@@ -62,7 +62,7 @@ private struct InspectorTrackDetail: View {
     let track: TrackSummary
 
     var body: some View {
-        InspectorForm {
+        InspectorGrid {
             InspectorRow(
                 label: Text("ID"), value: track.id.formatted(.number.grouping(.never)))
             InspectorRow(label: Text("Type"), value: MediaValueFormat.kindName(track.kind))

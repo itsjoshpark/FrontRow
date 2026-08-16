@@ -17,7 +17,7 @@ struct InspectorRow: View {
 
     var body: some View {
         GridRow {
-            InspectorFieldName(name: label)
+            InspectorFieldLabel(name: label)
 
             if let value {
                 Text(verbatim: value)
@@ -41,7 +41,7 @@ struct InspectorFlagsRow: View {
 
     var body: some View {
         GridRow {
-            InspectorFieldName(name: label)
+            InspectorFieldLabel(name: label)
 
             HStack(spacing: 10) {
                 ForEach(flags.indices, id: \.self) { index in
@@ -84,7 +84,7 @@ struct InspectorChapterRow: View {
 
 /// Names the field in the row beside it. The trailing colon marks it as a label rather than
 /// another value.
-private struct InspectorFieldName: View {
+private struct InspectorFieldLabel: View {
     let name: Text
 
     var body: some View {

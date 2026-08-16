@@ -13,7 +13,7 @@ struct InspectorGeneralTab: View {
     let inspection: MediaInspection
 
     var body: some View {
-        InspectorForm {
+        InspectorGrid {
             if let video = inspection.video {
                 InspectorSectionHeader(
                     title: Text(

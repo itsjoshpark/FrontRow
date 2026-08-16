@@ -10,7 +10,7 @@ import SwiftUI
 
 struct FileCommands: Commands {
     private let playEngine = PlayEngine.shared
-    private let presentedViewManager = PresentedViewManager.shared
+    private let presentationModel = PresentationModel.shared
     private let recentDocumentsStore = RecentDocumentsStore.shared
 
     var body: some Commands {
@@ -28,7 +28,7 @@ struct FileCommands: Commands {
             .keyboardShortcut("O", modifiers: [.command])
 
             Button {
-                presentedViewManager.isPresentingOpenURLView.toggle()
+                presentationModel.isPresentingOpenURLView.toggle()
             } label: {
                 Text(
                     "Open URL...",

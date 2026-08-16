@@ -67,7 +67,7 @@ struct InspectorView: View {
         // The HUD style draws its own dark, translucent background and leaves only a close
         // button, so the content sits on it unpainted.
         .background(
-            WindowAccessor { window in
+            WindowReader { window in
                 guard !window.styleMask.contains(.hudWindow) else { return }
                 window.styleMask.insert(.hudWindow)
                 window.hidesOnDeactivate = true

@@ -1,5 +1,5 @@
 //
-//  VideoWindowSizing.swift
+//  VideoWindowSizingModifier.swift
 //  Front Row
 //
 
@@ -16,7 +16,7 @@ import SwiftUI
 /// Full screen suppresses the resize but not the aspect ratio, and isn't a trigger of its own:
 /// leaving full screen restores the frame the window had going in, which is the size to be back
 /// at, and the constraint is already in place by then.
-private struct VideoWindowSizing: ViewModifier {
+private struct VideoWindowSizingModifier: ViewModifier {
     let playEngine: PlayEngine
     let windowController: WindowController
 
@@ -37,6 +37,7 @@ extension View {
     func videoWindowSizing(playEngine: PlayEngine, windowController: WindowController)
         -> some View
     {
-        modifier(VideoWindowSizing(playEngine: playEngine, windowController: windowController))
+        modifier(
+            VideoWindowSizingModifier(playEngine: playEngine, windowController: windowController))
     }
 }

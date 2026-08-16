@@ -1,5 +1,5 @@
 //
-//  PlayerControlsView.swift
+//  PlayerControls.swift
 //  Front Row
 //
 //  Created by Joshua Park on 3/25/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PlayerControlsView: View {
+struct PlayerControls: View {
     @Environment(PlayEngine.self) private var playEngine: PlayEngine
 
     var body: some View {
@@ -80,8 +80,8 @@ private struct DurationLabel: View {
 }
 
 #Preview {
-    PlayerControlsView()
+    PlayerControls()
         .environment(PlayEngine.shared)
-        .environment(PresentedViewManager.shared)
+        .environment(PresentationModel.shared)
         .environment(WindowController.shared)
 }

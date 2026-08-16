@@ -26,7 +26,7 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             }
 
-            PlayerControlsView()
+            PlayerControls()
                 .onContinuousHover { phase in
                     switch phase {
                     case .active: chrome.controlsHoverChanged(isInside: true)
@@ -75,6 +75,6 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .environment(PlayEngine.shared)
-        .environment(PresentedViewManager.shared)
+        .environment(PresentationModel.shared)
         .environment(WindowController.shared)
 }

@@ -20,7 +20,7 @@ struct InspectorFileTab: View {
     }
 
     var body: some View {
-        InspectorForm {
+        InspectorGrid {
             InspectorSectionHeader(
                 title: Text("Location", comment: "Inspector section heading for a path or URL"),
                 isFirst: true

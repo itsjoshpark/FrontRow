@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlaybackCommands: Commands {
     @Bindable private var playEngine = PlayEngine.shared
-    @Bindable private var presentedViewManager = PresentedViewManager.shared
+    @Bindable private var presentationModel = PresentationModel.shared
 
     var body: some Commands {
         CommandMenu("Playback") {
@@ -33,7 +33,7 @@ struct PlaybackCommands: Commands {
                 )
             }
             .keyboardShortcut(.leftArrow, modifiers: [.command])
-            .disabled(!playEngine.isLoaded || presentedViewManager.isPresenting)
+            .disabled(!playEngine.isLoaded || presentationModel.isPresenting)
 
             PlaybackSpeedMenu(playEngine: playEngine)
 
@@ -59,7 +59,7 @@ struct PlaybackCommands: Commands {
                 Text("Go Forward \(playEngine.skipInterval.rawValue)s")
             }
             .keyboardShortcut(.rightArrow, modifiers: [])
-            .disabled(!playEngine.isLoaded || presentedViewManager.isPresenting)
+            .disabled(!playEngine.isLoaded || presentationModel.isPresenting)
 
             Button {
                 Task { await playEngine.goBackwards() }
@@ -67,10 +67,10 @@ struct PlaybackCommands: Commands {
                 Text("Go Backward \(playEngine.skipInterval.rawValue)s")
             }
             .keyboardShortcut(.leftArrow, modifiers: [])
-            .disabled(!playEngine.isLoaded || presentedViewManager.isPresenting)
+            .disabled(!playEngine.isLoaded || presentationModel.isPresenting)
 
             Button {
-                presentedViewManager.isPresentingGoToTimeView.toggle()
+                presentationModel.isPresentingGoToTimeView.toggle()
             } label: {
                 Text("Go to Time...")
             }
@@ -85,7 +85,7 @@ struct PlaybackCommands: Commands {
                 Text("Next Frame")
             }
             .keyboardShortcut(".", modifiers: [])
-            .disabled(!playEngine.isLoaded || presentedViewManager.isPresenting)
+            .disabled(!playEngine.isLoaded || presentationModel.isPresenting)
 
             Button {
                 playEngine.frameStep(-1)
@@ -93,7 +93,7 @@ struct PlaybackCommands: Commands {
                 Text("Previous Frame")
             }
             .keyboardShortcut(",", modifiers: [])
-            .disabled(!playEngine.isLoaded || presentedViewManager.isPresenting)
+            .disabled(!playEngine.isLoaded || presentationModel.isPresenting)
 
             Divider()
 

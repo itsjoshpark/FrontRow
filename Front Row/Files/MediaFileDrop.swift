@@ -13,7 +13,7 @@ extension View {
     func mediaFileDropDestination() -> some View {
         onDrop(
             of: [.fileURL],
-            delegate: AnyDropDelegate(
+            delegate: ClosureDropDelegate(
                 onValidate: { $0.hasItemsConforming(to: PlayEngine.openableFileTypes) },
                 onPerform: { info in
                     guard let provider = info.itemProviders(for: [.fileURL]).first else {
@@ -35,7 +35,7 @@ extension View {
 /// A `DropDelegate` built from closures, which is what lets a drop be rejected before it happens -
 /// `onDrop(of:isTargeted:perform:)` can only filter by type identifier, and every media file is a
 /// file URL.
-struct AnyDropDelegate: DropDelegate {
+struct ClosureDropDelegate: DropDelegate {
     var onValidate: ((DropInfo) -> Bool)?
     let onPerform: (DropInfo) -> Bool
 

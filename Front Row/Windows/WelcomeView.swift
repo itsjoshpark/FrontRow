@@ -10,7 +10,7 @@ import SwiftUI
 struct WelcomeView: View {
     @Environment(\.openWindow) private var openWindow
     @Environment(\.dismissWindow) private var dismissWindow
-    @Environment(PresentedViewManager.self) private var presentedViewManager: PresentedViewManager
+    @Environment(PresentationModel.self) private var presentationModel: PresentationModel
     @State private var recentDocumentsStore = RecentDocumentsStore.shared
 
     private var mostRecentURL: URL? {
@@ -22,7 +22,7 @@ struct WelcomeView: View {
     }
 
     var body: some View {
-        @Bindable var presentedViewManager = presentedViewManager
+        @Bindable var presentationModel = presentationModel
 
         HStack(spacing: 0) {
             VStack(spacing: 16) {
@@ -58,7 +58,7 @@ struct WelcomeView: View {
                     } title: {
                         Text("Open URL...")
                     } action: {
-                        presentedViewManager.isPresentingOpenURLView.toggle()
+                        presentationModel.isPresentingOpenURLView.toggle()
                     }
 
                     if let mostRecentURL {
@@ -94,7 +94,7 @@ struct WelcomeView: View {
         .background(.regularMaterial)
         .gesture(WindowDragGesture())
         .background(
-            WindowAccessor { window in
+            WindowReader { window in
                 window.isMovableByWindowBackground = true
                 window.isOpaque = false
                 window.backgroundColor = .clear
@@ -102,7 +102,7 @@ struct WelcomeView: View {
             }
         )
         .mediaFileDropDestination()
-        .sheet(isPresented: $presentedViewManager.isPresentingOpenURLView) {
+        .sheet(isPresented: $presentationModel.isPresentingOpenURLView) {
             OpenURLView()
                 .frame(minWidth: 600)
         }
@@ -232,5 +232,5 @@ private struct RecentFileRow: View {
 
 #Preview {
     WelcomeView()
-        .environment(PresentedViewManager.shared)
+        .environment(PresentationModel.shared)
 }

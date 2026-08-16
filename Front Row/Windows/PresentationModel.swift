@@ -1,5 +1,5 @@
 //
-//  PresentedViewManager.swift
+//  PresentationModel.swift
 //  Front Row
 //
 //  Created by Joshua Park on 3/19/24.
@@ -8,9 +8,9 @@
 import SwiftUI
 
 @MainActor
-@Observable final class PresentedViewManager {
+@Observable final class PresentationModel {
 
-    static let shared = PresentedViewManager()
+    static let shared = PresentationModel()
 
     var isPresentingOpenURLView = false
 
