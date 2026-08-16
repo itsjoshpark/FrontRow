@@ -18,7 +18,7 @@ import VideoToolbox
 enum RemuxPlanner {
 
     /// Video codecs AVFoundation decodes from an MP4.
-    static let copyableVideoCodecs: Set<String> = [
+    private static let copyableVideoCodecs: Set<String> = [
         "h264", "hevc", "av1", "mpeg4", "prores", "mjpeg",
     ]
 
@@ -29,12 +29,12 @@ enum RemuxPlanner {
     static let canDecodeAV1: Bool = VTIsHardwareDecodeSupported(kCMVideoCodecType_AV1)
 
     /// Audio codecs AVFoundation decodes from an MP4. Everything else is re-encoded to AAC.
-    static let copyableAudioCodecs: Set<String> = [
+    private static let copyableAudioCodecs: Set<String> = [
         "aac", "mp3", "alac", "ac3", "eac3",
     ]
 
     /// Subtitle codecs that carry text, and so can become `mov_text`.
-    static let textSubtitleCodecs: Set<String> = [
+    private static let textSubtitleCodecs: Set<String> = [
         "subrip", "srt", "ass", "ssa", "mov_text", "text", "webvtt",
     ]
 

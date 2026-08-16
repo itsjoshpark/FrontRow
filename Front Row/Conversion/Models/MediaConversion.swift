@@ -14,9 +14,9 @@ import SwiftUI
 @MainActor
 enum MediaConversion {
 
-    static let ffmpegFormulaURL = URL(string: "https://formulae.brew.sh/formula/ffmpeg")!
+    private static let ffmpegFormulaURL = URL(string: "https://formulae.brew.sh/formula/ffmpeg")!
 
-    static let homebrewURL = URL(string: "https://brew.sh")!
+    private static let homebrewURL = URL(string: "https://brew.sh")!
 
     /// Entry point for a convertible file. Ends by presenting one of the alerts above.
     static func offerConversion(of url: URL) async {

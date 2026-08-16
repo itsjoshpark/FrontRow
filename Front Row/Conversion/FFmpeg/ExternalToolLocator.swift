@@ -53,7 +53,7 @@ struct ExternalToolLocator: Sendable {
         return FFmpegTools(ffmpeg: ffmpeg, ffprobe: ffprobe)
     }
 
-    func locate(_ toolName: String) -> URL? {
+    private func locate(_ toolName: String) -> URL? {
         for directory in searchPaths {
             let path = directory + "/" + toolName
             if probe.isExecutable(atPath: path) {

@@ -10,7 +10,7 @@ import SwiftUI
 /// One of the three playback-speed actions, shared by the menu bar and the controls bar so the
 /// two can't drift on what each one does. Keyboard shortcuts stay with the caller, since only the
 /// menu bar owns those.
-struct PlaybackSpeedButton: View {
+private struct PlaybackSpeedButton: View {
     enum Action {
         case increase
         case decrease

@@ -6,8 +6,7 @@
 //
 
 import AppKit
-import SwiftUI
-import UniformTypeIdentifiers
+import Observation
 
 /// Manages the recently opened files shown in File > Open Recent and the welcome window, along
 /// with each file's saved playback position.

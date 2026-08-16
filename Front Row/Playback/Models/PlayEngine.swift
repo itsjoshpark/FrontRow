@@ -15,7 +15,7 @@ import SwiftUI
     static let shared = PlayEngine()
 
     /// Containers AVFoundation opens directly.
-    static let supportedFileTypes: [UTType] = [
+    private static let supportedFileTypes: [UTType] = [
         .mp3,
         .mpeg2TransportStream,
         .mpeg4Audio,
@@ -32,7 +32,7 @@ import SwiftUI
     /// Looked up rather than named outright: Matroska has no system-declared type, so what `mkv`
     /// maps to depends on what else is installed. Asking LaunchServices is what keeps the Open
     /// panel and drag and drop agreeing with the Finder about the same file.
-    static let convertibleFileTypes: [UTType] = convertibleFileExtensions.compactMap {
+    private static let convertibleFileTypes: [UTType] = convertibleFileExtensions.compactMap {
         UTType(filenameExtension: $0)
     }
 
