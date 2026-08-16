@@ -37,9 +37,9 @@ Sure, that works too. But I didn't like QuickTime Player's keyboard shortcuts no
 
 I created Front Row to play those rare video files that are in HDR and/or multichannel with spatial audio. For everything else, I use IINA like you.
 
-### Help! My video file is in MKV and doesn't open with Front Row
+### My video file is in MKV, macOS can't natively play that!
 
-Just open it — Front Row offers to convert it for you.
+Front Row offers to convert it for you.
 
 As Front Row is based on AVKit (which is what QuickTime Player uses), it can't directly open MKV files. However MKV is a container format and it usually contains Apple supported streams such as MPEG-4 video with AAC audio. When that's the case, only the container needs changing, and Front Row will offer to do it.
 

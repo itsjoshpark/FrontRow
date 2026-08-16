@@ -439,16 +439,16 @@
     "\"%@\" isn't a format Front Row can play. The file may be damaged or incomplete." : {
       "comment" : "Alert message shown when a file could not be read at all",
       "localizations" : {
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" er ikke et format, som Front Row kan afspille. Filen er muligvis beskadiget eller ufuldstændig."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" ist kein Format, das Front Row abspielen kann. Die Datei ist möglicherweise beschädigt oder unvollständig."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" n'est pas un format que Front Row peut lire. Le fichier est peut-être endommagé ou incomplet."
           }
         },
         "es" : {
@@ -457,28 +457,34 @@
             "value" : "\"%@\" no es un formato que Front Row pueda reproducir. Puede que el archivo esté dañado o incompleto."
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" n'est pas un format que Front Row peut lire. Le fichier est peut-être endommagé ou incomplet."
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" non è un formato che Front Row può riprodurre. Il file potrebbe essere danneggiato o incompleto."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" は、Front Row が再生できる形式ではありません。ファイルが破損しているか、不完全な可能性があります。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" isn't a format Front Row can play. 파일이 손상되었거나 불완전할 수 있습니다."
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" is geen indeling die Front Row kan afspelen. Het bestand is mogelijk beschadigd of onvolledig."
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" er ikke et format, som Front Row kan afspille. Filen er muligvis beskadiget eller ufuldstændig."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" är inte ett format som Front Row kan spela upp. Filen kan vara skadad eller ofullständig."
           }
         },
         "pl" : {
@@ -493,22 +499,16 @@
             "value" : "Front Row не может воспроизвести формат \"%@\". Возможно, файл повреждён или неполный."
           }
         },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" är inte ett format som Front Row kan spela upp. Filen kan vara skadad eller ofullständig."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" isn't a format Front Row can play. Dosya hasarlı veya eksik olabilir."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" は、Front Row が再生できる形式ではありません。ファイルが破損しているか、不完全な可能性があります。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" isn't a format Front Row can play. 파일이 손상되었거나 불완전할 수 있습니다."
           }
         },
         "zh-Hans" : {
@@ -528,16 +528,16 @@
     "\"%@\" was converted to \"%@\". The original file isn't needed anymore and can be moved to trash." : {
       "comment" : "Alert message shown after a file has been converted",
       "localizations" : {
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" blev konverteret til \"%@\". Den oprindelige fil er ikke længere nødvendig og kan flyttes til papirkurven."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" wurde in \"%@\" konvertiert. Die Originaldatei wird nicht mehr benötigt und kann in den Papierkorb gelegt werden."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" a été converti en \"%@\". Le fichier d'origine n'est plus nécessaire et peut être placé dans la corbeille."
           }
         },
         "es" : {
@@ -546,28 +546,34 @@
             "value" : "\"%@\" se convirtió en \"%@\". El archivo original ya no es necesario y se puede mover a la papelera."
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" a été converti en \"%@\". Le fichier d'origine n'est plus nécessaire et peut être placé dans la corbeille."
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" è stato convertito in \"%@\". Il file originale non serve più e può essere spostato nel Cestino."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" を \"%@\" に変換しました。元のファイルは不要になったため、ゴミ箱に入れることができます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\"이(가) \"%@\"(으)로 변환되었습니다. 원본 파일은 더 이상 필요하지 않으며 휴지통으로 옮길 수 있습니다."
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" is geconverteerd naar \"%@\". Het originele bestand is niet meer nodig en kan naar de prullenmand worden verplaatst."
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" blev konverteret til \"%@\". Den oprindelige fil er ikke længere nødvendig og kan flyttes til papirkurven."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" konverterades till \"%@\". Originalfilen behövs inte längre och kan flyttas till papperskorgen."
           }
         },
         "pl" : {
@@ -582,22 +588,16 @@
             "value" : "\"%@\" сконвертирован в \"%@\". Оригинальный файл больше не нужен, его можно переместить в Корзину."
           }
         },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" konverterades till \"%@\". Originalfilen behövs inte längre och kan flyttas till papperskorgen."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" dosyası \"%@\" olarak dönüştürüldü. Özgün dosya artık gerekli değil ve çöp sepetine taşınabilir."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" を \"%@\" に変換しました。元のファイルは不要になったため、ゴミ箱に入れることができます。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\"이(가) \"%@\"(으)로 변환되었습니다. 원본 파일은 더 이상 필요하지 않으며 휴지통으로 옮길 수 있습니다."
           }
         },
         "zh-Hans" : {
@@ -2757,7 +2757,7 @@
       }
     },
     "Cancel" : {
-      "comment" : "Alert button that declines converting a Matroska file",
+      "comment" : "Alert button that declines converting a Matroska file\nButton that stops a conversion that is running\nDismisses the alert shown when ffmpeg isn't installed",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -4042,19 +4042,25 @@
     "Convert" : {
       "comment" : "Alert button that starts converting a Matroska file",
       "localizations" : {
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konverter"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Konvertieren"
           }
         },
-        "fr" : {
+        "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Convertir"
           }
         },
-        "es" : {
+        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Convertir"
@@ -4066,22 +4072,22 @@
             "value" : "Converti"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "変換"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "변환"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Converteer"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Konverter"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Konvertera"
           }
         },
         "pl" : {
@@ -4096,22 +4102,16 @@
             "value" : "Конвертировать"
           }
         },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konvertera"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dönüştür"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "変換"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "변환"
           }
         },
         "zh-Hans" : {
@@ -4131,16 +4131,16 @@
     "Convert File?" : {
       "comment" : "Title of the alert offering to convert a Matroska file",
       "localizations" : {
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konverter filen?"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Datei konvertieren?"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Convertir le fichier ?"
           }
         },
         "es" : {
@@ -4149,28 +4149,34 @@
             "value" : "¿Convertir el archivo?"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Convertir le fichier ?"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Convertire il file?"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ファイルを変換しますか？"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "파일을 변환하시겠습니까?"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bestand converteren?"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Konverter filen?"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Konvertera filen?"
           }
         },
         "pl" : {
@@ -4185,22 +4191,16 @@
             "value" : "Конвертировать файл?"
           }
         },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konvertera filen?"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dosya dönüştürülsün mü?"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ファイルを変換しますか？"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "파일을 변환하시겠습니까?"
           }
         },
         "zh-Hans" : {
@@ -4220,16 +4220,16 @@
     "Converting \"%@\"" : {
       "comment" : "Title of the sheet shown while a file is being converted",
       "localizations" : {
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konverterer \"%@\""
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" wird konvertiert"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Conversion de \"%@\""
           }
         },
         "es" : {
@@ -4238,28 +4238,34 @@
             "value" : "Convirtiendo \"%@\""
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conversion de \"%@\""
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Conversione di \"%@\""
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" を変換中"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" 변환 중"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" wordt geconverteerd"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Konverterer \"%@\""
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Konverterar \"%@\""
           }
         },
         "pl" : {
@@ -4274,22 +4280,16 @@
             "value" : "Конвертация \"%@\""
           }
         },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konverterar \"%@\""
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" dönüştürülüyor"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" を変換中"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" 변환 중"
           }
         },
         "zh-Hans" : {
@@ -4452,16 +4452,16 @@
     "Couldn't Convert File" : {
       "comment" : "Alert title shown when ffmpeg failed",
       "localizations" : {
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filen kunne ikke konverteres"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Datei konnte nicht konvertiert werden"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Impossible de convertir le fichier"
           }
         },
         "es" : {
@@ -4470,28 +4470,34 @@
             "value" : "No se pudo convertir el archivo"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de convertir le fichier"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Impossibile convertire il file"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ファイルを変換できませんでした"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "파일을 변환할 수 없음"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bestand kan niet worden geconverteerd"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Filen kunne ikke konverteres"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Det gick inte att konvertera filen"
           }
         },
         "pl" : {
@@ -4506,22 +4512,16 @@
             "value" : "Не удалось конвертировать файл"
           }
         },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det gick inte att konvertera filen"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dosya dönüştürülemedi"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ファイルを変換できませんでした"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "파일을 변환할 수 없음"
           }
         },
         "zh-Hans" : {
@@ -4539,7 +4539,7 @@
       }
     },
     "Couldn't Open File" : {
-      "comment" : "Alert title shown when a file can't be opened",
+      "comment" : "Alert title shown when a file can't be opened\nAlert title shown when a file can't be played or converted\nTitle of the alert shown when a recent file could not be opened",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -5255,16 +5255,16 @@
     "Details" : {
       "comment" : "Label on the disclosure triangle revealing ffmpeg's error output",
       "localizations" : {
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detaljer"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Details"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Détails"
           }
         },
         "es" : {
@@ -5273,28 +5273,34 @@
             "value" : "Detalles"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Détails"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dettagli"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "詳細"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "세부사항"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Details"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Detaljer"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Detaljer"
           }
         },
         "pl" : {
@@ -5309,22 +5315,16 @@
             "value" : "Подробнее"
           }
         },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detaljer"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ayrıntılar"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "詳細"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "세부사항"
           }
         },
         "zh-Hans" : {
@@ -6482,16 +6482,16 @@
     "FFmpeg couldn't convert \"%@\"." : {
       "comment" : "Alert message shown when ffmpeg failed to convert a file",
       "localizations" : {
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FFmpeg kunne ikke konvertere \"%@\"."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "FFmpeg konnte \"%@\" nicht konvertieren."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "FFmpeg n'a pas pu convertir \"%@\"."
           }
         },
         "es" : {
@@ -6500,28 +6500,34 @@
             "value" : "FFmpeg no pudo convertir \"%@\"."
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FFmpeg n'a pas pu convertir \"%@\"."
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "FFmpeg non è riuscito a convertire \"%@\"."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FFmpeg は \"%@\" を変換できませんでした。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FFmpeg가 \"%@\"을(를) 변환하지 못했습니다."
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "FFmpeg kon \"%@\" niet converteren."
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "FFmpeg kunne ikke konvertere \"%@\"."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "FFmpeg kunde inte konvertera \"%@\"."
           }
         },
         "pl" : {
@@ -6536,22 +6542,16 @@
             "value" : "FFmpeg не удалось конвертировать \"%@\"."
           }
         },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FFmpeg kunde inte konvertera \"%@\"."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "FFmpeg \"%@\" dosyasını dönüştüremedi."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "FFmpeg は \"%@\" を変換できませんでした。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "FFmpeg가 \"%@\"을(를) 변환하지 못했습니다."
           }
         },
         "zh-Hans" : {
@@ -6714,16 +6714,16 @@
     "File Needs Conversion" : {
       "comment" : "Alert title shown when a file needs converting but ffmpeg is missing",
       "localizations" : {
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filen skal konverteres"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Datei muss konvertiert werden"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ce fichier doit être converti"
           }
         },
         "es" : {
@@ -6732,28 +6732,34 @@
             "value" : "El archivo necesita conversión"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce fichier doit être converti"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Il file deve essere convertito"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ファイルの変換が必要です"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "파일 변환 필요"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bestand moet worden geconverteerd"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Filen skal konverteres"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Filen måste konverteras"
           }
         },
         "pl" : {
@@ -6768,22 +6774,16 @@
             "value" : "Файл требует конвертации"
           }
         },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filen måste konverteras"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dosyanın dönüştürülmesi gerekiyor"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ファイルの変換が必要です"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "파일 변환 필요"
           }
         },
         "zh-Hans" : {
@@ -7514,16 +7514,16 @@
     "Front Row can convert this file so that it can play it. Install FFmpeg using Homebrew, then open the file again." : {
       "comment" : "Alert message shown when a file needs converting but ffmpeg is missing",
       "localizations" : {
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Front Row kan konvertere denne fil, så den kan afspilles. Installer FFmpeg med Homebrew, og åbn derefter filen igen."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Front Row kann diese Datei konvertieren, um sie abspielen zu können. Installiere FFmpeg mit Homebrew und öffne die Datei danach erneut."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Front Row peut convertir ce fichier afin de pouvoir le lire. Installez FFmpeg avec Homebrew, puis ouvrez à nouveau le fichier."
           }
         },
         "es" : {
@@ -7532,28 +7532,34 @@
             "value" : "Front Row puede convertir este archivo para poder reproducirlo. Instala FFmpeg con Homebrew y vuelve a abrir el archivo."
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Front Row peut convertir ce fichier afin de pouvoir le lire. Installez FFmpeg avec Homebrew, puis ouvrez à nouveau le fichier."
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Front Row può convertire questo file per poterlo riprodurre. Installa FFmpeg con Homebrew, quindi apri di nuovo il file."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Front Row はこのファイルを変換して再生できます。Homebrew で FFmpeg をインストールしてから、ファイルをもう一度開いてください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Front Row에서 이 파일을 변환하면 재생할 수 있습니다. Homebrew로 FFmpeg를 설치한 다음 파일을 다시 여십시오."
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Front Row kan dit bestand converteren zodat het kan worden afgespeeld. Installeer FFmpeg met Homebrew en open het bestand daarna opnieuw."
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Front Row kan konvertere denne fil, så den kan afspilles. Installer FFmpeg med Homebrew, og åbn derefter filen igen."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Front Row kan konvertera den här filen så att den kan spelas upp. Installera FFmpeg med Homebrew och öppna sedan filen igen."
           }
         },
         "pl" : {
@@ -7568,22 +7574,16 @@
             "value" : "Front Row может конвертировать этот файл, чтобы воспроизвести его. Установите FFmpeg с помощью Homebrew, затем откройте файл снова."
           }
         },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Front Row kan konvertera den här filen så att den kan spelas upp. Installera FFmpeg med Homebrew och öppna sedan filen igen."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Front Row bu dosyayı oynatabilmek için dönüştürebilir. Homebrew ile FFmpeg'i yükleyin, sonra dosyayı yeniden açın."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Front Row はこのファイルを変換して再生できます。Homebrew で FFmpeg をインストールしてから、ファイルをもう一度開いてください。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Front Row에서 이 파일을 변환하면 재생할 수 있습니다. Homebrew로 FFmpeg를 설치한 다음 파일을 다시 여십시오."
           }
         },
         "zh-Hans" : {
@@ -7603,16 +7603,16 @@
     "Front Row can open \"%@\" after it is converted." : {
       "comment" : "Alert message offering to convert a file into a format Front Row can play",
       "localizations" : {
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Front Row kan afspille \"%@\", når filen er konverteret."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Front Row kann \"%@\" nach der Konvertierung abspielen."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Front Row pourra lire \"%@\" après conversion."
           }
         },
         "es" : {
@@ -7621,28 +7621,34 @@
             "value" : "Front Row podrá reproducir \"%@\" después de convertirlo."
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Front Row pourra lire \"%@\" après conversion."
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Front Row può riprodurre \"%@\" dopo la conversione."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "変換すると、Front Row で \"%@\" を再生できます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "변환하면 Front Row에서 \"%@\"을(를) 재생할 수 있습니다."
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Front Row kan \"%@\" afspelen nadat het is geconverteerd."
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Front Row kan afspille \"%@\", når filen er konverteret."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Front Row kan spela upp \"%@\" när filen har konverterats."
           }
         },
         "pl" : {
@@ -7657,22 +7663,16 @@
             "value" : "Front Row сможет воспроизвести \"%@\" после конвертации."
           }
         },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Front Row kan spela upp \"%@\" när filen har konverterats."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Front Row, \"%@\" dosyasını dönüştürdükten sonra oynatabilir."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "変換すると、Front Row で \"%@\" を再生できます。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "변환하면 Front Row에서 \"%@\"을(를) 재생할 수 있습니다."
           }
         },
         "zh-Hans" : {
@@ -9661,16 +9661,16 @@
     "Install FFmpeg" : {
       "comment" : "Alert button that opens the Homebrew page for the ffmpeg formula",
       "localizations" : {
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installer FFmpeg"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "FFmpeg installieren"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Installer FFmpeg"
           }
         },
         "es" : {
@@ -9679,28 +9679,34 @@
             "value" : "Instalar FFmpeg"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installer FFmpeg"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Installa FFmpeg"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FFmpeg をインストール"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FFmpeg 설치"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Installeer FFmpeg"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Installer FFmpeg"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Installera FFmpeg"
           }
         },
         "pl" : {
@@ -9715,22 +9721,16 @@
             "value" : "Установить FFmpeg"
           }
         },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installera FFmpeg"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "FFmpeg'i Yükle"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "FFmpeg をインストール"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "FFmpeg 설치"
           }
         },
         "zh-Hans" : {
@@ -9750,16 +9750,16 @@
     "Install Homebrew" : {
       "comment" : "Alert button that opens the Homebrew website",
       "localizations" : {
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installer Homebrew"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Homebrew installieren"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Installer Homebrew"
           }
         },
         "es" : {
@@ -9768,28 +9768,34 @@
             "value" : "Instalar Homebrew"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installer Homebrew"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Installa Homebrew"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Homebrew をインストール"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Homebrew 설치"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Installeer Homebrew"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Installer Homebrew"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Installera Homebrew"
           }
         },
         "pl" : {
@@ -9804,22 +9810,16 @@
             "value" : "Установить Homebrew"
           }
         },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installera Homebrew"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Homebrew'u Yükle"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Homebrew をインストール"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Homebrew 설치"
           }
         },
         "zh-Hans" : {
@@ -9839,16 +9839,16 @@
     "Keep" : {
       "comment" : "Alert button that leaves the original file where it is",
       "localizations" : {
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Behold"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Behalten"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Conserver"
           }
         },
         "es" : {
@@ -9857,28 +9857,34 @@
             "value" : "Conservar"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conserver"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mantieni"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "残す"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "유지"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bewaar"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Behold"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Behåll"
           }
         },
         "pl" : {
@@ -9893,22 +9899,16 @@
             "value" : "Оставить"
           }
         },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Behåll"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sakla"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "残す"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "유지"
           }
         },
         "zh-Hans" : {
@@ -10927,16 +10927,16 @@
     "Move Original File to Trash?" : {
       "comment" : "Title of the alert asking what to do with a converted file's original",
       "localizations" : {
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flyt den oprindelige fil til papirkurven?"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Originaldatei in den Papierkorb legen?"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Placer le fichier d'origine dans la corbeille ?"
           }
         },
         "es" : {
@@ -10945,28 +10945,34 @@
             "value" : "¿Mover el archivo original a la papelera?"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Placer le fichier d'origine dans la corbeille ?"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Spostare il file originale nel Cestino?"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "元のファイルをゴミ箱に入れますか？"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "원본 파일을 휴지통으로 옮기시겠습니까?"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Origineel bestand naar prullenmand verplaatsen?"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Flyt den oprindelige fil til papirkurven?"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Flytta originalfilen till papperskorgen?"
           }
         },
         "pl" : {
@@ -10981,22 +10987,16 @@
             "value" : "Переместить оригинальный файл в Корзину?"
           }
         },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flytta originalfilen till papperskorgen?"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Özgün dosya çöp sepetine taşınsın mı?"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "元のファイルをゴミ箱に入れますか？"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "원본 파일을 휴지통으로 옮기시겠습니까?"
           }
         },
         "zh-Hans" : {
@@ -11016,16 +11016,16 @@
     "Move to Trash" : {
       "comment" : "Alert button that trashes the original file",
       "localizations" : {
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flyt til papirkurv"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "In den Papierkorb legen"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Placer dans la corbeille"
           }
         },
         "es" : {
@@ -11034,28 +11034,34 @@
             "value" : "Mover a la papelera"
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Placer dans la corbeille"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sposta nel Cestino"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ゴミ箱に入れる"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "휴지통으로 이동"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Verplaats naar prullenmand"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Flyt til papirkurv"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Flytta till papperskorgen"
           }
         },
         "pl" : {
@@ -11070,22 +11076,16 @@
             "value" : "Переместить в Корзину"
           }
         },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flytta till papperskorgen"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Çöp Sepetine Taşı"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ゴミ箱に入れる"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "휴지통으로 이동"
           }
         },
         "zh-Hans" : {
@@ -12529,7 +12529,7 @@
       }
     },
     "OK" : {
-      "comment" : "Dismisses the alert shown when a file couldn't be converted",
+      "comment" : "Dismisses the alert shown when a file couldn't be converted\nDismisses the alert shown when a recent file couldn't be opened",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -16358,16 +16358,16 @@
     "Subtitles will be dropped." : {
       "comment" : "Appended when subtitle tracks cannot survive the conversion",
       "localizations" : {
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Undertekster går tabt."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Untertitel gehen dabei verloren."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Les sous-titres seront supprimés."
           }
         },
         "es" : {
@@ -16376,28 +16376,34 @@
             "value" : "Se descartarán los subtítulos."
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les sous-titres seront supprimés."
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "I sottotitoli verranno rimossi."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "字幕は削除されます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "자막은 제거됩니다."
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ondertitels gaan verloren."
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Undertekster går tabt."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Undertexter tas bort."
           }
         },
         "pl" : {
@@ -16412,22 +16418,16 @@
             "value" : "Субтитры будут удалены."
           }
         },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Undertexter tas bort."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Altyazılar kaldırılacak."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "字幕は削除されます。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "자막은 제거됩니다."
           }
         },
         "zh-Hans" : {
