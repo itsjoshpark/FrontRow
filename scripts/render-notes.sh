@@ -2,7 +2,7 @@
 # Renders a Markdown release notes file as an HTML fragment on stdout, indented
 # to sit inside the appcast's <description> CDATA.
 #
-#   render-notes.sh .sparkle/notes/next.md  ->  <ul>\n<li>Added: …</li>\n</ul>
+#   render-notes.sh .sparkle/notes/next.md  ->  <ul>\n<li>New: …</li>\n</ul>
 #
 # cmark-gfm is GitHub's own Markdown implementation, so Sparkle's update dialog
 # shows what the GitHub release page shows.

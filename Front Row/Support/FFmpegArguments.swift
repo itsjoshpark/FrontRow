@@ -89,7 +89,10 @@ enum FFmpegArguments {
 
         arguments += [
             "-movflags", "+faststart",
-            "-y",
+            // Refuse rather than overwrite. The output name is already checked for collisions, so
+            // anything sitting there arrived in the moment since - someone else's file, not one of
+            // ours to replace.
+            "-n",
             output.path(percentEncoded: false),
         ]
 

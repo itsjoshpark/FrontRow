@@ -60,11 +60,13 @@ The MP4 is written next to the original. When it's done, Front Row asks whether 
 
 ### Can I convert the file myself instead?
 
-Yes — this is what Front Row runs, and it works fine by hand:
+Yes. Front Row builds a longer command than this — it maps each stream by index so that font attachments and other extras MKV can carry, which MP4 can't hold, are left behind. For most files the short version works by hand:
 
 ```
 ffmpeg -i ./input.mkv -map 0 -c copy -tag:v hvc1 ./output.mp4
 ```
+
+If that fails to mux, map the streams you actually want instead of `-map 0`, for example `-map 0:v:0 -map 0:a:0`.
 
 Note:
 

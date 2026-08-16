@@ -2668,7 +2668,7 @@
       }
     },
     "Cancel" : {
-      "comment" : "Alert button that declines converting a Matroska file\nButton that stops a conversion that is running\nDismisses the alert shown when ffmpeg isn't installed",
+      "comment" : "Alert button that declines converting a Matroska file",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -4450,7 +4450,7 @@
       }
     },
     "Couldn't Open File" : {
-      "comment" : "Alert title shown when a file can't be opened\nAlert title shown when a file can't be played or converted\nTitle of the alert shown when a recent file could not be opened",
+      "comment" : "Alert title shown when a file can't be opened",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -12440,7 +12440,7 @@
       }
     },
     "OK" : {
-      "comment" : "Dismisses the alert shown when a file couldn't be converted\nDismisses the alert shown when a recent file couldn't be opened",
+      "comment" : "Dismisses the alert shown when a file couldn't be converted",
       "localizations" : {
         "ar" : {
           "stringUnit" : {

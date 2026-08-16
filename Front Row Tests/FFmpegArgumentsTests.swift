@@ -107,6 +107,19 @@ struct FFmpegArgumentsTests {
         #expect(arguments.last == "/Movies/film.mp4")
     }
 
+    /// The output name is checked for collisions before ffmpeg runs, so a file appearing at that
+    /// path in the meantime belongs to someone else. Refuse it rather than overwrite it.
+    @Test
+    func anExistingOutputIsNeverOverwritten() {
+        let arguments = arguments(
+            RemuxRecipe(
+                videoIndex: 0, videoTag: nil, audio: [], subtitleIndices: [], droppedSubtitles: [])
+        )
+
+        #expect(arguments.contains("-n"))
+        #expect(!arguments.contains("-y"))
+    }
+
     /// ffprobe has to be asked for JSON, for the fields the planner reads, and for the duration
     /// the progress percentage is worked out from.
     @Test
