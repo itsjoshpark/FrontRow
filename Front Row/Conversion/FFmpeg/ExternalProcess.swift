@@ -56,17 +56,3 @@ enum ExternalProcess {
         }.value
     }
 }
-
-/// Collects pipe output arriving on Foundation's reader queue.
-final class DataBuffer: @unchecked Sendable {
-    private let lock = NSLock()
-    private var data = Data()
-
-    func append(_ newData: Data) {
-        lock.withLock { data.append(newData) }
-    }
-
-    var value: Data {
-        lock.withLock { data }
-    }
-}

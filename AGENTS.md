@@ -19,7 +19,7 @@ swift-format format -p -r -i ./
 - Do not introduce third-party frameworks without asking first.
 - Group source files by feature, not by layer. A feature folder holds its models and its views together.
 - A feature that outgrows one folder splits by kind into `Models/`, `Views/`, and any domain subfolder it needs (`Conversion/FFmpeg/`). Small features stay flat.
-- The root `UI/` and `Models/` folders are only for types used by two or more features. `Main Menu/` and `FrontRowApp` consume everything, so they don't count toward that test.
+- The root `UI/` and `Models/` folders are only for types used by two or more features. `Main Menu/` and `FrontRowApp` consume everything, so neither justifies a promotion on its own — they count only alongside a second feature.
 
 ## Code
 
