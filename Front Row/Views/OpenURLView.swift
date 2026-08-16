@@ -51,7 +51,11 @@ struct OpenURLView: View {
                         return
                     }
                     displayLoading = true
-                    guard await openFileAndPresent(url: url) == .opened else {
+                    // A local Matroska URL is handed to the converter, which raises its own alerts
+                    // from here. Treating that as a failure would flag the field and hold this
+                    // sheet open underneath them.
+                    let result = await openFileAndPresent(url: url)
+                    guard result == .opened || result == .handedToConverter else {
                         withAnimation {
                             displayLoading = false
                             displayError = true

@@ -13,7 +13,7 @@ and shown in Sparkle's update dialog. So write for users rather than summarizing
 commits:
 
 ```markdown
-- Added: Something people asked for
+- New: Something people asked for
 - Fixed: Something that was broken
 
 **Note**: Anything worth calling out before updating.

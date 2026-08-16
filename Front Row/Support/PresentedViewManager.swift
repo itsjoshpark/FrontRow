@@ -21,7 +21,15 @@ import SwiftUI
     /// Setting this presents an alert. It's set back to `nil` once the alert is dismissed.
     var unopenableRecentFile: UnopenableRecentFile?
 
+    /// Whatever stage of a conversion is asking the user something.
+    var remuxAlert: RemuxAlert?
+
+    /// Whether a conversion is running. The sheet reporting on it belongs to AppKit, so this is
+    /// only here to keep playback commands disabled while it's up.
+    var isConverting = false
+
     var isPresenting: Bool {
         isPresentingOpenURLView || isPresentingGoToTimeView || unopenableRecentFile != nil
+            || remuxAlert != nil || isConverting
     }
 }

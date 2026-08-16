@@ -14,7 +14,7 @@ extension View {
         onDrop(
             of: [.fileURL],
             delegate: AnyDropDelegate(
-                onValidate: { $0.hasItemsConforming(to: PlayEngine.supportedFileTypes) },
+                onValidate: { $0.hasItemsConforming(to: PlayEngine.openableFileTypes) },
                 onPerform: { info in
                     guard let provider = info.itemProviders(for: [.fileURL]).first else {
                         return false

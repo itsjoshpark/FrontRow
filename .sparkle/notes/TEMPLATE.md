@@ -1,3 +1,3 @@
-- Added:
+- New:
 - Changed:
 - Fixed:
