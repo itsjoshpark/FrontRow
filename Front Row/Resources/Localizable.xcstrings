@@ -439,6 +439,18 @@
     "\"%@\" isn't a format Front Row can play. The file may be damaged or incomplete." : {
       "comment" : "Alert message shown when a file could not be read at all",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ليس تنسيق الصف الأمامي يمكن تشغيله. قد يكون الملف تالفا أو غير مكتمل."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" není ve formátu Přední řádky. Soubor může být poškozen nebo neúplný."
+          }
+        },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
@@ -451,16 +463,40 @@
             "value" : "\"%@\" ist kein Format, das Front Row abspielen kann. Die Datei ist möglicherweise beschädigt oder unvollständig."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" δεν είναι μια μορφή που μπορεί να παίξει η μπροστινή γραμμή. Το αρχείο μπορεί να είναι κατεστραμμένο ή ελλιπές."
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" no es un formato que Front Row pueda reproducir. Puede que el archivo esté dañado o incompleto."
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" ei ole muoto Front Row voi pelata. Tiedosto voi olla vahingoittunut tai epätäydellinen."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" n'est pas un format que Front Row peut lire. Le fichier est peut-être endommagé ou incomplet."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play. The file may be damaged or incomplete."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play. The file may be damaged or incomplete."
           }
         },
         "it" : {
@@ -493,6 +529,12 @@
             "value" : "\"%@\" nie jest formatem, który Front Row może odtworzyć. Plik może być uszkodzony lub niekompletny."
           }
         },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" nu este un format din Rând Front care poate fi jucat. Fişierul poate fi deteriorat sau incomplet."
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -509,6 +551,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" isn't a format Front Row can play. Dosya hasarlı veya eksik olabilir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" не може програвати формат переднього рядка. Файл може бути пошкоджений або неповним."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play. The file may be damaged or incomplete."
           }
         },
         "zh-Hans" : {
@@ -528,6 +582,18 @@
     "\"%@\" was converted to \"%@\". The original file isn't needed anymore and can be moved to trash." : {
       "comment" : "Alert message shown after a file has been converted",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" تم تحويلها إلى \"%@\". الملف الأصلي لم يعد مطلوباً ويمكن نقله إلى سلة المهملات."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" byl převeden na \"%@\". Původní soubor již není potřebný a lze jej přesunout do koše."
+          }
+        },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
@@ -540,16 +606,40 @@
             "value" : "\"%@\" wurde in \"%@\" konvertiert. Die Originaldatei wird nicht mehr benötigt und kann in den Papierkorb gelegt werden."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" μετατράπηκε σε \"%@\". Το αρχικό αρχείο δεν χρειάζεται πλέον και μπορεί να μετακινηθεί σε σκουπίδια."
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" se convirtió en \"%@\". El archivo original ya no es necesario y se puede mover a la papelera."
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" muunnettiin muotoon \"%@\". Alkuperäistä tiedostoa ei enää tarvita ja se voidaan siirtää roskakoriin."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" a été converti en \"%@\". Le fichier d'origine n'est plus nécessaire et peut être placé dans la corbeille."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" was converted to \"%@\". The original file isn't needed anymore and can be moved to trash."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" was converted to \"%@\". The original file isn't needed anymore and can be moved to trash."
           }
         },
         "it" : {
@@ -582,6 +672,12 @@
             "value" : "\"%@\" został przekonwertowany na \"%@\". Oryginalny plik nie jest już potrzebny i można go przenieść do Kosza."
           }
         },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" a fost convertit în \"%@\". Fişierul original nu mai este necesar şi poate fi mutat la gunoi."
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -598,6 +694,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" dosyası \"%@\" olarak dönüştürüldü. Özgün dosya artık gerekli değil ve çöp sepetine taşınabilir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" було перетворено на%@\". Оригінальний файл більше не потрібен і можна перемістити в кошик."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" was converted to \"%@\". The original file isn't needed anymore and can be moved to trash."
           }
         },
         "zh-Hans" : {
@@ -4042,6 +4150,18 @@
     "Convert" : {
       "comment" : "Alert button that starts converting a Matroska file",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحويل"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Převést"
+          }
+        },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4054,16 +4174,40 @@
             "value" : "Konvertieren"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μετατροπή"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Convertir"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muunna"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Convertir"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Convert"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Convert"
           }
         },
         "it" : {
@@ -4096,6 +4240,12 @@
             "value" : "Konwertuj"
           }
         },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Convertește"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4112,6 +4262,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dönüştür"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Конвертувати"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Convert"
           }
         },
         "zh-Hans" : {
@@ -4131,6 +4293,18 @@
     "Convert File?" : {
       "comment" : "Title of the alert offering to convert a Matroska file",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحويل الملف؟"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Převést soubor?"
+          }
+        },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4143,16 +4317,40 @@
             "value" : "Datei konvertieren?"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μετατροπή Αρχείου?"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "¿Convertir el archivo?"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muunna Tiedosto?"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Convertir le fichier ?"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Convert File?"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Convert File?"
           }
         },
         "it" : {
@@ -4185,6 +4383,12 @@
             "value" : "Przekonwertować plik?"
           }
         },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Convertește fișierul?"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4201,6 +4405,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dosya dönüştürülsün mü?"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Конвертувати файл?"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Convert File?"
           }
         },
         "zh-Hans" : {
@@ -4220,6 +4436,18 @@
     "Converting \"%@\"" : {
       "comment" : "Title of the sheet shown while a file is being converted",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحويل \"%@\""
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Převod \"%@\""
+          }
+        },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4232,16 +4460,40 @@
             "value" : "\"%@\" wird konvertiert"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μετατροπή \"%@\""
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Convirtiendo \"%@\""
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muunnetaan \"%@\""
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Conversion de \"%@\""
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Converting \"%@\""
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Converting \"%@\""
           }
         },
         "it" : {
@@ -4274,6 +4526,12 @@
             "value" : "Konwertowanie \"%@\""
           }
         },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conversia \"%@\""
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4290,6 +4548,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" dönüştürülüyor"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Converting \"%@\""
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Converting \"%@\""
           }
         },
         "zh-Hans" : {
@@ -4452,6 +4722,18 @@
     "Couldn't Convert File" : {
       "comment" : "Alert title shown when ffmpeg failed",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعذر تحويل الملف"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Převést soubor se nezdařilo"
+          }
+        },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4464,16 +4746,40 @@
             "value" : "Datei konnte nicht konvertiert werden"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αδυναμία Μετατροπής Αρχείου"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "No se pudo convertir el archivo"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiedostoa Ei Muunnettu"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Impossible de convertir le fichier"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Couldn't Convert File"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Couldn't Convert File"
           }
         },
         "it" : {
@@ -4506,6 +4812,12 @@
             "value" : "Nie można przekonwertować pliku"
           }
         },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nu s-a putut converti fișierul"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4522,6 +4834,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dosya dönüştürülemedi"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не вдалося перетворити файл"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Couldn't Convert File"
           }
         },
         "zh-Hans" : {
@@ -5255,6 +5579,18 @@
     "Details" : {
       "comment" : "Label on the disclosure triangle revealing ffmpeg's error output",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التفاصيل"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detaily"
+          }
+        },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5267,16 +5603,40 @@
             "value" : "Details"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Λεπτομέρειες"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Detalles"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yksityiskohdat"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Détails"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Details"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Details"
           }
         },
         "it" : {
@@ -5300,13 +5660,19 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Details"
+            "value" : "Beschrijving"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Szczegóły"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detalii"
           }
         },
         "ru" : {
@@ -5325,6 +5691,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ayrıntılar"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Подробиці"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Details"
           }
         },
         "zh-Hans" : {
@@ -6482,6 +6860,18 @@
     "FFmpeg couldn't convert \"%@\"." : {
       "comment" : "Alert message shown when ffmpeg failed to convert a file",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعذر تحويل FFmpeg \"%@\"."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FFmpeg nemohl převést \"%@\"."
+          }
+        },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6494,16 +6884,40 @@
             "value" : "FFmpeg konnte \"%@\" nicht konvertieren."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το FFmpeg δεν μπορούσε να μετατρέψει το \"%@\"."
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "FFmpeg no pudo convertir \"%@\"."
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FFmpeg ei voinut muuntaa \"%@\"."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "FFmpeg n'a pas pu convertir \"%@\"."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "FFmpeg couldn't convert \"%@\"."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "FFmpeg couldn't convert \"%@\"."
           }
         },
         "it" : {
@@ -6536,6 +6950,12 @@
             "value" : "FFmpeg nie mógł przekonwertować \"%@\"."
           }
         },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FFmpeg nu a putut converti \"%@\"."
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6552,6 +6972,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "FFmpeg \"%@\" dosyasını dönüştüremedi."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FFmpeg не вдалося конвертувати\"%@\"."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "FFmpeg couldn't convert \"%@\"."
           }
         },
         "zh-Hans" : {
@@ -6714,6 +7146,18 @@
     "File Needs Conversion" : {
       "comment" : "Alert title shown when a file needs converting but ffmpeg is missing",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يحتاج الملف إلى التحويل"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soubor vyžaduje převod"
+          }
+        },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6726,16 +7170,40 @@
             "value" : "Datei muss konvertiert werden"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το Αρχείο Χρειάζεται Μετατροπή"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "El archivo necesita conversión"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiedosto Tarvitsee Muunnoksen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ce fichier doit être converti"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "File Needs Conversion"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "File Needs Conversion"
           }
         },
         "it" : {
@@ -6768,6 +7236,12 @@
             "value" : "Plik wymaga konwersji"
           }
         },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fişierul are nevoie de conversia"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6784,6 +7258,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dosyanın dönüştürülmesi gerekiyor"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Файл потребує перетворення"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "File Needs Conversion"
           }
         },
         "zh-Hans" : {
@@ -7514,6 +8000,18 @@
     "Front Row can convert this file so that it can play it. Install FFmpeg using Homebrew, then open the file again." : {
       "comment" : "Alert message shown when a file needs converting but ffmpeg is missing",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يمكن للصف الأمامي تحويل هذا الملف ليتمكن من تشغيله. قم بتثبيت FFmpeg باستخدام Homebrew، ثم قم بفتح الملف مرة أخرى."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přední řádek může převést tento soubor, aby jej mohl přehrát. Nainstalujte FFmpeg pomocí Homebrew, poté soubor znovu otevřete."
+          }
+        },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7526,16 +8024,40 @@
             "value" : "Front Row kann diese Datei konvertieren, um sie abspielen zu können. Installiere FFmpeg mit Homebrew und öffne die Datei danach erneut."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Εμπρός γραμμή μπορεί να μετατρέψει αυτό το αρχείο, έτσι ώστε να μπορεί να το παίξει. Εγκαταστήστε FFmpeg χρησιμοποιώντας Homebrew, στη συνέχεια, ανοίξτε το αρχείο και πάλι."
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Front Row puede convertir este archivo para poder reproducirlo. Instala FFmpeg con Homebrew y vuelve a abrir el archivo."
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Front Row voi muuntaa tämän tiedoston, jotta se voi toistaa sen. Asenna FFmpeg Homebrew, ja avaa tiedosto uudelleen."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Front Row peut convertir ce fichier afin de pouvoir le lire. Installez FFmpeg avec Homebrew, puis ouvrez à nouveau le fichier."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Front Row can convert this file so that it can play it. Install FFmpeg using Homebrew, then open the file again."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Front Row can convert this file so that it can play it. Install FFmpeg using Homebrew, then open the file again."
           }
         },
         "it" : {
@@ -7568,6 +8090,12 @@
             "value" : "Front Row może przekonwertować ten plik, aby móc go odtworzyć. Zainstaluj FFmpeg za pomocą Homebrew, a następnie otwórz plik ponownie."
           }
         },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rând frontal poate converti acest fișier astfel încât să poată fi redat. Instalați FFmpeg folosind Homebrew, apoi deschideți fișierul din nou."
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7584,6 +8112,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Front Row bu dosyayı oynatabilmek için dönüştürebilir. Homebrew ile FFmpeg'i yükleyin, sonra dosyayı yeniden açın."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Передній рядок може конвертувати цей файл, щоб він міг його відтворити. Встановіть FFmpeg за допомогою Homebrew, а потім відкрийте файл знову."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Front Row can convert this file so that it can play it. Install FFmpeg using Homebrew, then open the file again."
           }
         },
         "zh-Hans" : {
@@ -7603,6 +8143,18 @@
     "Front Row can open \"%@\" after it is converted." : {
       "comment" : "Alert message offering to convert a file into a format Front Row can play",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يمكن فتح الصف الأمامي \"%@\" بعد تحويله."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přední řádek může být otevřen \"%@\" po převedení."
+          }
+        },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7615,16 +8167,40 @@
             "value" : "Front Row kann \"%@\" nach der Konvertierung abspielen."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μπροστινή γραμμή μπορεί να ανοίξει \"%@\" αφού μεταστραφεί."
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Front Row podrá reproducir \"%@\" después de convertirlo."
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eturivi voi avata \"%@\" sen jälkeen kun se on muunnettu."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Front Row pourra lire \"%@\" après conversion."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Front Row can open \"%@\" after it is converted."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Front Row can open \"%@\" after it is converted."
           }
         },
         "it" : {
@@ -7657,6 +8233,12 @@
             "value" : "Front Row będzie mógł odtworzyć \"%@\" po konwersji."
           }
         },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rând din față se poate deschide \"%@\" după ce este convertit."
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7673,6 +8255,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Front Row, \"%@\" dosyasını dönüştürdükten sonra oynatabilir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Передній рядок може відкрити \"%@\", після його перетворення."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Front Row can open \"%@\" after it is converted."
           }
         },
         "zh-Hans" : {
@@ -8974,115 +9568,139 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "إخفاء المفتش"
           }
         },
         "cs" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Skrýt Inspektor"
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Skjul Inspektør"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Inspektor ausblenden"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Απόκρυψη Επιθεωρητή"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Ocultar Inspector"
           }
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Piilota tarkastaja"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Masquer l'inspecteur"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Inspector"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Inspector"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Nascondi Ispettore"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "インスペクタを非表示"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "인스펙터 가리기"
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Inspecteur verbergen"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Ukryj Inspektor"
           }
         },
         "ro" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Ascunde inspectorul"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Скрыть Инспектор"
           }
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Dölj Inspektör"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Inspector"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Приховати Інспектор"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Inspector"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "隐藏检查器"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "隱藏檢閱器"
           }
         }
@@ -9661,6 +10279,18 @@
     "Install FFmpeg" : {
       "comment" : "Alert button that opens the Homebrew page for the ffmpeg formula",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install FFmpeg"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install FFmpeg"
+          }
+        },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9673,16 +10303,40 @@
             "value" : "FFmpeg installieren"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install FFmpeg"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Instalar FFmpeg"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install FFmpeg"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Installer FFmpeg"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Install FFmpeg"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Install FFmpeg"
           }
         },
         "it" : {
@@ -9715,6 +10369,12 @@
             "value" : "Zainstaluj FFmpeg"
           }
         },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install FFmpeg"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9731,6 +10391,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "FFmpeg'i Yükle"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Install FFmpeg"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Install FFmpeg"
           }
         },
         "zh-Hans" : {
@@ -9750,6 +10422,18 @@
     "Install Homebrew" : {
       "comment" : "Alert button that opens the Homebrew website",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تثبيت Homebrew"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nainstalovat Homebrew"
+          }
+        },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9762,16 +10446,40 @@
             "value" : "Homebrew installieren"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Εγκατάσταση Homebrew"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Instalar Homebrew"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asenna Homebrew"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Installer Homebrew"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Install Homebrew"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Install Homebrew"
           }
         },
         "it" : {
@@ -9804,6 +10512,12 @@
             "value" : "Zainstaluj Homebrew"
           }
         },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instalați Homebrew"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9820,6 +10534,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Homebrew'u Yükle"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Встановити Homebrew"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Install Homebrew"
           }
         },
         "zh-Hans" : {
@@ -9839,6 +10565,18 @@
     "Keep" : {
       "comment" : "Alert button that leaves the original file where it is",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "احتفظ"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zachovat"
+          }
+        },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9851,16 +10589,40 @@
             "value" : "Behalten"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Διατήρηση"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Conservar"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Säilytä"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Conserver"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Keep"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Keep"
           }
         },
         "it" : {
@@ -9893,6 +10655,12 @@
             "value" : "Zachowaj"
           }
         },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Păstrați"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9909,6 +10677,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sakla"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Донжон"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Keep"
           }
         },
         "zh-Hans" : {
@@ -10927,6 +11707,18 @@
     "Move Original File to Trash?" : {
       "comment" : "Title of the alert asking what to do with a converted file's original",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نقل الملف الأصلي إلى سلة المهملات؟"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přesunout původní soubor do koše?"
+          }
+        },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10939,16 +11731,40 @@
             "value" : "Originaldatei in den Papierkorb legen?"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μετακίνηση αρχικού αρχείου στον κάδο απορριμμάτων?"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "¿Mover el archivo original a la papelera?"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siirrä alkuperäinen tiedosto roskakoriin?"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Placer le fichier d'origine dans la corbeille ?"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move Original File to Trash?"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move Original File to Trash?"
           }
         },
         "it" : {
@@ -10981,6 +11797,12 @@
             "value" : "Przenieść oryginalny plik do Kosza?"
           }
         },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mutați fișierul original în coșul de gunoi?"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10997,6 +11819,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Özgün dosya çöp sepetine taşınsın mı?"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перемістити оригінальний файл в кошик?"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move Original File to Trash?"
           }
         },
         "zh-Hans" : {
@@ -11016,6 +11850,18 @@
     "Move to Trash" : {
       "comment" : "Alert button that trashes the original file",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الانتقال إلى سلة المهملات"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přesunout do koše"
+          }
+        },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11028,16 +11874,40 @@
             "value" : "In den Papierkorb legen"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μετακίνηση στον κάδο απορριμμάτων"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mover a la papelera"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siirrä roskakoriin"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Placer dans la corbeille"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move to Trash"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move to Trash"
           }
         },
         "it" : {
@@ -11070,6 +11940,12 @@
             "value" : "Przenieś do Kosza"
           }
         },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mutare în «Gunoi»"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11086,6 +11962,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Çöp Sepetine Taşı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перемістити у Кошик"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move to Trash"
           }
         },
         "zh-Hans" : {
@@ -15384,115 +16272,139 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "إظهار المفتش"
           }
         },
         "cs" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Zobrazit Inspektor"
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Vis Inspektør"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Inspektor einblenden"
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Εμφάνιση Επιθεωρητή"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Mostrar Inspector"
           }
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Näytä tarkastaja"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Afficher l'inspecteur"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Inspector"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Inspector"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Mostra Ispettore"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "インスペクタを表示"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "인스펙터 보기"
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Inspecteur tonen"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Pokaż Inspektor"
           }
         },
         "ro" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Arată inspectorul"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Показать Инспектор"
           }
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Visa Inspektör"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Inspector"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Показати Інспектор"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Inspector"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "显示检查器"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "顯示檢閱器"
           }
         }
@@ -16358,6 +17270,18 @@
     "Subtitles will be dropped." : {
       "comment" : "Appended when subtitle tracks cannot survive the conversion",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سيتم إسقاط الترجمة."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Titulky budou vypuštěny."
+          }
+        },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
@@ -16370,16 +17294,40 @@
             "value" : "Untertitel gehen dabei verloren."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι υπότιτλοι θα απορριφθούν."
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Se descartarán los subtítulos."
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tekstitykset poistetaan."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Les sous-titres seront supprimés."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Subtitles will be dropped."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Subtitles will be dropped."
           }
         },
         "it" : {
@@ -16412,6 +17360,12 @@
             "value" : "Napisy zostaną usunięte."
           }
         },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subtitrările vor fi scăpate."
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -16428,6 +17382,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Altyazılar kaldırılacak."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Субтитри будуть видалені."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Subtitles will be dropped."
           }
         },
         "zh-Hans" : {
