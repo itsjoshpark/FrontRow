@@ -89,14 +89,10 @@
 			<string>Matroska Video</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<!-- Alternate, not Default: Front Row converts these rather than playing them, so a
-			     player that opens Matroska directly deserves to stay the handler. -->
 			<key>LSHandlerRank</key>
 			<string>Alternate</string>
 		</dict>
 	</array>
-	<!-- Matroska has no system-declared type, so without this the extension resolves to whatever
-	     other app happens to claim it, or to a dynamic identifier where none does. -->
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
