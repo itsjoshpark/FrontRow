@@ -19,8 +19,8 @@ struct BookmarkMetadata: Equatable {
 }
 
 /// Wraps security-scoped bookmark creation/resolution so `RecentDocumentsStore` can be tested
-/// without the macOS App Sandbox's real user-selected-file grants, which a test process can't
-/// obtain or exercise deterministically.
+/// against real files without depending on bookmarks resolving the same way in a test process as
+/// they do in the app.
 protocol BookmarkProviding {
     /// Creates bookmark data for `url`. `url` must currently have active security-scoped access.
     func bookmarkData(for url: URL) -> Data?

@@ -19,12 +19,14 @@ enum AlertScene {
 
     /// The scene to present in right now.
     ///
-    /// Keyed on whether the player window exists rather than on which window is frontmost.
-    /// `presentMainWindow()` dismisses the welcome window and nothing reopens it, so once the
-    /// player scene exists it's the only target left.
+    /// Keyed on which windows exist rather than on which is frontmost. `presentMainWindow()`
+    /// dismisses the welcome window and nothing reopens it, so once the player scene exists it's
+    /// the only target left - and launching the app by opening a file skips the welcome window
+    /// entirely, which would otherwise be named as the host of an alert nothing can show.
     @MainActor
     static var current: AlertScene {
-        WindowController.shared.mainWindow == nil ? .welcome : .player
+        guard WelcomeWindowCoordinator.shared.welcomeWindow != nil else { return .player }
+        return WindowController.shared.mainWindow == nil ? .welcome : .player
     }
 }
 
@@ -62,7 +64,7 @@ enum UnopenableRecentFileAlert: Equatable {
         switch file.result {
         case .unplayable:
             self = .unplayable
-        case .unreadable, .opened:
+        case .unreadable, .opened, .handedToConverter:
             if let volumeName = file.unavailableVolumeName {
                 self = .volumeOffline(volumeName: volumeName)
             } else {
@@ -209,10 +211,7 @@ private struct AlertMessage: View {
                 comment: "Alert message shown when a recent file can no longer be found"
             )
         case .unplayable:
-            Text(
-                "\"\(name)\" isn't a format Front Row can play.",
-                comment: "Alert message shown when a recent file exists but cannot be decoded"
-            )
+            Text(UnplayableFileMessage.text(for: file.url))
         }
     }
 }

@@ -40,6 +40,7 @@ struct ContentView: View {
             Color.black.ignoresSafeArea()
         }
         .unopenableRecentFileAlert(in: .player)
+        .mediaConversionPresentation(in: .player)
         .onAppear {
             chrome.mouseMoved()
         }

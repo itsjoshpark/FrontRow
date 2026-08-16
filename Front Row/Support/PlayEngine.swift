@@ -14,6 +14,7 @@ import SwiftUI
 
     static let shared = PlayEngine()
 
+    /// Containers AVFoundation opens directly.
     static let supportedFileTypes: [UTType] = [
         .mp3,
         .mpeg2TransportStream,
@@ -22,6 +23,26 @@ import SwiftUI
         .quickTimeMovie,
         .wav,
     ]
+
+    /// Containers Front Row can't play, but can convert into one it can.
+    static let convertibleFileExtensions: Set<String> = ["mkv"]
+
+    /// The content types those extensions resolve to on this Mac.
+    ///
+    /// Looked up rather than named outright: Matroska has no system-declared type, so what `mkv`
+    /// maps to depends on what else is installed. Asking LaunchServices is what keeps the Open
+    /// panel and drag and drop agreeing with the Finder about the same file.
+    static let convertibleFileTypes: [UTType] = convertibleFileExtensions.compactMap {
+        UTType(filenameExtension: $0)
+    }
+
+    /// Everything the Open panel and drag and drop accept.
+    static let openableFileTypes: [UTType] = supportedFileTypes + convertibleFileTypes
+
+    /// Whether opening this file means converting it first.
+    static func isConvertible(_ url: URL) -> Bool {
+        url.isFileURL && convertibleFileExtensions.contains(url.pathExtension.lowercased())
+    }
 
     /// How often (in seconds of playback) the current position is saved while playing.
     private static let periodicPositionSaveInterval: TimeInterval = 5

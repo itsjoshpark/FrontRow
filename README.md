@@ -39,7 +39,28 @@ I created Front Row to play those rare video files that are in HDR and/or multic
 
 ### Help! My video file is in MKV and doesn't open with Front Row
 
-As Front Row is based on AVKit (which is what QuickTime Player uses), it can't directly open MKV files. However MKV is a container format and it usually contains Apple supported streams such as MPEG-4 video with AAC audio. If so, you can remux the file into an MP4 file using `ffmpeg`.
+Just open it — Front Row offers to convert it for you.
+
+As Front Row is based on AVKit (which is what QuickTime Player uses), it can't directly open MKV files. However MKV is a container format and it usually contains Apple supported streams such as MPEG-4 video with AAC audio. When that's the case, only the container needs changing, and Front Row will offer to do it.
+
+This needs [`ffmpeg`](https://ffmpeg.org/download.html) installed:
+
+```
+brew install ffmpeg
+```
+
+Open an MKV file and Front Row checks what's inside it, then offers to convert:
+
+- If the video and audio are both formats it can play, they're copied into an MP4 as they are — nothing is re-encoded, and it takes a few seconds
+- If only the audio is unsupported (DTS, TrueHD, FLAC, Opus), the video is still copied and just the audio is re-encoded to AAC
+- Text subtitles come along as `mov_text`. Bitmap subtitles (Blu-ray, DVD) can't be stored in an MP4, and the dialog warns you before you start
+- If the video itself can't be decoded (VP9, for example), Front Row says the file isn't a format it can play rather than making you a file that won't open
+
+The MP4 is written next to the original. When it's done, Front Row asks whether to move the MKV to the Trash, then starts playing.
+
+### Can I convert the file myself instead?
+
+Yes — this is what Front Row runs, and it works fine by hand:
 
 ```
 ffmpeg -i ./input.mkv -map 0 -c copy -tag:v hvc1 ./output.mp4
@@ -50,18 +71,11 @@ Note:
 - Add `-c:s mov_text` after `-c copy` if there are built in subtitles
 - Use `-tag:v hvc1` for video streams encoded in H265. Use `-tag:v avc1` instead for H264
 
-### I followed the steps above but don't hear any audio
-
-The audio stream is in a codec that is not natively supported by Apple. You'll need to transcode the audio stream into a supported format.
+If you don't hear any audio afterwards, the audio stream is in a codec that is not natively supported by Apple, and needs transcoding into a supported one:
 
 ```
 ffmpeg -i ./input.mkv -map 0 -c copy -c:a aac_at -b:a 448k -tag:v hvc1 ./output.mp4
 ```
-
-Note:
-
-- Add `-c:s mov_text` after `-c copy` if there are built in subtitles
-- Use `-tag:v hvc1` for video streams encoded in H265. Use `-tag:v avc1` instead for H264
 
 ### This is too complicated for me, what's `ffmpeg` anyway?
 

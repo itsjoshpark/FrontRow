@@ -98,6 +98,7 @@ struct WelcomeView: View {
                 window.isMovableByWindowBackground = true
                 window.isOpaque = false
                 window.backgroundColor = .clear
+                WelcomeWindowCoordinator.shared.welcomeWindow = window
             }
         )
         .mediaFileDropDestination()
@@ -106,12 +107,14 @@ struct WelcomeView: View {
                 .frame(minWidth: 600)
         }
         .unopenableRecentFileAlert(in: .welcome)
+        .mediaConversionPresentation(in: .welcome)
         .task {
             WelcomeWindowCoordinator.shared.openMainWindow = { openWindow(id: WindowID.main) }
             WelcomeWindowCoordinator.shared.dismissWelcomeWindow = {
                 dismissWindow(id: WindowID.welcome)
             }
         }
+        .onDisappear { WelcomeWindowCoordinator.shared.welcomeWindow = nil }
     }
 }
 

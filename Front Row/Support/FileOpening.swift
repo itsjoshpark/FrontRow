@@ -18,13 +18,16 @@ enum FileOpenResult {
     case unreadable
     /// The file was read, but it isn't a format that can be played.
     case unplayable
+    /// The file is in a container AVFoundation can't open, and `MediaConversion` has taken it from
+    /// here. It raises its own alerts, so callers should say nothing further.
+    case handedToConverter
 }
 
 /// Presents the Open File panel and returns the user's chosen URL, or `nil` if they canceled.
 @MainActor
 func presentOpenFilePanel() async -> URL? {
     let panel = NSOpenPanel()
-    panel.allowedContentTypes = PlayEngine.supportedFileTypes
+    panel.allowedContentTypes = PlayEngine.openableFileTypes
     panel.allowsMultipleSelection = false
     panel.canChooseDirectories = false
     panel.canChooseFiles = true
@@ -56,6 +59,13 @@ func showOpenFileDialog() async {
 @MainActor
 @discardableResult
 func openFileAndPresent(url: URL) async -> FileOpenResult {
+    // Handled before AVFoundation is asked, which would only fail: Matroska has to become an MP4
+    // before there is anything to play or to note in recents.
+    if PlayEngine.isConvertible(url) {
+        await MediaConversion.offerConversion(of: url)
+        return .handedToConverter
+    }
+
     let result = await PlayEngine.shared.openFile(url: url)
     guard result == .opened else { return result }
 
@@ -73,7 +83,8 @@ func openFileAndPresent(url: URL) async -> FileOpenResult {
 @MainActor
 func openRecentDocumentAndPresent(url: URL) async {
     let result = await openFileAndPresent(url: url)
-    guard result != .opened else { return }
+    // The converter explains itself, so a second alert here would only talk over it.
+    guard result != .opened, result != .handedToConverter else { return }
 
     PresentedViewManager.shared.unopenableRecentFile = UnopenableRecentFile(
         url: url,

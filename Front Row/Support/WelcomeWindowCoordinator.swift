@@ -34,6 +34,13 @@ final class WelcomeWindowCoordinator {
         didSet { flushPendingPresentIfNeeded() }
     }
 
+    /// The welcome window, while it's on screen.
+    ///
+    /// It usually is at launch, but not always: opening the app by double-clicking a file goes
+    /// straight past it. Anything looking for a window to hang an alert or a sheet from has to
+    /// know that, and a sheet needs the window itself rather than just the fact of it.
+    weak var welcomeWindow: NSWindow?
+
     private var hasPendingPresent = false
 
     private init() {}

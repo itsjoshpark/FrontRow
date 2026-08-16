@@ -15,9 +15,9 @@ import UniformTypeIdentifiers
 /// It keeps its own persisted list rather than using `NSDocumentController.recentDocumentURLs`,
 /// which has no API to remove a single entry (only `clearRecentDocuments(_:)`).
 ///
-/// Because the app is sandboxed read-only to user-selected files, access granted by the open
-/// panel/drop doesn't survive relaunch. Each entry therefore stores a security-scoped bookmark
-/// (created while that access is still active) and resolves it when reopening the file.
+/// Each entry stores a security-scoped bookmark rather than a path, and resolves it when reopening
+/// the file. A bookmark tracks the file itself, so an entry survives the file being renamed or
+/// moved - which `refreshEntry(at:resolvedURL:)` then writes back.
 ///
 /// Loading deliberately reads each bookmark's *metadata* instead of resolving it. Resolution
 /// depends on the file being reachable right now, so resolving at launch would drop every entry on
@@ -122,10 +122,10 @@ final class RecentDocumentsStore {
 
     /// Whether `url`'s volume is currently mounted.
     ///
-    /// Deliberately doesn't touch the file. Without an active bookmark the sandbox denies access
-    /// to it, so asking the filesystem would report every recent document as missing; the entry's
-    /// recorded volume can be checked without any such access. An entry whose volume isn't known
-    /// counts as reachable - not knowing isn't evidence of absence.
+    /// Deliberately doesn't touch the file. Reaching for one on a sleeping NAS or an unplugged
+    /// drive can block, and this runs while drawing a list; the entry's recorded volume answers the
+    /// same question without any I/O. An entry whose volume isn't known counts as reachable - not
+    /// knowing isn't evidence of absence.
     private func isReachable(_ url: URL) -> Bool {
         guard url.isFileURL,
             let index = index(of: url),
