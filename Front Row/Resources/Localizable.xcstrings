@@ -335,7 +335,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" ei ole muoto Front Row voi pelata."
+            "value" : "\"%@\" ei ole muoto, jota Front Row voi toistaa."
           }
         },
         "fr" : {
