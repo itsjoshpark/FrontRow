@@ -47,7 +47,7 @@ struct PlayEngineLifecycleTests {
         let second = try await PlaybackFixtures.makeMovie(named: "second", in: directory)
 
         #expect(await engine.openFile(url: first) == .opened)
-        weak var firstItem = engine.player.currentItem
+        weak let firstItem = engine.player.currentItem
         #expect(firstItem != nil)
 
         #expect(await engine.openFile(url: second) == .opened)
@@ -64,7 +64,7 @@ struct PlayEngineLifecycleTests {
         let movie = try await PlaybackFixtures.makeMovie(named: "movie", in: directory)
 
         #expect(await engine.openFile(url: movie) == .opened)
-        weak var item = engine.player.currentItem
+        weak let item = engine.player.currentItem
         #expect(item != nil)
 
         engine.closeFile()
@@ -177,7 +177,7 @@ struct PlayEngineLifecycleTests {
         let rubbish = try PlaybackFixtures.makeUnplayable(named: "rubbish", in: directory)
 
         #expect(await engine.openFile(url: movie) == .opened)
-        weak var item = engine.player.currentItem
+        weak let item = engine.player.currentItem
 
         #expect(await engine.openFile(url: rubbish) != .opened)
         engine.closeFile()
