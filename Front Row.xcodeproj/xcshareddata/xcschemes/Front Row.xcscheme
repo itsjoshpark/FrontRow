@@ -40,6 +40,16 @@
                ReferencedContainer = "container:Front Row.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "031457A230329C99001B3B01"
+               BuildableName = "Front Row UI Tests.xctest"
+               BlueprintName = "Front Row UI Tests"
+               ReferencedContainer = "container:Front Row.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
