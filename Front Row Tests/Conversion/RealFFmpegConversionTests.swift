@@ -279,14 +279,28 @@ struct RealFFmpegConversionTests {
         await #expect(throws: FFmpegError.cancelled) { try await task.value }
 
         #expect(
-            !isRunning(ffmpeg: tools.ffmpeg, writingTo: output),
+            await stopped(writingTo: output),
             "An ffmpeg was still writing the output after the conversion was cancelled"
         )
     }
 
-    /// Whether any ffmpeg is still writing `output`, matched on the output path since every other
+    /// Whether no ffmpeg is writing `output` any more, allowing a moment for one that has been
+    /// signalled to finish going.
+    ///
+    /// A single look would be asking whether it had gone at the instant it was told to, which is
+    /// a question about scheduling rather than about whether the conversion cleans up after
+    /// itself. Seconds would be a leak; a beat is a process exiting.
+    private func stopped(writingTo output: URL) async -> Bool {
+        for _ in 0..<20 {
+            if !isRunning(writingTo: output) { return true }
+            try? await Task.sleep(for: .milliseconds(100))
+        }
+        return false
+    }
+
+    /// Whether any ffmpeg is still writing `output`, matched on the output name since every other
     /// part of the command line is shared with any other ffmpeg on the machine.
-    private func isRunning(ffmpeg: URL, writingTo output: URL) -> Bool {
+    private func isRunning(writingTo output: URL) -> Bool {
         let process = Process()
         process.executableURL = URL(filePath: "/usr/bin/pgrep")
         process.arguments = ["-f", output.lastPathComponent]
