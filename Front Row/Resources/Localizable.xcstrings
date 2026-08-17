@@ -487,6 +487,12 @@
             "value" : "\"%@\" n'est pas un format que Front Row peut lire. Le fichier est peut-être endommagé ou incomplet."
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" isn't a format Front Row can play. The file may be damaged or incomplete."
+          }
+        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -622,6 +628,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" a été converti en \"%@\". Le fichier d'origine n'est plus nécessaire et peut être placé dans la corbeille."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" was converted to \"%@\". The original file isn't needed anymore and can be moved to trash."
           }
         },
         "hu" : {
@@ -769,7 +781,7 @@
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ bps"
           }
         },
@@ -787,7 +799,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ bps"
           }
         },
@@ -823,7 +835,7 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ bps"
           }
         },
@@ -835,7 +847,7 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ bps"
           }
         },
@@ -847,7 +859,7 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ bps"
           }
         }
@@ -1055,7 +1067,7 @@
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ fps"
           }
         },
@@ -1073,7 +1085,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ fps"
           }
         },
@@ -1109,7 +1121,7 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ fps"
           }
         },
@@ -1121,7 +1133,7 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ fps"
           }
         },
@@ -1133,7 +1145,7 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ fps"
           }
         }
@@ -1198,7 +1210,7 @@
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ kbps"
           }
         },
@@ -1216,7 +1228,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ kbps"
           }
         },
@@ -1234,7 +1246,7 @@
         },
         "ro" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ kbps"
           }
         },
@@ -1252,7 +1264,7 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ kbps"
           }
         },
@@ -1264,7 +1276,7 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ kbps"
           }
         },
@@ -1276,7 +1288,7 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ kbps"
           }
         }
@@ -1341,7 +1353,7 @@
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ kHz"
           }
         },
@@ -1359,7 +1371,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ kHz"
           }
         },
@@ -1395,7 +1407,7 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ kHz"
           }
         },
@@ -1407,7 +1419,7 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ kHz"
           }
         },
@@ -1419,7 +1431,7 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ kHz"
           }
         }
@@ -1484,7 +1496,7 @@
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ Mbps"
           }
         },
@@ -1502,7 +1514,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ Mbps"
           }
         },
@@ -1538,7 +1550,7 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ Mbps"
           }
         },
@@ -1550,7 +1562,7 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ Mbps"
           }
         },
@@ -1562,7 +1574,7 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "%@ Mbps"
           }
         }
@@ -1913,7 +1925,7 @@
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Album"
           }
         },
@@ -1979,7 +1991,7 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Album"
           }
         },
@@ -3974,7 +3986,7 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Codec"
           }
         },
@@ -4186,6 +4198,12 @@
             "value" : "Convertir"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Convert"
+          }
+        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4323,6 +4341,12 @@
             "value" : "Convertir le fichier ?"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Convert File?"
+          }
+        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4458,6 +4482,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Conversion de \"%@\""
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Converting \"%@\""
           }
         },
         "hu" : {
@@ -4738,6 +4768,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Impossible de convertir le fichier"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Couldn't Convert File"
           }
         },
         "hu" : {
@@ -5591,6 +5627,12 @@
             "value" : "Détails"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Details"
+          }
+        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5618,7 +5660,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Details"
+            "value" : "Beschrijving"
           }
         },
         "pl" : {
@@ -6866,6 +6908,12 @@
             "value" : "FFmpeg n'a pas pu convertir \"%@\"."
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "FFmpeg couldn't convert \"%@\"."
+          }
+        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7144,6 +7192,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ce fichier doit être converti"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "File Needs Conversion"
           }
         },
         "hu" : {
@@ -7859,7 +7913,7 @@
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Front Row"
           }
         },
@@ -7913,7 +7967,7 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Front Row"
           }
         },
@@ -7925,7 +7979,7 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Front Row"
           }
         },
@@ -7992,6 +8046,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Front Row peut convertir ce fichier afin de pouvoir le lire. Installez FFmpeg avec Homebrew, puis ouvrez à nouveau le fichier."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Front Row can convert this file so that it can play it. Install FFmpeg using Homebrew, then open the file again."
           }
         },
         "hu" : {
@@ -8129,6 +8189,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Front Row pourra lire \"%@\" après conversion."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Front Row can open \"%@\" after it is converted."
           }
         },
         "hu" : {
@@ -9413,7 +9479,7 @@
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "HDR"
           }
         },
@@ -9431,7 +9497,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "HDR"
           }
         },
@@ -9467,7 +9533,7 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "HDR"
           }
         },
@@ -9479,7 +9545,7 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "HDR"
           }
         },
@@ -9491,7 +9557,7 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "HDR"
           }
         }
@@ -9546,6 +9612,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Masquer l’inspecteur"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Inspector"
           }
         },
         "hu" : {
@@ -9710,7 +9782,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "ID"
           }
         },
@@ -9746,7 +9818,7 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "ID"
           }
         },
@@ -9758,7 +9830,7 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "ID"
           }
         },
@@ -9770,7 +9842,7 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "ID"
           }
         }
@@ -10255,6 +10327,12 @@
             "value" : "Installer FFmpeg"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Install FFmpeg"
+          }
+        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10392,6 +10470,12 @@
             "value" : "Installer Homebrew"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Install Homebrew"
+          }
+        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10527,6 +10611,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Conserver"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Keep"
           }
         },
         "hu" : {
@@ -11584,7 +11674,7 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Mono"
           }
         },
@@ -11596,7 +11686,7 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Mono"
           }
         },
@@ -11663,6 +11753,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Placer le fichier d'origine dans la corbeille ?"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move Original File to Trash?"
           }
         },
         "hu" : {
@@ -11800,6 +11896,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Placer dans la corbeille"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Move to Trash"
           }
         },
         "hu" : {
@@ -13373,7 +13475,7 @@
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "OK"
           }
         },
@@ -13439,7 +13541,7 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "OK"
           }
         },
@@ -16216,6 +16318,12 @@
             "value" : "Afficher l’inspecteur"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Inspector"
+          }
+        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -16986,7 +17094,7 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Stereo"
           }
         },
@@ -16998,7 +17106,7 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Stereo"
           }
         },
@@ -17208,6 +17316,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Les sous-titres seront supprimés."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Subtitles will be dropped."
           }
         },
         "hu" : {
@@ -18980,7 +19094,7 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Video"
           }
         },
@@ -18992,7 +19106,7 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Video"
           }
         },
