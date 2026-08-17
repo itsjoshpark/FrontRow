@@ -72,6 +72,16 @@ struct MediaRemuxer: Sendable {
                 // exactly when there is most to explain.
                 errorBuffer.append(errorPipe.fileHandleForReading.readDataToEndOfFile())
 
+                // The same lag drops the last of the progress, leaving the bar short of the end
+                // until the finishing fraction below moves it.
+                for line in lineBuffer.lines(
+                    from: progressPipe.fileHandleForReading.readDataToEndOfFile())
+                {
+                    if case .fraction(let fraction) = parser.event(for: line) {
+                        onProgress(fraction)
+                    }
+                }
+
                 if box.wasCancelled { throw FFmpegError.cancelled }
 
                 guard process.terminationStatus == 0 else {
