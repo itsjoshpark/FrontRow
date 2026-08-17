@@ -299,7 +299,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" ليس تنسيق الصف الأمامي يمكن تشغيله."
+            "value" : "\"%@\" ليس تنسيقًا يمكن لـ Front Row تشغيله."
           }
         },
         "cs" : {
@@ -323,7 +323,7 @@
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" δεν είναι μια μορφή Μπροστινή γραμμή μπορεί να παίξει."
+            "value" : "Το \"%@\" δεν είναι μορφή που μπορεί να αναπαράγει το Front Row."
           }
         },
         "es" : {
@@ -389,7 +389,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" nu este un format din Rând front."
+            "value" : "\"%@\" nu este un format pe care Front Row îl poate reda."
           }
         },
         "ru" : {
@@ -19157,7 +19157,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "مرحبا بكم في الصف الأمامي"
+            "value" : "مرحبًا بك في Front Row"
           }
         },
         "cs" : {
@@ -19181,7 +19181,7 @@
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Καλώς ήρθατε στην μπροστινή γραμμή"
+            "value" : "Καλώς ήρθατε στο Front Row"
           }
         },
         "es" : {
