@@ -3,6 +3,7 @@
 //  Front Row UI Tests
 //
 
+import CoreGraphics
 import XCTest
 
 /// Shared setup for the UI tests: a fresh app per test, an English interface, and somewhere to
@@ -47,8 +48,27 @@ class FrontRowUITestCase: XCTestCase {
         // test that starts driving menus before a window exists is testing the launch.
         XCTAssertTrue(
             app.windows.firstMatch.waitForExistence(timeout: 30),
-            "The app came up with no window"
+            "The app came up with no window.\(Self.sessionAdvice)"
         )
+    }
+
+    /// Why a window might be missing for a reason that is nothing to do with the app.
+    ///
+    /// A SwiftUI scene needs a window server to be drawn into. On a locked or sleeping display
+    /// there isn't one, so the app launches, reaches its event loop and stays there with no window
+    /// - which reads from here as the app failing to open one. Every test in this bundle fails the
+    /// same way, in setup, which is a confusing thing to wake up to.
+    private static var sessionAdvice: String {
+        guard let session = CGSessionCopyCurrentDictionary() as? [String: Any] else {
+            return " There is no window server session - UI tests need one, so unlock the screen."
+        }
+        let onConsole = session["kCGSSessionOnConsoleKey"] as? Bool ?? false
+        let locked = session["CGSSessionScreenIsLocked"] as? Bool ?? false
+        guard onConsole, !locked else {
+            return " The screen is locked or this session is not the console one - "
+                + "UI tests need an unlocked display."
+        }
+        return ""
     }
 
     override func tearDown() async throws {

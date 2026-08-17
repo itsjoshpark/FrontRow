@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "A1B2C3D4-0000-4000-A000-000000000003",
+      "name" : "Soak",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Front Row.xcodeproj",
+      "identifier" : "03EA684C2B9630CF003348BE",
+      "name" : "Front Row"
+    }
+  },
+  "testTargets" : [
+    {
+      "selectedTests" : [
+        "SoakUITests"
+      ],
+      "target" : {
+        "containerPath" : "container:Front Row.xcodeproj",
+        "identifier" : "031457A230329C99001B3B01",
+        "name" : "Front Row UI Tests"
+      }
+    }
+  ],
+  "version" : 1
+}

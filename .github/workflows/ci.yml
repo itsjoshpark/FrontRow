@@ -28,16 +28,17 @@ jobs:
         run: |
           /opt/homebrew/bin/swift-format lint -s -p -r ./
 
-      # The UI tests are their own job below. Driven from the same xcodebuild as
-      # the unit bundle - which is hosted in the app - they leave the app unable
-      # to open a window, and every test from there on fails in its setup.
+      # The default plan is the unit bundle. The UI tests are their own job
+      # below: driven from the same xcodebuild as the unit bundle, which is
+      # hosted in the app, they leave the app unable to open a window, and every
+      # test from that point on fails in its setup.
       - name: Build, Analyze, and Test
         run: >
           xcodebuild clean analyze test
           -project "Front Row.xcodeproj"
           -scheme "Front Row"
+          -testPlan "Front Row"
           -destination "platform=macOS"
-          -skip-testing:"Front Row UI Tests"
           -resultBundlePath TestResults.xcresult
           CODE_SIGN_IDENTITY="-"
           CODE_SIGNING_REQUIRED=YES
@@ -49,6 +50,28 @@ jobs:
         with:
           name: unit-test-results
           path: TestResults.xcresult
+
+  scripts:
+    runs-on: macos-26
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # render-notes.sh shells out to cmark-gfm, and its tests skip nothing
+      # without it.
+      - name: Install cmark-gfm
+        run: |
+          brew update
+          brew install cmark-gfm
+
+      - name: Run script tests
+        run: |
+          failures=0
+          for test in scripts/*.test.sh; do
+            echo "==> $test"
+            "$test" || failures=$((failures + 1))
+          done
+          exit "$failures"
 
   ui-tests:
     runs-on: macos-26
@@ -70,8 +93,8 @@ jobs:
           xcodebuild test
           -project "Front Row.xcodeproj"
           -scheme "Front Row"
+          -testPlan "UI"
           -destination "platform=macOS"
-          -only-testing:"Front Row UI Tests"
           -resultBundlePath UITestResults.xcresult
           CODE_SIGN_IDENTITY="-"
           CODE_SIGNING_REQUIRED=YES
