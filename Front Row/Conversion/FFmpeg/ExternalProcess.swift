@@ -46,7 +46,12 @@ enum ExternalProcess {
             process.waitUntilExit()
 
             errorPipe.fileHandleForReading.readabilityHandler = nil
-            errorBuffer.append(errorPipe.fileHandleForReading.availableData)
+
+            // Read to the end rather than taking whatever happens to be waiting. A tool that
+            // complains and exits at once can still have output in flight when `waitUntilExit()`
+            // returns, and a single non-blocking read drops the rest of it - leaving the alert
+            // that explains the failure with a truncated message, or none.
+            errorBuffer.append(errorPipe.fileHandleForReading.readDataToEndOfFile())
 
             return Output(
                 standardOutput: standardOutput,
