@@ -14,12 +14,19 @@ struct ScriptedTool {
 
     let url: URL
 
+    /// This tool's own directory name, unique to it.
+    ///
+    /// What to look for when finding the running child from outside: the path in a process's
+    /// arguments comes back as `/var/tmp/…` while the URL here says `/private/var/tmp/…`, so
+    /// matching on the whole path finds nothing. The name appears in both.
+    let name: String
+
     private let root: URL
 
     /// Writes `body` as a shell script and makes it executable.
     init(_ body: String) throws {
-        root = URL(filePath: "/private/var/tmp").appending(
-            path: "FrontRowTool-\(UUID().uuidString)")
+        name = "FrontRowTool-\(UUID().uuidString)"
+        root = URL(filePath: "/private/var/tmp").appending(path: name)
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
 
         url = root.appending(path: "tool.sh")
@@ -64,8 +71,20 @@ struct ScriptedTool {
     }
 
     /// Runs until it is stopped.
+    ///
+    /// Loops rather than sleeping once. A shell whose script ends in a single command replaces
+    /// itself with that command, and the process then no longer carries the script's path - so a
+    /// test looking for the tool by name would find nothing and call it stopped.
     static func sleeping(seconds: Int = 120) throws -> ScriptedTool {
-        try ScriptedTool("sleep \(seconds)")
+        try ScriptedTool(
+            """
+            elapsed=0
+            while [ "$elapsed" -lt \(seconds) ]; do
+                sleep 1
+                elapsed=$((elapsed + 1))
+            done
+            """
+        )
     }
 
     /// Emits ffmpeg's `-progress` blocks for a file of `duration` seconds, then finishes.
