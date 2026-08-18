@@ -28,26 +28,60 @@ jobs:
         run: |
           /opt/homebrew/bin/swift-format lint -s -p -r ./
 
-      # Signed ad-hoc rather than not at all. CODE_SIGNING_ALLOWED=NO leaves both
-      # the app and Front Row UI Tests-Runner.app without a code identity, and an
-      # app without one is held back by Gatekeeper on every launch: the UI tests
-      # take twice as long and the Inspector panel never reaches the screen.
+      # The UI tests are their own job below. Driven from the same xcodebuild as
+      # the unit bundle - which is hosted in the app - they leave the app unable
+      # to open a window, and every test from there on fails in its setup.
       - name: Build, Analyze, and Test
         run: >
           xcodebuild clean analyze test
           -project "Front Row.xcodeproj"
           -scheme "Front Row"
           -destination "platform=macOS"
+          -skip-testing:"Front Row UI Tests"
           -resultBundlePath TestResults.xcresult
           CODE_SIGN_IDENTITY="-"
           CODE_SIGNING_REQUIRED=YES
           CODE_SIGNING_ALLOWED=YES | xcpretty && exit ${PIPESTATUS[0]}
 
-      # The UI tests' screenshots and failure details live here, and a failed run
-      # is the only time anyone wants them.
-      - name: Upload test results
+      - name: Upload results
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: TestResults
+          name: unit-test-results
           path: TestResults.xcresult
+
+  ui-tests:
+    runs-on: macos-26
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Xcode Version
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      # Signed ad-hoc rather than not at all. CODE_SIGNING_ALLOWED=NO leaves
+      # Front Row UI Tests-Runner.app without a code identity, and Gatekeeper
+      # then assesses every launch - the run takes about two and a half times
+      # as long, and locally the runner is refused outright as damaged.
+      - name: Run UI tests
+        run: >
+          xcodebuild test
+          -project "Front Row.xcodeproj"
+          -scheme "Front Row"
+          -destination "platform=macOS"
+          -only-testing:"Front Row UI Tests"
+          -resultBundlePath UITestResults.xcresult
+          CODE_SIGN_IDENTITY="-"
+          CODE_SIGNING_REQUIRED=YES
+          CODE_SIGNING_ALLOWED=YES
+
+      # The screenshots and the accessibility hierarchy behind a failure, which
+      # are the only account of one that happens on the runner and not here.
+      - name: Upload results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-test-results
+          path: UITestResults.xcresult
