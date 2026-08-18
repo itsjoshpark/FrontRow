@@ -230,15 +230,23 @@ class FrontRowUITestCase: XCTestCase {
     /// The window is shaped a little after the file opens - AVFoundation publishes the video's
     /// size asynchronously - so there is no single event to wait on. Settling is the honest
     /// condition, and a test that asserts before it has landed would pass or fail on timing.
+    ///
+    /// Pass `previousSize` where the window is already up and being reshaped for a second file:
+    /// it is retitled before the new size arrives, so settling alone would answer with the size
+    /// it is being resized away from.
     @discardableResult
     func waitForSizeToSettle(
         _ window: XCUIElement,
+        changingFrom previousSize: CGSize? = nil,
         stableFor: TimeInterval = 1.0,
-        timeout: TimeInterval = 15
+        timeout: TimeInterval = 15,
+        file: StaticString = #filePath,
+        line: UInt = #line
     ) -> CGSize {
         let deadline = Date().addingTimeInterval(timeout)
         var lastSize = window.frame.size
         var stableSince = Date()
+        var hasResized = previousSize.map { $0 != lastSize } ?? true
 
         while Date() < deadline {
             Thread.sleep(forTimeInterval: 0.1)
@@ -246,12 +254,22 @@ class FrontRowUITestCase: XCTestCase {
             if size != lastSize {
                 lastSize = size
                 stableSince = Date()
+                hasResized = true
                 continue
             }
-            if Date().timeIntervalSince(stableSince) >= stableFor {
+            if hasResized, Date().timeIntervalSince(stableSince) >= stableFor {
                 return size
             }
         }
+
+        XCTFail(
+            """
+            \(window.title) \(hasResized ? "would not stop resizing" : "never resized") \
+            in \(timeout)s, and is \(Int(lastSize.width))x\(Int(lastSize.height)).
+            """,
+            file: file,
+            line: line
+        )
         return lastSize
     }
 

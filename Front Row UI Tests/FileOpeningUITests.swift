@@ -37,6 +37,8 @@ final class FileOpeningUITests: FrontRowUITestCase {
     func testOpeningThroughTheOpenURLSheet() async throws {
         let movie = try await makeClip(named: "sheet")
 
+        app.activate()
+
         app.typeKey("o", modifierFlags: [.command, .shift])
         let field = app.sheets.firstMatch.textFields.firstMatch
         XCTAssertTrue(field.waitForExistence(timeout: 15), "The Open URL sheet did not appear")

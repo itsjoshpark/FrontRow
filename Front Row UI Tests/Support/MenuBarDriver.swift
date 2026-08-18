@@ -40,39 +40,49 @@ struct MenuBarDriver {
 
     func click(_ itemTitle: String, in menuName: String) {
         let menu = app.menuBars.menuBarItems[menuName]
-        open(menu)
+        open(menu, named: menuName)
         let item = menu.menuItems[itemTitle].firstMatch
-        _ = item.waitForExistence(timeout: menuTimeout)
+        XCTAssertTrue(
+            item.waitForExistence(timeout: menuTimeout),
+            "The \(menuName) menu has no item called \(itemTitle)"
+        )
         item.click()
-        waitUntilClosed(menu)
+        waitUntilClosed(menu, named: menuName)
     }
 
     private func withMenu<T>(_ menuName: String, _ body: (XCUIElement) -> T) -> T {
         let menu = app.menuBars.menuBarItems[menuName]
-        open(menu)
+        open(menu, named: menuName)
         let result = body(menu)
-        close(menu)
+        close(menu, named: menuName)
         return result
     }
 
     /// Clicks `menu` open and waits until it has items to read.
-    private func open(_ menu: XCUIElement) {
+    private func open(_ menu: XCUIElement, named menuName: String) {
         menu.click()
-        _ = menu.menuItems.firstMatch.waitForExistence(timeout: menuTimeout)
+        XCTAssertTrue(
+            menu.menuItems.firstMatch.waitForExistence(timeout: menuTimeout),
+            "The \(menuName) menu did not open"
+        )
     }
 
     /// Clicks `menu` shut and waits until it is.
-    private func close(_ menu: XCUIElement) {
+    private func close(_ menu: XCUIElement, named menuName: String) {
         menu.click()
-        waitUntilClosed(menu)
+        waitUntilClosed(menu, named: menuName)
     }
 
     /// Waits for `menu` to stop being the open one, which its title's selected state tracks.
-    private func waitUntilClosed(_ menu: XCUIElement) {
+    ///
+    /// A menu left open swallows the next click, and every read after it answers for an empty
+    /// menu, so this is worth failing on where it happens.
+    private func waitUntilClosed(_ menu: XCUIElement, named menuName: String) {
         let deadline = Date().addingTimeInterval(menuTimeout)
         while menu.isSelected, Date() < deadline {
             Thread.sleep(forTimeInterval: 0.05)
         }
+        XCTAssertFalse(menu.isSelected, "The \(menuName) menu would not close")
     }
 }
 

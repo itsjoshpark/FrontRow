@@ -37,11 +37,11 @@ final class WindowShapeUITests: FrontRowUITestCase {
             size: portrait, named: "portrait", in: fixtures)
 
         try openInFinder(first)
-        waitForSizeToSettle(try playerWindow(for: first))
+        let firstSize = waitForSizeToSettle(try playerWindow(for: first))
 
         try openInFinder(second)
         let window = try playerWindow(for: second)
-        let size = waitForSizeToSettle(window)
+        let size = waitForSizeToSettle(window, changingFrom: firstSize)
 
         assertShape(size, matches: portrait, for: second)
     }
