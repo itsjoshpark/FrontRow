@@ -37,9 +37,29 @@ jobs:
           CODE_SIGNING_REQUIRED=YES
           CODE_SIGNING_ALLOWED=YES | xcpretty && exit ${PIPESTATUS[0]}
 
-      - name: Upload test results
+      - name: Upload results
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: TestResults
+          name: test-results
           path: TestResults.xcresult
+
+  scripts:
+    runs-on: macos-26
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install cmark-gfm
+        run: |
+          brew update
+          brew install cmark-gfm
+
+      - name: Run script tests
+        run: |
+          failures=0
+          for test in scripts/*.test.sh; do
+            echo "==> $test"
+            "$test" || failures=$((failures + 1))
+          done
+          exit "$failures"
