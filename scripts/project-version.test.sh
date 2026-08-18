@@ -6,6 +6,9 @@ set -uo pipefail
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 tool="$script_dir/project-version.sh"
 
+# What project-version.sh itself expects: one value per build configuration.
+readonly EXPECTED_OCCURRENCES=2
+
 failures=0
 workdir="$(mktemp -d)"
 trap 'rm -rf "$workdir"' EXIT
@@ -135,6 +138,22 @@ done
 
 # Nothing above should have modified the file.
 expect_equal "$("$tool" read-marketing "$pbx")" "2.10" "leaves the project untouched when validation fails"
+
+# The real project, which is what a release reads. Xcode gives every new target
+# its own MARKETING_VERSION and CURRENT_PROJECT_VERSION, and a second pair makes
+# both settings ambiguous - the release then stops at the step that reads them.
+real="$script_dir/../Front Row.xcodeproj/project.pbxproj"
+for command in read-marketing read-build; do
+  if "$tool" "$command" "$real" >/dev/null 2>&1; then
+    check "$command answers for the real project" pass
+  else
+    check "$command answers for the real project" fail
+  fi
+done
+for setting in MARKETING_VERSION CURRENT_PROJECT_VERSION; do
+  expect_equal "$(grep -c "^[[:space:]]*$setting = .*;$" "$real")" "$EXPECTED_OCCURRENCES" \
+    "the real project carries $setting once per configuration"
+done
 
 echo
 if (( failures > 0 )); then
