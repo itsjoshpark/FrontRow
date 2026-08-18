@@ -11,9 +11,9 @@ import SwiftUI
 /// helpers that shouldn't have to thread those actions through every call.
 ///
 /// `WelcomeView` captures both actions once (they stay valid for the app's lifetime) and stores
-/// them here. When the app is launched by opening a file, `presentMainWindow()` may run before
-/// those closures exist; it remembers the request and the `didSet` flushes it once both closures
-/// become available, so the main window still opens instead of silently no-oping.
+/// them here. A file opened early enough reaches this before those closures exist - the welcome
+/// window is recorded from `WindowReader` and the actions from a `task`, in no fixed order - so a
+/// request made in that gap is remembered and the `didSet` flushes it, rather than no-oping.
 @MainActor
 @Observable
 final class WelcomeWindowCoordinator {
@@ -21,10 +21,10 @@ final class WelcomeWindowCoordinator {
     static let shared = WelcomeWindowCoordinator()
 
     var openMainWindow: (() -> Void)? {
-        didSet { flushPendingPresentIfNeeded() }
+        didSet { flushPendingRequestIfNeeded() }
     }
     var dismissWelcomeWindow: (() -> Void)? {
-        didSet { flushPendingPresentIfNeeded() }
+        didSet { flushPendingRequestIfNeeded() }
     }
 
     /// The welcome window, while it's on screen.
@@ -35,6 +35,7 @@ final class WelcomeWindowCoordinator {
     weak var welcomeWindow: NSWindow?
 
     private var hasPendingPresent = false
+    private var hasPendingYield = false
 
     private init() {}
 
@@ -56,13 +57,30 @@ final class WelcomeWindowCoordinator {
     /// while an alert or a sheet hangs from the other.
     func yieldToMainWindow() {
         guard welcomeWindow != nil else { return }
-        dismissWelcomeWindow?()
+        guard let dismissWelcomeWindow else {
+            hasPendingYield = true
+            return
+        }
+        dismissWelcomeWindow()
     }
 
-    private func flushPendingPresentIfNeeded() {
-        guard hasPendingPresent, let openMainWindow, let dismissWelcomeWindow else { return }
-        hasPendingPresent = false
-        openMainWindow()
-        dismissWelcomeWindow()
+    /// Runs whichever request was made before the actions to carry it out existed.
+    ///
+    /// A pending present covers a pending yield: it closes the welcome window itself. Either is
+    /// spent once the actions arrive, so a welcome window that closed in the meantime leaves
+    /// nothing behind to fire at the next one.
+    private func flushPendingRequestIfNeeded() {
+        if hasPendingPresent, let openMainWindow, let dismissWelcomeWindow {
+            hasPendingPresent = false
+            hasPendingYield = false
+            openMainWindow()
+            dismissWelcomeWindow()
+            return
+        }
+
+        if hasPendingYield, let dismissWelcomeWindow {
+            hasPendingYield = false
+            if welcomeWindow != nil { dismissWelcomeWindow() }
+        }
     }
 }

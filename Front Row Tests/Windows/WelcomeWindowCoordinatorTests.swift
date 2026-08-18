@@ -27,9 +27,14 @@ struct WelcomeWindowCoordinatorTests {
     }
 
     /// Runs `body` with the coordinator's wiring replaced, and restores it afterwards.
+    ///
+    /// `wired` false leaves the window actions unset, which is how the coordinator starts out:
+    /// `WelcomeView` records the window from `WindowReader` and the actions from a `task`, and
+    /// nothing orders those two. `wire()` supplies them, as that `task` eventually does.
     private func withCoordinator(
         welcomeWindow: NSWindow?,
-        _ body: (_ opened: () -> Int, _ dismissed: () -> Int) -> Void
+        wired: Bool = true,
+        _ body: (_ counts: Counts, _ wire: () -> Void) -> Void
     ) {
         let savedOpen = coordinator.openMainWindow
         let savedDismiss = coordinator.dismissWelcomeWindow
@@ -41,11 +46,17 @@ struct WelcomeWindowCoordinatorTests {
         }
 
         let counts = Counts()
-        coordinator.openMainWindow = { counts.opens += 1 }
-        coordinator.dismissWelcomeWindow = { counts.dismissals += 1 }
-        coordinator.welcomeWindow = welcomeWindow
+        let wire = {
+            coordinator.openMainWindow = { counts.opens += 1 }
+            coordinator.dismissWelcomeWindow = { counts.dismissals += 1 }
+        }
 
-        body({ counts.opens }, { counts.dismissals })
+        coordinator.openMainWindow = nil
+        coordinator.dismissWelcomeWindow = nil
+        coordinator.welcomeWindow = welcomeWindow
+        if wired { wire() }
+
+        body(counts, wire)
     }
 
     /// The player window can appear without the app asking - macOS presents it along with a file
@@ -54,11 +65,11 @@ struct WelcomeWindowCoordinatorTests {
     @Test
     func theWelcomeWindowGivesWayToAPlayerWindowTheAppDidntAskFor() {
         let window = makeWindow()
-        withCoordinator(welcomeWindow: window) { opened, dismissed in
+        withCoordinator(welcomeWindow: window) { counts, _ in
             coordinator.yieldToMainWindow()
 
-            #expect(dismissed() == 1)
-            #expect(opened() == 0, "Yielding shouldn't open anything of its own")
+            #expect(counts.dismissals == 1)
+            #expect(counts.opens == 0, "Yielding shouldn't open anything of its own")
         }
     }
 
@@ -66,20 +77,63 @@ struct WelcomeWindowCoordinatorTests {
     /// close whichever one takes the identifier next.
     @Test
     func yieldingWithNoWelcomeWindowDoesNothing() {
-        withCoordinator(welcomeWindow: nil) { _, dismissed in
+        withCoordinator(welcomeWindow: nil) { counts, _ in
             coordinator.yieldToMainWindow()
 
-            #expect(dismissed() == 0)
+            #expect(counts.dismissals == 0)
+        }
+    }
+
+    /// A file opened while the app is still starting reaches the coordinator between the welcome
+    /// window being recorded and the window actions arriving. Dropped there, the two windows stay
+    /// on screen together for the rest of the run.
+    @Test
+    func aYieldMadeBeforeTheWindowActionsArriveIsStillCarriedOut() {
+        withCoordinator(welcomeWindow: makeWindow(), wired: false) { counts, wire in
+            coordinator.yieldToMainWindow()
+            #expect(counts.dismissals == 0, "There is nothing to dismiss with yet")
+
+            wire()
+
+            #expect(counts.dismissals == 1)
+            #expect(counts.opens == 0, "Yielding shouldn't open anything of its own")
+        }
+    }
+
+    /// The welcome window closed on its own in the meantime, so the request has nothing left to do.
+    @Test
+    func aPendingYieldIsDroppedIfTheWelcomeWindowGoesFirst() {
+        withCoordinator(welcomeWindow: makeWindow(), wired: false) { counts, wire in
+            coordinator.yieldToMainWindow()
+            coordinator.welcomeWindow = nil
+
+            wire()
+
+            #expect(counts.dismissals == 0)
         }
     }
 
     @Test
     func presentingTheMainWindowOpensItAndClosesTheWelcomeWindow() {
-        withCoordinator(welcomeWindow: makeWindow()) { opened, dismissed in
+        withCoordinator(welcomeWindow: makeWindow()) { counts, _ in
             coordinator.presentMainWindow()
 
-            #expect(opened() == 1)
-            #expect(dismissed() == 1)
+            #expect(counts.opens == 1)
+            #expect(counts.dismissals == 1)
+        }
+    }
+
+    /// The same gap on the present path, which is what the pending flush was written for.
+    @Test
+    func aPresentMadeBeforeTheWindowActionsArriveIsStillCarriedOut() {
+        withCoordinator(welcomeWindow: makeWindow(), wired: false) { counts, wire in
+            coordinator.presentMainWindow()
+            #expect(counts.opens == 0)
+
+            wire()
+
+            #expect(counts.opens == 1)
+            #expect(counts.dismissals == 1)
         }
     }
 
