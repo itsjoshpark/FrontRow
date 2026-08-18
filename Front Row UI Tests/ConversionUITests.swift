@@ -49,10 +49,9 @@ final class ConversionUITests: FrontRowUITestCase {
     /// that exists to avoid needing it. FLAC because it has to be re-encoded, which is the plan the
     /// offer alert describes in the most detail.
     private func makeMatroska(named name: String) throws -> URL {
-        let ffmpeg = try XCTUnwrap(
-            locateTool("ffmpeg"),
-            "ffmpeg is not installed, so the app has nothing to offer a conversion with"
-        )
+        guard let ffmpeg = locateTool("ffmpeg") else {
+            throw XCTSkip("ffmpeg is not installed, so the app has no conversion to offer")
+        }
         let url = fixtures.appending(path: "\(name).mkv")
 
         let process = Process()

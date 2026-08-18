@@ -17,10 +17,12 @@ jobs:
         with:
           xcode-version: latest-stable
 
-      - name: Install swift-format
+      # ffmpeg is what the conversion tests convert with. Without it they skip, and the feature
+      # is only covered as far as the arguments handed to a tool that never runs.
+      - name: Install swift-format and ffmpeg
         run: |
           brew update
-          brew install swift-format
+          brew install swift-format ffmpeg
 
       - name: Lint using swift-format
         run: |
