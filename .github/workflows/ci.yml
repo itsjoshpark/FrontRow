@@ -17,10 +17,10 @@ jobs:
         with:
           xcode-version: latest-stable
 
-      - name: Install swift-format
+      - name: Install swift-format and ffmpeg
         run: |
           brew update
-          brew install swift-format
+          brew install swift-format ffmpeg
 
       - name: Lint using swift-format
         run: |

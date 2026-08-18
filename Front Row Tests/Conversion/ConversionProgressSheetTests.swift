@@ -23,6 +23,9 @@ struct ConversionProgressSheetTests {
     ///
     /// `isReleasedWhenClosed` defaults to true for a window built in code, which under ARC frees
     /// it a second time and takes the process down somewhere else entirely.
+    ///
+    /// Named, because these tests order it onto the screen with a conversion sheet on it. An empty
+    /// titlebar there reads as the app converting a file in a window of its own.
     private func makeWindow() -> NSWindow {
         let window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 270),
@@ -31,6 +34,7 @@ struct ConversionProgressSheetTests {
             defer: true
         )
         window.isReleasedWhenClosed = false
+        window.title = "Front Row Tests"
         return window
     }
 
