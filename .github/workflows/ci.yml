@@ -33,7 +33,9 @@ jobs:
           -scheme "Front Row"
           -destination "platform=macOS"
           -resultBundlePath TestResults.xcresult
-          CODE_SIGNING_ALLOWED=NO | xcpretty && exit ${PIPESTATUS[0]}
+          CODE_SIGN_IDENTITY="-"
+          CODE_SIGNING_REQUIRED=YES
+          CODE_SIGNING_ALLOWED=YES | xcpretty && exit ${PIPESTATUS[0]}
 
       - name: Upload test results
         if: failure()
