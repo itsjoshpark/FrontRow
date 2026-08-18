@@ -101,8 +101,12 @@ final class ControlAndMenuStateUITests: FrontRowUITestCase {
         assertEqual(window["Show Inspector"], true, "Window ▸ Show Inspector")
 
         menus.click("Show Inspector", in: "Window")
+        // The Inspector is a utility panel, and AppKit takes one off the screen whenever its app
+        // is not the active one. Driving the menu does not make Front Row active, so without this
+        // the panel is opened and then immediately hidden, and the window below is never found.
+        activate()
         XCTAssertTrue(
-            app.windows["Inspector"].waitForExistence(timeout: 5),
+            app.windows["Inspector"].waitForExistence(timeout: 20),
             "The Inspector window did not open"
         )
         XCTAssertTrue(

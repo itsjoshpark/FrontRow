@@ -65,6 +65,19 @@ class FrontRowUITestCase: XCTestCase {
         try await super.tearDown()
     }
 
+    /// Brings the app to the front and waits until it is there.
+    ///
+    /// Synthesising a click into a menu drives the app without making it the active one, and a
+    /// utility panel is only on the screen while its app is active. A test that reads one has to
+    /// say which app is in front rather than assume it is still the one it launched.
+    func activate(timeout: TimeInterval = 10) {
+        app.activate()
+        XCTAssertTrue(
+            app.wait(for: .runningForeground, timeout: timeout),
+            "The app did not come to the front"
+        )
+    }
+
     /// Quits and starts the app again, keeping whatever it persisted.
     ///
     /// Used where the case under test only shows on a fresh start - the welcome window and its
