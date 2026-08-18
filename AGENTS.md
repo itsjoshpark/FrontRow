@@ -3,8 +3,13 @@
 ## Commands
 
 ```sh
-# Build, analyze, and test
+# Build, analyze, and test — CI only
 xcodebuild clean analyze test -project "Front Row.xcodeproj" -scheme "Front Row" -destination "platform=macOS" CODE_SIGNING_ALLOWED=NO
+
+# Build, analyze, and test — locally. Never pass CODE_SIGNING_ALLOWED=NO here: it
+# leaves "Front Row UI Tests-Runner.app" unsigned, and Gatekeeper answers the run
+# with "is damaged and can't be opened", which hangs until the dialog is dismissed.
+xcodebuild clean analyze test -project "Front Row.xcodeproj" -scheme "Front Row" -destination "platform=macOS"
 
 # Lint — must pass before a PR merges
 swift-format lint -s -p -r ./
