@@ -130,9 +130,7 @@ struct MediaRemuxerTests {
             ) { _ in }
         }
 
-        // Waited for, so cancellation has something to terminate rather than only setting the
-        // flag. A pause long enough on one machine is a pause too short on a busier one, and the
-        // test would then quietly be covering cancellation before launch.
+        // Up first, so cancellation has something to terminate rather than only setting the flag.
         #expect(await tool.waitUntilReady(), "The tool never started, so there was nothing to stop")
         task.cancel()
 
@@ -164,7 +162,7 @@ struct MediaRemuxerTests {
     @Test(.timeLimit(.minutes(2)))
     func aCancelledRunIsNotReportedAsAFailure() async throws {
         // Ready is reported after the trap is set, so a cancellation arriving the moment it
-        // appears still finds the handler in place.
+        // appears finds the handler in place.
         let tool = try ScriptedTool(
             """
             here=$(dirname "$0")

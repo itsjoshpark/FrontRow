@@ -56,34 +56,18 @@ struct MenuBarDriver {
     }
 
     /// Clicks `menu` open and waits until it has items to read.
-    ///
-    /// Waited for rather than paced. A menu answers for its items only while it is open, so a
-    /// fixed pause is really asking whether AppKit had finished drawing - and a menu caught
-    /// half-drawn reads as one whose items have all gone, which is what the callers are looking
-    /// for.
     private func open(_ menu: XCUIElement) {
         menu.click()
         _ = menu.menuItems.firstMatch.waitForExistence(timeout: menuTimeout)
     }
 
     /// Clicks `menu` shut and waits until it is.
-    ///
-    /// Closed with a second click on the title rather than Escape, which reaches the app, where
-    /// `KeyDownListener` answers it by hiding the app and the run never recovers.
     private func close(_ menu: XCUIElement) {
         menu.click()
         waitUntilClosed(menu)
     }
 
-    /// Waits for `menu` to stop being the open one.
-    ///
-    /// Asked of the menu bar item rather than of its items: a closed menu goes on answering for
-    /// those, so waiting for them to go never ends. Only the title's own selected state tracks
-    /// whether the menu is up.
-    ///
-    /// Worth waiting for rather than pacing past. A menu still open when the next click lands on
-    /// the same title takes that click as the one that closes it, and the read that follows finds
-    /// a menu that never opened.
+    /// Waits for `menu` to stop being the open one, which its title's selected state tracks.
     private func waitUntilClosed(_ menu: XCUIElement) {
         let deadline = Date().addingTimeInterval(menuTimeout)
         while menu.isSelected, Date() < deadline {

@@ -28,8 +28,6 @@ final class ControlAndMenuStateUITests: FrontRowUITestCase {
 
     // MARK: - Menu items
 
-    /// There is no player window to read with nothing open - the main scene's launch behaviour is
-    /// suppressed until a file is on its way - so the empty case is the menu's to answer.
     func testPlaybackCommandsAreDisabledWithNothingOpen() throws {
         assertPlaybackItems(areEnabled: false)
         assertEqual(
@@ -127,8 +125,7 @@ final class ControlAndMenuStateUITests: FrontRowUITestCase {
     ///
     /// The bar goes to nothing three seconds after the mouse stops, and encoding a fixture takes
     /// longer than that. Hovering over the window is what the app hears as the mouse moving, so
-    /// it is also what puts the controls back. The assertions read `isEnabled` rather than
-    /// hittability so a fade that beats them cannot decide the result either way.
+    /// it is also what puts the controls back.
     private func showControls(in window: XCUIElement) {
         window.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.9)).hover()
     }

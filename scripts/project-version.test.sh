@@ -139,9 +139,8 @@ done
 # Nothing above should have modified the file.
 expect_equal "$("$tool" read-marketing "$pbx")" "2.10" "leaves the project untouched when validation fails"
 
-# The real project, which is what a release reads. Xcode gives every new target
-# its own MARKETING_VERSION and CURRENT_PROJECT_VERSION, and a second pair makes
-# both settings ambiguous - the release then stops at the step that reads them.
+# The real project, which is what a release reads. Both settings must stay
+# unambiguous across every target for the release to work out the next version.
 real="$script_dir/../Front Row.xcodeproj/project.pbxproj"
 for command in read-marketing read-build; do
   if "$tool" "$command" "$real" >/dev/null 2>&1; then

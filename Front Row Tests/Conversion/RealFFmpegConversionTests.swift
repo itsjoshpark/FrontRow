@@ -291,9 +291,7 @@ struct RealFFmpegConversionTests {
 
     /// Whether an ffmpeg has picked the conversion up and is writing `output`.
     ///
-    /// Waited for rather than paced. A pause long enough to see the child launch on one machine is
-    /// too short on a busier one, and cancelling before it launches passes this test for an
-    /// entirely different reason - leaving the case it names uncovered.
+    /// Waited for so the cancellation below has a running child to reach.
     private func started(writingTo output: URL, within: Duration = .seconds(20)) async -> Bool {
         let deadline = ContinuousClock.now + within
         while ContinuousClock.now < deadline {
@@ -319,10 +317,6 @@ struct RealFFmpegConversionTests {
 
     /// Whether any ffmpeg is still writing `output`, matched on the full output path since every
     /// other part of the command line is shared with any other ffmpeg on the machine.
-    ///
-    /// The whole path rather than the name: `FFmpegArguments` passes ffmpeg the path it was
-    /// given, and a bare name as common as `cancelled.mp4` would answer for anything else on the
-    /// machine that happened to mention one.
     private func isRunning(writingTo output: URL) -> Bool {
         let process = Process()
         process.executableURL = URL(filePath: "/usr/bin/pgrep")

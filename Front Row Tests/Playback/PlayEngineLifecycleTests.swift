@@ -333,9 +333,7 @@ struct PlayEngineLifecycleTests {
     /// Waits until `condition` holds, giving up after `timeout`.
     ///
     /// An item goes when the last thing holding it lets go, which happens inside AVFoundation and
-    /// has no event to wait on. A fixed pause asks whether it had gone by one particular moment,
-    /// which on a loaded machine is a question about the machine. This asks whether it goes at
-    /// all: something genuinely held still fails, and a slow release no longer does.
+    /// has no event to wait on. Something genuinely held still fails, once the deadline passes.
     private func settle(until condition: () -> Bool, timeout: Duration = .seconds(10)) async {
         let deadline = ContinuousClock.now + timeout
         while ContinuousClock.now < deadline {

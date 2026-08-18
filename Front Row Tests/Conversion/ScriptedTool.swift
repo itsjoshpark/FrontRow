@@ -93,8 +93,7 @@ struct ScriptedTool {
 
     /// Waits until the script reports it has set itself up, or gives up after `within`.
     ///
-    /// A test that cancels has to know the child is up, or it is testing cancellation before
-    /// launch instead - which passes for the same reason and covers nothing.
+    /// A test that cancels has to know the child is up for the cancellation to reach it.
     func waitUntilReady(within: Duration = .seconds(10)) async -> Bool {
         let deadline = ContinuousClock.now + within
         while ContinuousClock.now < deadline {

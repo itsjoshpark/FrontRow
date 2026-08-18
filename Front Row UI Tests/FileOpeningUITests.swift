@@ -10,22 +10,15 @@ import XCTest
 /// Every route ends at `openFileAndPresent(url:)`, so what differs between them is the interface
 /// in front of it - a panel, a sheet, a recent entry, or a Finder double-click - and each has
 /// broken on its own before.
-///
-/// A drop is the one route missing. `mediaFileDropDestination()` takes its file URL from an
-/// external dragging source, so driving it means running the Finder as a second application and
-/// dragging between the two, which is the least reliable thing XCUITest does.
 final class FileOpeningUITests: FrontRowUITestCase {
 
     func testOpeningThroughTheOpenPanel() async throws {
         let movie = try await makeClip(named: "panel")
 
-        // Brought to the front first. `presentOpenFilePanel` sheets the panel onto the main
-        // window, and an app that isn't active has none - the panel then opens as a window of its
-        // own, and closing it takes the app with it.
+        // `presentOpenFilePanel` sheets the panel onto the main window, which the app only has
+        // while it is active.
         app.activate()
 
-        // The keyboard shortcut rather than the menu item: clicking File ▸ Open File… lands while
-        // the menu is still tracking and the panel never opens.
         app.typeKey("o", modifierFlags: .command)
 
         let panel = app.descendants(matching: .any)["open-panel"]
@@ -75,8 +68,7 @@ final class FileOpeningUITests: FrontRowUITestCase {
         try assertPlaying(movie)
 
         // Started again so the welcome window is drawn, which is where a recent file can be
-        // clicked directly. The same entry sits in File ▸ Open Recent, but reaching into a
-        // submenu is the flakiest thing XCUITest does.
+        // clicked directly.
         try relaunchApp()
         let welcome = app.windows["welcome"]
         XCTAssertTrue(
@@ -114,10 +106,6 @@ final class FileOpeningUITests: FrontRowUITestCase {
 
     /// Drives the Open panel's "Go to the folder" field, which is the only way to reach a
     /// temporary directory without clicking through the column browser.
-    ///
-    /// Each step waits for the one before it to land. Typing a path before the field is up sends
-    /// it to the panel's own type-select instead, and the second Return then opens whatever that
-    /// happened to highlight.
     private func typePath(_ url: URL, panel: XCUIElement) {
         app.typeKey("g", modifierFlags: [.command, .shift])
         let goToFolder = panel.sheets.firstMatch

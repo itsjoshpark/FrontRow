@@ -9,15 +9,12 @@ import XCTest
 ///
 /// `KeyDownListener` takes the key from anywhere in the app and answers it by pausing and hiding,
 /// unless something editable is first responder - and that exception is the only thing leaving
-/// Escape free to cancel a sheet. Both behaviours come out of the same `guard`, so neither can be
-/// changed without the other, and only a running app can say which way it went.
+/// Escape free to cancel a sheet. Both behaviours come out of the same `guard`.
 final class EscapeKeyUITests: FrontRowUITestCase {
 
     /// Escape gets the player off the screen, and stops the file rather than leaving it playing to
     /// an empty room.
     func testEscapeHidesTheAppAndPausesPlayback() async throws {
-        // Long enough to still be playing when the menu is read - a short clip would reach its end
-        // first and make the paused state look like the key working.
         let movie = try await MediaFixtures.makeMovie(
             size: CGSize(width: 640, height: 360),
             named: "clip",
@@ -41,8 +38,7 @@ final class EscapeKeyUITests: FrontRowUITestCase {
             "Escape left the app on the screen"
         )
 
-        // Brought back before the menu is read: a hidden app has no menu bar to ask, and coming
-        // back does not resume anything.
+        // A hidden app has no menu bar to read.
         activate()
         XCTAssertTrue(
             menus.contains("Play", in: "Playback"),

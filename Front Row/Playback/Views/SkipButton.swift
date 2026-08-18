@@ -21,7 +21,6 @@ struct SkipButton: View {
             }
         }
 
-        /// The label is an SF Symbol, so there is no title for a UI test to match on.
         var accessibilityIdentifier: String {
             switch self {
             case .backward: "skip-backward"

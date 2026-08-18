@@ -26,10 +26,6 @@ jobs:
         run: |
           /opt/homebrew/bin/swift-format lint -s -p -r ./
 
-      # Signed ad-hoc rather than not at all. CODE_SIGNING_ALLOWED=NO leaves
-      # "Front Row UI Tests-Runner.app" without a code identity, and Gatekeeper
-      # then assesses every launch. The UI tests need an unlocked display, which
-      # the macOS runner provides.
       - name: Build, Analyze, and Test
         run: >
           xcodebuild clean analyze test

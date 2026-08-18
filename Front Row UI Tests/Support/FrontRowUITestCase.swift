@@ -43,13 +43,12 @@ class FrontRowUITestCase: XCTestCase {
 
     /// Starts the app through Launch Services and waits for its first window.
     ///
-    /// Opened the way the Dock does rather than with `XCUIApplication.launch()`, which spawns the
-    /// executable itself. A scene is only presented for its `defaultLaunchBehavior` on a launch
-    /// Launch Services calls a default one, so a spawned copy comes up with no window at all.
-    /// The test drives the running process instead of one it started.
+    /// A scene is only presented for its `defaultLaunchBehavior` on a launch Launch Services calls
+    /// a default one, so the app has to be opened the way the Dock opens it. The test then drives
+    /// the running process.
     private func startApp() throws {
-        // Matched against the English strings in Localizable.xcstrings rather than accessibility
-        // identifiers, so the interface has to be in English whatever the machine is set to.
+        // The tests match the English strings in Localizable.xcstrings, so the interface has to be
+        // in English whatever the machine is set to.
         let status = run(
             "/usr/bin/open",
             [
@@ -59,8 +58,7 @@ class FrontRowUITestCase: XCTestCase {
         )
         XCTAssertEqual(status, 0, "`open` would not start the app")
 
-        // Waited for rather than assumed. `open` returns as soon as the request is made, and a
-        // test that starts driving menus before a window exists is testing the launch.
+        // `open` returns as soon as the request is made.
         XCTAssertTrue(
             app.windows.firstMatch.waitForExistence(timeout: 30),
             "The app came up with no window.\(Self.sessionAdvice)"
@@ -124,13 +122,9 @@ class FrontRowUITestCase: XCTestCase {
 
     /// Kills every copy of the app and waits for the processes to actually be gone.
     ///
-    /// Killed rather than asked. `XCUIApplication.terminate()` waits for a graceful quit, and a
-    /// test that leaves a sheet up never gets one - the run then hangs in teardown rather than
-    /// failing. Nothing here needs the app to shut down tidily.
-    ///
-    /// A copy that outlives its test is not a tidiness problem: `open` hands the next test's file
-    /// to whichever copy Launch Services picks, and a test watching a different one waits out its
-    /// timeout for a window that opened somewhere else.
+    /// A copy that outlives its test matters: `open` hands the next test's file to whichever copy
+    /// Launch Services picks, and a test watching a different one waits out its timeout for a
+    /// window that opened somewhere else.
     private func stopRunningApp() {
         let deadline = Date().addingTimeInterval(10)
         while Date() < deadline {
