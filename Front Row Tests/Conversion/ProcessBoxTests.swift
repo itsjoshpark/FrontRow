@@ -12,6 +12,10 @@ import Testing
 ///
 /// The race this exists to close is narrow and fatal: terminating a `Process` that was never
 /// started raises an Objective-C exception, which Swift cannot catch.
+// Serialised: each test launches a real child and waits for it. Several at once hold a thread
+// apiece, and on a machine with few cores the queues serving the pipes stop being run - the child
+// fills one, blocks writing to it, and the wait never ends.
+@Suite(.serialized)
 struct ProcessBoxTests {
 
     private func makeSleep() -> Process {
