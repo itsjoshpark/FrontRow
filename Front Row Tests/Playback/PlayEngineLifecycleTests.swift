@@ -51,7 +51,7 @@ struct PlayEngineLifecycleTests {
         #expect(firstItem != nil)
 
         #expect(await engine.openFile(url: second) == .opened)
-        await settle()
+        await settle(until: { firstItem == nil })
 
         #expect(firstItem == nil, "The first player item outlived the file that replaced it")
     }
@@ -68,7 +68,7 @@ struct PlayEngineLifecycleTests {
         #expect(item != nil)
 
         engine.closeFile()
-        await settle()
+        await settle(until: { item == nil })
 
         #expect(item == nil, "Closing left the player item behind")
     }
@@ -98,6 +98,7 @@ struct PlayEngineLifecycleTests {
         }
 
         // Every item but the one playing now.
+        await settle(until: { previous.aliveCount == 1 })
         #expect(
             previous.aliveCount == 1,
             "\(previous.aliveCount) player items are still alive after four opens"
@@ -181,7 +182,7 @@ struct PlayEngineLifecycleTests {
 
         #expect(await engine.openFile(url: rubbish) != .opened)
         engine.closeFile()
-        await settle()
+        await settle(until: { item == nil })
 
         #expect(engine.fileURL == nil)
         #expect(!engine.isLoaded)
@@ -282,7 +283,7 @@ struct PlayEngineLifecycleTests {
         }
 
         engine.closeFile()
-        await settle()
+        await settle(until: { items.aliveCount == 0 })
 
         #expect(items.aliveCount == 0, "\(items.aliveCount) items survived ten interrupted opens")
     }
@@ -311,7 +312,7 @@ struct PlayEngineLifecycleTests {
             #expect(engine.player.currentItem == nil, "Cycle \(cycle) left an item behind")
         }
 
-        await settle()
+        await settle(until: { items.aliveCount == 0 })
         #expect(items.aliveCount == 0, "\(items.aliveCount) player items survived ten cycles")
     }
 
@@ -326,6 +327,20 @@ struct PlayEngineLifecycleTests {
     private func settle() async {
         for _ in 0..<3 {
             try? await Task.sleep(for: .milliseconds(120))
+        }
+    }
+
+    /// Waits until `condition` holds, giving up after `timeout`.
+    ///
+    /// An item goes when the last thing holding it lets go, which happens inside AVFoundation and
+    /// has no event to wait on. A fixed pause asks whether it had gone by one particular moment,
+    /// which on a loaded machine is a question about the machine. This asks whether it goes at
+    /// all: something genuinely held still fails, and a slow release no longer does.
+    private func settle(until condition: () -> Bool, timeout: Duration = .seconds(10)) async {
+        let deadline = ContinuousClock.now + timeout
+        while ContinuousClock.now < deadline {
+            if condition() { return }
+            try? await Task.sleep(for: .milliseconds(50))
         }
     }
 }
