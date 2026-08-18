@@ -300,12 +300,16 @@ struct RealFFmpegConversionTests {
         return false
     }
 
-    /// Whether any ffmpeg is still writing `output`, matched on the output name since every other
-    /// part of the command line is shared with any other ffmpeg on the machine.
+    /// Whether any ffmpeg is still writing `output`, matched on the full output path since every
+    /// other part of the command line is shared with any other ffmpeg on the machine.
+    ///
+    /// The whole path rather than the name: `FFmpegArguments` passes ffmpeg the path it was
+    /// given, and a bare name as common as `cancelled.mp4` would answer for anything else on the
+    /// machine that happened to mention one.
     private func isRunning(writingTo output: URL) -> Bool {
         let process = Process()
         process.executableURL = URL(filePath: "/usr/bin/pgrep")
-        process.arguments = ["-f", output.lastPathComponent]
+        process.arguments = ["-f", output.path(percentEncoded: false)]
         process.standardOutput = FileHandle.nullDevice
         process.standardError = FileHandle.nullDevice
         try? process.run()
