@@ -14,6 +14,10 @@ import Testing
 ///
 /// A leak here does not show as memory. It shows as an ffmpeg still encoding after the user
 /// cancelled, or as an app that has quietly run out of descriptors some hours into a session.
+// Serialised: each test launches a real child and waits for it. Several at once hold a thread
+// apiece, and on a machine with few cores the queues serving the pipes stop being run - the child
+// fills one, blocks writing to it, and the wait never ends.
+@Suite(.serialized)
 struct ConversionResourceTests {
 
     private let recipe = RemuxRecipe(

@@ -25,7 +25,10 @@ private let ffmpegIsInstalled = ExternalToolLocator().locateFFmpeg() != nil
 /// Skipped where ffmpeg is not installed. The fixture is written by ffmpeg rather than committed:
 /// Matroska cannot be written without it, and a test that needs ffmpeg to run has no use for a
 /// fixture that exists to avoid needing ffmpeg.
-@Suite(.enabled(if: ffmpegIsInstalled))
+// Serialised: each test launches a real child and waits for it. Several at once hold a thread
+// apiece, and on a machine with few cores the queues serving the pipes stop being run - the child
+// fills one, blocks writing to it, and the wait never ends.
+@Suite(.enabled(if: ffmpegIsInstalled), .serialized)
 struct RealFFmpegConversionTests {
 
     private func makeDirectory() throws -> URL {
