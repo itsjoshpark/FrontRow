@@ -18,11 +18,8 @@ struct MenuBarDriver {
 
     let app: XCUIApplication
 
-    /// How long AppKit is given to draw a menu before its items are read.
+    /// How long AppKit is given to draw or dismiss a menu.
     private let menuTimeout: TimeInterval = 15
-
-    /// How long a menu is given to take itself off the screen once it has been dealt with.
-    private let dismissalTime: TimeInterval = 0.25
 
     /// Whether each of `titles` is enabled, or `nil` where the menu has no such item.
     func states(of menuName: String, for titles: [String]) -> [String: Bool?] {
@@ -47,7 +44,7 @@ struct MenuBarDriver {
         let item = menu.menuItems[itemTitle].firstMatch
         _ = item.waitForExistence(timeout: menuTimeout)
         item.click()
-        Thread.sleep(forTimeInterval: dismissalTime)
+        waitUntilClosed(menu)
     }
 
     private func withMenu<T>(_ menuName: String, _ body: (XCUIElement) -> T) -> T {
@@ -69,17 +66,29 @@ struct MenuBarDriver {
         _ = menu.menuItems.firstMatch.waitForExistence(timeout: menuTimeout)
     }
 
-    /// Clicks `menu` shut.
-    ///
-    /// Paced rather than waited for, unlike opening. A closed menu goes on answering for its
-    /// items, so there is no closed state to wait on - and nothing is read after this anyway, so
-    /// a pause that ends early costs a retry rather than a wrong answer.
+    /// Clicks `menu` shut and waits until it is.
     ///
     /// Closed with a second click on the title rather than Escape, which reaches the app, where
     /// `KeyDownListener` answers it by hiding the app and the run never recovers.
     private func close(_ menu: XCUIElement) {
         menu.click()
-        Thread.sleep(forTimeInterval: dismissalTime)
+        waitUntilClosed(menu)
+    }
+
+    /// Waits for `menu` to stop being the open one.
+    ///
+    /// Asked of the menu bar item rather than of its items: a closed menu goes on answering for
+    /// those, so waiting for them to go never ends. Only the title's own selected state tracks
+    /// whether the menu is up.
+    ///
+    /// Worth waiting for rather than pacing past. A menu still open when the next click lands on
+    /// the same title takes that click as the one that closes it, and the read that follows finds
+    /// a menu that never opened.
+    private func waitUntilClosed(_ menu: XCUIElement) {
+        let deadline = Date().addingTimeInterval(menuTimeout)
+        while menu.isSelected, Date() < deadline {
+            Thread.sleep(forTimeInterval: 0.05)
+        }
     }
 }
 
