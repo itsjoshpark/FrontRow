@@ -20,6 +20,14 @@ struct SkipButton: View {
             case .forward: "L"
             }
         }
+
+        /// The label is an SF Symbol, so there is no title for a UI test to match on.
+        var accessibilityIdentifier: String {
+            switch self {
+            case .backward: "skip-backward"
+            case .forward: "skip-forward"
+            }
+        }
     }
 
     let direction: Direction
@@ -45,6 +53,7 @@ struct SkipButton: View {
         .keyboardShortcut(direction.shortcut, modifiers: [])
         .focusable(false)
         .disabled(!playEngine.isLoaded)
+        .accessibilityIdentifier(direction.accessibilityIdentifier)
     }
 
     private var symbolName: String {

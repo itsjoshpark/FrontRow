@@ -151,6 +151,9 @@ struct SeekSliderView: NSViewRepresentable {
             maxValue: maxValue,
             target: context.coordinator,
             action: #selector(Coordinator.valueChanged))
+        // Set on the control rather than through the SwiftUI modifier, which would land on the
+        // hosting view instead.
+        slider.setAccessibilityIdentifier("seek-slider")
         return slider
     }
 
