@@ -53,8 +53,8 @@ struct ConversionResourceTests {
             ) { _ in }
         }
 
-        try await Task.sleep(for: .milliseconds(400))
-        #expect(isRunning(tool), "The tool never started, so there was nothing to cancel")
+        #expect(
+            await waitUntilRunning(tool), "The tool never started, so there was nothing to cancel")
 
         task.cancel()
         await #expect(throws: FFmpegError.cancelled) { try await task.value }
@@ -94,7 +94,8 @@ struct ConversionResourceTests {
             ) { _ in }
         }
 
-        try await Task.sleep(for: .milliseconds(400))
+        #expect(
+            await waitUntilReady(tool), "The tool never got as far as trapping the signal")
         let cancelledAt = ContinuousClock.now
         task.cancel()
         await #expect(throws: FFmpegError.cancelled) { try await task.value }
@@ -181,6 +182,35 @@ struct ConversionResourceTests {
     /// Matched on the tool's name rather than its path: a process reports its arguments with
     /// `/var/tmp/…` where the URL says `/private/var/tmp/…`, and the full path then matches
     /// nothing at all - which would read as "no orphan" and pass.
+    /// Waits until `tool` is actually running, so there is something for a cancellation to reach.
+    ///
+    /// Polled rather than slept for. A fixed wait is a guess at how long the machine takes to get
+    /// a child up, and where the guess falls short the tool has already finished by the time the
+    /// test cancels - which reads as a conversion that ignored the cancellation.
+    private func waitUntilRunning(_ tool: ScriptedTool, within: Duration = .seconds(10)) async
+        -> Bool
+    {
+        let deadline = ContinuousClock.now + within
+        while ContinuousClock.now < deadline {
+            if isRunning(tool) { return true }
+            try? await Task.sleep(for: .milliseconds(20))
+        }
+        return false
+    }
+
+    /// Waits for a tool to report that it has set itself up, by the file its script writes.
+    private func waitUntilReady(_ tool: ScriptedTool, within: Duration = .seconds(10)) async -> Bool
+    {
+        let deadline = ContinuousClock.now + within
+        while ContinuousClock.now < deadline {
+            if FileManager.default.fileExists(atPath: tool.ready.path(percentEncoded: false)) {
+                return true
+            }
+            try? await Task.sleep(for: .milliseconds(20))
+        }
+        return false
+    }
+
     private func isRunning(_ tool: ScriptedTool) -> Bool {
         let process = Process()
         process.executableURL = URL(filePath: "/usr/bin/pgrep")

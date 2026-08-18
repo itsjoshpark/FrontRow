@@ -21,6 +21,13 @@ struct ScriptedTool {
     /// matching on the whole path finds nothing. The name appears in both.
     let name: String
 
+    /// Written by the script once it has finished setting itself up.
+    ///
+    /// A tool that traps a signal is only ignoring it from the line after the trap, and a test
+    /// that cancels before then is cancelling a process with the default disposition - which dies
+    /// at once, and looks exactly like the cancellation working.
+    let ready: URL
+
     private let root: URL
 
     /// Writes `body` as a shell script and makes it executable.
@@ -29,6 +36,7 @@ struct ScriptedTool {
         root = URL(filePath: "/private/var/tmp").appending(path: name)
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
 
+        ready = root.appending(path: "ready")
         url = root.appending(path: "tool.sh")
         try "#!/bin/sh\n\(body)\n".write(to: url, atomically: true, encoding: .utf8)
         try FileManager.default.setAttributes(
@@ -65,6 +73,7 @@ struct ScriptedTool {
         try ScriptedTool(
             """
             trap '' TERM
+            : > "$(dirname "$0")/ready"
             sleep \(seconds)
             """
         )
