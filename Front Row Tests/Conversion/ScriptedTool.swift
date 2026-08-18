@@ -27,6 +27,9 @@ struct ScriptedTool {
     /// know the trap is in place.
     let ready: URL
 
+    /// Written by the test to release a tool waiting at `holdUntilReleased`.
+    let released: URL
+
     private let root: URL
 
     /// Writes `body` as a shell script and makes it executable.
@@ -36,6 +39,7 @@ struct ScriptedTool {
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
 
         ready = root.appending(path: "ready")
+        released = root.appending(path: "released")
         url = root.appending(path: "tool.sh")
         try "#!/bin/sh\n\(body)\n".write(to: url, atomically: true, encoding: .utf8)
         try FileManager.default.setAttributes(
@@ -68,14 +72,28 @@ struct ScriptedTool {
     }
 
     /// Ignores termination and keeps running, for cancellation that has to be insisted on.
+    ///
+    /// The `seconds` it stays up for start when the test releases it, not when it launches, so
+    /// how long the test took to get there cannot eat into them.
     static func ignoringTermination(seconds: Int = 120) throws -> ScriptedTool {
         try ScriptedTool(
             """
+            here=$(dirname "$0")
             trap '' TERM
-            : > "$(dirname "$0")/ready"
+            : > "$here/ready"
+            waited=0
+            while [ ! -f "$here/released" ] && [ "$waited" -lt 200 ]; do
+                sleep 0.05
+                waited=$((waited + 1))
+            done
             sleep \(seconds)
             """
         )
+    }
+
+    /// Lets a tool held at `ignoringTermination` get on with it.
+    func release() throws {
+        try Data().write(to: released)
     }
 
     /// Runs until it is stopped.

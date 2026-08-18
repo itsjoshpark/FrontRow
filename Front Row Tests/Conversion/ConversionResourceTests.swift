@@ -93,10 +93,12 @@ struct ConversionResourceTests {
             ) { _ in }
         }
 
-        #expect(
-            await waitUntilReady(tool), "The tool never got as far as trapping the signal")
+        #expect(await waitUntilReady(tool), "The tool never got as far as trapping the signal")
         let cancelledAt = ContinuousClock.now
         task.cancel()
+        // Released after the cancellation, so the seconds the tool stays up for are all on this
+        // side of it however long the machine took to get here.
+        try tool.release()
         await #expect(throws: FFmpegError.cancelled) { try await task.value }
 
         #expect(
