@@ -6,7 +6,12 @@
 # Build, analyze, and test. Signed ad-hoc: the test bundle is hosted in the app,
 # and an app with no code identity is assessed by Gatekeeper on every launch.
 # Drop the last two settings where a Mac Development certificate is installed.
-xcodebuild clean analyze test -project "Front Row.xcodeproj" -scheme "Front Row" -destination "platform=macOS" CODE_SIGN_IDENTITY="-" CODE_SIGNING_REQUIRED=YES CODE_SIGNING_ALLOWED=YES CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=""
+xcodebuild clean analyze test -project "Front Row.xcodeproj" -scheme "Front Row" -testPlan "Front Row" -destination "platform=macOS" CODE_SIGN_IDENTITY="-" CODE_SIGNING_REQUIRED=YES CODE_SIGNING_ALLOWED=YES CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=""
+
+# The UI tests, which drive the built app. They get a plan and a CI job of their
+# own: run from the same xcodebuild as the app-hosted unit bundle, they leave the
+# app unable to open a window. Needs an unlocked display.
+xcodebuild test -project "Front Row.xcodeproj" -scheme "Front Row" -testPlan "UI" -destination "platform=macOS" CODE_SIGN_IDENTITY="-" CODE_SIGNING_REQUIRED=YES CODE_SIGNING_ALLOWED=YES CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=""
 
 # Lint — must pass before a PR merges
 swift-format lint -s -p -r ./
