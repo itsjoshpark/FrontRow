@@ -19,7 +19,10 @@ struct MenuBarDriver {
     let app: XCUIApplication
 
     /// How long AppKit is given to draw a menu before its items are read.
-    private let menuSettleTime: TimeInterval = 0.5
+    private let menuTimeout: TimeInterval = 15
+
+    /// How long a menu is given to take itself off the screen once it has been dealt with.
+    private let dismissalTime: TimeInterval = 0.25
 
     /// Whether each of `titles` is enabled, or `nil` where the menu has no such item.
     func states(of menuName: String, for titles: [String]) -> [String: Bool?] {
@@ -40,20 +43,43 @@ struct MenuBarDriver {
 
     func click(_ itemTitle: String, in menuName: String) {
         let menu = app.menuBars.menuBarItems[menuName]
-        menu.click()
-        Thread.sleep(forTimeInterval: menuSettleTime)
-        menu.menuItems[itemTitle].firstMatch.click()
-        Thread.sleep(forTimeInterval: menuSettleTime)
+        open(menu)
+        let item = menu.menuItems[itemTitle].firstMatch
+        _ = item.waitForExistence(timeout: menuTimeout)
+        item.click()
+        Thread.sleep(forTimeInterval: dismissalTime)
     }
 
     private func withMenu<T>(_ menuName: String, _ body: (XCUIElement) -> T) -> T {
         let menu = app.menuBars.menuBarItems[menuName]
-        menu.click()
-        Thread.sleep(forTimeInterval: menuSettleTime)
+        open(menu)
         let result = body(menu)
-        menu.click()
-        Thread.sleep(forTimeInterval: menuSettleTime / 2)
+        close(menu)
         return result
+    }
+
+    /// Clicks `menu` open and waits until it has items to read.
+    ///
+    /// Waited for rather than paced. A menu answers for its items only while it is open, so a
+    /// fixed pause is really asking whether AppKit had finished drawing - and a menu caught
+    /// half-drawn reads as one whose items have all gone, which is what the callers are looking
+    /// for.
+    private func open(_ menu: XCUIElement) {
+        menu.click()
+        _ = menu.menuItems.firstMatch.waitForExistence(timeout: menuTimeout)
+    }
+
+    /// Clicks `menu` shut.
+    ///
+    /// Paced rather than waited for, unlike opening. A closed menu goes on answering for its
+    /// items, so there is no closed state to wait on - and nothing is read after this anyway, so
+    /// a pause that ends early costs a retry rather than a wrong answer.
+    ///
+    /// Closed with a second click on the title rather than Escape, which reaches the app, where
+    /// `KeyDownListener` answers it by hiding the app and the run never recovers.
+    private func close(_ menu: XCUIElement) {
+        menu.click()
+        Thread.sleep(forTimeInterval: dismissalTime)
     }
 }
 

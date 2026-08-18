@@ -93,7 +93,7 @@ struct ConversionResourceTests {
             ) { _ in }
         }
 
-        #expect(await waitUntilReady(tool), "The tool never got as far as trapping the signal")
+        #expect(await tool.waitUntilReady(), "The tool never got as far as trapping the signal")
         let cancelledAt = ContinuousClock.now
         task.cancel()
         // Released after the cancellation, so the seconds the tool stays up for are all on this
@@ -190,19 +190,6 @@ struct ConversionResourceTests {
         let deadline = ContinuousClock.now + within
         while ContinuousClock.now < deadline {
             if isRunning(tool) { return true }
-            try? await Task.sleep(for: .milliseconds(20))
-        }
-        return false
-    }
-
-    /// Waits for a tool to report that it has set itself up, by the file its script writes.
-    private func waitUntilReady(_ tool: ScriptedTool, within: Duration = .seconds(10)) async -> Bool
-    {
-        let deadline = ContinuousClock.now + within
-        while ContinuousClock.now < deadline {
-            if FileManager.default.fileExists(atPath: tool.ready.path(percentEncoded: false)) {
-                return true
-            }
             try? await Task.sleep(for: .milliseconds(20))
         }
         return false

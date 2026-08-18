@@ -276,7 +276,10 @@ struct RealFFmpegConversionTests {
             ) { _ in }
         }
 
-        try await Task.sleep(for: .milliseconds(300))
+        #expect(
+            await started(writingTo: output),
+            "ffmpeg never started, so there was nothing for the cancellation to stop"
+        )
         task.cancel()
         await #expect(throws: FFmpegError.cancelled) { try await task.value }
 
@@ -284,6 +287,20 @@ struct RealFFmpegConversionTests {
             await stopped(writingTo: output),
             "An ffmpeg was still writing the output after the conversion was cancelled"
         )
+    }
+
+    /// Whether an ffmpeg has picked the conversion up and is writing `output`.
+    ///
+    /// Waited for rather than paced. A pause long enough to see the child launch on one machine is
+    /// too short on a busier one, and cancelling before it launches passes this test for an
+    /// entirely different reason - leaving the case it names uncovered.
+    private func started(writingTo output: URL, within: Duration = .seconds(20)) async -> Bool {
+        let deadline = ContinuousClock.now + within
+        while ContinuousClock.now < deadline {
+            if isRunning(writingTo: output) { return true }
+            try? await Task.sleep(for: .milliseconds(50))
+        }
+        return false
     }
 
     /// Whether no ffmpeg is writing `output` any more, allowing a moment for one that has been

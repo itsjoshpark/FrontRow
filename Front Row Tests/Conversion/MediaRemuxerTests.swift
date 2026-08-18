@@ -130,9 +130,10 @@ struct MediaRemuxerTests {
             ) { _ in }
         }
 
-        // Long enough for the child to be running, so cancellation has something to terminate
-        // rather than only setting the flag.
-        try await Task.sleep(for: .milliseconds(400))
+        // Waited for, so cancellation has something to terminate rather than only setting the
+        // flag. A pause long enough on one machine is a pause too short on a busier one, and the
+        // test would then quietly be covering cancellation before launch.
+        #expect(await tool.waitUntilReady(), "The tool never started, so there was nothing to stop")
         task.cancel()
 
         await #expect(throws: FFmpegError.cancelled) { try await task.value }
@@ -162,9 +163,13 @@ struct MediaRemuxerTests {
     /// raise an alert about.
     @Test(.timeLimit(.minutes(2)))
     func aCancelledRunIsNotReportedAsAFailure() async throws {
+        // Ready is reported after the trap is set, so a cancellation arriving the moment it
+        // appears still finds the handler in place.
         let tool = try ScriptedTool(
             """
+            here=$(dirname "$0")
             trap 'exit 9' TERM
+            : > "$here/ready"
             sleep 120
             """
         )
@@ -177,7 +182,7 @@ struct MediaRemuxerTests {
             ) { _ in }
         }
 
-        try await Task.sleep(for: .milliseconds(400))
+        #expect(await tool.waitUntilReady(), "The tool never started, so there was nothing to stop")
         task.cancel()
 
         await #expect(throws: FFmpegError.cancelled) { try await task.value }

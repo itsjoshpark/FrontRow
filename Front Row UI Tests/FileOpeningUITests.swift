@@ -36,7 +36,7 @@ final class FileOpeningUITests: FrontRowUITestCase {
             Windows: \(app.windows.allElementsBoundByIndex.map(\.identifier)).
             """
         )
-        typePath(movie)
+        typePath(movie, panel: panel)
 
         try assertPlaying(movie)
     }
@@ -114,12 +114,25 @@ final class FileOpeningUITests: FrontRowUITestCase {
 
     /// Drives the Open panel's "Go to the folder" field, which is the only way to reach a
     /// temporary directory without clicking through the column browser.
-    private func typePath(_ url: URL) {
+    ///
+    /// Each step waits for the one before it to land. Typing a path before the field is up sends
+    /// it to the panel's own type-select instead, and the second Return then opens whatever that
+    /// happened to highlight.
+    private func typePath(_ url: URL, panel: XCUIElement) {
         app.typeKey("g", modifierFlags: [.command, .shift])
-        Thread.sleep(forTimeInterval: 1)
+        let goToFolder = panel.sheets.firstMatch
+        XCTAssertTrue(
+            goToFolder.waitForExistence(timeout: 15),
+            "The Go to the folder field did not appear"
+        )
+
         app.typeText(url.path(percentEncoded: false))
         app.typeKey(.return, modifierFlags: [])
-        Thread.sleep(forTimeInterval: 1.5)
+        XCTAssertTrue(
+            goToFolder.waitForNonExistence(timeout: 15),
+            "The Go to the folder field would not take \(url.path(percentEncoded: false))"
+        )
+
         app.typeKey(.return, modifierFlags: [])
     }
 
