@@ -3,8 +3,9 @@ name: CI
 on:
   push:
     branches: ["main"]
+  # Every pull request, whatever it targets. Filtering on `main` would leave a
+  # stacked PR - one based on the branch below it - with no checks at all.
   pull_request:
-    branches: ["main"]
 
 jobs:
   build:
@@ -33,4 +34,14 @@ jobs:
           -project "Front Row.xcodeproj"
           -scheme "Front Row"
           -destination "platform=macOS"
+          -resultBundlePath TestResults.xcresult
           CODE_SIGNING_ALLOWED=NO | xcpretty && exit ${PIPESTATUS[0]}
+
+      # The UI tests' screenshots and failure details live here, and a failed run
+      # is the only time anyone wants them.
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestResults
+          path: TestResults.xcresult
