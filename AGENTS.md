@@ -3,8 +3,14 @@
 ## Commands
 
 ```sh
-# Build, analyze, and test
-xcodebuild clean analyze test -project "Front Row.xcodeproj" -scheme "Front Row" -destination "platform=macOS" CODE_SIGNING_ALLOWED=NO
+# Build, analyze, and test. Signed ad-hoc: the test bundles are hosted in the
+# app, and an app with no code identity is assessed by Gatekeeper on every
+# launch. Drop the last two settings where a Mac Development certificate is
+# installed. The UI tests drive the built app, so this needs an unlocked display.
+xcodebuild clean analyze test -project "Front Row.xcodeproj" -scheme "Front Row" -destination "platform=macOS" CODE_SIGN_IDENTITY="-" CODE_SIGNING_REQUIRED=YES CODE_SIGNING_ALLOWED=YES CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=""
+
+# Just the UI tests, while iterating on them
+xcodebuild test -project "Front Row.xcodeproj" -scheme "Front Row" -only-testing:"Front Row UI Tests" -destination "platform=macOS" CODE_SIGN_IDENTITY="-" CODE_SIGNING_REQUIRED=YES CODE_SIGNING_ALLOWED=YES CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=""
 
 # Lint — must pass before a PR merges
 swift-format lint -s -p -r ./

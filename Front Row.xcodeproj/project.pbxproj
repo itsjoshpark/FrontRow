@@ -22,6 +22,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		031457A330329C99001B3B01 /* Front Row UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Front Row UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03B712262B96C40C00C1F753 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		03BACB2D2B96C8A800D24F07 /* FrontRowInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FrontRowInfo.plist; sourceTree = SOURCE_ROOT; };
 		03EA684D2B9630CF003348BE /* Front Row.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Front Row.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,6 +30,11 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		031457A430329C99001B3B01 /* Front Row UI Tests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Front Row UI Tests";
+			sourceTree = "<group>";
+		};
 		FADEFEED0000000000000030 /* Front Row */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "Front Row";
@@ -42,6 +48,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		031457A030329C99001B3B01 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		03EA684A2B9630CF003348BE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -73,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				03BACB2D2B96C8A800D24F07 /* FrontRowInfo.plist */,
+				031457A430329C99001B3B01 /* Front Row UI Tests */,
 				03B712252B96C40C00C1F753 /* Frameworks */,
 				FADEFEED0000000000000030 /* Front Row */,
 				FADEFEED0000000000000031 /* Front Row Tests */,
@@ -85,6 +99,7 @@
 			children = (
 				03EA684D2B9630CF003348BE /* Front Row.app */,
 				FADEFEED0000000000000001 /* Front Row Tests.xctest */,
+				031457A330329C99001B3B01 /* Front Row UI Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,6 +107,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		031457A230329C99001B3B01 /* Front Row UI Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 031457A730329C99001B3B01 /* Build configuration list for PBXNativeTarget "Front Row UI Tests" */;
+			buildPhases = (
+				0314579F30329C99001B3B01 /* Sources */,
+				031457A030329C99001B3B01 /* Frameworks */,
+				031457A130329C99001B3B01 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				031457A430329C99001B3B01 /* Front Row UI Tests */,
+			);
+			name = "Front Row UI Tests";
+			packageProductDependencies = (
+			);
+			productName = "Front Row UI Tests";
+			productReference = 031457A330329C99001B3B01 /* Front Row UI Tests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		03EA684C2B9630CF003348BE /* Front Row */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 03EA685C2B9630D0003348BE /* Build configuration list for PBXNativeTarget "Front Row" */;
@@ -144,9 +181,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1520;
+				LastSwiftUpdateCheck = 2700;
 				LastUpgradeCheck = 2630;
 				TargetAttributes = {
+					031457A230329C99001B3B01 = {
+						CreatedOnToolsVersion = 27.0;
+					};
 					03EA684C2B9630CF003348BE = {
 						CreatedOnToolsVersion = 15.2;
 					};
@@ -198,11 +238,19 @@
 			targets = (
 				03EA684C2B9630CF003348BE /* Front Row */,
 				FADEFEED0000000000000009 /* Front Row Tests */,
+				031457A230329C99001B3B01 /* Front Row UI Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		031457A130329C99001B3B01 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		03EA684B2B9630CF003348BE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -241,6 +289,13 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0314579F30329C99001B3B01 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		03EA68492B9630CF003348BE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -266,6 +321,46 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		031457A830329C99001B3B01 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.joshuapark.FrontRowUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		031457A930329C99001B3B01 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.joshuapark.FrontRowUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
 		03EA685A2B9630D0003348BE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -483,6 +578,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		031457A730329C99001B3B01 /* Build configuration list for PBXNativeTarget "Front Row UI Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				031457A830329C99001B3B01 /* Debug */,
+				031457A930329C99001B3B01 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		03EA68482B9630CF003348BE /* Build configuration list for PBXProject "Front Row" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

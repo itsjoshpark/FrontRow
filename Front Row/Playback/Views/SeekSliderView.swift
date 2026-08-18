@@ -151,6 +151,7 @@ struct SeekSliderView: NSViewRepresentable {
             maxValue: maxValue,
             target: context.coordinator,
             action: #selector(Coordinator.valueChanged))
+        slider.setAccessibilityIdentifier("seek-slider")
         return slider
     }
 

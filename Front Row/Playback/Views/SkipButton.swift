@@ -20,6 +20,13 @@ struct SkipButton: View {
             case .forward: "L"
             }
         }
+
+        var accessibilityIdentifier: String {
+            switch self {
+            case .backward: "skip-backward"
+            case .forward: "skip-forward"
+            }
+        }
     }
 
     let direction: Direction
@@ -45,6 +52,7 @@ struct SkipButton: View {
         .keyboardShortcut(direction.shortcut, modifiers: [])
         .focusable(false)
         .disabled(!playEngine.isLoaded)
+        .accessibilityIdentifier(direction.accessibilityIdentifier)
     }
 
     private var symbolName: String {

@@ -28,5 +28,6 @@ struct PlayPauseButton: View {
         .keyboardShortcut("K", modifiers: [])
         .focusable(false)
         .disabled(!playEngine.isLoaded)
+        .accessibilityIdentifier("play-pause")
     }
 }
