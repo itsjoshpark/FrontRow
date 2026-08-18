@@ -17,8 +17,6 @@ jobs:
         with:
           xcode-version: latest-stable
 
-      # ffmpeg is what the conversion tests convert with. Without it they skip, and the feature
-      # is only covered as far as the arguments handed to a tool that never runs.
       - name: Install swift-format and ffmpeg
         run: |
           brew update
