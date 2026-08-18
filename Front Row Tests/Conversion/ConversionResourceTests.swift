@@ -14,9 +14,8 @@ import Testing
 ///
 /// A leak here does not show as memory. It shows as an ffmpeg still encoding after the user
 /// cancelled, or as an app that has quietly run out of descriptors some hours into a session.
-// Serialised: each test launches a real child and waits for it. Several at once hold a thread
-// apiece, and on a machine with few cores the queues serving the pipes stop being run - the child
-// fills one, blocks writing to it, and the wait never ends.
+// Serialised: each test launches a real child and blocks on it, and they contend for the queues
+// serving their pipes.
 @Suite(.serialized)
 struct ConversionResourceTests {
 
@@ -182,11 +181,7 @@ struct ConversionResourceTests {
     /// Matched on the tool's name rather than its path: a process reports its arguments with
     /// `/var/tmp/…` where the URL says `/private/var/tmp/…`, and the full path then matches
     /// nothing at all - which would read as "no orphan" and pass.
-    /// Waits until `tool` is actually running, so there is something for a cancellation to reach.
-    ///
-    /// Polled rather than slept for. A fixed wait is a guess at how long the machine takes to get
-    /// a child up, and where the guess falls short the tool has already finished by the time the
-    /// test cancels - which reads as a conversion that ignored the cancellation.
+    /// Waits until `tool` is running, so there is something for a cancellation to reach.
     private func waitUntilRunning(_ tool: ScriptedTool, within: Duration = .seconds(10)) async
         -> Bool
     {

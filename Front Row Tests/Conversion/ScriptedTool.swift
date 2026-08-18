@@ -23,9 +23,8 @@ struct ScriptedTool {
 
     /// Written by the script once it has finished setting itself up.
     ///
-    /// A tool that traps a signal is only ignoring it from the line after the trap, and a test
-    /// that cancels before then is cancelling a process with the default disposition - which dies
-    /// at once, and looks exactly like the cancellation working.
+    /// A tool only ignores a signal from the line after its `trap`, so a test that cancels has to
+    /// know the trap is in place.
     let ready: URL
 
     private let root: URL
