@@ -47,6 +47,18 @@ final class WelcomeWindowCoordinator {
         dismissWelcomeWindow()
     }
 
+    /// Closes the welcome window without opening anything in its place, for a player window that
+    /// is already there.
+    ///
+    /// The player window doesn't only appear because the app asked: macOS presents it along with a
+    /// file handed to the app, before there is anything to play in it. The welcome window gives way
+    /// to the player either way - both on screen at once leaves the user looking at one window
+    /// while an alert or a sheet hangs from the other.
+    func yieldToMainWindow() {
+        guard welcomeWindow != nil else { return }
+        dismissWelcomeWindow?()
+    }
+
     private func flushPendingPresentIfNeeded() {
         guard hasPendingPresent, let openMainWindow, let dismissWelcomeWindow else { return }
         hasPendingPresent = false

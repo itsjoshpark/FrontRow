@@ -84,6 +84,7 @@ struct FrontRowApp: App {
                         // here would change state the update in progress is already reading.
                         Task { @MainActor in
                             windowController.setMainWindow(window)
+                            WelcomeWindowCoordinator.shared.yieldToMainWindow()
                         }
                     }
                 )
