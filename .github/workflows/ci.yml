@@ -28,6 +28,10 @@ jobs:
         run: |
           /opt/homebrew/bin/swift-format lint -s -p -r ./
 
+      # Signed ad-hoc rather than not at all. CODE_SIGNING_ALLOWED=NO leaves both
+      # the app and Front Row UI Tests-Runner.app without a code identity, and an
+      # app without one is held back by Gatekeeper on every launch: the UI tests
+      # take twice as long and the Inspector panel never reaches the screen.
       - name: Build, Analyze, and Test
         run: >
           xcodebuild clean analyze test
@@ -35,7 +39,9 @@ jobs:
           -scheme "Front Row"
           -destination "platform=macOS"
           -resultBundlePath TestResults.xcresult
-          CODE_SIGNING_ALLOWED=NO | xcpretty && exit ${PIPESTATUS[0]}
+          CODE_SIGN_IDENTITY="-"
+          CODE_SIGNING_REQUIRED=YES
+          CODE_SIGNING_ALLOWED=YES | xcpretty && exit ${PIPESTATUS[0]}
 
       # The UI tests' screenshots and failure details live here, and a failed run
       # is the only time anyone wants them.
