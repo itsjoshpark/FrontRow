@@ -14,6 +14,10 @@ import Testing
 /// A scripted tool stands in for ffmpeg. What is under test is the process handling around it -
 /// two pipes read at once, a wait for exit, and a cancellation that has to reach a child that may
 /// not have started yet.
+// Serialised: each test launches a real child and waits for it. Several at once hold a thread
+// apiece, and on a machine with few cores the queues serving the pipes stop being run - the child
+// fills one, blocks writing to it, and the wait never ends.
+@Suite(.serialized)
 struct MediaRemuxerTests {
 
     private let recipe = RemuxRecipe(
