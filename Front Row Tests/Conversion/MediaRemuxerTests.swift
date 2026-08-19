@@ -162,13 +162,18 @@ extension ConversionSuites {
         @Test(.timeLimit(.minutes(2)))
         func aCancelledRunIsNotReportedAsAFailure() async throws {
             // Ready is reported after the trap is set, so a cancellation arriving the moment it
-            // appears finds the handler in place.
+            // appears finds the handler in place. Short sleeps in a loop, since a shell holds a
+            // trapped signal until the command it is waiting on has returned.
             let tool = try ScriptedTool(
                 """
                 here=$(dirname "$0")
                 trap 'exit 9' TERM
                 : > "$here/ready"
-                sleep 120
+                elapsed=0
+                while [ "$elapsed" -lt 120 ]; do
+                    sleep 1
+                    elapsed=$((elapsed + 1))
+                done
                 """
             )
             defer { tool.remove() }
