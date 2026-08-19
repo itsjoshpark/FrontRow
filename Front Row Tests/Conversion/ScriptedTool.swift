@@ -167,6 +167,22 @@ struct ScriptedTool {
         )
     }
 
+    /// Writes `bytes` to the output path and is then killed outright, as an ffmpeg stopped from
+    /// outside the app is - Activity Monitor, a `kill`, the system running out of memory.
+    ///
+    /// Kills itself rather than waiting to be found and killed by the test. A process that dies by
+    /// an uncaught signal looks the same to its parent whoever sent it, and doing it from inside
+    /// leaves no window in which the test could miss its moment.
+    static func killedPartWayThrough(bytes: Int) throws -> ScriptedTool {
+        try ScriptedTool(
+            """
+            for out; do :; done
+            head -c \(bytes) /dev/zero > "$out"
+            kill -9 $$
+            """
+        )
+    }
+
     /// Emits ffmpeg's `-progress` blocks for a file of `duration` seconds, then finishes.
     static func reportingProgress(
         duration: TimeInterval,

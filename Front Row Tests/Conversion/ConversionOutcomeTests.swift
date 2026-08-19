@@ -158,6 +158,32 @@ extension ConversionSuites {
             }
         }
 
+        /// ffmpeg was killed from outside the app, and the half file still goes.
+        ///
+        /// Nothing here asked it to stop, so the app finds out the same way it finds out about any
+        /// other bad end: a tool that stopped without finishing. Worth its own test because it
+        /// arrives by a different route to a tool that gave up on its own - an uncaught signal
+        /// rather than an exit - and a stray `.part` beside the film is what a mishandled one
+        /// would leave.
+        @Test(.timeLimit(.minutes(1)))
+        func aConversionWhoseToolIsKilledDeletesItsWorkingFile() async throws {
+            let tool = try ScriptedTool.killedPartWayThrough(bytes: 4096)
+            defer { tool.remove() }
+            let directory = try makeDirectory()
+            defer { try? FileManager.default.removeItem(at: directory) }
+
+            try await withHostWindow {
+                MediaConversion.startConversion(makeOffer(tool, in: directory))
+                await waitUntilFinished()
+
+                let left = try contents(of: directory)
+                #expect(left == [], "A killed conversion left its working file behind")
+                #expect(
+                    PresentationModel.shared.remuxAlert == nil,
+                    "A killed conversion still asked about trashing the original")
+            }
+        }
+
         /// Something took the output name while ffmpeg was working: the conversion is thrown away
         /// rather than written over the top of it.
         ///

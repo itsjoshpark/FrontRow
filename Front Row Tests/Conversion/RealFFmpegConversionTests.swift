@@ -312,6 +312,81 @@ extension ConversionSuites {
             )
         }
 
+        /// A real ffmpeg killed from outside the app, which is the one ending nothing here chose.
+        ///
+        /// Activity Monitor, a `kill`, the machine running out of memory. The app is not told and
+        /// cannot be: all it sees is a tool that stopped without finishing, so it has to read that
+        /// as a failure rather than as the user changing their mind - a cancellation is silent, and
+        /// this must not be. SIGKILL rather than SIGTERM so ffmpeg has no chance to tidy up or to
+        /// say anything on its way out, which is the harshest version of the case.
+        @Test(.timeLimit(.minutes(3)))
+        func aRealFfmpegKilledFromOutsideIsReportedAsAFailure() async throws {
+            let directory = try makeDirectory()
+            defer { try? FileManager.default.removeItem(at: directory) }
+
+            let tools = try #require(await ExternalToolLocator().resolveFFmpeg())
+            let fixture = try await makeMatroska(in: directory, seconds: 60)
+            let probed = try await FFprobeStreamReader(ffprobe: tools.ffprobe).probe(fixture)
+            var recipe = try #require(RemuxPlanner.plan(for: probed.streams).recipe)
+            recipe.audio = recipe.audio.map {
+                PlannedAudio(
+                    index: $0.index, codecName: $0.codecName, channels: $0.channels,
+                    transcodes: true)
+            }
+
+            let output = directory.appending(path: "killed.mp4.part")
+            let remuxer = MediaRemuxer(tools: tools)
+            let task = Task {
+                try await remuxer.remux(
+                    input: fixture, output: output, recipe: recipe, duration: 60
+                ) { _ in }
+            }
+
+            #expect(
+                await started(writingTo: output),
+                "ffmpeg never started, so there was nothing to kill")
+            // The command line matches the moment the tool is exec'd, a beat before it has opened
+            // its output - so waiting on the process alone would kill it with nothing written yet.
+            #expect(await appeared(output), "ffmpeg never opened its output file")
+            kill(writingTo: output)
+
+            do {
+                try await task.value
+                Issue.record("A killed ffmpeg was reported as a conversion that worked")
+            } catch FFmpegError.cancelled {
+                Issue.record("A killed ffmpeg was read as the user cancelling, which says nothing")
+            } catch FFmpegError.conversionFailed {
+                // What it is, and what raises the alert that tells the user.
+            }
+
+            #expect(await stopped(writingTo: output))
+            // Left where it fell: clearing it up is `MediaConversion`'s half of this.
+            #expect(FileManager.default.fileExists(atPath: output.path(percentEncoded: false)))
+        }
+
+        /// Waits until there is something at `url`.
+        private func appeared(_ url: URL, within: Duration = .seconds(20)) async -> Bool {
+            let deadline = ContinuousClock.now + within
+            while ContinuousClock.now < deadline {
+                if FileManager.default.fileExists(atPath: url.path(percentEncoded: false)) {
+                    return true
+                }
+                try? await Task.sleep(for: .milliseconds(50))
+            }
+            return false
+        }
+
+        /// Kills whatever ffmpeg is writing `output`, the way anything outside the app would.
+        private func kill(writingTo output: URL) {
+            let process = Process()
+            process.executableURL = URL(filePath: "/usr/bin/pkill")
+            process.arguments = ["-9", "-f", output.path(percentEncoded: false)]
+            process.standardOutput = FileHandle.nullDevice
+            process.standardError = FileHandle.nullDevice
+            try? process.run()
+            process.waitUntilExit()
+        }
+
         /// Whether an ffmpeg has picked the conversion up and is writing `output`.
         ///
         /// Waited for so the cancellation below has a running child to reach.
