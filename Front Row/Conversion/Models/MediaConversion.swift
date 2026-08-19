@@ -20,28 +20,27 @@ enum MediaConversion {
 
     /// Entry point for a convertible file. Ends by presenting one of the alerts above.
     ///
-    /// One file at a time. Every stage of a conversion asks its question through the same single
-    /// alert, and a second Matroska arriving while the first is still going takes that slot - which
-    /// SwiftUI then presents as the words of one question above the buttons of another, so
-    /// answering what looks like a question about the new file acts on the old one.
+    /// One file at a time. `raise` would turn a second one away regardless; checking here as well
+    /// is what stops the app running ffprobe over a file it has already decided not to ask about.
     ///
     /// The second file is dropped rather than queued, and nothing is raised to say so: the progress
     /// sheet already has the window, and the alert that would explain is the very thing there is no
     /// room for.
     static func offerConversion(of url: URL) async {
         let presented = PresentationModel.shared
-        guard presented.remuxAlert == nil, !presented.isConverting else { return }
+        guard !presented.isAskingAboutAFile else { return }
 
         let locator = ExternalToolLocator()
 
         guard let tools = await locator.resolveFFmpeg() else {
-            presented.remuxAlert = .problem(
-                RemuxProblem(
-                    url: url,
-                    reason: .toolsMissing(hasHomebrew: locator.hasHomebrew()),
-                    scene: hostScene()
-                )
-            )
+            presented.raise(
+                .problem(
+                    RemuxProblem(
+                        url: url,
+                        reason: .toolsMissing(hasHomebrew: locator.hasHomebrew()),
+                        scene: .hosting()
+                    )
+                ))
             return
         }
 
@@ -49,27 +48,30 @@ enum MediaConversion {
         do {
             media = try await FFprobeStreamReader(ffprobe: tools.ffprobe).probe(url)
         } catch {
-            presented.remuxAlert = .problem(
-                RemuxProblem(url: url, reason: .probeFailed, scene: hostScene()))
+            presented.raise(
+                .problem(
+                    RemuxProblem(url: url, reason: .probeFailed, scene: .hosting())))
             return
         }
 
         let plan = RemuxPlanner.plan(for: media.streams)
         guard case .unsupported = plan else {
-            presented.remuxAlert = .offer(
-                RemuxOffer(
-                    url: url,
-                    plan: plan,
-                    duration: media.duration,
-                    tools: tools,
-                    scene: hostScene()
-                )
-            )
+            presented.raise(
+                .offer(
+                    RemuxOffer(
+                        url: url,
+                        plan: plan,
+                        duration: media.duration,
+                        tools: tools,
+                        scene: .hosting()
+                    )
+                ))
             return
         }
 
-        presented.remuxAlert = .problem(
-            RemuxProblem(url: url, reason: .unsupported, scene: hostScene()))
+        presented.raise(
+            .problem(
+                RemuxProblem(url: url, reason: .unsupported, scene: .hosting())))
     }
 
     /// A conversion that is running, and what has to go if the app is asked to quit while it is.
@@ -90,7 +92,7 @@ enum MediaConversion {
         let working = RemuxOutputNaming.workingURL(besides: output)
         let remuxer = MediaRemuxer(tools: offer.tools)
         let sheet = ConversionProgressSheet(fileName: offer.url.lastPathComponent)
-        presented.isConverting = true
+        presented.conversionBegan()
 
         let task = Task {
             var failure: (any Error)?
@@ -110,7 +112,7 @@ enum MediaConversion {
             // Waited on rather than fired off: whatever comes next lands on this same window, and
             // a SwiftUI alert raised while AppKit is still closing a sheet never appears.
             await sheet.dismiss()
-            presented.isConverting = false
+            presented.conversionEnded()
             // Only if it is still this run's. Nothing stops a second conversion being started, and
             // one that is finishing must not disown a newer one.
             if activeConversion?.workingURL == working { activeConversion = nil }
@@ -136,13 +138,18 @@ enum MediaConversion {
             // Asked before the converted file is opened rather than after. Starting playback
             // resizes the window to the video, and a window resized out from under a sheet
             // dismisses it - the question would appear and vanish again before it could be read.
-            presented.remuxAlert = .cleanup(
-                RemuxCleanup(
-                    originalURL: offer.url,
-                    convertedURL: output,
-                    scene: offer.scene
-                )
-            )
+            //
+            // The scene is read now rather than taken from the offer. A conversion can outlast the
+            // window it was offered in, and a question raised into a scene that no longer has one
+            // is never shown and never answered - which would leave the slot held for good.
+            presented.raise(
+                .cleanup(
+                    RemuxCleanup(
+                        originalURL: offer.url,
+                        convertedURL: output,
+                        scene: .hosting()
+                    )
+                ))
         }
 
         activeConversion = ActiveConversion(task: task, workingURL: working)
@@ -184,9 +191,10 @@ enum MediaConversion {
     static func finishConversion(_ cleanup: RemuxCleanup, trashingOriginal: Bool) {
         Task {
             guard await openFileAndPresent(url: cleanup.convertedURL) == .opened else {
-                PresentationModel.shared.remuxAlert = .problem(
-                    RemuxProblem(
-                        url: cleanup.convertedURL, reason: .unsupported, scene: hostScene()))
+                PresentationModel.shared.raise(
+                    .problem(
+                        RemuxProblem(
+                            url: cleanup.convertedURL, reason: .unsupported, scene: .hosting())))
                 return
             }
 
@@ -219,21 +227,7 @@ enum MediaConversion {
         )
     }
 
-    /// The scene that will show what comes next, with a window behind it to show it in.
-    ///
-    /// Read at the moment of presenting rather than when the file was opened: ffprobe runs in
-    /// between, and which windows exist can change while it does. Double-clicking a Matroska file
-    /// in the Finder skips the welcome window and opens nothing else, so without asking for the
-    /// player window here the alert would be raised against no window at all and never appear.
-    private static func hostScene() -> AlertScene {
-        let scene = AlertScene.current
-        if scene == .player && WindowController.shared.mainWindow == nil {
-            WelcomeWindowCoordinator.shared.presentMainWindow()
-        }
-        return scene
-    }
-
-    /// The window an AppKit sheet should hang from - the same one `hostScene()` names.
+    /// The window an AppKit sheet should hang from - the same one `.hosting()` names.
     private static func hostWindow() -> NSWindow? {
         WindowController.shared.mainWindow ?? WelcomeWindowCoordinator.shared.welcomeWindow
     }

@@ -28,4 +28,22 @@ enum AlertScene {
         guard WelcomeWindowCoordinator.shared.welcomeWindow != nil else { return .player }
         return WindowController.shared.mainWindow == nil ? .welcome : .player
     }
+
+    /// The scene to present in, with a window behind it to present in.
+    ///
+    /// `current` names the player scene where nothing is open at all, which is right - that is
+    /// where the alert belongs - but leaves nobody to show it. Double-clicking a file in the Finder
+    /// does exactly that: it skips the welcome window and opens nothing else, so without asking for
+    /// the player window here the alert would be raised against no window and never appear. A
+    /// question nobody can answer is worse than a late one, since it holds the only slot there is.
+    ///
+    /// A function rather than a property: reading it can put a window on screen.
+    @MainActor
+    static func hosting() -> AlertScene {
+        let scene = current
+        if scene == .player && WindowController.shared.mainWindow == nil {
+            WelcomeWindowCoordinator.shared.presentMainWindow()
+        }
+        return scene
+    }
 }

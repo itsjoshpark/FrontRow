@@ -26,13 +26,15 @@ private struct RemuxAlertModifier: ViewModifier {
 
     @Environment(PresentationModel.self) private var presentationModel: PresentationModel
 
+    /// True only for the scene the question was raised in, so the other stays quiet rather than
+    /// presenting a duplicate - and only that scene may take it down again. Both scenes hold one of
+    /// these, and a `false` from the one that is not presenting would otherwise clear the question
+    /// the other is still showing.
     private var isPresented: Binding<Bool> {
         Binding(
             get: { presentationModel.remuxAlert?.scene == scene },
             set: { isPresented in
-                if !isPresented {
-                    presentationModel.remuxAlert = nil
-                }
+                if !isPresented { presentationModel.dismissRemuxAlert(in: scene) }
             }
         )
     }
@@ -47,6 +49,10 @@ private struct RemuxAlertModifier: ViewModifier {
         } message: { alert in
             RemuxAlertMessage(alert: alert)
         }
+        // A window can be closed with a question still on it - opening a file dismisses the
+        // welcome window whatever it is showing. Nothing writes `false` for that, and the
+        // unanswered question would hold the slot against every one that came after.
+        .onDisappear { presentationModel.dismissRemuxAlert(in: scene) }
     }
 }
 

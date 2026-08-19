@@ -41,13 +41,15 @@ extension ConversionSuites {
             return directory
         }
 
-        private func makeOffer(_ tool: ScriptedTool, in directory: URL) -> RemuxOffer {
+        private func makeOffer(
+            _ tool: ScriptedTool, in directory: URL, scene: AlertScene = .player
+        ) -> RemuxOffer {
             RemuxOffer(
                 url: directory.appending(path: "The Film.mkv"),
                 plan: .remux(recipe),
                 duration: 2,
                 tools: FFmpegTools(ffmpeg: tool.url, ffprobe: tool.url),
-                scene: .player
+                scene: scene
             )
         }
 
@@ -96,8 +98,11 @@ extension ConversionSuites {
                 WindowController.shared.releaseMainWindow(window)
                 WelcomeWindowCoordinator.shared.welcomeWindow = savedWelcome
                 window.orderOut(nil)
-                PresentationModel.shared.remuxAlert = nil
-                PresentationModel.shared.isConverting = false
+                // Both scenes, since this is a reset and must not depend on where a test's
+                // question landed.
+                PresentationModel.shared.dismissRemuxAlert(in: .player)
+                PresentationModel.shared.dismissRemuxAlert(in: .welcome)
+                PresentationModel.shared.conversionEnded()
             }
 
             try await body()
@@ -113,8 +118,8 @@ extension ConversionSuites {
         /// A's original, a file the alert never named.
         @Test(.timeLimit(.minutes(1)))
         func aFileOpenedDuringAConversionDoesNotTakeTheAlertSlot() async {
-            PresentationModel.shared.isConverting = true
-            defer { PresentationModel.shared.isConverting = false }
+            PresentationModel.shared.conversionBegan()
+            defer { PresentationModel.shared.conversionEnded() }
 
             await MediaConversion.offerConversion(of: URL(filePath: "/Movies/Film B.mkv"))
 
@@ -128,8 +133,8 @@ extension ConversionSuites {
         func aFileOpenedWhileAQuestionIsUpDoesNotReplaceIt() async {
             let waiting = RemuxProblem(
                 url: URL(filePath: "/Movies/Film A.mkv"), reason: .unsupported, scene: .player)
-            PresentationModel.shared.remuxAlert = .problem(waiting)
-            defer { PresentationModel.shared.remuxAlert = nil }
+            PresentationModel.shared.raise(.problem(waiting))
+            defer { PresentationModel.shared.dismissRemuxAlert(in: .player) }
 
             await MediaConversion.offerConversion(of: URL(filePath: "/Movies/Film B.mkv"))
 
@@ -218,6 +223,38 @@ extension ConversionSuites {
                 #expect(
                     PresentationModel.shared.remuxAlert == nil,
                     "A killed conversion still asked about trashing the original")
+            }
+        }
+
+        /// The question about the original is asked wherever there is a window to ask it in, not
+        /// wherever the offer was accepted.
+        ///
+        /// A conversion can outlast the window it started in - a player window appears for a file
+        /// handed to the app, and the welcome window gives way to it. An offer accepted in the
+        /// welcome scene that finished after that would raise its question into a scene with
+        /// nothing to show it: never presented, never answered, and holding the one slot every
+        /// later question needs.
+        @Test(.timeLimit(.minutes(1)))
+        func aFinishedConversionAsksInTheSceneThatHasAWindow() async throws {
+            let tool = try ScriptedTool.writingPartialOutput(bytes: 4096, exiting: 0)
+            defer { tool.remove() }
+            let directory = try makeDirectory()
+            defer { try? FileManager.default.removeItem(at: directory) }
+
+            try await withHostWindow {
+                // Offered in the welcome scene; by the time it finishes the player window is the
+                // one on screen, which is what `withHostWindow` has installed.
+                MediaConversion.startConversion(makeOffer(tool, in: directory, scene: .welcome))
+                await waitUntilFinished()
+
+                guard case .cleanup(let cleanup) = PresentationModel.shared.remuxAlert else {
+                    Issue.record("The converted file raised no question about the original")
+                    return
+                }
+                #expect(
+                    cleanup.scene == .player,
+                    "The question was raised into the scene the offer came from, which has no window"
+                )
             }
         }
 
