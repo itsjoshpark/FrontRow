@@ -29,9 +29,9 @@ struct AppCommands: Commands {
             Section {
                 Button {
                     Task {
-                        // The route a recent file takes, which opens the player window and
-                        // explains a failure. The sample is not in recents when one happens, so
-                        // that alert's clean-up finds nothing to remove.
+                        // The route a recent file takes: the player window on success, the
+                        // unopenable-file alert on failure. The sample is not in recents when
+                        // that happens, so the alert's clean-up finds nothing to remove.
                         await openRecentDocumentAndPresent(url: Self.spatialAudioSampleURL)
                     }
                 } label: {

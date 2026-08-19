@@ -196,7 +196,7 @@ struct PlayEngineLifecycleTests {
     /// A close landing inside an open makes the open fail, and fail as though the file itself were
     /// at fault.
     ///
-    /// `openFile` suspends three times loading the asset. `closeFile` runs `asset?.cancelLoading()`
+    /// `loadAndPlay` suspends three times loading the asset. `closeFile` runs `asset?.cancelLoading()`
     /// on the way past, which is the asset the open is waiting on, so `load(.isPlayable)` throws
     /// and the open returns `.unreadable` - the same answer a deleted file gives.
     ///
