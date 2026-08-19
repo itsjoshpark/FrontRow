@@ -123,7 +123,7 @@ private struct RemuxAlertMessage: View {
             RemuxOfferMessage(offer: offer)
         case .cleanup(let cleanup):
             Text(
-                "\"\(cleanup.originalURL.lastPathComponent)\" was converted to \"\(cleanup.convertedURL.lastPathComponent)\". The original file isn't needed anymore and can be moved to trash.",
+                "\"\(cleanup.originalURL.lastPathComponent)\" was converted to MP4. The original file isn't needed anymore.",
                 comment: "Alert message shown after a file has been converted"
             )
         case .problem(let problem):
