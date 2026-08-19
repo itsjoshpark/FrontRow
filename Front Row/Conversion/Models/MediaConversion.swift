@@ -61,6 +61,15 @@ enum MediaConversion {
             RemuxProblem(url: url, reason: .unsupported, scene: hostScene()))
     }
 
+    /// A conversion that is running, and what has to go if the app is asked to quit while it is.
+    struct ActiveConversion {
+        var task: Task<Void, Never>
+        var workingURL: URL
+    }
+
+    /// The conversion running now, if there is one.
+    private(set) static var activeConversion: ActiveConversion?
+
     /// Starts the conversion the user just approved.
     static func startConversion(_ offer: RemuxOffer) {
         guard let recipe = offer.plan.recipe else { return }
@@ -91,9 +100,12 @@ enum MediaConversion {
             // a SwiftUI alert raised while AppKit is still closing a sheet never appears.
             await sheet.dismiss()
             presented.isConverting = false
+            // Only if it is still this run's. Nothing stops a second conversion being started, and
+            // one that is finishing must not disown a newer one.
+            if activeConversion?.workingURL == working { activeConversion = nil }
 
             if let failure {
-                // Always safe to delete: this path is ours and nothing else knows about it.
+                // Safe to delete: the name is one this run picked and nothing else writes to.
                 try? FileManager.default.removeItem(at: working)
                 presentFailure(failure, url: offer.url)
                 return
@@ -121,9 +133,37 @@ enum MediaConversion {
             )
         }
 
+        activeConversion = ActiveConversion(task: task, workingURL: working)
+
         if let window = hostWindow() {
             sheet.present(on: window) { task.cancel() }
         }
+    }
+
+    /// Stops `conversion` and deletes what it had written.
+    ///
+    /// Not waited on. ffmpeg answers SIGTERM promptly, but a quit that blocked on it would be worse
+    /// than one that does not: a tool still holding the file writes into an unlinked inode, and the
+    /// kernel reclaims it when the tool goes.
+    static func stop(_ conversion: ActiveConversion) {
+        conversion.task.cancel()
+        try? FileManager.default.removeItem(at: conversion.workingURL)
+    }
+
+    /// Tidies away a conversion still running when the app is asked to quit.
+    ///
+    /// A task is not cancelled by the process exiting and a child is not killed by its parent
+    /// going, so without this the ffmpeg behind a conversion carries on encoding into a file
+    /// nothing is left to move or delete.
+    ///
+    /// Reached only where the conversion is running without its sheet. A sheet on screen stops the
+    /// app terminating at all, so the usual way to hit this - quitting mid-conversion - cannot
+    /// happen; and a force quit runs none of this. What keeps those cases tidy is the working file
+    /// being visible, not this.
+    static func stopConversionForTermination() {
+        guard let active = activeConversion else { return }
+        activeConversion = nil
+        stop(active)
     }
 
     /// Plays the converted file, then acts on the answer to the cleanup question.
