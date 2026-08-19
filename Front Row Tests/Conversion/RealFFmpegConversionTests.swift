@@ -175,6 +175,39 @@ extension ConversionSuites {
             #expect(size == CGSize(width: 320, height: 180))
         }
 
+        /// The whole path the app takes: convert into the working file, then move it into place.
+        ///
+        /// The working file ends in `.part`, which names no muxer - so ffmpeg has to be told its
+        /// output format outright or it refuses the conversion before it starts. Nothing above this
+        /// would notice: the arguments test only proves `-f mp4` is in the list, and every other
+        /// conversion here writes straight to a `.mp4`.
+        @Test(.timeLimit(.minutes(3)))
+        func aConversionWrittenToItsWorkingFileIsPlayableOnceMovedIntoPlace() async throws {
+            let directory = try makeDirectory()
+            defer { try? FileManager.default.removeItem(at: directory) }
+
+            let tools = try #require(await ExternalToolLocator().resolveFFmpeg())
+            let fixture = try await makeMatroska(in: directory)
+            let probed = try await FFprobeStreamReader(ffprobe: tools.ffprobe).probe(fixture)
+            let recipe = try #require(RemuxPlanner.plan(for: probed.streams).recipe)
+
+            let output = RemuxOutputNaming.outputURL(for: fixture)
+            let working = RemuxOutputNaming.workingURL(besides: output)
+
+            try await MediaRemuxer(tools: tools).remux(
+                input: fixture, output: working, recipe: recipe, duration: 2
+            ) { _ in }
+
+            #expect(
+                FileManager.default.fileExists(atPath: working.path(percentEncoded: false)),
+                "ffmpeg wrote nothing to the working file")
+            try FileManager.default.moveItem(at: working, to: output)
+
+            #expect(try await AVURLAsset(url: output).load(.isPlayable))
+            // The working file is a rename away from the output, so finishing leaves nothing over.
+            #expect(!FileManager.default.fileExists(atPath: working.path(percentEncoded: false)))
+        }
+
         /// The MP4 an audio-only Matroska produces, which has no video track to tag.
         @Test(.timeLimit(.minutes(3)))
         func anAudioOnlyFileConvertsToSomethingPlayable() async throws {
@@ -212,10 +245,10 @@ extension ConversionSuites {
         /// survives. But ffmpeg exits 0 while refusing, so `remux` sees a clean exit, reports a
         /// fraction of 1 and returns without having written anything.
         ///
-        /// The app does not reach this. `RemuxOutputNaming.workingURL` gives ffmpeg a hidden path with
-        /// a UUID in it, which nothing else can already hold, and the move to the real name afterwards
-        /// fails rather than replacing. Anything else calling `MediaRemuxer` directly has to know that
-        /// a successful return is not by itself proof that a file was written.
+        /// The app does not reach this. `RemuxOutputNaming` will not hand out an output name whose
+        /// working file is already there, and the move to the real name afterwards fails rather than
+        /// replacing. Anything else calling `MediaRemuxer` directly has to know that a successful
+        /// return is not by itself proof that a file was written.
         @Test(.timeLimit(.minutes(3)))
         func anOutputThatAlreadyExistsSurvivesAConversionThatClaimsToHaveWorked() async throws {
             let directory = try makeDirectory()
@@ -236,19 +269,6 @@ extension ConversionSuites {
 
             #expect(
                 try Data(contentsOf: output) == existing, "The file that was there was overwritten")
-        }
-
-        /// The working path the app actually converts into cannot be one that already exists, which is
-        /// what keeps the case above out of reach.
-        @Test
-        func theWorkingPathIsHiddenAndUnique() {
-            let output = URL(filePath: "/private/var/tmp/film.mp4")
-            let first = RemuxOutputNaming.workingURL(besides: output)
-            let second = RemuxOutputNaming.workingURL(besides: output)
-
-            #expect(first != second)
-            #expect(first.lastPathComponent.hasPrefix("."))
-            #expect(first.deletingLastPathComponent() == output.deletingLastPathComponent())
         }
 
         /// A real ffmpeg, cancelled part-way, leaves nothing running.

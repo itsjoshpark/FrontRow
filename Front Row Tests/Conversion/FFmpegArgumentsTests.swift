@@ -120,6 +120,19 @@ struct FFmpegArgumentsTests {
         #expect(!arguments.contains("-y"))
     }
 
+    /// ffmpeg writes to a `.part` file while it works, and picks its muxer from the extension
+    /// unless told otherwise - so without this it would refuse the conversion outright.
+    @Test
+    func theOutputFormatIsNamedRatherThanGuessedFromTheExtension() {
+        let arguments = arguments(
+            RemuxRecipe(
+                videoIndex: 0, videoTag: nil, audio: [], subtitleIndices: [], droppedSubtitles: [])
+        )
+
+        #expect(arguments.contains(["-f", "mp4"]))
+        #expect(arguments.last == "/Movies/film.mp4")
+    }
+
     /// ffprobe has to be asked for JSON, for the fields the planner reads, and for the duration
     /// the progress percentage is worked out from.
     @Test

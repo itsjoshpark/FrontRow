@@ -89,6 +89,9 @@ enum FFmpegArguments {
 
         arguments += [
             "-movflags", "+faststart",
+            // Named rather than left to the extension, which is `.part` while the conversion runs
+            // and so names no muxer at all.
+            "-f", "mp4",
             // Refuse rather than overwrite. The output name is already checked for collisions, so
             // anything sitting there arrived in the moment since - someone else's file, not one of
             // ours to replace.
