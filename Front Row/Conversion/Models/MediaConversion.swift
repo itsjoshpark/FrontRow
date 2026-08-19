@@ -105,7 +105,8 @@ enum MediaConversion {
             if activeConversion?.workingURL == working { activeConversion = nil }
 
             if let failure {
-                // Safe to delete: the name is one this run picked and nothing else writes to.
+                // Ours to delete: this run picked the output name, and the working file is that
+                // name plus a suffix.
                 try? FileManager.default.removeItem(at: working)
                 presentFailure(failure, url: offer.url)
                 return
@@ -156,10 +157,8 @@ enum MediaConversion {
     /// going, so without this the ffmpeg behind a conversion carries on encoding into a file
     /// nothing is left to move or delete.
     ///
-    /// Reached only where the conversion is running without its sheet. A sheet on screen stops the
-    /// app terminating at all, so the usual way to hit this - quitting mid-conversion - cannot
-    /// happen; and a force quit runs none of this. What keeps those cases tidy is the working file
-    /// being visible, not this.
+    /// Not the only thing standing between a crash and a stray file: a force quit runs none of
+    /// this, and what covers that is the working file being visible rather than hidden.
     static func stopConversionForTermination() {
         guard let active = activeConversion else { return }
         activeConversion = nil
