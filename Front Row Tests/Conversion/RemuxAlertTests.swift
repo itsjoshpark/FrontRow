@@ -38,7 +38,7 @@ struct RemuxAlertTests {
     func theOfferNamesTheFileAndNothingElse() {
         let message = RemuxOfferAlert.message(for: offer(dropping: []))
 
-        #expect(message == "Front Row can open \"The Film.mkv\" after it is converted.")
+        #expect(message == "\"The Film.mkv\" can be opened after it is converted.")
     }
 
     /// Losing the subtitles is the one surprise worth heading off.
