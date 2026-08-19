@@ -584,7 +584,7 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "تم تحويل \"%@\" إلى MP4. لم يعد الملف الأصلي مطلوبًا."
           }
         },
@@ -608,7 +608,7 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Το \"%@\" μετατράπηκε σε MP4. Το αρχικό αρχείο δεν χρειάζεται πλέον."
           }
         },
@@ -620,7 +620,7 @@
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" muunnettiin MP4-muotoon. Alkuperäistä tiedostoa ei enää tarvita."
           }
         },
@@ -638,7 +638,7 @@
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "A(z) „%@” át lett alakítva MP4 formátumba. Az eredeti fájlra már nincs szükség."
           }
         },
@@ -674,7 +674,7 @@
         },
         "ro" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" a fost convertit în MP4. Fișierul original nu mai este necesar."
           }
         },
@@ -692,7 +692,7 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" dosyası MP4 olarak dönüştürüldü. Özgün dosya artık gerekli değil."
           }
         },
@@ -704,7 +704,7 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Đã chuyển đổi \"%@\" thành MP4. Tệp gốc không còn cần thiết."
           }
         },
@@ -8002,49 +8002,49 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "يمكن فتح \"%@\" بعد تحويله، لكن FFmpeg غير مثبت. ثبّته باستخدام Homebrew، ثم افتح الملف مرة أخرى."
           }
         },
         "cs" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" lze otevřít po převodu, ale FFmpeg není nainstalovaný. Nainstalujte ho pomocí Homebrew a poté soubor otevřete znovu."
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" kan åbnes, når filen er konverteret, men FFmpeg er ikke installeret. Installer det med Homebrew, og åbn derefter filen igen."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" kann nach der Konvertierung geöffnet werden, aber FFmpeg ist nicht installiert. Installiere es mit Homebrew und öffne die Datei danach erneut."
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Το \"%@\" μπορεί να ανοίξει αφού μετατραπεί, αλλά το FFmpeg δεν είναι εγκατεστημένο. Εγκαταστήστε το μέσω του Homebrew και ανοίξτε ξανά το αρχείο."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" se puede abrir una vez convertido, pero FFmpeg no está instalado. Instálalo con Homebrew y vuelve a abrir el archivo."
           }
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" voidaan avata muuntamisen jälkeen, mutta FFmpeg ei ole asennettuna. Asenna se Homebrew’n avulla ja avaa tiedosto uudelleen."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" peut être ouvert après conversion, mais FFmpeg n'est pas installé. Installez-le avec Homebrew, puis ouvrez à nouveau le fichier."
           }
         },
@@ -8056,85 +8056,85 @@
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "A(z) „%@” az átalakítás után megnyitható, de az FFmpeg nincs telepítve. Telepítse a Homebrew segítségével, majd nyissa meg újra a fájlt."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" può essere aperto dopo la conversione, ma FFmpeg non è installato. Installalo con Homebrew, quindi apri di nuovo il file."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" は変換後に開くことができますが、FFmpeg がインストールされていません。Homebrew でインストールしてから、ファイルをもう一度開いてください。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\"은(는) 변환 후에 열 수 있지만 FFmpeg가 설치되어 있지 않습니다. Homebrew로 설치한 다음 파일을 다시 여십시오."
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" kan na conversie worden geopend, maar FFmpeg is niet geïnstalleerd. Installeer het met Homebrew en open het bestand daarna opnieuw."
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" można otworzyć po konwersji, ale FFmpeg nie jest zainstalowany. Zainstaluj go za pomocą Homebrew, a następnie otwórz plik ponownie."
           }
         },
         "ro" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" poate fi deschis după conversie, dar FFmpeg nu este instalat. Instalați-l folosind Homebrew, apoi deschideți din nou fișierul."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" можно открыть после конвертации, но FFmpeg не установлен. Установите его с помощью Homebrew, затем откройте файл снова."
           }
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" kan öppnas när filen har konverterats, men FFmpeg är inte installerat. Installera det med Homebrew och öppna sedan filen igen."
           }
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" dönüştürüldükten sonra açılabilir ancak FFmpeg yüklü değil. Homebrew ile yükleyin, sonra dosyayı yeniden açın."
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" можна відкрити після конвертації, але FFmpeg не встановлено. Встановіть його за допомогою Homebrew, а потім відкрийте файл знову."
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Có thể mở \"%@\" sau khi chuyển đổi, nhưng FFmpeg chưa được cài đặt. Hãy cài đặt bằng Homebrew, rồi mở lại tệp."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" 转换后即可打开，但尚未安装 FFmpeg。请使用 Homebrew 安装，然后重新打开该文件。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" 轉換後即可開啟，但尚未安裝 FFmpeg。請使用 Homebrew 安裝，然後重新打開該檔案。"
           }
         }
@@ -8145,49 +8145,49 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "يمكن فتح \"%@\" بعد تحويله."
           }
         },
         "cs" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" lze otevřít po převodu."
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" kan åbnes, når filen er konverteret."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" kann nach der Konvertierung geöffnet werden."
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Το \"%@\" μπορεί να ανοίξει αφού μετατραπεί."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" se puede abrir una vez convertido."
           }
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" voidaan avata muuntamisen jälkeen."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" peut être ouvert après conversion."
           }
         },
@@ -8199,85 +8199,85 @@
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "A(z) „%@” az átalakítás után megnyitható."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" può essere aperto dopo la conversione."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" は変換後に開くことができます。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\"은(는) 변환 후에 열 수 있습니다."
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" kan na conversie worden geopend."
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" można otworzyć po konwersji."
           }
         },
         "ro" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" poate fi deschis după conversie."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" можно открыть после конвертации."
           }
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" kan öppnas när filen har konverterats."
           }
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" dönüştürüldükten sonra açılabilir."
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" можна відкрити після конвертації."
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Có thể mở \"%@\" sau khi chuyển đổi."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" 转换后即可打开。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" 轉換後即可開啟。"
           }
         }
