@@ -41,7 +41,7 @@ struct FileCommands: Commands {
                 ForEach(recentDocumentsStore.recentURLs, id: \.self) { url in
                     Button {
                         Task {
-                            await openRecentDocumentAndPresent(url: url)
+                            await openRecentDocument(url: url)
                         }
                     } label: {
                         Label {

@@ -22,7 +22,7 @@ extension View {
                     provider.loadFileURL { url in
                         guard let url else { return }
                         Task { @MainActor in
-                            await openFileAndPresent(url: url)
+                            await openFile(url: url)
                         }
                     }
                     return true

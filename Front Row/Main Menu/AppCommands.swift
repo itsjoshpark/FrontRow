@@ -9,8 +9,11 @@ import Sparkle
 import SwiftUI
 
 struct AppCommands: Commands {
+
+    nonisolated static let spatialAudioSampleURL = URL(
+        string: "https://media.developer.dolby.com/DDP/MP4_HPL40_30fps_channel_id_51.mp4")!
+
     private let updater: SPUUpdater
-    private let playEngine = PlayEngine.shared
 
     var body: some Commands {
         CommandGroup(after: .appInfo) {
@@ -24,13 +27,10 @@ struct AppCommands: Commands {
             Section {
                 Button {
                     Task {
-                        guard
-                            let url = URL(
-                                string:
-                                    "https://media.developer.dolby.com/DDP/MP4_HPL40_30fps_channel_id_51.mp4"
-                            )
-                        else { return }
-                        await playEngine.openFile(url: url)
+                        // The route a recent file takes: the player window on success, the
+                        // unopenable-file alert on failure. The sample is not in recents when
+                        // that happens, so the alert's clean-up finds nothing to remove.
+                        await openRecentDocument(url: Self.spatialAudioSampleURL)
                     }
                 } label: {
                     Text("Experience Spatial Audio")
