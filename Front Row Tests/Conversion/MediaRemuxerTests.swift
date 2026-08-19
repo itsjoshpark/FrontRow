@@ -162,13 +162,18 @@ extension ConversionSuites {
         @Test(.timeLimit(.minutes(2)))
         func aCancelledRunIsNotReportedAsAFailure() async throws {
             // Ready is reported after the trap is set, so a cancellation arriving the moment it
-            // appears finds the handler in place.
+            // appears finds the handler in place. Short sleeps in a loop, since a shell holds a
+            // trapped signal until the command it is waiting on has returned.
             let tool = try ScriptedTool(
                 """
                 here=$(dirname "$0")
                 trap 'exit 9' TERM
                 : > "$here/ready"
-                sleep 120
+                elapsed=0
+                while [ "$elapsed" -lt 120 ]; do
+                    sleep 1
+                    elapsed=$((elapsed + 1))
+                done
                 """
             )
             defer { tool.remove() }
@@ -194,14 +199,14 @@ extension ConversionSuites {
         ///
         /// The remuxer converts and nothing else; deleting what a failed run left is
         /// `MediaConversion`'s job, and the day that moves, this says so. It is also why the working
-        /// file is a `.part` beside the real name rather than the name itself.
+        /// file is written beside the real name under a name of its own, rather than as it.
         @Test(.timeLimit(.minutes(1)))
         func aFailedConversionLeavesItsPartialOutputForTheCaller() async throws {
             let tool = try ScriptedTool.writingPartialOutput(bytes: 4096)
             defer { tool.remove() }
             let directory = try makeDirectory()
             defer { try? FileManager.default.removeItem(at: directory) }
-            let working = directory.appending(path: "film.mp4.part")
+            let working = directory.appending(path: "film.mp4.frconverting")
 
             await #expect(throws: FFmpegError.self) {
                 try await makeRemuxer(tool).remux(
@@ -219,7 +224,7 @@ extension ConversionSuites {
             defer { tool.remove() }
             let directory = try makeDirectory()
             defer { try? FileManager.default.removeItem(at: directory) }
-            let working = directory.appending(path: "film.mp4.part")
+            let working = directory.appending(path: "film.mp4.frconverting")
             let remuxer = makeRemuxer(tool)
 
             let task = Task {
@@ -248,7 +253,7 @@ extension ConversionSuites {
             defer { tool.remove() }
             let directory = try makeDirectory()
             defer { try? FileManager.default.removeItem(at: directory) }
-            let working = directory.appending(path: "film.mp4.part")
+            let working = directory.appending(path: "film.mp4.frconverting")
 
             do {
                 try await makeRemuxer(tool).remux(

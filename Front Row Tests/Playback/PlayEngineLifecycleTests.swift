@@ -318,8 +318,12 @@ struct PlayEngineLifecycleTests {
 
     /// Lets a just-started open reach its first suspension point, so what follows lands inside it
     /// rather than before it began.
+    ///
+    /// Once, and once only. The open is already queued when this yields, so it runs first and stops
+    /// at the load; what resumes next is this, ahead of anything that load queues behind it. A
+    /// second hand-over would give the load a turn to finish, leaving the close nothing to catch.
     private func yieldToTheOpen() async {
-        for _ in 0..<3 { await Task.yield() }
+        await Task.yield()
     }
 
     /// Gives the main run loop a turn, so the observers that fire on it have run and the

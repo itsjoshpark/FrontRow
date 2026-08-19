@@ -37,9 +37,32 @@ jobs:
           CODE_SIGNING_REQUIRED=YES
           CODE_SIGNING_ALLOWED=YES | xcpretty && exit ${PIPESTATUS[0]}
 
+      - name: Report test failures
+        if: failure()
+        run: |
+          [ -d TestResults.xcresult ] || exit 0
+          xcrun xcresulttool get test-results tests --path TestResults.xcresult --compact \
+            | python3 -c '
+          import json, sys
+
+          def walk(node, test=None):
+              if node.get("nodeType") == "Test Case":
+                  test = node.get("name")
+              if node.get("nodeType") == "Failure Message":
+                  where = node.get("sourceLocation", {})
+                  file = where.get("filePath", "?").split("/")[-1]
+                  line = where.get("lineNumber", "?")
+                  print("%s\n    %s\n    %s:%s" % (test, node.get("name"), file, line))
+              for child in node.get("children") or []:
+                  walk(child, test)
+
+          for node in json.load(sys.stdin).get("testNodes", []):
+              walk(node)
+          '
+
       - name: Upload results
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: test-results
           path: TestResults.xcresult

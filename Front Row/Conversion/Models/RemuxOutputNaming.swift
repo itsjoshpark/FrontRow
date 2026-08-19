@@ -11,7 +11,12 @@ import Foundation
 enum RemuxOutputNaming {
 
     /// The extension ffmpeg writes under until the conversion has finished.
-    static let workingFileExtension = "part"
+    ///
+    /// Front Row's own rather than the usual `.part`, which browsers give their half-finished
+    /// downloads: a file of that name appearing beside the original between the name being chosen
+    /// and ffmpeg opening it would be taken for this conversion's, and moved into place as the
+    /// converted film.
+    static let workingFileExtension = "frconverting"
 
     /// Where `movie.mkv` should be written as an MP4.
     ///
@@ -54,7 +59,7 @@ enum RemuxOutputNaming {
     ///
     /// Visible, and named for the file it is becoming. A run the app never got to tidy up - a crash,
     /// a power cut - leaves something the user can find and throw away, which a hidden name does
-    /// not; and `.part` is an extension nothing opens, so a half film cannot be played by mistake.
+    /// not; and the extension is one nothing opens, so a half film cannot be played by mistake.
     /// ffmpeg is told its output format outright, since the extension no longer names one.
     static func workingURL(besides output: URL) -> URL {
         output.appendingPathExtension(workingFileExtension)

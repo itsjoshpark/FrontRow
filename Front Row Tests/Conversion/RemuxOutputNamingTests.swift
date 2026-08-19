@@ -52,7 +52,8 @@ struct RemuxOutputNamingTests {
     /// ffmpeg writes here, and the result is only renamed into place once it finishes — so this has
     /// to sit on the same volume to make that a rename. Visible, so a run the app never got to tidy
     /// up leaves something the user can find and throw away rather than a hidden file they will
-    /// never see; and `.part` so a half film cannot be double-clicked into a truncated one.
+    /// never see; and under an extension nothing opens, so a half film cannot be double-clicked
+    /// into a truncated one - one of Front Row's own, not the `.part` a browser would leave.
     @Test
     func theWorkingFileIsVisibleBesideTheOutputAndCannotBePlayed() {
         let output = URL(fileURLWithPath: "/Movies/The Film.mp4")
@@ -60,8 +61,23 @@ struct RemuxOutputNamingTests {
 
         #expect(working.deletingLastPathComponent() == output.deletingLastPathComponent())
         #expect(!working.lastPathComponent.hasPrefix("."))
-        #expect(working.lastPathComponent == "The Film.mp4.part")
+        #expect(working.lastPathComponent == "The Film.mp4.frconverting")
         #expect(working != output)
+    }
+
+    /// The working file's extension is Front Row's own, not one another tool writes.
+    ///
+    /// A browser downloading `film.mp4` into the same folder writes `film.mp4.part`. Were that the
+    /// name used here, one could appear in the gap between the output name being chosen and ffmpeg
+    /// opening it - and ffmpeg, told never to overwrite, exits cleanly without writing a thing, so
+    /// the conversion would look like it worked and the download would be moved into place as the
+    /// converted film. The old hidden name carried a UUID and could not collide; this one has to
+    /// earn that by not being a name anything else reaches for.
+    @Test
+    func theWorkingFileIsNotNamedLikeAnotherToolsHalfFinishedDownload() {
+        let spokenFor = ["part", "crdownload", "download", "partial", "opdownload", "tmp", "temp"]
+
+        #expect(!spokenFor.contains(RemuxOutputNaming.workingFileExtension))
     }
 
     /// The working file follows whatever name the output ended up with, numbering included.
@@ -71,7 +87,7 @@ struct RemuxOutputNamingTests {
 
         #expect(
             RemuxOutputNaming.workingURL(besides: output).lastPathComponent
-                == "The Film 2.mp4.part"
+                == "The Film 2.mp4.frconverting"
         )
     }
 
@@ -83,7 +99,7 @@ struct RemuxOutputNamingTests {
     @Test
     func aWorkingFileLeftBehindHoldsTheNameItWasFor() {
         let output = RemuxOutputNaming.outputURL(for: input) {
-            $0.lastPathComponent == "The Film.mp4.part"
+            $0.lastPathComponent == "The Film.mp4.frconverting"
         }
 
         #expect(output.lastPathComponent == "The Film 2.mp4")
