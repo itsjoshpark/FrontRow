@@ -579,145 +579,145 @@
         }
       }
     },
-    "\"%@\" was converted to \"%@\". The original file isn't needed anymore and can be moved to trash." : {
+    "\"%@\" was converted to MP4. The original file isn't needed anymore." : {
       "comment" : "Alert message shown after a file has been converted",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تم تحويل \"%1$@\" إلى \"%2$@\". لم يعد الملف الأصلي مطلوبًا ويمكن نقله إلى المهملات."
+            "value" : "تم تحويل \"%@\" إلى MP4. لم يعد الملف الأصلي مطلوبًا."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Soubor \"%1$@\" byl převeden na \"%2$@\". Původní soubor už není potřeba a lze ho přesunout do koše."
+            "value" : "Soubor \"%@\" byl převeden do formátu MP4. Původní soubor už není potřeba."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" blev konverteret til \"%@\". Den oprindelige fil er ikke længere nødvendig og kan flyttes til papirkurven."
+            "value" : "\"%@\" blev konverteret til MP4. Den oprindelige fil er ikke længere nødvendig."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" wurde in \"%@\" konvertiert. Die Originaldatei wird nicht mehr benötigt und kann in den Papierkorb gelegt werden."
+            "value" : "\"%@\" wurde in MP4 konvertiert. Die Originaldatei wird nicht mehr benötigt."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Το \"%1$@\" μετατράπηκε σε \"%2$@\". Το αρχικό αρχείο δεν χρειάζεται πλέον και μπορεί να μετακινηθεί στα απορρίμματα."
+            "value" : "Το \"%@\" μετατράπηκε σε MP4. Το αρχικό αρχείο δεν χρειάζεται πλέον."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" se convirtió en \"%@\". El archivo original ya no es necesario y se puede mover a la papelera."
+            "value" : "\"%@\" se convirtió en MP4. El archivo original ya no es necesario."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%1$@\" muunnettiin muotoon \"%2$@\". Alkuperäistä tiedostoa ei enää tarvita, ja se voidaan siirtää roskakoriin."
+            "value" : "\"%@\" muunnettiin MP4-muotoon. Alkuperäistä tiedostoa ei enää tarvita."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" a été converti en \"%@\". Le fichier d'origine n'est plus nécessaire et peut être placé dans la corbeille."
+            "value" : "\"%@\" a été converti en MP4. Le fichier d'origine n'est plus nécessaire."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" was converted to \"%@\". The original file isn't needed anymore and can be moved to trash."
+            "value" : "\"%@\" was converted to MP4. The original file isn't needed anymore."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A(z) „%1$@” át lett alakítva erre: „%2$@”. Az eredeti fájlra már nincs szükség, áthelyezhető a kukába."
+            "value" : "A(z) „%@” át lett alakítva MP4 formátumba. Az eredeti fájlra már nincs szükség."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" è stato convertito in \"%@\". Il file originale non serve più e può essere spostato nel Cestino."
+            "value" : "\"%@\" è stato convertito in MP4. Il file originale non serve più."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" を \"%@\" に変換しました。元のファイルは不要になったため、ゴミ箱に入れることができます。"
+            "value" : "\"%@\" を MP4 に変換しました。元のファイルは不要になりました。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\"이(가) \"%@\"(으)로 변환되었습니다. 원본 파일은 더 이상 필요하지 않으며 휴지통으로 옮길 수 있습니다."
+            "value" : "\"%@\"이(가) MP4로 변환되었습니다. 원본 파일은 더 이상 필요하지 않습니다."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" is geconverteerd naar \"%@\". Het originele bestand is niet meer nodig en kan naar de prullenmand worden verplaatst."
+            "value" : "\"%@\" is geconverteerd naar MP4. Het originele bestand is niet meer nodig."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" został przekonwertowany na \"%@\". Oryginalny plik nie jest już potrzebny i można go przenieść do Kosza."
+            "value" : "Plik \"%@\" został przekonwertowany do formatu MP4. Oryginalny plik nie jest już potrzebny."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%1$@\" a fost convertit în \"%2$@\". Fișierul original nu mai este necesar și poate fi mutat la coșul de gunoi."
+            "value" : "\"%@\" a fost convertit în MP4. Fișierul original nu mai este necesar."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" сконвертирован в \"%@\". Оригинальный файл больше не нужен, его можно переместить в Корзину."
+            "value" : "Файл \"%@\" сконвертирован в MP4. Оригинальный файл больше не нужен."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" konverterades till \"%@\". Originalfilen behövs inte längre och kan flyttas till papperskorgen."
+            "value" : "\"%@\" konverterades till MP4. Originalfilen behövs inte längre."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" dosyası \"%@\" olarak dönüştürüldü. Özgün dosya artık gerekli değil ve çöp sepetine taşınabilir."
+            "value" : "\"%@\" dosyası MP4 olarak dönüştürüldü. Özgün dosya artık gerekli değil."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%1$@\" перетворено на \"%2$@\". Оригінальний файл більше не потрібен, його можна перемістити в кошик."
+            "value" : "Файл \"%@\" перетворено на MP4. Оригінальний файл більше не потрібен."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Đã chuyển đổi \"%1$@\" thành \"%2$@\". Tệp gốc không còn cần thiết và có thể chuyển vào thùng rác."
+            "value" : "Đã chuyển đổi \"%@\" thành MP4. Tệp gốc không còn cần thiết."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" 已转换为 \"%@\"。原始文件不再需要，可以移到废纸篓。"
+            "value" : "\"%@\" 已转换为 MP4。不再需要原始文件。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" 已轉換為 \"%@\"。原始檔案不再需要，可以移到垃圾桶。"
+            "value" : "\"%@\" 已轉換為 MP4。不再需要原始檔案。"
           }
         }
       }
@@ -7997,288 +7997,288 @@
         }
       }
     },
-    "Front Row can convert this file so that it can play it. Install FFmpeg using Homebrew, then open the file again." : {
+    "\"%@\" can be opened after it is converted, but FFmpeg isn't installed. Install it using Homebrew, then open the file again." : {
       "comment" : "Alert message shown when a file needs converting but ffmpeg is missing",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يمكن لـ Front Row تحويل هذا الملف حتى يتمكن من تشغيله. ثبّت FFmpeg باستخدام Homebrew، ثم افتح الملف مرة أخرى."
+            "value" : "يمكن فتح \"%@\" بعد تحويله، لكن FFmpeg غير مثبت. ثبّته باستخدام Homebrew، ثم افتح الملف مرة أخرى."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row dokáže tento soubor převést, aby ho mohl přehrát. Nainstalujte FFmpeg pomocí Homebrew a poté soubor otevřete znovu."
+            "value" : "\"%@\" lze otevřít po převodu, ale FFmpeg není nainstalovaný. Nainstalujte ho pomocí Homebrew a poté soubor otevřete znovu."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row kan konvertere denne fil, så den kan afspilles. Installer FFmpeg med Homebrew, og åbn derefter filen igen."
+            "value" : "\"%@\" kan åbnes, når filen er konverteret, men FFmpeg er ikke installeret. Installer det med Homebrew, og åbn derefter filen igen."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row kann diese Datei konvertieren, um sie abspielen zu können. Installiere FFmpeg mit Homebrew und öffne die Datei danach erneut."
+            "value" : "\"%@\" kann nach der Konvertierung geöffnet werden, aber FFmpeg ist nicht installiert. Installiere es mit Homebrew und öffne die Datei danach erneut."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Το Front Row μπορεί να μετατρέψει αυτό το αρχείο ώστε να το αναπαράγει. Εγκαταστήστε το FFmpeg μέσω του Homebrew και ανοίξτε ξανά το αρχείο."
+            "value" : "Το \"%@\" μπορεί να ανοίξει αφού μετατραπεί, αλλά το FFmpeg δεν είναι εγκατεστημένο. Εγκαταστήστε το μέσω του Homebrew και ανοίξτε ξανά το αρχείο."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row puede convertir este archivo para poder reproducirlo. Instala FFmpeg con Homebrew y vuelve a abrir el archivo."
+            "value" : "\"%@\" se puede abrir una vez convertido, pero FFmpeg no está instalado. Instálalo con Homebrew y vuelve a abrir el archivo."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row voi muuntaa tämän tiedoston, jotta se voi toistaa sen. Asenna FFmpeg Homebrew’n avulla ja avaa tiedosto uudelleen."
+            "value" : "\"%@\" voidaan avata muuntamisen jälkeen, mutta FFmpeg ei ole asennettuna. Asenna se Homebrew’n avulla ja avaa tiedosto uudelleen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row peut convertir ce fichier afin de pouvoir le lire. Installez FFmpeg avec Homebrew, puis ouvrez à nouveau le fichier."
+            "value" : "\"%@\" peut être ouvert après conversion, mais FFmpeg n'est pas installé. Installez-le avec Homebrew, puis ouvrez à nouveau le fichier."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Front Row can convert this file so that it can play it. Install FFmpeg using Homebrew, then open the file again."
+            "value" : "\"%@\" can be opened after it is converted, but FFmpeg isn't installed. Install it using Homebrew, then open the file again."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A Front Row át tudja alakítani ezt a fájlt, hogy le tudja játszani. Telepítse az FFmpeget a Homebrew segítségével, majd nyissa meg újra a fájlt."
+            "value" : "A(z) „%@” az átalakítás után megnyitható, de az FFmpeg nincs telepítve. Telepítse a Homebrew segítségével, majd nyissa meg újra a fájlt."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row può convertire questo file per poterlo riprodurre. Installa FFmpeg con Homebrew, quindi apri di nuovo il file."
+            "value" : "\"%@\" può essere aperto dopo la conversione, ma FFmpeg non è installato. Installalo con Homebrew, quindi apri di nuovo il file."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row はこのファイルを変換して再生できます。Homebrew で FFmpeg をインストールしてから、ファイルをもう一度開いてください。"
+            "value" : "\"%@\" は変換後に開くことができますが、FFmpeg がインストールされていません。Homebrew でインストールしてから、ファイルをもう一度開いてください。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row에서 이 파일을 변환하면 재생할 수 있습니다. Homebrew로 FFmpeg를 설치한 다음 파일을 다시 여십시오."
+            "value" : "\"%@\"은(는) 변환 후에 열 수 있지만 FFmpeg가 설치되어 있지 않습니다. Homebrew로 설치한 다음 파일을 다시 여십시오."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row kan dit bestand converteren zodat het kan worden afgespeeld. Installeer FFmpeg met Homebrew en open het bestand daarna opnieuw."
+            "value" : "\"%@\" kan na conversie worden geopend, maar FFmpeg is niet geïnstalleerd. Installeer het met Homebrew en open het bestand daarna opnieuw."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row może przekonwertować ten plik, aby móc go odtworzyć. Zainstaluj FFmpeg za pomocą Homebrew, a następnie otwórz plik ponownie."
+            "value" : "\"%@\" można otworzyć po konwersji, ale FFmpeg nie jest zainstalowany. Zainstaluj go za pomocą Homebrew, a następnie otwórz plik ponownie."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row poate converti acest fișier pentru a-l putea reda. Instalați FFmpeg folosind Homebrew, apoi deschideți din nou fișierul."
+            "value" : "\"%@\" poate fi deschis după conversie, dar FFmpeg nu este instalat. Instalați-l folosind Homebrew, apoi deschideți din nou fișierul."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row может конвертировать этот файл, чтобы воспроизвести его. Установите FFmpeg с помощью Homebrew, затем откройте файл снова."
+            "value" : "\"%@\" можно открыть после конвертации, но FFmpeg не установлен. Установите его с помощью Homebrew, затем откройте файл снова."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row kan konvertera den här filen så att den kan spelas upp. Installera FFmpeg med Homebrew och öppna sedan filen igen."
+            "value" : "\"%@\" kan öppnas när filen har konverterats, men FFmpeg är inte installerat. Installera det med Homebrew och öppna sedan filen igen."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row bu dosyayı oynatabilmek için dönüştürebilir. Homebrew ile FFmpeg'i yükleyin, sonra dosyayı yeniden açın."
+            "value" : "\"%@\" dönüştürüldükten sonra açılabilir ancak FFmpeg yüklü değil. Homebrew ile yükleyin, sonra dosyayı yeniden açın."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row може перетворити цей файл, щоб відтворити його. Встановіть FFmpeg за допомогою Homebrew, а потім відкрийте файл знову."
+            "value" : "\"%@\" можна відкрити після конвертації, але FFmpeg не встановлено. Встановіть його за допомогою Homebrew, а потім відкрийте файл знову."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row có thể chuyển đổi tệp này để phát được. Hãy cài đặt FFmpeg bằng Homebrew, rồi mở lại tệp."
+            "value" : "Có thể mở \"%@\" sau khi chuyển đổi, nhưng FFmpeg chưa được cài đặt. Hãy cài đặt bằng Homebrew, rồi mở lại tệp."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row 可以转换此文件以便播放。请使用 Homebrew 安装 FFmpeg，然后重新打开该文件。"
+            "value" : "\"%@\" 转换后即可打开，但尚未安装 FFmpeg。请使用 Homebrew 安装，然后重新打开该文件。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row 可以轉換此檔案以便播放。請使用 Homebrew 安裝 FFmpeg，然後重新打開該檔案。"
+            "value" : "\"%@\" 轉換後即可開啟，但尚未安裝 FFmpeg。請使用 Homebrew 安裝，然後重新打開該檔案。"
           }
         }
       }
     },
-    "Front Row can open \"%@\" after it is converted." : {
+    "\"%@\" can be opened after it is converted." : {
       "comment" : "Alert message offering to convert a file into a format Front Row can play",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يمكن لـ Front Row فتح \"%@\" بعد تحويله."
+            "value" : "يمكن فتح \"%@\" بعد تحويله."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row může otevřít \"%@\" po převedení."
+            "value" : "\"%@\" lze otevřít po převodu."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row kan afspille \"%@\", når filen er konverteret."
+            "value" : "\"%@\" kan åbnes, når filen er konverteret."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row kann \"%@\" nach der Konvertierung abspielen."
+            "value" : "\"%@\" kann nach der Konvertierung geöffnet werden."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Το Front Row μπορεί να ανοίξει το \"%@\" αφού μετατραπεί."
+            "value" : "Το \"%@\" μπορεί να ανοίξει αφού μετατραπεί."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row podrá reproducir \"%@\" después de convertirlo."
+            "value" : "\"%@\" se puede abrir una vez convertido."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row voi avata tiedoston \"%@\" muuntamisen jälkeen."
+            "value" : "\"%@\" voidaan avata muuntamisen jälkeen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row pourra lire \"%@\" après conversion."
+            "value" : "\"%@\" peut être ouvert après conversion."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Front Row can open \"%@\" after it is converted."
+            "value" : "\"%@\" can be opened after it is converted."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A Front Row az átalakítás után meg tudja nyitni a következőt: „%@”."
+            "value" : "A(z) „%@” az átalakítás után megnyitható."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row può riprodurre \"%@\" dopo la conversione."
+            "value" : "\"%@\" può essere aperto dopo la conversione."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "変換すると、Front Row で \"%@\" を再生できます。"
+            "value" : "\"%@\" は変換後に開くことができます。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "변환하면 Front Row에서 \"%@\"을(를) 재생할 수 있습니다."
+            "value" : "\"%@\"은(는) 변환 후에 열 수 있습니다."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row kan \"%@\" afspelen nadat het is geconverteerd."
+            "value" : "\"%@\" kan na conversie worden geopend."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row będzie mógł odtworzyć \"%@\" po konwersji."
+            "value" : "\"%@\" można otworzyć po konwersji."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row poate deschide \"%@\" după ce este convertit."
+            "value" : "\"%@\" poate fi deschis după conversie."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row сможет воспроизвести \"%@\" после конвертации."
+            "value" : "\"%@\" можно открыть после конвертации."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row kan spela upp \"%@\" när filen har konverterats."
+            "value" : "\"%@\" kan öppnas när filen har konverterats."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row, \"%@\" dosyasını dönüştürdükten sonra oynatabilir."
+            "value" : "\"%@\" dönüştürüldükten sonra açılabilir."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row зможе відкрити \"%@\" після перетворення."
+            "value" : "\"%@\" можна відкрити після конвертації."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row có thể mở \"%@\" sau khi tệp được chuyển đổi."
+            "value" : "Có thể mở \"%@\" sau khi chuyển đổi."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "转换后，Front Row 即可播放 \"%@\"。"
+            "value" : "\"%@\" 转换后即可打开。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "轉換後，Front Row 即可播放 \"%@\"。"
+            "value" : "\"%@\" 轉換後即可開啟。"
           }
         }
       }
