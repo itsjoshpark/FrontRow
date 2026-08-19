@@ -103,6 +103,43 @@ extension ConversionSuites {
             try await body()
         }
 
+        // MARK: - One file at a time
+
+        /// A Matroska opened while another is converting is turned away at the door.
+        ///
+        /// It used to be let through, and the two questions then shared one alert slot: the words
+        /// of the second appeared above the buttons of the first, so "Front Row can open Film B
+        /// after it is converted" came with Move to Trash and Keep - and Move to Trash took Film
+        /// A's original, a file the alert never named.
+        @Test(.timeLimit(.minutes(1)))
+        func aFileOpenedDuringAConversionDoesNotTakeTheAlertSlot() async {
+            PresentationModel.shared.isConverting = true
+            defer { PresentationModel.shared.isConverting = false }
+
+            await MediaConversion.offerConversion(of: URL(filePath: "/Movies/Film B.mkv"))
+
+            #expect(
+                PresentationModel.shared.remuxAlert == nil,
+                "A second file raised a question over a conversion that was already running")
+        }
+
+        /// The same where the first file's own question is still up and unanswered.
+        @Test(.timeLimit(.minutes(1)))
+        func aFileOpenedWhileAQuestionIsUpDoesNotReplaceIt() async {
+            let waiting = RemuxProblem(
+                url: URL(filePath: "/Movies/Film A.mkv"), reason: .unsupported, scene: .player)
+            PresentationModel.shared.remuxAlert = .problem(waiting)
+            defer { PresentationModel.shared.remuxAlert = nil }
+
+            await MediaConversion.offerConversion(of: URL(filePath: "/Movies/Film B.mkv"))
+
+            guard case .problem(let still) = PresentationModel.shared.remuxAlert else {
+                Issue.record("The question that was already up was replaced")
+                return
+            }
+            #expect(still.url.lastPathComponent == "Film A.mkv")
+        }
+
         /// ffmpeg gave up part of the way through, and the half file goes with it.
         ///
         /// The half file is the point. It is a real, visible `.part` beside the user's film, and one

@@ -19,8 +19,19 @@ enum MediaConversion {
     private static let homebrewURL = URL(string: "https://brew.sh")!
 
     /// Entry point for a convertible file. Ends by presenting one of the alerts above.
+    ///
+    /// One file at a time. Every stage of a conversion asks its question through the same single
+    /// alert, and a second Matroska arriving while the first is still going takes that slot - which
+    /// SwiftUI then presents as the words of one question above the buttons of another, so
+    /// answering what looks like a question about the new file acts on the old one.
+    ///
+    /// The second file is dropped rather than queued, and nothing is raised to say so: the progress
+    /// sheet already has the window, and the alert that would explain is the very thing there is no
+    /// room for.
     static func offerConversion(of url: URL) async {
         let presented = PresentationModel.shared
+        guard presented.remuxAlert == nil, !presented.isConverting else { return }
+
         let locator = ExternalToolLocator()
 
         guard let tools = await locator.resolveFFmpeg() else {
