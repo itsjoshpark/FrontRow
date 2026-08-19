@@ -100,7 +100,7 @@ struct RemuxProblemMessage: View {
         switch problem.reason {
         case .toolsMissing:
             Text(
-                "Front Row can convert this file so that it can play it. Install FFmpeg using Homebrew, then open the file again.",
+                "\"\(problem.url.lastPathComponent)\" can be opened after it is converted, but FFmpeg isn't installed. Install it using Homebrew, then open the file again.",
                 comment: "Alert message shown when a file needs converting but ffmpeg is missing"
             )
         case .unsupported, .probeFailed:
