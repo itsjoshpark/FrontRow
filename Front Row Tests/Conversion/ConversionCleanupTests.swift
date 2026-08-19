@@ -27,7 +27,7 @@ extension ConversionSuites {
         }
 
         private func makeWorkingFile(in directory: URL) throws -> URL {
-            let working = directory.appending(path: "The Film.mp4.part")
+            let working = directory.appending(path: "The Film.mp4.frconverting")
             try Data(repeating: 0, count: 4096).write(to: working)
             return working
         }
@@ -76,7 +76,7 @@ extension ConversionSuites {
             MediaConversion.stop(
                 MediaConversion.ActiveConversion(
                     task: Task {},
-                    workingURL: directory.appending(path: "already gone.mp4.part")
+                    workingURL: directory.appending(path: "already gone.mp4.frconverting")
                 )
             )
 

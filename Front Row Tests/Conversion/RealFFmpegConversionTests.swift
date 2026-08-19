@@ -177,7 +177,7 @@ extension ConversionSuites {
 
         /// The whole path the app takes: convert into the working file, then move it into place.
         ///
-        /// The working file ends in `.part`, which names no muxer - so ffmpeg has to be told its
+        /// The working file's extension names no muxer - so ffmpeg has to be told its
         /// output format outright or it refuses the conversion before it starts. Nothing above this
         /// would notice: the arguments test only proves `-f mp4` is in the list, and every other
         /// conversion here writes straight to a `.mp4`.
@@ -334,7 +334,7 @@ extension ConversionSuites {
                     transcodes: true)
             }
 
-            let output = directory.appending(path: "killed.mp4.part")
+            let output = directory.appending(path: "killed.mp4.frconverting")
             let remuxer = MediaRemuxer(tools: tools)
             let task = Task {
                 try await remuxer.remux(

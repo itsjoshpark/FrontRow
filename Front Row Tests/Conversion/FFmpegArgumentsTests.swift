@@ -120,7 +120,7 @@ struct FFmpegArgumentsTests {
         #expect(!arguments.contains("-y"))
     }
 
-    /// ffmpeg writes to a `.part` file while it works, and picks its muxer from the extension
+    /// ffmpeg writes to the working file while it works, and picks its muxer from the extension
     /// unless told otherwise - so without this it would refuse the conversion outright.
     @Test
     func theOutputFormatIsNamedRatherThanGuessedFromTheExtension() {

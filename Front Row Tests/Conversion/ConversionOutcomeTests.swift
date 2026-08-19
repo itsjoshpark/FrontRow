@@ -147,7 +147,7 @@ extension ConversionSuites {
 
         /// ffmpeg gave up part of the way through, and the half file goes with it.
         ///
-        /// The half file is the point. It is a real, visible `.part` beside the user's film, and one
+        /// The half file is the point. It is a real, visible file beside the user's film, and one
         /// left there would look to them like the conversion half worked. Nothing is asked of them
         /// either: the original is still the only copy, so the question about trashing it belongs
         /// only to a conversion that produced something.
@@ -205,7 +205,7 @@ extension ConversionSuites {
         /// Nothing here asked it to stop, so the app finds out the same way it finds out about any
         /// other bad end: a tool that stopped without finishing. Worth its own test because it
         /// arrives by a different route to a tool that gave up on its own - an uncaught signal
-        /// rather than an exit - and a stray `.part` beside the film is what a mishandled one
+        /// rather than an exit - and a stray working file beside the film is what a mishandled one
         /// would leave.
         @Test(.timeLimit(.minutes(1)))
         func aConversionWhoseToolIsKilledDeletesItsWorkingFile() async throws {
