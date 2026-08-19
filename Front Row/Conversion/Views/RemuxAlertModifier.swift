@@ -49,9 +49,6 @@ private struct RemuxAlertModifier: ViewModifier {
         } message: { alert in
             RemuxAlertMessage(alert: alert)
         }
-        // A window can be closed with a question still on it - opening a file dismisses the
-        // welcome window whatever it is showing. Nothing writes `false` for that, and the
-        // unanswered question would hold the slot against every one that came after.
         .onDisappear { presentationModel.dismissRemuxAlert(in: scene) }
     }
 }

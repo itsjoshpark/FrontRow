@@ -125,7 +125,6 @@ private struct UnopenableRecentFileAlertModifier: ViewModifier {
         } message: { file in
             AlertMessage(alert: UnopenableRecentFileAlert(file: file), file: file)
         }
-        // The window can go with the alert still on it, and nothing writes `false` for that.
         .onDisappear { presentationModel.dismissUnopenableRecentFile(in: scene) }
     }
 }
