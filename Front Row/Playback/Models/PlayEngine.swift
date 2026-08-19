@@ -195,10 +195,13 @@ import SwiftUI
         addPeriodicTimeObserver()
     }
 
-    /// Attempts to open the file at url.
+    /// Loads the media at `url` into the player and starts it.
+    ///
+    /// The engine's half only. Opening a file with a playback window is done through
+    /// `openFileAndPresent(url:)`.
     /// - Parameter url: A URL to a local, remote, or HTTP Live Streaming media resource.
     /// - Returns: Whether the asset opened, and if not, which kind of failure it was.
-    @discardableResult func openFile(url originalURL: URL) async -> FileOpenResult {
+    @discardableResult func loadAndPlay(url originalURL: URL) async -> FileOpenResult {
         persistCurrentPlaybackPosition()
 
         lastPeriodicPositionSaveTime = 0

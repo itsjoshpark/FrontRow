@@ -46,11 +46,11 @@ struct PlayEngineLifecycleTests {
         let first = try await PlaybackFixtures.makeMovie(named: "first", in: directory)
         let second = try await PlaybackFixtures.makeMovie(named: "second", in: directory)
 
-        #expect(await engine.openFile(url: first) == .opened)
+        #expect(await engine.loadAndPlay(url: first) == .opened)
         weak let firstItem = engine.player.currentItem
         #expect(firstItem != nil)
 
-        #expect(await engine.openFile(url: second) == .opened)
+        #expect(await engine.loadAndPlay(url: second) == .opened)
         await settle(until: { firstItem == nil })
 
         #expect(firstItem == nil, "The first player item outlived the file that replaced it")
@@ -63,7 +63,7 @@ struct PlayEngineLifecycleTests {
 
         let movie = try await PlaybackFixtures.makeMovie(named: "movie", in: directory)
 
-        #expect(await engine.openFile(url: movie) == .opened)
+        #expect(await engine.loadAndPlay(url: movie) == .opened)
         weak let item = engine.player.currentItem
         #expect(item != nil)
 
@@ -92,7 +92,7 @@ struct PlayEngineLifecycleTests {
         let previous = WeakItems()
 
         for movie in movies {
-            #expect(await engine.openFile(url: movie) == .opened)
+            #expect(await engine.loadAndPlay(url: movie) == .opened)
             await settle()
             previous.append(engine.player.currentItem)
         }
@@ -118,7 +118,7 @@ struct PlayEngineLifecycleTests {
 
         let rubbish = try PlaybackFixtures.makeUnplayable(named: "rubbish", in: directory)
 
-        let result = await engine.openFile(url: rubbish)
+        let result = await engine.loadAndPlay(url: rubbish)
         #expect(result != .opened)
     }
 
@@ -132,7 +132,7 @@ struct PlayEngineLifecycleTests {
 
         let missing = directory.appending(path: "never-written.mp4")
 
-        let result = await engine.openFile(url: missing)
+        let result = await engine.loadAndPlay(url: missing)
         #expect(result != .opened)
     }
 
@@ -153,11 +153,11 @@ struct PlayEngineLifecycleTests {
         let movie = try await PlaybackFixtures.makeMovie(named: "movie", in: directory)
         let rubbish = try PlaybackFixtures.makeUnplayable(named: "rubbish", in: directory)
 
-        #expect(await engine.openFile(url: movie) == .opened)
+        #expect(await engine.loadAndPlay(url: movie) == .opened)
         await settle()
         let playingItem = engine.player.currentItem
 
-        #expect(await engine.openFile(url: rubbish) != .opened)
+        #expect(await engine.loadAndPlay(url: rubbish) != .opened)
         await settle()
 
         #expect(engine.fileURL == movie)
@@ -177,10 +177,10 @@ struct PlayEngineLifecycleTests {
         let movie = try await PlaybackFixtures.makeMovie(named: "movie", in: directory)
         let rubbish = try PlaybackFixtures.makeUnplayable(named: "rubbish", in: directory)
 
-        #expect(await engine.openFile(url: movie) == .opened)
+        #expect(await engine.loadAndPlay(url: movie) == .opened)
         weak let item = engine.player.currentItem
 
-        #expect(await engine.openFile(url: rubbish) != .opened)
+        #expect(await engine.loadAndPlay(url: rubbish) != .opened)
         engine.closeFile()
         await settle(until: { item == nil })
 
@@ -218,7 +218,7 @@ struct PlayEngineLifecycleTests {
 
         let movie = try await PlaybackFixtures.makeMovie(named: "movie", in: directory)
 
-        let open = Task { await engine.openFile(url: movie) }
+        let open = Task { await engine.loadAndPlay(url: movie) }
         await yieldToTheOpen()
         engine.closeFile()
 
@@ -232,7 +232,7 @@ struct PlayEngineLifecycleTests {
 
         // The same file opens on the next attempt, which is what marks the failure as timing
         // rather than the file.
-        #expect(await engine.openFile(url: movie) == .opened)
+        #expect(await engine.loadAndPlay(url: movie) == .opened)
     }
 
     /// An interrupted open leaves nothing half-installed for the close after it to trip over, and
@@ -244,7 +244,7 @@ struct PlayEngineLifecycleTests {
 
         let movie = try await PlaybackFixtures.makeMovie(named: "movie", in: directory)
 
-        let open = Task { await engine.openFile(url: movie) }
+        let open = Task { await engine.loadAndPlay(url: movie) }
         await yieldToTheOpen()
         engine.closeFile()
         _ = await open.value
@@ -273,12 +273,12 @@ struct PlayEngineLifecycleTests {
         let items = WeakItems()
 
         for _ in 0..<10 {
-            let open = Task { await engine.openFile(url: movie) }
+            let open = Task { await engine.loadAndPlay(url: movie) }
             await yieldToTheOpen()
             engine.closeFile()
             _ = await open.value
 
-            #expect(await engine.openFile(url: movie) == .opened)
+            #expect(await engine.loadAndPlay(url: movie) == .opened)
             items.append(engine.player.currentItem)
         }
 
@@ -302,7 +302,8 @@ struct PlayEngineLifecycleTests {
         let items = WeakItems()
 
         for cycle in 1...10 {
-            #expect(await engine.openFile(url: movie) == .opened, "Cycle \(cycle) failed to open")
+            #expect(
+                await engine.loadAndPlay(url: movie) == .opened, "Cycle \(cycle) failed to open")
             items.append(engine.player.currentItem)
 
             engine.closeFile()

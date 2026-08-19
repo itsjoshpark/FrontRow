@@ -50,7 +50,7 @@ func openFileAndPresent(url: URL) async -> FileOpenResult {
         return .handedToConverter
     }
 
-    let result = await PlayEngine.shared.openFile(url: url)
+    let result = await PlayEngine.shared.loadAndPlay(url: url)
     guard result == .opened else { return result }
 
     // What actually opened, not what was asked for: a bookmark tracks file identity, so a file
