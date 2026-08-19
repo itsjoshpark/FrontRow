@@ -37,8 +37,6 @@ jobs:
           CODE_SIGNING_REQUIRED=YES
           CODE_SIGNING_ALLOWED=YES | xcpretty && exit ${PIPESTATUS[0]}
 
-      # xcpretty prints the name of a failing swift-testing test and nothing else, so the
-      # expectations that went down are read out of the result bundle here.
       - name: Report test failures
         if: failure()
         run: |
