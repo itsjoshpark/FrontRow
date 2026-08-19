@@ -201,7 +201,7 @@ struct PlayEngineLifecycleTests {
     /// and the open returns `.unreadable` - the same answer a deleted file gives.
     ///
     /// It matters because of what the caller does with that answer.
-    /// `openRecentDocumentAndPresent` treats anything but `.opened` as the file's fault and raises
+    /// `openRecentDocument` treats anything but `.opened` as the file's fault and raises
     /// the unopenable-recent alert, whose dismissal drops the entry. A perfectly good file can
     /// therefore be reported as unreadable and lose its place in recents, on timing alone.
     ///

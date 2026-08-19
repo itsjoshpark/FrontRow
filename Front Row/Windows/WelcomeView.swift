@@ -72,7 +72,7 @@ struct WelcomeView: View {
                             )
                         } action: {
                             Task {
-                                await openRecentDocumentAndPresent(url: mostRecentURL)
+                                await openRecentDocument(url: mostRecentURL)
                             }
                         }
                         .help(mostRecentURL.lastPathComponent)
@@ -137,7 +137,7 @@ private struct RecentFilesList: View {
                     ForEach(recentDocumentsStore.recentURLs, id: \.self) { url in
                         RecentFileRow(url: url) {
                             Task {
-                                await openRecentDocumentAndPresent(url: url)
+                                await openRecentDocument(url: url)
                             }
                         }
                         .contextMenu {

@@ -11,7 +11,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func application(_ application: NSApplication, open urls: [URL]) {
         guard urls.count == 1, let url = urls.first else { return }
         Task {
-            await openFileAndPresent(url: url)
+            await openFile(url: url)
         }
     }
 

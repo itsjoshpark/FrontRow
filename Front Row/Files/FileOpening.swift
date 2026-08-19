@@ -33,7 +33,7 @@ func presentOpenFilePanel() async -> URL? {
 @MainActor
 func showOpenFileDialog() async {
     guard let url = await presentOpenFilePanel() else { return }
-    await openFileAndPresent(url: url)
+    await openFile(url: url)
 }
 
 /// Opens a file, records it in recent documents, and brings the main player window forward.
@@ -42,7 +42,7 @@ func showOpenFileDialog() async {
 /// and the welcome-to-player transition stay consistent.
 @MainActor
 @discardableResult
-func openFileAndPresent(url: URL) async -> FileOpenResult {
+func openFile(url: URL) async -> FileOpenResult {
     // Handled before AVFoundation is asked, which would only fail: Matroska has to become an MP4
     // before there is anything to play or to note in recents.
     if PlayEngine.isConvertible(url) {
@@ -65,8 +65,8 @@ func openFileAndPresent(url: URL) async -> FileOpenResult {
 /// disconnected drive keeps its entry, since that one is coming back. Where the volume is present
 /// and the file still wouldn't open, dismissing the alert clears it.
 @MainActor
-func openRecentDocumentAndPresent(url: URL) async {
-    let result = await openFileAndPresent(url: url)
+func openRecentDocument(url: URL) async {
+    let result = await openFile(url: url)
     // The converter explains itself, so a second alert here would only talk over it.
     guard result != .opened, result != .handedToConverter else { return }
 

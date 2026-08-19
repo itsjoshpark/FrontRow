@@ -7,7 +7,7 @@ import XCTest
 
 /// The ways a file gets into the player.
 ///
-/// Every route ends at `openFileAndPresent(url:)`, so what differs between them is the interface
+/// Every route ends at `openFile(url:)`, so what differs between them is the interface
 /// in front of it - a panel, a sheet, a recent entry, or a Finder double-click - and each has
 /// broken on its own before.
 final class FileOpeningUITests: FrontRowUITestCase {

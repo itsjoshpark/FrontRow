@@ -190,7 +190,7 @@ enum MediaConversion {
     /// film left - so it has to survive being wrong.
     static func finishConversion(_ cleanup: RemuxCleanup, trashingOriginal: Bool) {
         Task {
-            guard await openFileAndPresent(url: cleanup.convertedURL) == .opened else {
+            guard await openFile(url: cleanup.convertedURL) == .opened else {
                 PresentationModel.shared.raise(
                     .problem(
                         RemuxProblem(
