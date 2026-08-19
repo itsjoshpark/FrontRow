@@ -9,8 +9,13 @@ import Sparkle
 import SwiftUI
 
 struct AppCommands: Commands {
+
+    /// A Dolby-hosted 5.1 clip, the app's own demonstration that multichannel audio reaches
+    /// ordinary headphones.
+    nonisolated static let spatialAudioSampleURL = URL(
+        string: "https://media.developer.dolby.com/DDP/MP4_HPL40_30fps_channel_id_51.mp4")!
+
     private let updater: SPUUpdater
-    private let playEngine = PlayEngine.shared
 
     var body: some Commands {
         CommandGroup(after: .appInfo) {
@@ -24,13 +29,10 @@ struct AppCommands: Commands {
             Section {
                 Button {
                     Task {
-                        guard
-                            let url = URL(
-                                string:
-                                    "https://media.developer.dolby.com/DDP/MP4_HPL40_30fps_channel_id_51.mp4"
-                            )
-                        else { return }
-                        await playEngine.openFile(url: url)
+                        // The route a recent file takes, which opens the player window and
+                        // explains a failure. The sample is not in recents when one happens, so
+                        // that alert's clean-up finds nothing to remove.
+                        await openRecentDocumentAndPresent(url: Self.spatialAudioSampleURL)
                     }
                 } label: {
                     Text("Experience Spatial Audio")
