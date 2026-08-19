@@ -16,6 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationWillTerminate(_ notification: Notification) {
+        MediaConversion.stopConversionForTermination()
         PlayEngine.shared.persistCurrentPlaybackPosition()
     }
 

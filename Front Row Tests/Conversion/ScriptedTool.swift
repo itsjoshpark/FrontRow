@@ -129,6 +129,60 @@ struct ScriptedTool {
         )
     }
 
+    /// Writes `bytes` to the output path, complains, and gives up.
+    ///
+    /// ffmpeg's output is its last argument, so a tool can find where it was told to write. A
+    /// conversion that dies part-way through leaves a real half file behind, which is the state the
+    /// tidying up afterwards has to deal with.
+    static func writingPartialOutput(bytes: Int, exiting status: Int32 = 1) throws -> ScriptedTool {
+        try ScriptedTool(
+            """
+            for out; do :; done
+            head -c \(bytes) /dev/zero > "$out"
+            printf 'ffmpeg gave up part of the way through\\n' >&2
+            exit \(status)
+            """
+        )
+    }
+
+    /// Writes `bytes` to the output path, then runs until it is stopped.
+    ///
+    /// The half file is on disk before `ready` is written, so a test that waits for it knows there
+    /// is something for the cancellation to leave behind.
+    static func writingPartialOutputThenWaiting(bytes: Int, seconds: Int = 120) throws
+        -> ScriptedTool
+    {
+        try ScriptedTool(
+            """
+            here=$(dirname "$0")
+            for out; do :; done
+            head -c \(bytes) /dev/zero > "$out"
+            : > "$here/ready"
+            elapsed=0
+            while [ "$elapsed" -lt \(seconds) ]; do
+                sleep 1
+                elapsed=$((elapsed + 1))
+            done
+            """
+        )
+    }
+
+    /// Writes `bytes` to the output path and is then killed outright, as an ffmpeg stopped from
+    /// outside the app is - Activity Monitor, a `kill`, the system running out of memory.
+    ///
+    /// Kills itself rather than waiting to be found and killed by the test. A process that dies by
+    /// an uncaught signal looks the same to its parent whoever sent it, and doing it from inside
+    /// leaves no window in which the test could miss its moment.
+    static func killedPartWayThrough(bytes: Int) throws -> ScriptedTool {
+        try ScriptedTool(
+            """
+            for out; do :; done
+            head -c \(bytes) /dev/zero > "$out"
+            kill -9 $$
+            """
+        )
+    }
+
     /// Emits ffmpeg's `-progress` blocks for a file of `duration` seconds, then finishes.
     static func reportingProgress(
         duration: TimeInterval,

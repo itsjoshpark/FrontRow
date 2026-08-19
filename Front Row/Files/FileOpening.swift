@@ -70,10 +70,12 @@ func openRecentDocumentAndPresent(url: URL) async {
     // The converter explains itself, so a second alert here would only talk over it.
     guard result != .opened, result != .handedToConverter else { return }
 
-    PresentationModel.shared.unopenableRecentFile = UnopenableRecentFile(
-        url: url,
-        result: result,
-        unavailableVolumeName: RecentDocumentsStore.shared.unavailableVolumeName(for: url),
-        scene: .current
+    PresentationModel.shared.raise(
+        UnopenableRecentFile(
+            url: url,
+            result: result,
+            unavailableVolumeName: RecentDocumentsStore.shared.unavailableVolumeName(for: url),
+            scene: .current
+        )
     )
 }

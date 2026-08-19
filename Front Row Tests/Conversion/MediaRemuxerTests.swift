@@ -186,6 +186,90 @@ extension ConversionSuites {
 
             await #expect(throws: FFmpegError.cancelled) { try await task.value }
         }
+
+        // MARK: - Output
+
+        /// A run that fails leaves its half-written output where it was, for the caller to deal
+        /// with.
+        ///
+        /// The remuxer converts and nothing else; deleting what a failed run left is
+        /// `MediaConversion`'s job, and the day that moves, this says so. It is also why the working
+        /// file is a `.part` beside the real name rather than the name itself.
+        @Test(.timeLimit(.minutes(1)))
+        func aFailedConversionLeavesItsPartialOutputForTheCaller() async throws {
+            let tool = try ScriptedTool.writingPartialOutput(bytes: 4096)
+            defer { tool.remove() }
+            let directory = try makeDirectory()
+            defer { try? FileManager.default.removeItem(at: directory) }
+            let working = directory.appending(path: "film.mp4.part")
+
+            await #expect(throws: FFmpegError.self) {
+                try await makeRemuxer(tool).remux(
+                    input: input, output: working, recipe: recipe, duration: 10
+                ) { _ in }
+            }
+
+            #expect(FileManager.default.fileExists(atPath: working.path(percentEncoded: false)))
+        }
+
+        /// The same for a run the user cancelled, which is the likelier way to end up with one.
+        @Test(.timeLimit(.minutes(1)))
+        func aCancelledConversionLeavesItsPartialOutputForTheCaller() async throws {
+            let tool = try ScriptedTool.writingPartialOutputThenWaiting(bytes: 4096)
+            defer { tool.remove() }
+            let directory = try makeDirectory()
+            defer { try? FileManager.default.removeItem(at: directory) }
+            let working = directory.appending(path: "film.mp4.part")
+            let remuxer = makeRemuxer(tool)
+
+            let task = Task {
+                try await remuxer.remux(
+                    input: input, output: working, recipe: recipe, duration: 10
+                ) { _ in }
+            }
+
+            #expect(
+                await tool.waitUntilReady(),
+                "The tool never wrote its output, so there was nothing to leave behind")
+            task.cancel()
+            await #expect(throws: FFmpegError.cancelled) { try await task.value }
+
+            #expect(FileManager.default.fileExists(atPath: working.path(percentEncoded: false)))
+        }
+
+        /// A tool killed from outside is a failure, not a cancellation.
+        ///
+        /// Both leave by the same door - `remux` throws either way - but only a cancellation is
+        /// silent, because only a cancellation is something the user asked for. Reading an outside
+        /// kill as one would throw the conversion away and tell them nothing about it.
+        @Test(.timeLimit(.minutes(1)))
+        func aToolKilledFromOutsideIsAFailureRatherThanACancellation() async throws {
+            let tool = try ScriptedTool.killedPartWayThrough(bytes: 4096)
+            defer { tool.remove() }
+            let directory = try makeDirectory()
+            defer { try? FileManager.default.removeItem(at: directory) }
+            let working = directory.appending(path: "film.mp4.part")
+
+            do {
+                try await makeRemuxer(tool).remux(
+                    input: input, output: working, recipe: recipe, duration: 10
+                ) { _ in }
+                Issue.record("A tool that was killed was reported as having finished")
+            } catch FFmpegError.cancelled {
+                Issue.record("A tool killed from outside was read as the user cancelling")
+            } catch FFmpegError.conversionFailed {
+                // What it is: the tool stopped without finishing, and nobody here asked it to.
+            }
+        }
+
+        /// A directory of its own under caches, so a leftover cannot be mistaken for a neighbour's.
+        private func makeDirectory() throws -> URL {
+            let directory = URL.cachesDirectory.appending(
+                path: "FrontRowRemuxer-\(UUID().uuidString)")
+            try FileManager.default.createDirectory(
+                at: directory, withIntermediateDirectories: true)
+            return directory
+        }
     }
 }
 

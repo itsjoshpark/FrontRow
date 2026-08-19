@@ -96,15 +96,14 @@ private struct UnopenableRecentFileAlertModifier: ViewModifier {
     @Environment(PresentationModel.self) private var presentationModel: PresentationModel
 
     /// True only for the scene the failure was raised in, so the other stays quiet rather than
-    /// presenting a duplicate. Nothing here depends on focus, so `false` can only arrive from a
-    /// real dismissal - which is what makes clearing in the setter safe.
+    /// presenting a duplicate - and only that scene may take it down again. Both scenes hold one of
+    /// these, and a `false` from the one that is not presenting would otherwise clear the alert the
+    /// other is still showing.
     private var isPresented: Binding<Bool> {
         Binding(
             get: { presentationModel.unopenableRecentFile?.scene == scene },
             set: { isPresented in
-                if !isPresented {
-                    presentationModel.unopenableRecentFile = nil
-                }
+                if !isPresented { presentationModel.dismissUnopenableRecentFile(in: scene) }
             }
         )
     }
@@ -126,6 +125,7 @@ private struct UnopenableRecentFileAlertModifier: ViewModifier {
         } message: { file in
             AlertMessage(alert: UnopenableRecentFileAlert(file: file), file: file)
         }
+        .onDisappear { presentationModel.dismissUnopenableRecentFile(in: scene) }
     }
 }
 

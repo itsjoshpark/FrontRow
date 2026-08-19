@@ -175,6 +175,39 @@ extension ConversionSuites {
             #expect(size == CGSize(width: 320, height: 180))
         }
 
+        /// The whole path the app takes: convert into the working file, then move it into place.
+        ///
+        /// The working file ends in `.part`, which names no muxer - so ffmpeg has to be told its
+        /// output format outright or it refuses the conversion before it starts. Nothing above this
+        /// would notice: the arguments test only proves `-f mp4` is in the list, and every other
+        /// conversion here writes straight to a `.mp4`.
+        @Test(.timeLimit(.minutes(3)))
+        func aConversionWrittenToItsWorkingFileIsPlayableOnceMovedIntoPlace() async throws {
+            let directory = try makeDirectory()
+            defer { try? FileManager.default.removeItem(at: directory) }
+
+            let tools = try #require(await ExternalToolLocator().resolveFFmpeg())
+            let fixture = try await makeMatroska(in: directory)
+            let probed = try await FFprobeStreamReader(ffprobe: tools.ffprobe).probe(fixture)
+            let recipe = try #require(RemuxPlanner.plan(for: probed.streams).recipe)
+
+            let output = RemuxOutputNaming.outputURL(for: fixture)
+            let working = RemuxOutputNaming.workingURL(besides: output)
+
+            try await MediaRemuxer(tools: tools).remux(
+                input: fixture, output: working, recipe: recipe, duration: 2
+            ) { _ in }
+
+            #expect(
+                FileManager.default.fileExists(atPath: working.path(percentEncoded: false)),
+                "ffmpeg wrote nothing to the working file")
+            try FileManager.default.moveItem(at: working, to: output)
+
+            #expect(try await AVURLAsset(url: output).load(.isPlayable))
+            // The working file is a rename away from the output, so finishing leaves nothing over.
+            #expect(!FileManager.default.fileExists(atPath: working.path(percentEncoded: false)))
+        }
+
         /// The MP4 an audio-only Matroska produces, which has no video track to tag.
         @Test(.timeLimit(.minutes(3)))
         func anAudioOnlyFileConvertsToSomethingPlayable() async throws {
@@ -212,10 +245,10 @@ extension ConversionSuites {
         /// survives. But ffmpeg exits 0 while refusing, so `remux` sees a clean exit, reports a
         /// fraction of 1 and returns without having written anything.
         ///
-        /// The app does not reach this. `RemuxOutputNaming.workingURL` gives ffmpeg a hidden path with
-        /// a UUID in it, which nothing else can already hold, and the move to the real name afterwards
-        /// fails rather than replacing. Anything else calling `MediaRemuxer` directly has to know that
-        /// a successful return is not by itself proof that a file was written.
+        /// The app does not reach this. `RemuxOutputNaming` will not hand out an output name whose
+        /// working file is already there, and the move to the real name afterwards fails rather than
+        /// replacing. Anything else calling `MediaRemuxer` directly has to know that a successful
+        /// return is not by itself proof that a file was written.
         @Test(.timeLimit(.minutes(3)))
         func anOutputThatAlreadyExistsSurvivesAConversionThatClaimsToHaveWorked() async throws {
             let directory = try makeDirectory()
@@ -236,19 +269,6 @@ extension ConversionSuites {
 
             #expect(
                 try Data(contentsOf: output) == existing, "The file that was there was overwritten")
-        }
-
-        /// The working path the app actually converts into cannot be one that already exists, which is
-        /// what keeps the case above out of reach.
-        @Test
-        func theWorkingPathIsHiddenAndUnique() {
-            let output = URL(filePath: "/private/var/tmp/film.mp4")
-            let first = RemuxOutputNaming.workingURL(besides: output)
-            let second = RemuxOutputNaming.workingURL(besides: output)
-
-            #expect(first != second)
-            #expect(first.lastPathComponent.hasPrefix("."))
-            #expect(first.deletingLastPathComponent() == output.deletingLastPathComponent())
         }
 
         /// A real ffmpeg, cancelled part-way, leaves nothing running.
@@ -290,6 +310,81 @@ extension ConversionSuites {
                 await stopped(writingTo: output),
                 "An ffmpeg was still writing the output after the conversion was cancelled"
             )
+        }
+
+        /// A real ffmpeg killed from outside the app, which is the one ending nothing here chose.
+        ///
+        /// Activity Monitor, a `kill`, the machine running out of memory. The app is not told and
+        /// cannot be: all it sees is a tool that stopped without finishing, so it has to read that
+        /// as a failure rather than as the user changing their mind - a cancellation is silent, and
+        /// this must not be. SIGKILL rather than SIGTERM so ffmpeg has no chance to tidy up or to
+        /// say anything on its way out, which is the harshest version of the case.
+        @Test(.timeLimit(.minutes(3)))
+        func aRealFfmpegKilledFromOutsideIsReportedAsAFailure() async throws {
+            let directory = try makeDirectory()
+            defer { try? FileManager.default.removeItem(at: directory) }
+
+            let tools = try #require(await ExternalToolLocator().resolveFFmpeg())
+            let fixture = try await makeMatroska(in: directory, seconds: 60)
+            let probed = try await FFprobeStreamReader(ffprobe: tools.ffprobe).probe(fixture)
+            var recipe = try #require(RemuxPlanner.plan(for: probed.streams).recipe)
+            recipe.audio = recipe.audio.map {
+                PlannedAudio(
+                    index: $0.index, codecName: $0.codecName, channels: $0.channels,
+                    transcodes: true)
+            }
+
+            let output = directory.appending(path: "killed.mp4.part")
+            let remuxer = MediaRemuxer(tools: tools)
+            let task = Task {
+                try await remuxer.remux(
+                    input: fixture, output: output, recipe: recipe, duration: 60
+                ) { _ in }
+            }
+
+            #expect(
+                await started(writingTo: output),
+                "ffmpeg never started, so there was nothing to kill")
+            // The command line matches the moment the tool is exec'd, a beat before it has opened
+            // its output - so waiting on the process alone would kill it with nothing written yet.
+            #expect(await appeared(output), "ffmpeg never opened its output file")
+            kill(writingTo: output)
+
+            do {
+                try await task.value
+                Issue.record("A killed ffmpeg was reported as a conversion that worked")
+            } catch FFmpegError.cancelled {
+                Issue.record("A killed ffmpeg was read as the user cancelling, which says nothing")
+            } catch FFmpegError.conversionFailed {
+                // What it is, and what raises the alert that tells the user.
+            }
+
+            #expect(await stopped(writingTo: output))
+            // Left where it fell: clearing it up is `MediaConversion`'s half of this.
+            #expect(FileManager.default.fileExists(atPath: output.path(percentEncoded: false)))
+        }
+
+        /// Waits until there is something at `url`.
+        private func appeared(_ url: URL, within: Duration = .seconds(20)) async -> Bool {
+            let deadline = ContinuousClock.now + within
+            while ContinuousClock.now < deadline {
+                if FileManager.default.fileExists(atPath: url.path(percentEncoded: false)) {
+                    return true
+                }
+                try? await Task.sleep(for: .milliseconds(50))
+            }
+            return false
+        }
+
+        /// Kills whatever ffmpeg is writing `output`, the way anything outside the app would.
+        private func kill(writingTo output: URL) {
+            let process = Process()
+            process.executableURL = URL(filePath: "/usr/bin/pkill")
+            process.arguments = ["-9", "-f", output.path(percentEncoded: false)]
+            process.standardOutput = FileHandle.nullDevice
+            process.standardError = FileHandle.nullDevice
+            try? process.run()
+            process.waitUntilExit()
         }
 
         /// Whether an ffmpeg has picked the conversion up and is writing `output`.
