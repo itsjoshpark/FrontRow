@@ -37,6 +37,31 @@ jobs:
           CODE_SIGNING_REQUIRED=YES
           CODE_SIGNING_ALLOWED=YES | xcpretty && exit ${PIPESTATUS[0]}
 
+      # xcpretty prints the name of a failing swift-testing test and nothing else, so the
+      # expectations that went down are read out of the result bundle here.
+      - name: Report test failures
+        if: failure()
+        run: |
+          [ -d TestResults.xcresult ] || exit 0
+          xcrun xcresulttool get test-results tests --path TestResults.xcresult --compact \
+            | python3 -c '
+          import json, sys
+
+          def walk(node, test=None):
+              if node.get("nodeType") == "Test Case":
+                  test = node.get("name")
+              if node.get("nodeType") == "Failure Message":
+                  where = node.get("sourceLocation", {})
+                  file = where.get("filePath", "?").split("/")[-1]
+                  line = where.get("lineNumber", "?")
+                  print("%s\n    %s\n    %s:%s" % (test, node.get("name"), file, line))
+              for child in node.get("children") or []:
+                  walk(child, test)
+
+          for node in json.load(sys.stdin).get("testNodes", []):
+              walk(node)
+          '
+
       - name: Upload results
         if: failure()
         uses: actions/upload-artifact@v7
