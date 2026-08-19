@@ -241,7 +241,7 @@ extension ConversionSuites {
             let directory = try makeDirectory()
             defer { try? FileManager.default.removeItem(at: directory) }
 
-            try await withHostWindow {
+            await withHostWindow {
                 // Offered in the welcome scene; by the time it finishes the player window is the
                 // one on screen, which is what `withHostWindow` has installed.
                 MediaConversion.startConversion(makeOffer(tool, in: directory, scene: .welcome))
