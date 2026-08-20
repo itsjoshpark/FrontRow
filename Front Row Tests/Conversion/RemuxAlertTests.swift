@@ -111,6 +111,10 @@ struct RemuxAlertTests {
         #expect(MediaConversion.problemReason(for: CancellationError()) == nil)
         #expect(MediaConversion.problemReason(for: FFmpegError.timedOut) == .checkTimedOut)
         #expect(
+            MediaConversion.problemReason(for: FFmpegError.toolsMissing(hasHomebrew: true))
+                == .toolsMissing(hasHomebrew: true)
+        )
+        #expect(
             MediaConversion.problemReason(for: FFmpegError.probeFailed(message: "eof"))
                 == .probeFailed
         )

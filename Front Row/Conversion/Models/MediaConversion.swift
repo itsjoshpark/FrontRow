@@ -26,12 +26,6 @@ enum MediaConversion {
     /// The second file is dropped rather than queued, and nothing is raised to say so: the progress
     /// sheet already has the window, and the alert that would explain is the very thing there is no
     /// room for.
-    /// What checking a file over turned up.
-    private enum FileCheck {
-        case ready(tools: FFmpegTools, media: ProbedMedia)
-        case toolsMissing(hasHomebrew: Bool)
-    }
-
     static func offerConversion(of url: URL) async {
         let presented = PresentationModel.shared
         guard !presented.isAskingAboutAFile else { return }
@@ -46,26 +40,16 @@ enum MediaConversion {
         await finishChecking(sheet)
 
         switch result {
-        case .success(.toolsMissing(let hasHomebrew)):
-            presented.raise(
-                .problem(
-                    RemuxProblem(
-                        url: url,
-                        reason: .toolsMissing(hasHomebrew: hasHomebrew),
-                        scene: .hosting()
-                    )
-                ))
-
-        case .success(.ready(let tools, let media)):
-            let plan = RemuxPlanner.plan(for: media.streams)
+        case .success(let checked):
+            let plan = RemuxPlanner.plan(for: checked.media.streams)
             guard case .unsupported = plan else {
                 presented.raise(
                     .offer(
                         RemuxOffer(
                             url: url,
                             plan: plan,
-                            duration: media.duration,
-                            tools: tools,
+                            duration: checked.media.duration,
+                            tools: checked.tools,
                             scene: .hosting()
                         )
                     ))
@@ -83,11 +67,13 @@ enum MediaConversion {
     }
 
     /// Finds the tools and reads the file, or throws saying why it couldn't.
-    private static func examine(_ url: URL) async throws -> FileCheck {
+    private static func examine(
+        _ url: URL
+    ) async throws -> (tools: FFmpegTools, media: ProbedMedia) {
         let locator = ExternalToolLocator()
 
         guard let tools = await locator.resolveFFmpeg() else {
-            return .toolsMissing(hasHomebrew: locator.hasHomebrew())
+            throw FFmpegError.toolsMissing(hasHomebrew: locator.hasHomebrew())
         }
 
         // Asked outright because `resolveFFmpeg` swallows its own failures, cancellation among
@@ -95,7 +81,7 @@ enum MediaConversion {
         try Task.checkCancellation()
 
         let media = try await FFprobeStreamReader(ffprobe: tools.ffprobe).probe(url)
-        return .ready(tools: tools, media: media)
+        return (tools, media)
     }
 
     /// What to tell the user about a check that didn't finish, or `nil` to say nothing at all.
@@ -105,6 +91,7 @@ enum MediaConversion {
     nonisolated static func problemReason(for error: any Error) -> RemuxProblem.Reason? {
         switch error {
         case FFmpegError.cancelled, is CancellationError: nil
+        case FFmpegError.toolsMissing(let hasHomebrew): .toolsMissing(hasHomebrew: hasHomebrew)
         case FFmpegError.timedOut: .checkTimedOut
         default: .probeFailed
         }
