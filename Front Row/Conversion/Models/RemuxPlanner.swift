@@ -23,7 +23,7 @@ enum RemuxPlanner {
     /// writes MJPEG under the `mp4v` tag - which AVFoundation reports as playable and then cannot
     /// decode. Neither can be made to work without leaving the MP4 container.
     private static let copyableVideoCodecs: Set<String> = [
-        "h264", "hevc", "av1", "mpeg4",
+        "h264", "hevc", "av1", "mpeg4", "mpeg2video",
     ]
 
     /// Whether this Mac can decode AV1.
@@ -33,8 +33,13 @@ enum RemuxPlanner {
     static let canDecodeAV1: Bool = VTIsHardwareDecodeSupported(kCMVideoCodecType_AV1)
 
     /// Audio codecs AVFoundation decodes from an MP4. Everything else is re-encoded to AAC.
+    ///
+    /// FLAC and Opus are here because they are common in Matroska and decode from an MP4 intact -
+    /// copying them keeps the original audio where re-encoding it to AAC would throw some away for
+    /// no gain. PCM is deliberately not: it decodes too, but it is far larger than the AAC it
+    /// would become.
     private static let copyableAudioCodecs: Set<String> = [
-        "aac", "mp3", "alac", "ac3", "eac3",
+        "aac", "mp3", "alac", "ac3", "eac3", "flac", "opus",
     ]
 
     /// Subtitle codecs that carry text, and so can become `mov_text`.
@@ -52,7 +57,7 @@ enum RemuxPlanner {
             isLowChroma(geometry.chroma) && geometry.depth <= 8
         case "hevc", "av1":
             isLowChroma(geometry.chroma) && geometry.depth <= 10
-        case "mpeg4":
+        case "mpeg4", "mpeg2video":
             isLowChroma(geometry.chroma) && geometry.depth <= 8
         default:
             false

@@ -231,4 +231,37 @@ struct RemuxPlannerTests {
 
         #expect(plan == .unsupported(.noPlayableStreams))
     }
+
+    /// Both are common in Matroska and decode from an MP4 intact, so re-encoding them to AAC threw
+    /// audio away for nothing.
+    @Test(arguments: ["flac", "opus"])
+    func losslessAndModernAudioIsCopiedRatherThanReEncoded(codec: String) {
+        let plan = RemuxPlanner.plan(for: [video(0, "h264"), audio(1, codec)])
+
+        #expect(plan.recipe?.transcodesAudio == false)
+        if case .remux = plan {} else { Issue.record("Expected a straight remux, got \(plan)") }
+    }
+
+    /// PCM decodes as well, but copying it keeps a stream far larger than the AAC it would become.
+    @Test
+    func pcmIsStillReEncoded() {
+        let plan = RemuxPlanner.plan(for: [video(0, "h264"), audio(1, "pcm_s16le")])
+
+        #expect(plan.recipe?.transcodesAudio == true)
+    }
+
+    /// The app already plays MPEG-2 inside a transport stream, so refusing it in Matroska was the
+    /// odd one out. 4:2:2 is a real MPEG-2 profile and stays refused.
+    @Test
+    func mpeg2VideoIsCopiedAtFourTwoZero() {
+        let copied = RemuxPlanner.plan(for: [
+            video(0, "mpeg2video", pixelFormat: "yuv420p"), audio(1, "ac3"),
+        ])
+        #expect(copied.recipe?.videoIndex == 0)
+        // ffmpeg picks `mp4v` for it, which is the tag the conversion was verified against.
+        #expect(copied.recipe?.videoTag == nil)
+
+        let refused = RemuxPlanner.plan(for: [video(0, "mpeg2video", pixelFormat: "yuv422p")])
+        #expect(refused == .unsupported(.video(codec: "mpeg2video")))
+    }
 }
