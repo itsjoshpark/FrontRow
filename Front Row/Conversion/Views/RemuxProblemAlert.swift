@@ -105,7 +105,7 @@ struct RemuxProblemMessage: View {
             )
         case .checkTimedOut:
             Text(
-                "FFmpeg took too long to check \"\(problem.url.lastPathComponent)\". If the file is on a cloud or network drive, make sure it's available and try again.",
+                "Checking \"\(problem.url.lastPathComponent)\" took too long. If it's on a cloud or network drive, make sure it's available and try again.",
                 comment: "Alert message shown when a file took too long to check"
             )
         case .unsupported, .probeFailed:

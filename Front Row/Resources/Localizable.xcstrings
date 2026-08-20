@@ -7143,145 +7143,145 @@
         }
       }
     },
-    "FFmpeg took too long to check \"%@\". If the file is on a cloud or network drive, make sure it's available and try again." : {
+    "Checking \"%@\" took too long. If it's on a cloud or network drive, make sure it's available and try again." : {
       "comment" : "Alert message shown when a file took too long to check",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "استغرق FFmpeg وقتًا طويلاً جدًا لفحص \"%@\". إذا كان الملف على قرص سحابي أو شبكي، فتأكد من أنه متاح ثم حاول مرة أخرى."
+            "value" : "استغرق فحص \"%@\" وقتًا طويلاً جدًا. إذا كان الملف على قرص سحابي أو شبكي، فتأكد من أنه متاح ثم حاول مرة أخرى."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "FFmpeg kontroloval \"%@\" příliš dlouho. Pokud je soubor v cloudu nebo na síťovém disku, ujistěte se, že je dostupný, a zkuste to znovu."
+            "value" : "Kontrola \"%@\" trvala příliš dlouho. Pokud je soubor v cloudu nebo na síťovém disku, ujistěte se, že je dostupný, a zkuste to znovu."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "FFmpeg brugte for lang tid på at kontrollere \"%@\". Hvis filen ligger på et sky- eller netværksdrev, skal du sikre dig, at den er tilgængelig, og prøve igen."
+            "value" : "Det tog for lang tid at kontrollere \"%@\". Hvis filen ligger på et sky- eller netværksdrev, skal du sikre dig, at den er tilgængelig, og prøve igen."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "FFmpeg hat zu lange gebraucht, um \"%@\" zu prüfen. Wenn die Datei auf einem Cloud- oder Netzlaufwerk liegt, stelle sicher, dass sie verfügbar ist, und versuche es erneut."
+            "value" : "Die Prüfung von \"%@\" hat zu lange gedauert. Wenn die Datei auf einem Cloud- oder Netzlaufwerk liegt, stelle sicher, dass sie verfügbar ist, und versuche es erneut."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Το FFmpeg άργησε πολύ να ελέγξει το \"%@\". Αν το αρχείο βρίσκεται σε δίσκο cloud ή δικτύου, βεβαιωθείτε ότι είναι διαθέσιμο και δοκιμάστε ξανά."
+            "value" : "Ο έλεγχος του \"%@\" άργησε πολύ. Αν το αρχείο βρίσκεται σε δίσκο cloud ή δικτύου, βεβαιωθείτε ότι είναι διαθέσιμο και δοκιμάστε ξανά."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "FFmpeg tardó demasiado en comprobar \"%@\". Si el archivo está en una unidad en la nube o de red, asegúrate de que esté disponible e inténtalo de nuevo."
+            "value" : "La comprobación de \"%@\" tardó demasiado. Si el archivo está en una unidad en la nube o de red, asegúrate de que esté disponible e inténtalo de nuevo."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "FFmpegiltä kesti liian kauan tarkistaa tiedosto \"%@\". Jos tiedosto on pilvi- tai verkkolevyllä, varmista, että se on käytettävissä, ja yritä uudelleen."
+            "value" : "Tiedoston \"%@\" tarkistaminen kesti liian kauan. Jos tiedosto on pilvi- tai verkkolevyllä, varmista, että se on käytettävissä, ja yritä uudelleen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "FFmpeg a mis trop de temps à vérifier \"%@\". Si le fichier se trouve sur un disque cloud ou réseau, assurez-vous qu'il est disponible, puis réessayez."
+            "value" : "La vérification de \"%@\" a pris trop de temps. Si le fichier se trouve sur un disque cloud ou réseau, assurez-vous qu'il est disponible, puis réessayez."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "FFmpeg took too long to check \"%@\". If the file is on a cloud or network drive, make sure it's available and try again."
+            "value" : "Checking \"%@\" took too long. If it's on a cloud or network drive, make sure it's available and try again."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Az FFmpeg túl sokáig ellenőrizte a következőt: „%@”. Ha a fájl felhő- vagy hálózati meghajtón található, győződjön meg róla, hogy elérhető, majd próbálja újra."
+            "value" : "A(z) „%@” ellenőrzése túl sokáig tartott. Ha a fájl felhő- vagy hálózati meghajtón található, győződjön meg róla, hogy elérhető, majd próbálja újra."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "FFmpeg ha impiegato troppo tempo per verificare \"%@\". Se il file si trova su un'unità cloud o di rete, assicurati che sia disponibile e riprova."
+            "value" : "La verifica di \"%@\" ha richiesto troppo tempo. Se il file si trova su un'unità cloud o di rete, assicurati che sia disponibile e riprova."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "FFmpeg が \"%@\" の確認に時間がかかりすぎました。ファイルがクラウドまたはネットワークドライブにある場合は、利用できることを確認してから、もう一度お試しください。"
+            "value" : "\"%@\" の確認に時間がかかりすぎました。ファイルがクラウドまたはネットワークドライブにある場合は、利用できることを確認してから、もう一度お試しください。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "FFmpeg가 \"%@\"을(를) 확인하는 데 시간이 너무 오래 걸렸습니다. 파일이 클라우드 또는 네트워크 드라이브에 있는 경우 사용할 수 있는지 확인한 다음 다시 시도하십시오."
+            "value" : "\"%@\" 확인에 시간이 너무 오래 걸렸습니다. 파일이 클라우드 또는 네트워크 드라이브에 있는 경우 사용할 수 있는지 확인한 다음 다시 시도하십시오."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "FFmpeg deed er te lang over om \"%@\" te controleren. Als het bestand op een cloud- of netwerkschijf staat, controleer dan of het beschikbaar is en probeer het opnieuw."
+            "value" : "Het controleren van \"%@\" duurde te lang. Als het bestand op een cloud- of netwerkschijf staat, controleer dan of het beschikbaar is en probeer het opnieuw."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "FFmpeg zbyt długo sprawdzał \"%@\". Jeśli plik znajduje się w chmurze lub na dysku sieciowym, upewnij się, że jest dostępny, i spróbuj ponownie."
+            "value" : "Sprawdzanie \"%@\" trwało zbyt długo. Jeśli plik znajduje się w chmurze lub na dysku sieciowym, upewnij się, że jest dostępny, i spróbuj ponownie."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "FFmpeg a durat prea mult pentru a verifica \"%@\". Dacă fișierul se află pe o unitate cloud sau de rețea, asigurați-vă că este disponibil și încercați din nou."
+            "value" : "Verificarea \"%@\" a durat prea mult. Dacă fișierul se află pe o unitate cloud sau de rețea, asigurați-vă că este disponibil și încercați din nou."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "FFmpeg слишком долго проверял \"%@\". Если файл находится в облаке или на сетевом диске, убедитесь, что он доступен, и повторите попытку."
+            "value" : "Проверка \"%@\" заняла слишком много времени. Если файл находится в облаке или на сетевом диске, убедитесь, что он доступен, и повторите попытку."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "FFmpeg tog för lång tid på sig att kontrollera \"%@\". Om filen ligger på en moln- eller nätverksenhet, kontrollera att den är tillgänglig och försök igen."
+            "value" : "Det tog för lång tid att kontrollera \"%@\". Om filen ligger på en moln- eller nätverksenhet, kontrollera att den är tillgänglig och försök igen."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "FFmpeg \"%@\" dosyasını denetlemek için çok uzun sürdü. Dosya bir bulut veya ağ sürücüsündeyse kullanılabilir olduğundan emin olun ve yeniden deneyin."
+            "value" : "\"%@\" dosyasının denetlenmesi çok uzun sürdü. Dosya bir bulut veya ağ sürücüsündeyse kullanılabilir olduğundan emin olun ve yeniden deneyin."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "FFmpeg надто довго перевіряв \"%@\". Якщо файл розташований у хмарі або на мережевому диску, переконайтеся, що він доступний, і повторіть спробу."
+            "value" : "Перевірка \"%@\" тривала надто довго. Якщо файл розташований у хмарі або на мережевому диску, переконайтеся, що він доступний, і повторіть спробу."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "FFmpeg mất quá nhiều thời gian để kiểm tra \"%@\". Nếu tệp nằm trên ổ đĩa đám mây hoặc ổ mạng, hãy đảm bảo tệp khả dụng rồi thử lại."
+            "value" : "Việc kiểm tra \"%@\" mất quá nhiều thời gian. Nếu tệp nằm trên ổ đĩa đám mây hoặc ổ mạng, hãy đảm bảo tệp khả dụng rồi thử lại."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "FFmpeg 检查 \"%@\" 的时间过长。如果该文件位于云端或网络驱动器上，请确认文件可用后重试。"
+            "value" : "检查 \"%@\" 的时间过长。如果该文件位于云端或网络驱动器上，请确认文件可用后重试。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "FFmpeg 檢查 \"%@\" 的時間過長。如果該檔案位於雲端或網路磁碟機上，請確認檔案可用後重試。"
+            "value" : "檢查 \"%@\" 的時間過長。如果該檔案位於雲端或網路磁碟機上，請確認檔案可用後重試。"
           }
         }
       }
