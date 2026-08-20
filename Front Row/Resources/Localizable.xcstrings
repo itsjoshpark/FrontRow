@@ -584,7 +584,7 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "تم تحويل \"%@\" بنجاح. لم يعد الملف الأصلي مطلوبًا."
           }
         },
@@ -608,7 +608,7 @@
         },
         "el" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Το \"%@\" μετατράπηκε με επιτυχία. Το αρχικό αρχείο δεν χρειάζεται πλέον."
           }
         },
@@ -620,7 +620,7 @@
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" muunnettiin onnistuneesti. Alkuperäistä tiedostoa ei enää tarvita."
           }
         },
@@ -638,7 +638,7 @@
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "A(z) „%@” sikeresen át lett alakítva. Az eredeti fájlra már nincs szükség."
           }
         },
@@ -674,7 +674,7 @@
         },
         "ro" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "\"%@\" a fost convertit cu succes. Fișierul original nu mai este necesar."
           }
         },
@@ -704,7 +704,7 @@
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Đã chuyển đổi \"%@\" thành công. Tệp gốc không còn cần thiết."
           }
         },
