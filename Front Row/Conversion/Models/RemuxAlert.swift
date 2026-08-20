@@ -26,6 +26,9 @@ struct RemuxProblem {
         case unsupported
         /// ffprobe couldn't make sense of the file.
         case probeFailed
+        /// ffprobe was still reading when its deadline passed. The file may be perfectly good and
+        /// merely somewhere slow, so this must not say it is damaged.
+        case checkTimedOut
     }
 
     var url: URL

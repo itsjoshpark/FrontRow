@@ -30,9 +30,15 @@ enum MediaConversion {
         let presented = PresentationModel.shared
         guard !presented.isAskingAboutAFile else { return }
 
+        // Held from here rather than from the first alert: until the check is done there is
+        // nothing to raise, and a second file arriving meanwhile would start a second ffprobe.
+        presented.checkBegan()
+        let sheet = checkingSheet(for: url)
+
         let locator = ExternalToolLocator()
 
         guard let tools = await locator.resolveFFmpeg() else {
+            await finishChecking(sheet)
             presented.raise(
                 .problem(
                     RemuxProblem(
@@ -48,11 +54,17 @@ enum MediaConversion {
         do {
             media = try await FFprobeStreamReader(ffprobe: tools.ffprobe).probe(url)
         } catch {
+            await finishChecking(sheet)
+            // A file that was merely too far away must not be called damaged.
+            let reason: RemuxProblem.Reason =
+                error as? FFmpegError == .timedOut ? .checkTimedOut : .probeFailed
             presented.raise(
                 .problem(
-                    RemuxProblem(url: url, reason: .probeFailed, scene: .hosting())))
+                    RemuxProblem(url: url, reason: reason, scene: .hosting())))
             return
         }
+
+        await finishChecking(sheet)
 
         let plan = RemuxPlanner.plan(for: media.streams)
         guard case .unsupported = plan else {
@@ -72,6 +84,41 @@ enum MediaConversion {
         presented.raise(
             .problem(
                 RemuxProblem(url: url, reason: .unsupported, scene: .hosting())))
+    }
+
+    /// How long a check may take before it is worth saying it is happening.
+    ///
+    /// A local file is answered in tens of milliseconds, and a sheet that appeared and vanished
+    /// again in that time would read as a glitch. Anything slower is a file somewhere far away.
+    private static let checkFeedbackDelay: Duration = .milliseconds(750)
+
+    /// Starts a task that puts a "Checking…" sheet up once the check has run long enough to
+    /// deserve one.
+    ///
+    /// A task rather than an awaited delay, so the check itself starts at once and the waiting
+    /// happens alongside it. Its value is `nil` where no sheet was ever shown.
+    private static func checkingSheet(for url: URL) -> Task<ConversionProgressSheet?, Never> {
+        Task { @MainActor in
+            try? await Task.sleep(for: checkFeedbackDelay)
+            guard !Task.isCancelled, let window = hostWindow() else { return nil }
+
+            // No cancel handler: there is nothing to stop yet, and the check bounds itself.
+            let sheet = ConversionProgressSheet(checkingFileName: url.lastPathComponent)
+            sheet.present(on: window) {}
+            return sheet
+        }
+    }
+
+    /// Takes the check's sheet down and releases the slot it was holding.
+    ///
+    /// Both, and in that order, because whatever is raised next lands on the same window and is
+    /// refused while the slot is still held.
+    private static func finishChecking(
+        _ sheet: Task<ConversionProgressSheet?, Never>
+    ) async {
+        sheet.cancel()
+        await sheet.value?.dismiss()
+        PresentationModel.shared.checkEnded()
     }
 
     /// A conversion that is running, and what has to go if the app is asked to quit while it is.

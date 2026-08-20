@@ -21,10 +21,47 @@ enum ExternalProcess {
         var didSucceed: Bool { terminationStatus == 0 }
     }
 
-    static func run(_ executable: URL, arguments: [String]) async throws -> Output {
-        try await Task.detached(priority: .userInitiated) {
-            try runAndWait(executable, arguments: arguments)
-        }.value
+    /// Runs `executable`, giving up after `timeout`.
+    ///
+    /// The deadline is the caller's to set, because what counts as too long depends on what is
+    /// being asked: reading a file on a network volume is slow in a way that listing encoders is
+    /// not. Without one, a tool that never answers holds the file-opening path open for good.
+    static func run(
+        _ executable: URL,
+        arguments: [String],
+        timeout: Duration
+    ) async throws -> Output {
+        let box = ProcessBox()
+
+        // Terminating the child is what unblocks the thread waiting on it; a task blocked in
+        // `waitUntilExit()` cannot be cancelled out of.
+        let watchdog = Task {
+            try await Task.sleep(for: timeout)
+            box.cancel()
+        }
+        defer { watchdog.cancel() }
+
+        let result: Result<Output, any Error>
+        do {
+            result = .success(
+                try await withTaskCancellationHandler {
+                    try await Task.detached(priority: .userInitiated) {
+                        try runAndWait(executable, arguments: arguments, box: box)
+                    }.value
+                } onCancel: {
+                    box.cancel()
+                }
+            )
+        } catch {
+            result = .failure(error)
+        }
+
+        // Both the watchdog and a cancelled caller stop the child the same way, so which happened
+        // is read from the surrounding task rather than from the box.
+        if box.wasCancelled {
+            throw Task.isCancelled ? FFmpegError.cancelled : FFmpegError.timedOut
+        }
+        return try result.get()
     }
 
     /// Runs the tool and blocks until it has finished and everything it printed has been read.
@@ -32,7 +69,11 @@ enum ExternalProcess {
     /// Separate, and synchronous, because that is what it is: waiting on a process and on two
     /// pipes are all blocking calls, and they belong on a thread of their own rather than on one
     /// borrowed from the concurrency pool between suspensions.
-    private static func runAndWait(_ executable: URL, arguments: [String]) throws -> Output {
+    private static func runAndWait(
+        _ executable: URL,
+        arguments: [String],
+        box: ProcessBox
+    ) throws -> Output {
         let process = Process()
         process.executableURL = executable
         process.arguments = arguments
@@ -64,7 +105,7 @@ enum ExternalProcess {
             errorBuffer.append(data)
         }
 
-        try process.run()
+        guard try box.launch(process) else { throw FFmpegError.cancelled }
 
         let standardOutput = outputPipe.fileHandleForReading.readDataToEndOfFile()
         process.waitUntilExit()

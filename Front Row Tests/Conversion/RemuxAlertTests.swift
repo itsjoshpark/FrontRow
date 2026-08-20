@@ -94,4 +94,12 @@ struct RemuxAlertTests {
         #expect(RemuxProblemAlert.buttons(for: .unsupported) == [.ok])
         #expect(RemuxProblemAlert.buttons(for: .probeFailed) == [.ok])
     }
+
+    /// A file that was merely somewhere slow must not be told it is damaged.
+    @Test
+    func aCheckThatTimedOutIsNotReportedAsADamagedFile() {
+        #expect(RemuxProblemAlert.buttons(for: .checkTimedOut) == [.ok])
+        #expect(RemuxProblemAlert.mayBeDamaged(.checkTimedOut) == false)
+        #expect(RemuxProblemAlert.mayBeDamaged(.probeFailed))
+    }
 }

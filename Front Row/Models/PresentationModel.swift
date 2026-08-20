@@ -26,6 +26,13 @@ import SwiftUI
     /// Raised through `raise(_:)` and cleared through `dismissRemuxAlert()`.
     private(set) var remuxAlert: RemuxAlert?
 
+    /// Whether a file is being checked over before anything is offered about it.
+    ///
+    /// Holds the slot below for the same reason a running conversion does: the check puts a sheet
+    /// on the window a question would have to appear over, and a second file arriving mid-check
+    /// would start a second ffprobe behind it.
+    private(set) var isCheckingFile = false
+
     /// Whether a conversion is running. The sheet reporting on it belongs to AppKit, so this is
     /// only here to keep playback commands disabled while it's up - and to hold the slot below,
     /// since that sheet is on the window a question would have to appear over.
@@ -38,7 +45,7 @@ import SwiftUI
     /// any of that is not a second alert - it is one alert wearing another's buttons, or one that
     /// is dropped and never answered.
     var isAskingAboutAFile: Bool {
-        remuxAlert != nil || unopenableRecentFile != nil || isConverting
+        remuxAlert != nil || unopenableRecentFile != nil || isConverting || isCheckingFile
     }
 
     var isPresenting: Bool {
@@ -81,6 +88,15 @@ import SwiftUI
     func dismissUnopenableRecentFile(in scene: AlertScene) {
         guard unopenableRecentFile?.scene == scene else { return }
         unopenableRecentFile = nil
+    }
+
+    /// Marks a file as being checked over, which holds the slot until the check is done.
+    func checkBegan() {
+        isCheckingFile = true
+    }
+
+    func checkEnded() {
+        isCheckingFile = false
     }
 
     /// Marks a conversion as running, which holds the slot until it is done.

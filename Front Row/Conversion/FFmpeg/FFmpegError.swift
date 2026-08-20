@@ -16,4 +16,7 @@ enum FFmpegError: Error, Equatable {
     /// someone might need to paste into a bug report.
     case conversionFailed(message: String)
     case cancelled
+    /// A tool was still running when its deadline passed and was stopped. Distinct from a file
+    /// that can't be read: the file may be perfectly good and merely far away.
+    case timedOut
 }
