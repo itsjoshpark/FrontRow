@@ -7143,7 +7143,7 @@
         }
       }
     },
-    "Checking \"%@\" took too long. If it's on a cloud or network drive, make sure it's available and try again." : {
+    "\"%@\" took too long to check. If it's on a cloud or network drive, make sure it's available and try again." : {
       "comment" : "Alert message shown when a file took too long to check",
       "localizations" : {
         "ar" : {
@@ -7179,7 +7179,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "La comprobación de \"%@\" tardó demasiado. Si el archivo está en una unidad en la nube o de red, asegúrate de que esté disponible e inténtalo de nuevo."
+            "value" : "\"%@\" tardó demasiado en comprobarse. Si el archivo está en una unidad en la nube o de red, asegúrate de que esté disponible e inténtalo de nuevo."
           }
         },
         "fi" : {
@@ -7197,7 +7197,7 @@
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Checking \"%@\" took too long. If it's on a cloud or network drive, make sure it's available and try again."
+            "value" : "\"%@\" took too long to check. If it's on a cloud or network drive, make sure it's available and try again."
           }
         },
         "hu" : {

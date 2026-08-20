@@ -105,7 +105,7 @@ struct RemuxProblemMessage: View {
             )
         case .checkTimedOut:
             Text(
-                "Checking \"\(problem.url.lastPathComponent)\" took too long. If it's on a cloud or network drive, make sure it's available and try again.",
+                "\"\(problem.url.lastPathComponent)\" took too long to check. If it's on a cloud or network drive, make sure it's available and try again.",
                 comment: "Alert message shown when a file took too long to check"
             )
         case .unsupported, .probeFailed:
