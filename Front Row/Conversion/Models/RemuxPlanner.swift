@@ -18,8 +18,12 @@ import VideoToolbox
 enum RemuxPlanner {
 
     /// Video codecs AVFoundation decodes from an MP4.
+    ///
+    /// ProRes and MJPEG are deliberately absent. ffmpeg's MP4 muxer refuses ProRes outright, and
+    /// writes MJPEG under the `mp4v` tag - which AVFoundation reports as playable and then cannot
+    /// decode. Neither can be made to work without leaving the MP4 container.
     private static let copyableVideoCodecs: Set<String> = [
-        "h264", "hevc", "av1", "mpeg4", "prores", "mjpeg",
+        "h264", "hevc", "av1", "mpeg4",
     ]
 
     /// Whether this Mac can decode AV1.
@@ -38,12 +42,30 @@ enum RemuxPlanner {
         "subrip", "srt", "ass", "ssa", "mov_text", "text", "webvtt",
     ]
 
-    /// Chroma subsampling and bit depths VideoToolbox can't decode, whatever the codec claims.
+    /// The chroma and depth each codec's decoder will take.
     ///
-    /// Keyed on pixel format rather than profile because a file can report one and not the other,
-    /// and because 10-bit 4:2:0 HEVC - the HDR case - has to stay on the supported side of the
-    /// line while 10-bit H.264 does not.
-    private static let unsupportedPixelFormatMarkers = ["422", "444", "p12", "p16"]
+    /// Stated per codec because the limits differ: 10-bit 4:2:0 HEVC - the HDR case - has to stay
+    /// on the supported side of the line while 10-bit H.264 does not.
+    private static func decodes(_ geometry: PixelGeometry, as codecName: String) -> Bool {
+        switch codecName {
+        case "h264":
+            isLowChroma(geometry.chroma) && geometry.depth <= 8
+        case "hevc", "av1":
+            isLowChroma(geometry.chroma) && geometry.depth <= 10
+        case "mpeg4":
+            isLowChroma(geometry.chroma) && geometry.depth <= 8
+        default:
+            false
+        }
+    }
+
+    /// 4:2:0 and below, which is everything these decoders handle.
+    private static func isLowChroma(_ chroma: PixelGeometry.Chroma) -> Bool {
+        switch chroma {
+        case .monochrome, .yuv410, .yuv411, .yuv420: true
+        case .yuv422, .yuv444, .rgb: false
+        }
+    }
 
     static func plan(
         for streams: [ProbedStream],
@@ -105,6 +127,9 @@ enum RemuxPlanner {
         }
     }
 
+    /// A stream with no pixel format, or one this doesn't recognise, is refused rather than
+    /// guessed at. The profile name is not read as a fallback: HEVC 4:2:2 reports itself as
+    /// `Rext`, so the profile misses the very case it would be consulted for.
     private static func isCopyable(_ stream: ProbedStream, canDecodeAV1: Bool) -> Bool {
         guard let codecName = stream.codecName, copyableVideoCodecs.contains(codecName) else {
             return false
@@ -112,21 +137,11 @@ enum RemuxPlanner {
 
         if codecName == "av1" && !canDecodeAV1 { return false }
 
-        if let pixelFormat = stream.pixelFormat {
-            let isUnsupportedFormat = unsupportedPixelFormatMarkers.contains {
-                pixelFormat.contains($0)
-            }
-            if isUnsupportedFormat { return false }
-            // VideoToolbox has no 10-bit H.264 decoder, though it handles 10-bit HEVC.
-            if codecName == "h264" && pixelFormat.contains("10") { return false }
-        } else if let profile = stream.profile {
-            // No pixel format to go on, so read the same limits off the profile name.
-            let isUnsupportedProfile =
-                profile.contains("4:2:2") || profile.contains("4:4:4")
-                || (codecName == "h264" && profile.contains("10"))
-            if isUnsupportedProfile { return false }
-        }
+        guard
+            let pixelFormat = stream.pixelFormat,
+            let geometry = PixelGeometry.named(pixelFormat)
+        else { return false }
 
-        return true
+        return decodes(geometry, as: codecName)
     }
 }
