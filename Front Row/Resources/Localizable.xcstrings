@@ -579,145 +579,145 @@
         }
       }
     },
-    "\"%@\" was converted to MP4. The original file isn't needed anymore." : {
+    "\"%@\" was successfully converted. The original file isn't needed anymore." : {
       "comment" : "Alert message shown after a file has been converted",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تم تحويل \"%@\" إلى MP4. لم يعد الملف الأصلي مطلوبًا."
+            "value" : "تم تحويل \"%@\" بنجاح. لم يعد الملف الأصلي مطلوبًا."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Soubor \"%@\" byl převeden do formátu MP4. Původní soubor už není potřeba."
+            "value" : "Soubor \"%@\" byl úspěšně převeden. Původní soubor už není potřeba."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" blev konverteret til MP4. Den oprindelige fil er ikke længere nødvendig."
+            "value" : "\"%@\" blev konverteret. Den oprindelige fil er ikke længere nødvendig."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" wurde in MP4 konvertiert. Die Originaldatei wird nicht mehr benötigt."
+            "value" : "\"%@\" wurde erfolgreich konvertiert. Die Originaldatei wird nicht mehr benötigt."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Το \"%@\" μετατράπηκε σε MP4. Το αρχικό αρχείο δεν χρειάζεται πλέον."
+            "value" : "Το \"%@\" μετατράπηκε με επιτυχία. Το αρχικό αρχείο δεν χρειάζεται πλέον."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" se convirtió en MP4. El archivo original ya no es necesario."
+            "value" : "\"%@\" se convirtió correctamente. El archivo original ya no es necesario."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" muunnettiin MP4-muotoon. Alkuperäistä tiedostoa ei enää tarvita."
+            "value" : "\"%@\" muunnettiin onnistuneesti. Alkuperäistä tiedostoa ei enää tarvita."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" a été converti en MP4. Le fichier d'origine n'est plus nécessaire."
+            "value" : "\"%@\" a été converti avec succès. Le fichier d'origine n'est plus nécessaire."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" was converted to MP4. The original file isn't needed anymore."
+            "value" : "\"%@\" was successfully converted. The original file isn't needed anymore."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A(z) „%@” át lett alakítva MP4 formátumba. Az eredeti fájlra már nincs szükség."
+            "value" : "A(z) „%@” sikeresen át lett alakítva. Az eredeti fájlra már nincs szükség."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" è stato convertito in MP4. Il file originale non serve più."
+            "value" : "\"%@\" è stato convertito correttamente. Il file originale non serve più."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" を MP4 に変換しました。元のファイルは不要になりました。"
+            "value" : "\"%@\" の変換が完了しました。元のファイルは不要になりました。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\"이(가) MP4로 변환되었습니다. 원본 파일은 더 이상 필요하지 않습니다."
+            "value" : "\"%@\"이(가) 성공적으로 변환되었습니다. 원본 파일은 더 이상 필요하지 않습니다."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" is geconverteerd naar MP4. Het originele bestand is niet meer nodig."
+            "value" : "\"%@\" is met succes geconverteerd. Het originele bestand is niet meer nodig."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Plik \"%@\" został przekonwertowany do formatu MP4. Oryginalny plik nie jest już potrzebny."
+            "value" : "Plik \"%@\" został pomyślnie przekonwertowany. Oryginalny plik nie jest już potrzebny."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" a fost convertit în MP4. Fișierul original nu mai este necesar."
+            "value" : "\"%@\" a fost convertit cu succes. Fișierul original nu mai este necesar."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Файл \"%@\" сконвертирован в MP4. Оригинальный файл больше не нужен."
+            "value" : "Файл \"%@\" успешно сконвертирован. Оригинальный файл больше не нужен."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" konverterades till MP4. Originalfilen behövs inte längre."
+            "value" : "\"%@\" har konverterats. Originalfilen behövs inte längre."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" dosyası MP4 olarak dönüştürüldü. Özgün dosya artık gerekli değil."
+            "value" : "\"%@\" dosyası başarıyla dönüştürüldü. Özgün dosya artık gerekli değil."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Файл \"%@\" перетворено на MP4. Оригінальний файл більше не потрібен."
+            "value" : "Файл \"%@\" успішно перетворено. Оригінальний файл більше не потрібен."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Đã chuyển đổi \"%@\" thành MP4. Tệp gốc không còn cần thiết."
+            "value" : "Đã chuyển đổi \"%@\" thành công. Tệp gốc không còn cần thiết."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" 已转换为 MP4。不再需要原始文件。"
+            "value" : "\"%@\" 已成功转换。不再需要原始文件。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"%@\" 已轉換為 MP4。不再需要原始檔案。"
+            "value" : "\"%@\" 已成功轉換。不再需要原始檔案。"
           }
         }
       }
@@ -2865,7 +2865,7 @@
       }
     },
     "Cancel" : {
-      "comment" : "Alert button that declines converting a Matroska file\nButton that stops a conversion that is running\nDismisses the alert shown when ffmpeg isn't installed",
+      "comment" : "Alert button that declines converting a Matroska file\nButton that stops a conversion that is running\nButton that stops a file being checked\nDismisses the alert shown when ffmpeg isn't installed",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
