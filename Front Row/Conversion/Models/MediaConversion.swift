@@ -26,6 +26,12 @@ enum MediaConversion {
     /// The second file is dropped rather than queued, and nothing is raised to say so: the progress
     /// sheet already has the window, and the alert that would explain is the very thing there is no
     /// room for.
+    /// What checking a file over turned up.
+    private enum FileCheck {
+        case ready(tools: FFmpegTools, media: ProbedMedia)
+        case toolsMissing(hasHomebrew: Bool)
+    }
+
     static func offerConversion(of url: URL) async {
         let presented = PresentationModel.shared
         guard !presented.isAskingAboutAFile else { return }
@@ -33,57 +39,75 @@ enum MediaConversion {
         // Held from here rather than from the first alert: until the check is done there is
         // nothing to raise, and a second file arriving meanwhile would start a second ffprobe.
         presented.checkBegan()
-        let sheet = checkingSheet(for: url)
+        let check = Task { try await examine(url) }
+        let sheet = checkingSheet(for: url) { check.cancel() }
 
-        let locator = ExternalToolLocator()
+        let result = await check.result
+        await finishChecking(sheet)
 
-        guard let tools = await locator.resolveFFmpeg() else {
-            await finishChecking(sheet)
+        switch result {
+        case .success(.toolsMissing(let hasHomebrew)):
             presented.raise(
                 .problem(
                     RemuxProblem(
                         url: url,
-                        reason: .toolsMissing(hasHomebrew: locator.hasHomebrew()),
+                        reason: .toolsMissing(hasHomebrew: hasHomebrew),
                         scene: .hosting()
                     )
                 ))
-            return
-        }
 
-        let media: ProbedMedia
-        do {
-            media = try await FFprobeStreamReader(ffprobe: tools.ffprobe).probe(url)
-        } catch {
-            await finishChecking(sheet)
-            // A file that was merely too far away must not be called damaged.
-            let reason: RemuxProblem.Reason =
-                error as? FFmpegError == .timedOut ? .checkTimedOut : .probeFailed
+        case .success(.ready(let tools, let media)):
+            let plan = RemuxPlanner.plan(for: media.streams)
+            guard case .unsupported = plan else {
+                presented.raise(
+                    .offer(
+                        RemuxOffer(
+                            url: url,
+                            plan: plan,
+                            duration: media.duration,
+                            tools: tools,
+                            scene: .hosting()
+                        )
+                    ))
+                return
+            }
             presented.raise(
                 .problem(
-                    RemuxProblem(url: url, reason: reason, scene: .hosting())))
-            return
-        }
+                    RemuxProblem(url: url, reason: .unsupported, scene: .hosting())))
 
-        await finishChecking(sheet)
-
-        let plan = RemuxPlanner.plan(for: media.streams)
-        guard case .unsupported = plan else {
+        case .failure(let error):
+            guard let reason = problemReason(for: error) else { return }
             presented.raise(
-                .offer(
-                    RemuxOffer(
-                        url: url,
-                        plan: plan,
-                        duration: media.duration,
-                        tools: tools,
-                        scene: .hosting()
-                    )
-                ))
-            return
+                .problem(RemuxProblem(url: url, reason: reason, scene: .hosting())))
+        }
+    }
+
+    /// Finds the tools and reads the file, or throws saying why it couldn't.
+    private static func examine(_ url: URL) async throws -> FileCheck {
+        let locator = ExternalToolLocator()
+
+        guard let tools = await locator.resolveFFmpeg() else {
+            return .toolsMissing(hasHomebrew: locator.hasHomebrew())
         }
 
-        presented.raise(
-            .problem(
-                RemuxProblem(url: url, reason: .unsupported, scene: .hosting())))
+        // Asked outright because `resolveFFmpeg` swallows its own failures, cancellation among
+        // them, and would otherwise carry a stopped check into a probe nobody is waiting for.
+        try Task.checkCancellation()
+
+        let media = try await FFprobeStreamReader(ffprobe: tools.ffprobe).probe(url)
+        return .ready(tools: tools, media: media)
+    }
+
+    /// What to tell the user about a check that didn't finish, or `nil` to say nothing at all.
+    ///
+    /// A check the user stopped is a choice rather than a failure, and raising an alert about it
+    /// would answer a question they had already withdrawn.
+    nonisolated static func problemReason(for error: any Error) -> RemuxProblem.Reason? {
+        switch error {
+        case FFmpegError.cancelled, is CancellationError: nil
+        case FFmpegError.timedOut: .checkTimedOut
+        default: .probeFailed
+        }
     }
 
     /// How long a check may take before it is worth saying it is happening.
@@ -97,14 +121,16 @@ enum MediaConversion {
     ///
     /// A task rather than an awaited delay, so the check itself starts at once and the waiting
     /// happens alongside it. Its value is `nil` where no sheet was ever shown.
-    private static func checkingSheet(for url: URL) -> Task<ConversionProgressSheet?, Never> {
+    private static func checkingSheet(
+        for url: URL,
+        onCancel: @escaping () -> Void
+    ) -> Task<ConversionProgressSheet?, Never> {
         Task { @MainActor in
             try? await Task.sleep(for: checkFeedbackDelay)
             guard !Task.isCancelled, let window = hostWindow() else { return nil }
 
-            // No cancel handler: there is nothing to stop yet, and the check bounds itself.
             let sheet = ConversionProgressSheet(checkingFileName: url.lastPathComponent)
-            sheet.present(on: window) {}
+            sheet.present(on: window, onCancel: onCancel)
             return sheet
         }
     }

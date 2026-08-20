@@ -31,12 +31,15 @@ enum ExternalProcess {
         arguments: [String],
         timeout: Duration
     ) async throws -> Output {
+        try Task.checkCancellation()
         let box = ProcessBox()
 
         // Terminating the child is what unblocks the thread waiting on it; a task blocked in
-        // `waitUntilExit()` cannot be cancelled out of.
+        // `waitUntilExit()` cannot be cancelled out of. Sleeping is the only thing that throws
+        // here, and a watchdog called off before it fires has nothing to report.
         let watchdog = Task {
-            try await Task.sleep(for: timeout)
+            try? await Task.sleep(for: timeout)
+            guard !Task.isCancelled else { return }
             box.cancel()
         }
         defer { watchdog.cancel() }
@@ -55,6 +58,11 @@ enum ExternalProcess {
         } catch {
             result = .failure(error)
         }
+
+        // Called off before the box is read, not on the way out of the function: a watchdog that
+        // fired in the moment between the tool finishing and its result being looked at would
+        // report a deadline for a run that had already succeeded.
+        watchdog.cancel()
 
         // Both the watchdog and a cancelled caller stop the child the same way, so which happened
         // is read from the surrounding task rather than from the box.
