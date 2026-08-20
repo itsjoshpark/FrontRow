@@ -94,4 +94,29 @@ struct RemuxAlertTests {
         #expect(RemuxProblemAlert.buttons(for: .unsupported) == [.ok])
         #expect(RemuxProblemAlert.buttons(for: .probeFailed) == [.ok])
     }
+
+    /// A file that was merely somewhere slow must not be told it is damaged.
+    @Test
+    func aCheckThatTimedOutIsNotReportedAsADamagedFile() {
+        #expect(RemuxProblemAlert.buttons(for: .checkTimedOut) == [.ok])
+        #expect(RemuxProblemAlert.mayBeDamaged(.checkTimedOut) == false)
+        #expect(RemuxProblemAlert.mayBeDamaged(.probeFailed))
+    }
+
+    /// A check the user stopped is a choice, not a failure, so it must raise nothing at all - and
+    /// a deadline that passed is not the same as a file that couldn't be read.
+    @Test
+    func onlySomeUnfinishedChecksAreWorthAnAlert() {
+        #expect(MediaConversion.problemReason(for: FFmpegError.cancelled) == nil)
+        #expect(MediaConversion.problemReason(for: CancellationError()) == nil)
+        #expect(MediaConversion.problemReason(for: FFmpegError.timedOut) == .checkTimedOut)
+        #expect(
+            MediaConversion.problemReason(for: FFmpegError.toolsMissing(hasHomebrew: true))
+                == .toolsMissing(hasHomebrew: true)
+        )
+        #expect(
+            MediaConversion.problemReason(for: FFmpegError.probeFailed(message: "eof"))
+                == .probeFailed
+        )
+    }
 }

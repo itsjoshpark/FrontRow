@@ -54,7 +54,8 @@ extension ConversionSuites {
                     "-f", "lavfi", "-i", "sine=frequency=440:duration=\(seconds)",
                     "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "ac3",
                     url.path(percentEncoded: false),
-                ]
+                ],
+                timeout: .seconds(120)
             )
             guard output.didSucceed else {
                 Issue.record("Could not write the fixture: \(output.standardError)")
@@ -222,7 +223,8 @@ extension ConversionSuites {
                     "-nostdin", "-loglevel", "error", "-y",
                     "-f", "lavfi", "-i", "sine=frequency=440:duration=2",
                     "-c:a", "ac3", fixture.path(percentEncoded: false),
-                ]
+                ],
+                timeout: .seconds(120)
             )
             try #require(written.didSucceed)
 

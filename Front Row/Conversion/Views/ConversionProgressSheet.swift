@@ -31,17 +31,37 @@ final class ConversionProgressSheet {
     private var dismissContinuation: CheckedContinuation<Void, Never>?
     private var isShowing = false
 
-    init(fileName: String) {
-        alert.messageText = String(
-            localized: "Converting \"\(fileName)\"",
-            comment: "Title of the sheet shown while a file is being converted"
-        )
-        alert.addButton(
-            withTitle: String(
+    /// The sheet shown while a conversion runs, with a button that stops it.
+    convenience init(fileName: String) {
+        self.init(
+            messageText: String(
+                localized: "Converting \"\(fileName)\"",
+                comment: "Title of the sheet shown while a file is being converted"
+            ),
+            buttonTitle: String(
                 localized: "Cancel",
                 comment: "Button that stops a conversion that is running"
             )
         )
+    }
+
+    /// The sheet shown while a file is being checked over, before anything has been offered.
+    convenience init(checkingFileName fileName: String) {
+        self.init(
+            messageText: String(
+                localized: "Checking \"\(fileName)\"",
+                comment: "Title of the sheet shown while a file is being examined"
+            ),
+            buttonTitle: String(
+                localized: "Cancel",
+                comment: "Button that stops a file being checked"
+            )
+        )
+    }
+
+    init(messageText: String, buttonTitle: String) {
+        alert.messageText = messageText
+        alert.addButton(withTitle: buttonTitle)
 
         // Indeterminate throughout. ffmpeg reports position roughly twice a second and not at all
         // for a file whose duration ffprobe couldn't measure, so a spinner is the honest constant

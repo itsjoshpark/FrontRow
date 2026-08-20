@@ -26,7 +26,7 @@ enum RemuxProblemAlert {
         // Pointing someone at the ffmpeg formula is no help if they have no way to install it.
         case .toolsMissing(let hasHomebrew):
             [hasHomebrew ? .installFFmpeg : .installHomebrew, .cancel]
-        case .unsupported, .probeFailed: [.ok]
+        case .unsupported, .probeFailed, .checkTimedOut: [.ok]
         }
     }
 
@@ -38,7 +38,7 @@ enum RemuxProblemAlert {
                 "File Needs Conversion",
                 comment: "Alert title shown when a file needs converting but ffmpeg is missing"
             )
-        case .unsupported, .probeFailed, nil:
+        case .unsupported, .probeFailed, .checkTimedOut, nil:
             Text(
                 "Couldn't Open File",
                 comment: "Alert title shown when a file can't be played or converted"
@@ -102,6 +102,11 @@ struct RemuxProblemMessage: View {
             Text(
                 "\"\(problem.url.lastPathComponent)\" can be opened after it is converted, but FFmpeg isn't installed. Install it using Homebrew, then open the file again.",
                 comment: "Alert message shown when a file needs converting but ffmpeg is missing"
+            )
+        case .checkTimedOut:
+            Text(
+                "\"\(problem.url.lastPathComponent)\" took too long to check. If it's on a cloud or network drive, make sure it's available and try again.",
+                comment: "Alert message shown when a file took too long to check"
             )
         case .unsupported, .probeFailed:
             Text(

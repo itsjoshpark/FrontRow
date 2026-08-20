@@ -91,17 +91,60 @@ struct RemuxPlannerTests {
         #expect(plan == .unsupported(.video(codec: "h264")))
     }
 
-    /// 4:2:2 and 4:4:4 don't decode whatever the codec, and the check has to work off the profile
-    /// for files where ffprobe reports no pixel format.
+    /// 4:2:2 and 4:4:4 don't decode, whatever the codec and whatever its profile claims.
     @Test
-    func highChromaIsRefusedFromEitherThePixelFormatOrTheProfile() {
-        let byPixelFormat = RemuxPlanner.plan(for: [video(0, "h264", pixelFormat: "yuv444p")])
-        #expect(byPixelFormat == .unsupported(.video(codec: "h264")))
+    func highChromaIsRefused() {
+        #expect(
+            RemuxPlanner.plan(for: [video(0, "h264", pixelFormat: "yuv444p")])
+                == .unsupported(.video(codec: "h264"))
+        )
+        #expect(
+            RemuxPlanner.plan(for: [video(0, "hevc", pixelFormat: "yuv422p10le")])
+                == .unsupported(.video(codec: "hevc"))
+        )
+    }
 
-        let byProfile = RemuxPlanner.plan(for: [
-            video(0, "h264", pixelFormat: nil, profile: "High 4:2:2")
-        ])
-        #expect(byProfile == .unsupported(.video(codec: "h264")))
+    /// `yuv410p` carries "10" in its name without being 10-bit. Reading the depth rather than the
+    /// spelling is what keeps the two apart.
+    @Test
+    func aFormatWhoseNameContainsTenIsNotTakenForTenBit() {
+        #expect(PixelGeometry.named("yuv410p") == PixelGeometry(chroma: .yuv410, depth: 8))
+
+        let plan = RemuxPlanner.plan(for: [video(0, "mpeg4", pixelFormat: "yuv410p")])
+        #expect(plan.recipe?.videoIndex == 0)
+    }
+
+    /// No pixel format, or one that isn't recognised, is refused rather than guessed at. The
+    /// profile is not consulted: HEVC 4:2:2 reports itself as "Rext", which names no chroma at all.
+    @Test
+    func anUnreadablePixelFormatIsRefused() {
+        #expect(
+            RemuxPlanner.plan(for: [video(0, "hevc", pixelFormat: nil, profile: "Main 10")])
+                == .unsupported(.video(codec: "hevc"))
+        )
+        #expect(
+            RemuxPlanner.plan(for: [video(0, "hevc", pixelFormat: "yuv422p10le", profile: "Rext")])
+                == .unsupported(.video(codec: "hevc"))
+        )
+        #expect(
+            RemuxPlanner.plan(for: [video(0, "h264", pixelFormat: "not-a-format")])
+                == .unsupported(.video(codec: "h264"))
+        )
+    }
+
+    /// Both were listed as copyable and refused every time by the chroma rule, which hid the real
+    /// reason: ffmpeg's MP4 muxer won't write ProRes at all, and the MJPEG it writes under the
+    /// `mp4v` tag reports itself playable and then decodes nothing.
+    @Test
+    func proResAndMJPEGAreRefusedOnTheCodec() {
+        #expect(
+            RemuxPlanner.plan(for: [video(0, "prores", pixelFormat: "yuv422p10le")])
+                == .unsupported(.video(codec: "prores"))
+        )
+        #expect(
+            RemuxPlanner.plan(for: [video(0, "mjpeg", pixelFormat: "yuvj420p")])
+                == .unsupported(.video(codec: "mjpeg"))
+        )
     }
 
     /// VideoToolbox has no software AV1 decoder, so on a Mac without the hardware an AV1 MP4 won't
@@ -187,5 +230,38 @@ struct RemuxPlannerTests {
         let plan = RemuxPlanner.plan(for: [subtitle(0, "subrip")])
 
         #expect(plan == .unsupported(.noPlayableStreams))
+    }
+
+    /// Both are common in Matroska and decode from an MP4 intact, so re-encoding them to AAC threw
+    /// audio away for nothing.
+    @Test(arguments: ["flac", "opus"])
+    func losslessAndModernAudioIsCopiedRatherThanReEncoded(codec: String) {
+        let plan = RemuxPlanner.plan(for: [video(0, "h264"), audio(1, codec)])
+
+        #expect(plan.recipe?.transcodesAudio == false)
+        if case .remux = plan {} else { Issue.record("Expected a straight remux, got \(plan)") }
+    }
+
+    /// PCM decodes as well, but copying it keeps a stream far larger than the AAC it would become.
+    @Test
+    func pcmIsStillReEncoded() {
+        let plan = RemuxPlanner.plan(for: [video(0, "h264"), audio(1, "pcm_s16le")])
+
+        #expect(plan.recipe?.transcodesAudio == true)
+    }
+
+    /// The app already plays MPEG-2 inside a transport stream, so refusing it in Matroska was the
+    /// odd one out. 4:2:2 is a real MPEG-2 profile and stays refused.
+    @Test
+    func mpeg2VideoIsCopiedAtFourTwoZero() {
+        let copied = RemuxPlanner.plan(for: [
+            video(0, "mpeg2video", pixelFormat: "yuv420p"), audio(1, "ac3"),
+        ])
+        #expect(copied.recipe?.videoIndex == 0)
+        // ffmpeg picks `mp4v` for it, which is the tag the conversion was verified against.
+        #expect(copied.recipe?.videoTag == nil)
+
+        let refused = RemuxPlanner.plan(for: [video(0, "mpeg2video", pixelFormat: "yuv422p")])
+        #expect(refused == .unsupported(.video(codec: "mpeg2video")))
     }
 }

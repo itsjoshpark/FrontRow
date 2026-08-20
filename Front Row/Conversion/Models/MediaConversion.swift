@@ -30,48 +30,108 @@ enum MediaConversion {
         let presented = PresentationModel.shared
         guard !presented.isAskingAboutAFile else { return }
 
+        // Held from here rather than from the first alert: until the check is done there is
+        // nothing to raise, and a second file arriving meanwhile would start a second ffprobe.
+        presented.checkBegan()
+        let check = Task { try await examine(url) }
+        let sheet = checkingSheet(for: url) { check.cancel() }
+
+        let result = await check.result
+        await finishChecking(sheet)
+
+        switch result {
+        case .success(let checked):
+            let plan = RemuxPlanner.plan(for: checked.media.streams)
+            guard case .unsupported = plan else {
+                presented.raise(
+                    .offer(
+                        RemuxOffer(
+                            url: url,
+                            plan: plan,
+                            duration: checked.media.duration,
+                            tools: checked.tools,
+                            scene: .hosting()
+                        )
+                    ))
+                return
+            }
+            presented.raise(
+                .problem(
+                    RemuxProblem(url: url, reason: .unsupported, scene: .hosting())))
+
+        case .failure(let error):
+            guard let reason = problemReason(for: error) else { return }
+            presented.raise(
+                .problem(RemuxProblem(url: url, reason: reason, scene: .hosting())))
+        }
+    }
+
+    /// Finds the tools and reads the file, or throws saying why it couldn't.
+    private static func examine(
+        _ url: URL
+    ) async throws -> (tools: FFmpegTools, media: ProbedMedia) {
         let locator = ExternalToolLocator()
 
         guard let tools = await locator.resolveFFmpeg() else {
-            presented.raise(
-                .problem(
-                    RemuxProblem(
-                        url: url,
-                        reason: .toolsMissing(hasHomebrew: locator.hasHomebrew()),
-                        scene: .hosting()
-                    )
-                ))
-            return
+            throw FFmpegError.toolsMissing(hasHomebrew: locator.hasHomebrew())
         }
 
-        let media: ProbedMedia
-        do {
-            media = try await FFprobeStreamReader(ffprobe: tools.ffprobe).probe(url)
-        } catch {
-            presented.raise(
-                .problem(
-                    RemuxProblem(url: url, reason: .probeFailed, scene: .hosting())))
-            return
-        }
+        // Asked outright because `resolveFFmpeg` swallows its own failures, cancellation among
+        // them, and would otherwise carry a stopped check into a probe nobody is waiting for.
+        try Task.checkCancellation()
 
-        let plan = RemuxPlanner.plan(for: media.streams)
-        guard case .unsupported = plan else {
-            presented.raise(
-                .offer(
-                    RemuxOffer(
-                        url: url,
-                        plan: plan,
-                        duration: media.duration,
-                        tools: tools,
-                        scene: .hosting()
-                    )
-                ))
-            return
-        }
+        let media = try await FFprobeStreamReader(ffprobe: tools.ffprobe).probe(url)
+        return (tools, media)
+    }
 
-        presented.raise(
-            .problem(
-                RemuxProblem(url: url, reason: .unsupported, scene: .hosting())))
+    /// What to tell the user about a check that didn't finish, or `nil` to say nothing at all.
+    ///
+    /// A check the user stopped is a choice rather than a failure, and raising an alert about it
+    /// would answer a question they had already withdrawn.
+    nonisolated static func problemReason(for error: any Error) -> RemuxProblem.Reason? {
+        switch error {
+        case FFmpegError.cancelled, is CancellationError: nil
+        case FFmpegError.toolsMissing(let hasHomebrew): .toolsMissing(hasHomebrew: hasHomebrew)
+        case FFmpegError.timedOut: .checkTimedOut
+        default: .probeFailed
+        }
+    }
+
+    /// How long a check may take before it is worth saying it is happening.
+    ///
+    /// A local file is answered in tens of milliseconds, and a sheet that appeared and vanished
+    /// again in that time would read as a glitch. Anything slower is a file somewhere far away.
+    private static let checkFeedbackDelay: Duration = .milliseconds(750)
+
+    /// Starts a task that puts a "Checking…" sheet up once the check has run long enough to
+    /// deserve one.
+    ///
+    /// A task rather than an awaited delay, so the check itself starts at once and the waiting
+    /// happens alongside it. Its value is `nil` where no sheet was ever shown.
+    private static func checkingSheet(
+        for url: URL,
+        onCancel: @escaping () -> Void
+    ) -> Task<ConversionProgressSheet?, Never> {
+        Task { @MainActor in
+            try? await Task.sleep(for: checkFeedbackDelay)
+            guard !Task.isCancelled, let window = hostWindow() else { return nil }
+
+            let sheet = ConversionProgressSheet(checkingFileName: url.lastPathComponent)
+            sheet.present(on: window, onCancel: onCancel)
+            return sheet
+        }
+    }
+
+    /// Takes the check's sheet down and releases the slot it was holding.
+    ///
+    /// Both, and in that order, because whatever is raised next lands on the same window and is
+    /// refused while the slot is still held.
+    private static func finishChecking(
+        _ sheet: Task<ConversionProgressSheet?, Never>
+    ) async {
+        sheet.cancel()
+        await sheet.value?.dismiss()
+        PresentationModel.shared.checkEnded()
     }
 
     /// A conversion that is running, and what has to go if the app is asked to quit while it is.

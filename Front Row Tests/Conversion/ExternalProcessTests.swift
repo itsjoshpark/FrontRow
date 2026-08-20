@@ -15,12 +15,41 @@ extension ConversionSuites {
     /// is exactly when the app most needs the output it failed to collect.
     struct ExternalProcessTests {
 
+        /// A tool that will never answer must not hold the file-opening path open for good.
+        @Test(.timeLimit(.minutes(1)))
+        func aToolThatOutstaysItsDeadlineIsStopped() async throws {
+            let tool = try ScriptedTool.sleeping()
+            defer { tool.remove() }
+
+            let started = ContinuousClock.now
+            await #expect(throws: FFmpegError.timedOut) {
+                try await ExternalProcess.run(
+                    tool.url, arguments: [], timeout: .milliseconds(300))
+            }
+
+            #expect(ContinuousClock.now - started < .seconds(20))
+        }
+
+        /// The deadline must not cut short a tool that is merely being asked for a lot.
+        @Test(.timeLimit(.minutes(1)))
+        func aToolThatAnswersWithinItsDeadlineIsLeftAlone() async throws {
+            let tool = try ScriptedTool.printing("done")
+            defer { tool.remove() }
+
+            let output = try await ExternalProcess.run(
+                tool.url, arguments: [], timeout: .seconds(30))
+
+            #expect(output.didSucceed)
+            #expect(String(decoding: output.standardOutput, as: UTF8.self) == "done")
+        }
+
         @Test
         func standardOutputComesBack() async throws {
             let tool = try ScriptedTool.printing("{\"streams\":[]}")
             defer { tool.remove() }
 
-            let output = try await ExternalProcess.run(tool.url, arguments: [])
+            let output = try await ExternalProcess.run(
+                tool.url, arguments: [], timeout: .seconds(30))
 
             #expect(output.didSucceed)
             #expect(String(decoding: output.standardOutput, as: UTF8.self) == "{\"streams\":[]}")
@@ -31,7 +60,8 @@ extension ConversionSuites {
             let tool = try ScriptedTool("exit 3")
             defer { tool.remove() }
 
-            let output = try await ExternalProcess.run(tool.url, arguments: [])
+            let output = try await ExternalProcess.run(
+                tool.url, arguments: [], timeout: .seconds(30))
 
             #expect(!output.didSucceed)
             #expect(output.terminationStatus == 3)
@@ -47,7 +77,8 @@ extension ConversionSuites {
             let tool = try ScriptedTool.flooding(stderrBytes: 1_000_000)
             defer { tool.remove() }
 
-            let output = try await ExternalProcess.run(tool.url, arguments: [])
+            let output = try await ExternalProcess.run(
+                tool.url, arguments: [], timeout: .seconds(30))
 
             #expect(output.terminationStatus == 1)
             #expect(output.standardError.count >= 1_000_000)
@@ -65,7 +96,8 @@ extension ConversionSuites {
             )
             defer { tool.remove() }
 
-            let output = try await ExternalProcess.run(tool.url, arguments: [])
+            let output = try await ExternalProcess.run(
+                tool.url, arguments: [], timeout: .seconds(30))
 
             #expect(output.standardError.contains("Invalid data found"))
         }
@@ -75,7 +107,8 @@ extension ConversionSuites {
             let tool = try ScriptedTool("printf '%s' \"$2\"")
             defer { tool.remove() }
 
-            let output = try await ExternalProcess.run(tool.url, arguments: ["-i", "film.mkv"])
+            let output = try await ExternalProcess.run(
+                tool.url, arguments: ["-i", "film.mkv"], timeout: .seconds(30))
 
             #expect(String(decoding: output.standardOutput, as: UTF8.self) == "film.mkv")
         }
@@ -88,7 +121,7 @@ extension ConversionSuites {
                 filePath: "/private/var/tmp/front-row-no-such-tool-\(UUID().uuidString)")
 
             await #expect(throws: (any Error).self) {
-                try await ExternalProcess.run(missing, arguments: [])
+                try await ExternalProcess.run(missing, arguments: [], timeout: .seconds(30))
             }
         }
     }

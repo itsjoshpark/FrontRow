@@ -70,12 +70,16 @@ struct ExternalToolLocator: Sendable {
         return tools
     }
 
+    /// ffmpeg answers this from its own build configuration without touching the file being
+    /// opened, so anything approaching this long means something is wrong rather than slow.
+    static let encodersTimeout: Duration = .seconds(10)
+
     /// Apple's AudioToolbox encoder where the build has it, which is what the README has always
     /// recommended; ffmpeg's built-in encoder otherwise.
     static func preferredAACEncoder(ffmpeg: URL) async -> String {
         guard
             let output = try? await ExternalProcess.run(
-                ffmpeg, arguments: FFmpegArguments.encoders),
+                ffmpeg, arguments: FFmpegArguments.encoders, timeout: encodersTimeout),
             String(decoding: output.standardOutput, as: UTF8.self).contains("aac_at")
         else { return "aac" }
         return "aac_at"

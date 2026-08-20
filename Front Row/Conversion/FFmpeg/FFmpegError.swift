@@ -9,6 +9,10 @@ import Foundation
 
 /// Something went wrong out in ffmpeg-land.
 enum FFmpegError: Error, Equatable {
+    /// ffmpeg, ffprobe, or both aren't installed, so nothing can be read at all. Carries whether
+    /// the package manager that would install them is there, which decides where the alert sends
+    /// someone.
+    case toolsMissing(hasHomebrew: Bool)
     /// ffprobe couldn't read the file, or said something this app couldn't parse.
     case probeFailed(message: String)
     /// ffmpeg exited non-zero. The message is everything it wrote to standard error - kept whole
@@ -16,4 +20,7 @@ enum FFmpegError: Error, Equatable {
     /// someone might need to paste into a bug report.
     case conversionFailed(message: String)
     case cancelled
+    /// A tool was still running when its deadline passed and was stopped. Distinct from a file
+    /// that can't be read: the file may be perfectly good and merely far away.
+    case timedOut
 }

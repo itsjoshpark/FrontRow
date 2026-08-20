@@ -169,11 +169,11 @@ extension ConversionSuites {
             let tool = try ScriptedTool.printing("{}")
             defer { tool.remove() }
 
-            _ = try await ExternalProcess.run(tool.url, arguments: [])
+            _ = try await ExternalProcess.run(tool.url, arguments: [], timeout: .seconds(30))
             let baseline = await settledDescriptorCount()
 
             for _ in 0..<20 {
-                _ = try await ExternalProcess.run(tool.url, arguments: [])
+                _ = try await ExternalProcess.run(tool.url, arguments: [], timeout: .seconds(30))
             }
 
             let growth = await settledDescriptorCount() - baseline
