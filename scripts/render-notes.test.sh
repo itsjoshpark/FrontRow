@@ -47,7 +47,7 @@ reject() {
 }
 
 # --- happy path -------------------------------------------------------------
-notes="$(write_notes '- Added: An **Inspector** window, see [the docs](https://example.com)
+notes="$(write_notes '- New: **Inspector** window, see [the docs](https://example.com)
 - Fixed: A thing
 
 **Note**: Recents will reset.
@@ -61,7 +61,7 @@ else
 fi
 
 assert_contains "$result" "<ul>" "renders a bullet list"
-assert_contains "$result" "<li>Added: " "renders list items"
+assert_contains "$result" "<li>New: " "renders list items"
 assert_contains "$result" "<strong>Inspector</strong>" "renders bold"
 assert_contains "$result" '<a href="https://example.com">the docs</a>' "renders links"
 assert_contains "$result" "<p><strong>Note</strong>: Recents will reset.</p>" "renders paragraphs"
@@ -71,7 +71,7 @@ gfm="$("$render" "$(write_notes '| Shortcut | Does |
 | --- | --- |
 | Command-I | Inspector |
 
-- [x] Added: A thing
+- [x] New: A thing
 - Fixed: ~~almost~~ everything
 ')")"
 assert_contains "$gfm" "<table>" "renders tables"
@@ -121,15 +121,15 @@ else
 fi
 
 # --- guards -----------------------------------------------------------------
-reject "rejects raw HTML block tags" '<ul><li>Added: A thing</li></ul>'
-reject "rejects raw HTML inline tags" '- Added: A <b>thing</b>'
+reject "rejects raw HTML block tags" '<ul><li>New: A thing</li></ul>'
+reject "rejects raw HTML inline tags" '- New: A <b>thing</b>'
 reject "rejects an empty file" ''
 reject "rejects a whitespace-only file" '   '
 reject "rejects a fenced code block" '```
 xcodebuild
 ```'
 # The indentation the HTML notes used to carry, kept out of habit.
-reject "rejects a wholly indented file" '      - Added: A thing
+reject "rejects a wholly indented file" '      - New: A thing
       - Fixed: Another
 '
 

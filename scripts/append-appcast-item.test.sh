@@ -71,7 +71,7 @@ run_append() {
 appcast="$workdir/appcast.xml"
 notes="$workdir/notes.html"
 make_appcast "$appcast"
-printf '<ul>\n<li>Added: A thing</li>\n</ul>\n' >"$notes"
+printf '<ul>\n<li>New: A thing</li>\n</ul>\n' >"$notes"
 
 if run_append "$appcast" "$notes" >/dev/null 2>&1; then
   check "exits zero on valid input" pass
@@ -84,7 +84,7 @@ assert_contains "$result" "<sparkle:version>206</sparkle:version>" "writes the b
 assert_contains "$result" "<sparkle:shortVersionString>2.11.0 (206)</sparkle:shortVersionString>" "keeps the 'X.Y.Z (build)' convention"
 assert_contains "$result" 'sparkle:edSignature="SIGVALUE=="' "writes the signature"
 assert_contains "$result" 'length="1234567"' "writes the length"
-assert_contains "$result" "<li>Added: A thing</li>" "embeds the notes body"
+assert_contains "$result" "<li>New: A thing</li>" "embeds the notes body"
 assert_contains "$result" "<sparkle:minimumSystemVersion>15.6</sparkle:minimumSystemVersion>" "writes the minimum system version"
 assert_contains "$result" "<li>Old news</li>" "preserves the existing entry's notes"
 
