@@ -19,8 +19,9 @@ struct HelpCommands: Commands {
                 destination: URL(string: "https://crowdin.com/project/FrontRow")!
             )
             Link(
-                "Report a Problem",
-                destination: URL(string: "https://github.com/itsjoshpark/FrontRow/issues")!
+                "Send Feedback",
+                destination: URL(
+                    string: "https://github.com/itsjoshpark/FrontRow/issues/new/choose")!
             )
         }
     }
