@@ -88,7 +88,6 @@ enum FFmpegArguments {
         }
 
         arguments += [
-            "-movflags", "+faststart",
             // Named rather than left to the extension, which while the conversion runs is the
             // working file's and names no muxer at all.
             "-f", "mp4",
