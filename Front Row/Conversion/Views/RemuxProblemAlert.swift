@@ -23,7 +23,6 @@ enum RemuxProblemAlert {
 
     static func buttons(for reason: RemuxProblem.Reason) -> [Button] {
         switch reason {
-        // Pointing someone at the ffmpeg formula is no help if they have no way to install it.
         case .toolsMissing(let hasHomebrew):
             [hasHomebrew ? .installFFmpeg : .installHomebrew, .cancel]
         case .unsupported, .probeFailed, .checkTimedOut: [.ok]
@@ -76,7 +75,7 @@ struct RemuxProblemButton: View {
                 MediaConversion.openInstallPage(hasHomebrew: true)
             } label: {
                 Text(
-                    "Install FFmpeg",
+                    "Install FFmpeg…",
                     comment: "Alert button that opens the Homebrew page for the ffmpeg formula"
                 )
             }
@@ -85,7 +84,7 @@ struct RemuxProblemButton: View {
                 MediaConversion.openInstallPage(hasHomebrew: false)
             } label: {
                 Text(
-                    "Install Homebrew",
+                    "Install Homebrew…",
                     comment: "Alert button that opens the Homebrew website"
                 )
             }

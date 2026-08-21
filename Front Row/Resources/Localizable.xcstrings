@@ -10562,288 +10562,288 @@
         }
       }
     },
-    "Install FFmpeg" : {
+    "Install FFmpeg…" : {
       "comment" : "Alert button that opens the Homebrew page for the ffmpeg formula",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تثبيت FFmpeg"
+            "value" : "تثبيت FFmpeg…"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nainstalovat FFmpeg"
+            "value" : "Nainstalovat FFmpeg…"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Installer FFmpeg"
+            "value" : "Installer FFmpeg…"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "FFmpeg installieren"
+            "value" : "FFmpeg installieren…"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Εγκατάσταση FFmpeg"
+            "value" : "Εγκατάσταση FFmpeg…"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Instalar FFmpeg"
+            "value" : "Instalar FFmpeg…"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Asenna FFmpeg"
+            "value" : "Asenna FFmpeg…"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Installer FFmpeg"
+            "value" : "Installer FFmpeg…"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Install FFmpeg"
+            "value" : "Install FFmpeg…"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "FFmpeg telepítése"
+            "value" : "FFmpeg telepítése…"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Installa FFmpeg"
+            "value" : "Installa FFmpeg…"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "FFmpeg をインストール"
+            "value" : "FFmpeg をインストール…"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "FFmpeg 설치"
+            "value" : "FFmpeg 설치…"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Installeer FFmpeg"
+            "value" : "Installeer FFmpeg…"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zainstaluj FFmpeg"
+            "value" : "Zainstaluj FFmpeg…"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Instalează FFmpeg"
+            "value" : "Instalează FFmpeg…"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Установить FFmpeg"
+            "value" : "Установить FFmpeg…"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Installera FFmpeg"
+            "value" : "Installera FFmpeg…"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "FFmpeg'i Yükle"
+            "value" : "FFmpeg'i Yükle…"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Встановити FFmpeg"
+            "value" : "Встановити FFmpeg…"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cài đặt FFmpeg"
+            "value" : "Cài đặt FFmpeg…"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "安装 FFmpeg"
+            "value" : "安装 FFmpeg…"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "安裝 FFmpeg"
+            "value" : "安裝 FFmpeg…"
           }
         }
       }
     },
-    "Install Homebrew" : {
+    "Install Homebrew…" : {
       "comment" : "Alert button that opens the Homebrew website",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تثبيت Homebrew"
+            "value" : "تثبيت Homebrew…"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nainstalovat Homebrew"
+            "value" : "Nainstalovat Homebrew…"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Installer Homebrew"
+            "value" : "Installer Homebrew…"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Homebrew installieren"
+            "value" : "Homebrew installieren…"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Εγκατάσταση Homebrew"
+            "value" : "Εγκατάσταση Homebrew…"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Instalar Homebrew"
+            "value" : "Instalar Homebrew…"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Asenna Homebrew"
+            "value" : "Asenna Homebrew…"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Installer Homebrew"
+            "value" : "Installer Homebrew…"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Install Homebrew"
+            "value" : "Install Homebrew…"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Homebrew telepítése"
+            "value" : "Homebrew telepítése…"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Installa Homebrew"
+            "value" : "Installa Homebrew…"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Homebrew をインストール"
+            "value" : "Homebrew をインストール…"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Homebrew 설치"
+            "value" : "Homebrew 설치…"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Installeer Homebrew"
+            "value" : "Installeer Homebrew…"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zainstaluj Homebrew"
+            "value" : "Zainstaluj Homebrew…"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Instalează Homebrew"
+            "value" : "Instalează Homebrew…"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Установить Homebrew"
+            "value" : "Установить Homebrew…"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Installera Homebrew"
+            "value" : "Installera Homebrew…"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Homebrew'u Yükle"
+            "value" : "Homebrew'u Yükle…"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Встановити Homebrew"
+            "value" : "Встановити Homebrew…"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cài đặt Homebrew"
+            "value" : "Cài đặt Homebrew…"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "安装 Homebrew"
+            "value" : "安装 Homebrew…"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "安裝 Homebrew"
+            "value" : "安裝 Homebrew…"
           }
         }
       }
