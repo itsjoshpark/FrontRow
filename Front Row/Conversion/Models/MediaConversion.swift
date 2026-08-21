@@ -14,9 +14,11 @@ import SwiftUI
 @MainActor
 enum MediaConversion {
 
-    private static let ffmpegFormulaURL = URL(string: "https://formulae.brew.sh/formula/ffmpeg")!
-
     private static let homebrewURL = URL(string: "https://brew.sh")!
+
+    /// Named in the alert so someone who already has Homebrew never has to go and look it up.
+    /// Not localized - it is typed into a shell.
+    nonisolated static let installCommand = "brew install ffmpeg"
 
     /// Entry point for a convertible file. Ends by presenting one of the alerts above.
     ///
@@ -264,8 +266,8 @@ enum MediaConversion {
         }
     }
 
-    static func openInstallPage(hasHomebrew: Bool) {
-        NSWorkspace.shared.open(hasHomebrew ? ffmpegFormulaURL : homebrewURL)
+    static func openHomebrewPage() {
+        NSWorkspace.shared.open(homebrewURL)
     }
 
     /// A cancelled conversion is a choice, not a failure, so it raises nothing.

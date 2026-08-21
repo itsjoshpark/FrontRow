@@ -9,23 +9,22 @@ import SwiftUI
 
 /// What the "this file won't be converted" alert offers to do about it.
 ///
-/// Only the missing-tools case has anywhere useful to send someone, and where it sends them depends
-/// on whether Homebrew is already there - which is the whole reason this mapping is worth keeping
-/// apart from the view.
+/// Only someone without Homebrew has anywhere useful to be sent. With it, the install is one
+/// command, which the message names outright - which is the whole reason this mapping is worth
+/// keeping apart from the view.
 enum RemuxProblemAlert {
 
     enum Button: Hashable {
         case ok
         case cancel
-        case installFFmpeg
         case installHomebrew
     }
 
     static func buttons(for reason: RemuxProblem.Reason) -> [Button] {
         switch reason {
-        // Pointing someone at the ffmpeg formula is no help if they have no way to install it.
-        case .toolsMissing(let hasHomebrew):
-            [hasHomebrew ? .installFFmpeg : .installHomebrew, .cancel]
+        // The message already carries the command, so there is nowhere left to send them.
+        case .toolsMissing(hasHomebrew: true): [.ok]
+        case .toolsMissing(hasHomebrew: false): [.installHomebrew, .cancel]
         case .unsupported, .probeFailed, .checkTimedOut: [.ok]
         }
     }
@@ -71,18 +70,9 @@ struct RemuxProblemButton: View {
             } label: {
                 Text("Cancel", comment: "Dismisses the alert shown when ffmpeg isn't installed")
             }
-        case .installFFmpeg:
-            SwiftUI.Button {
-                MediaConversion.openInstallPage(hasHomebrew: true)
-            } label: {
-                Text(
-                    "Install FFmpeg…",
-                    comment: "Alert button that opens the Homebrew page for the ffmpeg formula"
-                )
-            }
         case .installHomebrew:
             SwiftUI.Button {
-                MediaConversion.openInstallPage(hasHomebrew: false)
+                MediaConversion.openHomebrewPage()
             } label: {
                 Text(
                     "Install Homebrew…",
@@ -98,7 +88,13 @@ struct RemuxProblemMessage: View {
 
     var body: some View {
         switch problem.reason {
-        case .toolsMissing:
+        case .toolsMissing(hasHomebrew: true):
+            Text(
+                "\"\(problem.url.lastPathComponent)\" can be opened after it is converted, but FFmpeg isn't installed. Run \(MediaConversion.installCommand) in Terminal, then open the file again.",
+                comment:
+                    "Alert message shown when a file needs converting and Homebrew can install ffmpeg. The second placeholder is a shell command and must not be translated"
+            )
+        case .toolsMissing(hasHomebrew: false):
             Text(
                 "\"\(problem.url.lastPathComponent)\" can be opened after it is converted, but FFmpeg isn't installed. Install it using Homebrew, then open the file again.",
                 comment: "Alert message shown when a file needs converting but ffmpeg is missing"
