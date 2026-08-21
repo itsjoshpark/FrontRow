@@ -74,23 +74,18 @@ struct RemuxAlertTests {
         #expect(!RemuxProblemAlert.mayBeDamaged(.unsupported))
     }
 
-    /// Someone who already has Homebrew is told the command outright, so the alert has nowhere
-    /// left to send them. Someone without it does, and that is the only case that offers a trip
-    /// out of the app.
+    /// Pointing someone at the ffmpeg formula page is no use if they have no way to install it,
+    /// so the button follows whether Homebrew is there.
     @Test
-    func onlyAMissingHomebrewIsWorthSendingSomeoneAway() {
-        #expect(RemuxProblemAlert.buttons(for: .toolsMissing(hasHomebrew: true)) == [.ok])
+    func theInstallButtonFollowsWhetherHomebrewIsInstalled() {
+        #expect(
+            RemuxProblemAlert.buttons(for: .toolsMissing(hasHomebrew: true))
+                == [.installFFmpeg, .cancel]
+        )
         #expect(
             RemuxProblemAlert.buttons(for: .toolsMissing(hasHomebrew: false))
                 == [.installHomebrew, .cancel]
         )
-    }
-
-    /// The command is the whole point of the message, and it is typed into a shell, so it has to
-    /// survive verbatim rather than be handed to translators.
-    @Test
-    func theInstallCommandIsTheOneHomebrewNeeds() {
-        #expect(MediaConversion.installCommand == "brew install ffmpeg")
     }
 
     /// Nothing can be done about a file Front Row can't decode, so there's only one way out.
