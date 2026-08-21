@@ -76,7 +76,7 @@ struct RemuxProblemButton: View {
                 MediaConversion.openInstallPage(hasHomebrew: true)
             } label: {
                 Text(
-                    "Install FFmpeg",
+                    "Install FFmpeg…",
                     comment: "Alert button that opens the Homebrew page for the ffmpeg formula"
                 )
             }
@@ -85,7 +85,7 @@ struct RemuxProblemButton: View {
                 MediaConversion.openInstallPage(hasHomebrew: false)
             } label: {
                 Text(
-                    "Install Homebrew",
+                    "Install Homebrew…",
                     comment: "Alert button that opens the Homebrew website"
                 )
             }
