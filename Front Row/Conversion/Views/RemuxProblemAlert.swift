@@ -96,8 +96,9 @@ struct RemuxProblemMessage: View {
             )
         case .toolsMissing(hasHomebrew: false):
             Text(
-                "\"\(problem.url.lastPathComponent)\" can be opened after it is converted, but FFmpeg isn't installed. Install it using Homebrew, then open the file again.",
-                comment: "Alert message shown when a file needs converting but ffmpeg is missing"
+                "\"\(problem.url.lastPathComponent)\" can be opened after it is converted, but that needs FFmpeg. Install Homebrew, then run \(MediaConversion.installCommand) in Terminal. Open the file again once it finishes.",
+                comment:
+                    "Alert message shown when a file needs converting and neither ffmpeg nor Homebrew is installed. The second placeholder is a shell command and must not be translated"
             )
         case .checkTimedOut:
             Text(

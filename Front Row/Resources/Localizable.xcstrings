@@ -8283,151 +8283,291 @@
         }
       }
     },
-    "\"%@\" can be opened after it is converted, but FFmpeg isn't installed. Install it using Homebrew, then open the file again." : {
-      "comment" : "Alert message shown when a file needs converting but ffmpeg is missing",
+    "\"%@\" can be opened after it is converted, but that needs FFmpeg. Install Homebrew, then run %@ in Terminal. Open the file again once it finishes." : {
+      "comment" : "Alert message shown when a file needs converting and neither ffmpeg nor Homebrew is installed. The second placeholder is a shell command and must not be translated",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "يمكن فتح \"%@\" بعد تحويله، لكن FFmpeg غير مثبت. ثبّته باستخدام Homebrew، ثم افتح الملف مرة أخرى."
+            "state" : "needs_review",
+            "value" : "يمكن فتح \"%@\" بعد تحويله، لكن ذلك يتطلب FFmpeg. ثبّت Homebrew، ثم شغّل %@ في Terminal. افتح الملف مرة أخرى بعد الانتهاء."
           }
         },
         "cs" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" lze otevřít po převodu, ale FFmpeg není nainstalovaný. Nainstalujte ho pomocí Homebrew a poté soubor otevřete znovu."
+            "state" : "needs_review",
+            "value" : "\"%@\" lze otevřít po převodu, ale ten vyžaduje FFmpeg. Nainstalujte Homebrew a poté v Terminálu spusťte %@. Až to skončí, otevřete soubor znovu."
           }
         },
         "da" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" kan åbnes, når filen er konverteret, men FFmpeg er ikke installeret. Installer det med Homebrew, og åbn derefter filen igen."
+            "state" : "needs_review",
+            "value" : "\"%@\" kan åbnes, når filen er konverteret, men det kræver FFmpeg. Installer Homebrew, og kør derefter %@ i Terminal. Åbn filen igen, når det er færdigt."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" kann nach der Konvertierung geöffnet werden, aber FFmpeg ist nicht installiert. Installiere es mit Homebrew und öffne die Datei danach erneut."
+            "state" : "needs_review",
+            "value" : "\"%@\" kann nach der Konvertierung geöffnet werden, dafür wird aber FFmpeg benötigt. Installiere Homebrew und führe dann %@ im Terminal aus. Öffne die Datei erneut, sobald das abgeschlossen ist."
           }
         },
         "el" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Το \"%@\" μπορεί να ανοίξει αφού μετατραπεί, αλλά το FFmpeg δεν είναι εγκατεστημένο. Εγκαταστήστε το μέσω του Homebrew και ανοίξτε ξανά το αρχείο."
+            "state" : "needs_review",
+            "value" : "Το \"%@\" μπορεί να ανοίξει αφού μετατραπεί, αλλά αυτό απαιτεί το FFmpeg. Εγκαταστήστε το Homebrew και μετά εκτελέστε %@ στο Terminal. Ανοίξτε ξανά το αρχείο μόλις ολοκληρωθεί."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" se puede abrir una vez convertido, pero FFmpeg no está instalado. Instálalo con Homebrew y vuelve a abrir el archivo."
+            "state" : "needs_review",
+            "value" : "\"%@\" se puede abrir una vez convertido, pero eso requiere FFmpeg. Instala Homebrew y luego ejecuta %@ en Terminal. Vuelve a abrir el archivo cuando termine."
           }
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" voidaan avata muuntamisen jälkeen, mutta FFmpeg ei ole asennettuna. Asenna se Homebrew’n avulla ja avaa tiedosto uudelleen."
+            "state" : "needs_review",
+            "value" : "\"%@\" voidaan avata muuntamisen jälkeen, mutta se vaatii FFmpegin. Asenna Homebrew ja suorita sitten %@ Terminaalissa. Avaa tiedosto uudelleen, kun asennus on valmis."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" peut être ouvert après conversion, mais FFmpeg n'est pas installé. Installez-le avec Homebrew, puis ouvrez à nouveau le fichier."
+            "state" : "needs_review",
+            "value" : "\"%@\" peut être ouvert après conversion, mais cela nécessite FFmpeg. Installez Homebrew, puis exécutez %@ dans Terminal. Ouvrez à nouveau le fichier une fois l'opération terminée."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" can be opened after it is converted, but FFmpeg isn't installed. Install it using Homebrew, then open the file again."
+            "value" : "\"%@\" can be opened after it is converted, but that needs FFmpeg. Install Homebrew, then run %@ in Terminal. Open the file again once it finishes."
           }
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "A(z) „%@” az átalakítás után megnyitható, de az FFmpeg nincs telepítve. Telepítse a Homebrew segítségével, majd nyissa meg újra a fájlt."
+            "state" : "needs_review",
+            "value" : "A(z) „%@” az átalakítás után megnyitható, de ehhez FFmpeg szükséges. Telepítse a Homebrew-t, majd futtassa a(z) %@ parancsot a Terminálban. Ha elkészült, nyissa meg újra a fájlt."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" può essere aperto dopo la conversione, ma FFmpeg non è installato. Installalo con Homebrew, quindi apri di nuovo il file."
+            "state" : "needs_review",
+            "value" : "\"%@\" può essere aperto dopo la conversione, ma questa richiede FFmpeg. Installa Homebrew, quindi esegui %@ nel Terminale. Apri di nuovo il file al termine."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" は変換後に開くことができますが、FFmpeg がインストールされていません。Homebrew でインストールしてから、ファイルをもう一度開いてください。"
+            "state" : "needs_review",
+            "value" : "\"%@\" は変換後に開くことができますが、変換には FFmpeg が必要です。Homebrew をインストールしてから、ターミナルで %@ を実行してください。完了したら、ファイルをもう一度開いてください。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\"은(는) 변환 후에 열 수 있지만 FFmpeg가 설치되어 있지 않습니다. Homebrew로 설치한 다음 파일을 다시 여십시오."
+            "state" : "needs_review",
+            "value" : "\"%@\"은(는) 변환 후에 열 수 있지만 변환하려면 FFmpeg가 필요합니다. Homebrew를 설치한 다음 터미널에서 %@을(를) 실행하십시오. 완료되면 파일을 다시 여십시오."
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" kan na conversie worden geopend, maar FFmpeg is niet geïnstalleerd. Installeer het met Homebrew en open het bestand daarna opnieuw."
+            "state" : "needs_review",
+            "value" : "\"%@\" kan na conversie worden geopend, maar daarvoor is FFmpeg nodig. Installeer Homebrew en voer daarna %@ uit in Terminal. Open het bestand opnieuw zodra dat klaar is."
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" można otworzyć po konwersji, ale FFmpeg nie jest zainstalowany. Zainstaluj go za pomocą Homebrew, a następnie otwórz plik ponownie."
+            "state" : "needs_review",
+            "value" : "\"%@\" można otworzyć po konwersji, ale wymaga ona FFmpeg. Zainstaluj Homebrew, a następnie uruchom %@ w Terminalu. Otwórz plik ponownie po zakończeniu."
           }
         },
         "ro" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" poate fi deschis după conversie, dar FFmpeg nu este instalat. Instalați-l folosind Homebrew, apoi deschideți din nou fișierul."
+            "state" : "needs_review",
+            "value" : "\"%@\" poate fi deschis după conversie, dar aceasta necesită FFmpeg. Instalați Homebrew, apoi rulați %@ în Terminal. Deschideți din nou fișierul după finalizare."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" можно открыть после конвертации, но FFmpeg не установлен. Установите его с помощью Homebrew, затем откройте файл снова."
+            "state" : "needs_review",
+            "value" : "\"%@\" можно открыть после конвертации, но для неё нужен FFmpeg. Установите Homebrew, затем выполните %@ в Терминале. Откройте файл снова после завершения."
           }
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" kan öppnas när filen har konverterats, men FFmpeg är inte installerat. Installera det med Homebrew och öppna sedan filen igen."
+            "state" : "needs_review",
+            "value" : "\"%@\" kan öppnas när filen har konverterats, men det kräver FFmpeg. Installera Homebrew och kör sedan %@ i Terminal. Öppna filen igen när det är klart."
           }
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" dönüştürüldükten sonra açılabilir ancak FFmpeg yüklü değil. Homebrew ile yükleyin, sonra dosyayı yeniden açın."
+            "state" : "needs_review",
+            "value" : "\"%@\" dönüştürüldükten sonra açılabilir ancak bunun için FFmpeg gerekir. Homebrew'u yükleyin, sonra Terminal'de %@ komutunu çalıştırın. İşlem bitince dosyayı yeniden açın."
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" можна відкрити після конвертації, але FFmpeg не встановлено. Встановіть його за допомогою Homebrew, а потім відкрийте файл знову."
+            "state" : "needs_review",
+            "value" : "\"%@\" можна відкрити після конвертації, але для неї потрібен FFmpeg. Встановіть Homebrew, а потім виконайте %@ у Терміналі. Відкрийте файл знову після завершення."
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Có thể mở \"%@\" sau khi chuyển đổi, nhưng FFmpeg chưa được cài đặt. Hãy cài đặt bằng Homebrew, rồi mở lại tệp."
+            "state" : "needs_review",
+            "value" : "Có thể mở \"%@\" sau khi chuyển đổi, nhưng việc này cần FFmpeg. Hãy cài đặt Homebrew, rồi chạy %@ trong Terminal. Mở lại tệp sau khi hoàn tất."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" 转换后即可打开，但尚未安装 FFmpeg。请使用 Homebrew 安装，然后重新打开该文件。"
+            "state" : "needs_review",
+            "value" : "\"%@\" 转换后即可打开，但转换需要 FFmpeg。请先安装 Homebrew，然后在“终端”中运行 %@。完成后重新打开该文件。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"%@\" 轉換後即可開啟，但尚未安裝 FFmpeg。請使用 Homebrew 安裝，然後重新打開該檔案。"
+            "state" : "needs_review",
+            "value" : "\"%@\" 轉換後即可開啟，但轉換需要 FFmpeg。請先安裝 Homebrew，然後在「終端機」中執行 %@。完成後重新打開該檔案。"
           }
         }
       }
     },
     "\"%@\" can be opened after it is converted, but FFmpeg isn't installed. Run %@ in Terminal, then open the file again." : {
-      "comment" : "Alert message shown when a file needs converting and Homebrew can install ffmpeg. The second placeholder is a shell command and must not be translated"
+      "comment" : "Alert message shown when a file needs converting and Homebrew can install ffmpeg. The second placeholder is a shell command and must not be translated",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "يمكن فتح \"%@\" بعد تحويله، لكن FFmpeg غير مثبت. شغّل %@ في Terminal، ثم افتح الملف مرة أخرى."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "\"%@\" lze otevřít po převodu, ale FFmpeg není nainstalovaný. Spusťte v Terminálu %@ a poté soubor otevřete znovu."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "\"%@\" kan åbnes, når filen er konverteret, men FFmpeg er ikke installeret. Kør %@ i Terminal, og åbn derefter filen igen."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "\"%@\" kann nach der Konvertierung geöffnet werden, aber FFmpeg ist nicht installiert. Führe %@ im Terminal aus und öffne die Datei danach erneut."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Το \"%@\" μπορεί να ανοίξει αφού μετατραπεί, αλλά το FFmpeg δεν είναι εγκατεστημένο. Εκτελέστε %@ στο Terminal και ανοίξτε ξανά το αρχείο."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "\"%@\" se puede abrir una vez convertido, pero FFmpeg no está instalado. Ejecuta %@ en Terminal y vuelve a abrir el archivo."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "\"%@\" voidaan avata muuntamisen jälkeen, mutta FFmpeg ei ole asennettuna. Suorita %@ Terminaalissa ja avaa tiedosto uudelleen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "\"%@\" peut être ouvert après conversion, mais FFmpeg n'est pas installé. Exécutez %@ dans Terminal, puis ouvrez à nouveau le fichier."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\"%@\" can be opened after it is converted, but FFmpeg isn't installed. Run %@ in Terminal, then open the file again."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "A(z) „%@” az átalakítás után megnyitható, de az FFmpeg nincs telepítve. Futtassa a(z) %@ parancsot a Terminálban, majd nyissa meg újra a fájlt."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "\"%@\" può essere aperto dopo la conversione, ma FFmpeg non è installato. Esegui %@ nel Terminale, quindi apri di nuovo il file."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "\"%@\" は変換後に開くことができますが、FFmpeg がインストールされていません。ターミナルで %@ を実行してから、ファイルをもう一度開いてください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "\"%@\"은(는) 변환 후에 열 수 있지만 FFmpeg가 설치되어 있지 않습니다. 터미널에서 %@을(를) 실행한 다음 파일을 다시 여십시오."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "\"%@\" kan na conversie worden geopend, maar FFmpeg is niet geïnstalleerd. Voer %@ uit in Terminal en open het bestand daarna opnieuw."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "\"%@\" można otworzyć po konwersji, ale FFmpeg nie jest zainstalowany. Uruchom %@ w Terminalu, a następnie otwórz plik ponownie."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "\"%@\" poate fi deschis după conversie, dar FFmpeg nu este instalat. Rulați %@ în Terminal, apoi deschideți din nou fișierul."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "\"%@\" можно открыть после конвертации, но FFmpeg не установлен. Выполните %@ в Терминале, затем откройте файл снова."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "\"%@\" kan öppnas när filen har konverterats, men FFmpeg är inte installerat. Kör %@ i Terminal och öppna sedan filen igen."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "\"%@\" dönüştürüldükten sonra açılabilir ancak FFmpeg yüklü değil. Terminal'de %@ komutunu çalıştırın, sonra dosyayı yeniden açın."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "\"%@\" можна відкрити після конвертації, але FFmpeg не встановлено. Виконайте %@ у Терміналі, а потім відкрийте файл знову."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Có thể mở \"%@\" sau khi chuyển đổi, nhưng FFmpeg chưa được cài đặt. Hãy chạy %@ trong Terminal, rồi mở lại tệp."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "\"%@\" 转换后即可打开，但尚未安装 FFmpeg。请在“终端”中运行 %@，然后重新打开该文件。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "\"%@\" 轉換後即可開啟，但尚未安裝 FFmpeg。請在「終端機」中執行 %@，然後重新打開該檔案。"
+          }
+        }
+      }
     },
     "\"%@\" can be opened after it is converted." : {
       "comment" : "Alert message offering to convert a file into a format Front Row can play",
