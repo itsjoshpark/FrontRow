@@ -87,9 +87,6 @@ enum FFmpegArguments {
             arguments += ["-tag:v", videoTag]
         }
 
-        // The `moov` atom is left where the muxer puts it, at the end. Moving it to the front
-        // costs a second pass over the whole file, and buys nothing AVFoundation needs to open a
-        // local one.
         arguments += [
             // Named rather than left to the extension, which while the conversion runs is the
             // working file's and names no muxer at all.
