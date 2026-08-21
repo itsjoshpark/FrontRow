@@ -52,12 +52,6 @@
             "value" : "La «%@» n'a pas pu être ouverte. Elle a peut-être été déplacée ou supprimée."
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" couldn't be opened. It may have been moved or deleted."
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -201,12 +195,6 @@
             "value" : "\"%1$@\" est sur \"%2$@\", ce qui n'est pas connecté. Connectez-le et réessayez."
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%1$@\" is on \"%2$@\", which isn't connected. Connect it and try again."
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -342,12 +330,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" n'est pas un format que Front Row peut lire."
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" isn't a format Front Row can play."
           }
         },
         "hu" : {
@@ -487,12 +469,6 @@
             "value" : "\"%@\" n'est pas un format que Front Row peut lire. Le fichier est peut-être endommagé ou incomplet."
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" isn't a format Front Row can play. The file may be damaged or incomplete."
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -630,12 +606,6 @@
             "value" : "\"%@\" a été converti avec succès. Le fichier d'origine n'est plus nécessaire."
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" was successfully converted. The original file isn't needed anymore."
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -770,12 +740,6 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ bps"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
             "value" : "%@ bps"
           }
         },
@@ -916,12 +880,6 @@
             "value" : "%@ canaux"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%@ channels"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1057,12 +1015,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ ips"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%@ fps"
           }
         },
         "hu" : {
@@ -1202,12 +1154,6 @@
             "value" : "%@ kbit/s"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%@ kbps"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
@@ -1342,12 +1288,6 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ kHz"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
             "value" : "%@ kHz"
           }
         },
@@ -1488,12 +1428,6 @@
             "value" : "%@ Mbit/s"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%@ Mbps"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
@@ -1631,12 +1565,6 @@
             "value" : "%lld bits"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%lld-bit"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1771,12 +1699,6 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%llds"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
             "value" : "%llds"
           }
         },
@@ -1917,12 +1839,6 @@
             "value" : "Album"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Album"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
@@ -2058,12 +1974,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Artiste"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Artist"
           }
         },
         "hu" : {
@@ -2203,12 +2113,6 @@
             "value" : "Audio"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Audio"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2343,12 +2247,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Piste audio"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Audio Track"
           }
         },
         "hu" : {
@@ -2488,12 +2386,6 @@
             "value" : "Auteur"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Author"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2630,12 +2522,6 @@
             "value" : "Profondeur de bits"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Bit Depth"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2770,12 +2656,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Débit binaire"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Bit Rate"
           }
         },
         "hu" : {
@@ -2915,12 +2795,6 @@
             "value" : "Annuler"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Cancel"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3055,12 +2929,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Canaux"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Channels"
           }
         },
         "hu" : {
@@ -3200,12 +3068,6 @@
             "value" : "Liste des chapitres"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chapter List"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3342,12 +3204,6 @@
             "value" : "Chapitres"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chapters"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3482,12 +3338,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rechercher des mises à jour…"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Check for Updates…"
           }
         },
         "hu" : {
@@ -3627,12 +3477,6 @@
             "value" : "Effacer le menu"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Clear Menu"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3770,12 +3614,6 @@
             "value" : "Sous-titres codés"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Closed Captions"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3909,12 +3747,6 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Codec"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
             "value" : "Codec"
           }
         },
@@ -4055,12 +3887,6 @@
             "value" : "Couleur"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Color"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4196,12 +4022,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Convertir"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Convert"
           }
         },
         "hu" : {
@@ -4341,12 +4161,6 @@
             "value" : "Convertir le fichier ?"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Convert File?"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4482,12 +4296,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vérification de \"%@\""
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Checking \"%@\""
           }
         },
         "hu" : {
@@ -4627,12 +4435,6 @@
             "value" : "Conversion de \"%@\""
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Converting \"%@\""
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4768,12 +4570,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Droits d’auteur"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Copyright"
           }
         },
         "hu" : {
@@ -4913,12 +4709,6 @@
             "value" : "Impossible de convertir le fichier"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Convert File"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5054,12 +4844,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Impossible d'ouvrir le fichier"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Couldn't Open File"
           }
         },
         "hu" : {
@@ -5199,12 +4983,6 @@
             "value" : "Créé"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Created"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5339,12 +5117,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Taille des données"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Data Size"
           }
         },
         "hu" : {
@@ -5484,12 +5256,6 @@
             "value" : "Ralentir de 5%"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Decrease by 5%"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5625,12 +5391,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Libellé"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Description"
           }
         },
         "hu" : {
@@ -5770,12 +5530,6 @@
             "value" : "Détails"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Details"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5910,12 +5664,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Durée"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Duration"
           }
         },
         "hu" : {
@@ -6055,12 +5803,6 @@
             "value" : "Activée"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Enabled"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6195,12 +5937,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Encodeur"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Encoder"
           }
         },
         "hu" : {
@@ -6339,12 +6075,6 @@
             "value" : "Plein écran"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Enter Full Screen"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6479,12 +6209,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Entrez l'heure à laquelle vous souhaitez vous rendre"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Enter the time you want to go to"
           }
         },
         "hu" : {
@@ -6624,12 +6348,6 @@
             "value" : "Entrer l’URL"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Enter URL"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6766,12 +6484,6 @@
             "value" : "Quitter le mode plein écran"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Exit Full Screen"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6906,12 +6618,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Écouter l’audio spatial"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Experience Spatial Audio"
           }
         },
         "hu" : {
@@ -7051,12 +6757,6 @@
             "value" : "FFmpeg n'a pas pu convertir \"%@\"."
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "FFmpeg couldn't convert \"%@\"."
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7192,12 +6892,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "La vérification de \"%@\" a pris trop de temps. Si le fichier se trouve sur un disque cloud ou réseau, assurez-vous qu'il est disponible, puis réessayez."
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" took too long to check. If it's on a cloud or network drive, make sure it's available and try again."
           }
         },
         "hu" : {
@@ -7337,12 +7031,6 @@
             "value" : "Fichier"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "File"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7480,12 +7168,6 @@
             "value" : "Ce fichier doit être converti"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "File Needs Conversion"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7620,12 +7302,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Garder au premier plan"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Float on Top"
           }
         },
         "hu" : {
@@ -7765,12 +7441,6 @@
             "value" : "Forcés"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Forced"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7905,12 +7575,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Formater"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Format"
           }
         },
         "hu" : {
@@ -8049,12 +7713,6 @@
             "value" : "Fréquence d’images"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Frame Rate"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8188,12 +7846,6 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
             "value" : "Front Row"
           }
         },
@@ -8334,12 +7986,6 @@
             "value" : "\"%@\" peut être ouvert après conversion, mais FFmpeg n'est pas installé. Installez-le avec Homebrew, puis ouvrez à nouveau le fichier."
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" can be opened after it is converted, but FFmpeg isn't installed. Install it using Homebrew, then open the file again."
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8475,12 +8121,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "\"%@\" peut être ouvert après conversion."
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "\"%@\" can be opened after it is converted."
           }
         },
         "hu" : {
@@ -8620,12 +8260,6 @@
             "value" : "Complète"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Full"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8761,12 +8395,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Général"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "General"
           }
         },
         "hu" : {
@@ -8905,12 +8533,6 @@
             "value" : "Aller"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Go"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9045,12 +8667,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reculer %llds"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Go Backward %llds"
           }
         },
         "hu" : {
@@ -9189,12 +8805,6 @@
             "value" : "Avancer de %llds"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Go Forward %llds"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9329,12 +8939,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aller à l'heure"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Go to Time"
           }
         },
         "hu" : {
@@ -9473,12 +9077,6 @@
             "value" : "Aller à l'heure..."
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Go to Time..."
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9615,12 +9213,6 @@
             "value" : "Décodage matériel"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hardware Decoding"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9754,12 +9346,6 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "HDR"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
             "value" : "HDR"
           }
         },
@@ -9900,12 +9486,6 @@
             "value" : "Masquer l’inspecteur"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hide Inspector"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10039,12 +9619,6 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ID"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
             "value" : "ID"
           }
         },
@@ -10184,12 +9758,6 @@
             "value" : "Participer à la traduction"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Improve Translation"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10325,12 +9893,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Accélérer de 5%"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Increase by 5%"
           }
         },
         "hu" : {
@@ -10470,12 +10032,6 @@
             "value" : "Inspecteur"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Inspector"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10611,12 +10167,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Installer FFmpeg…"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Install FFmpeg…"
           }
         },
         "hu" : {
@@ -10756,12 +10306,6 @@
             "value" : "Installer Homebrew…"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Install Homebrew…"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10899,12 +10443,6 @@
             "value" : "Conserver"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Keep"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11039,12 +10577,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Langue"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Language"
           }
         },
         "hu" : {
@@ -11184,12 +10716,6 @@
             "value" : "Limitée"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limited"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11325,12 +10851,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Emplacement"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Location"
           }
         },
         "hu" : {
@@ -11470,12 +10990,6 @@
             "value" : "Principale"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Main"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11611,12 +11125,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Métadonnées"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Metadata"
           }
         },
         "hu" : {
@@ -11755,12 +11263,6 @@
             "value" : "Modifié"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Modified"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11895,12 +11397,6 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mono"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
             "value" : "Mono"
           }
         },
@@ -12041,12 +11537,6 @@
             "value" : "Placer le fichier d'origine dans la corbeille ?"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Move Original File to Trash?"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12184,12 +11674,6 @@
             "value" : "Placer dans la corbeille"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Move to Trash"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12324,12 +11808,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Couper le son"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Mute"
           }
         },
         "hu" : {
@@ -12469,12 +11947,6 @@
             "value" : "N/D"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "N/A"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12612,12 +12084,6 @@
             "value" : "Taille normale"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Natural Size"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12752,12 +12218,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Image suivante"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Next Frame"
           }
         },
         "hu" : {
@@ -12897,12 +12357,6 @@
             "value" : "Non"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -13038,12 +12492,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aucun média en cours de lecture."
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No media is playing."
           }
         },
         "hu" : {
@@ -13183,12 +12631,6 @@
             "value" : "Aucun fichier récent"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No Recent Files"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -13323,12 +12765,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aucun"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "None"
           }
         },
         "hu" : {
@@ -13468,12 +12904,6 @@
             "value" : "Non pris en charge"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Not supported"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -13608,12 +13038,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Désactivé"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Off"
           }
         },
         "hu" : {
@@ -13753,12 +13177,6 @@
             "value" : "Ok"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "OK"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
@@ -13894,12 +13312,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ouvrir un fichier..."
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Open File..."
           }
         },
         "hu" : {
@@ -14039,12 +13451,6 @@
             "value" : "Ouvrir l’élément récent"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Open Recent"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14180,12 +13586,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ouvrir une adresse…"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Open URL..."
           }
         },
         "hu" : {
@@ -14324,12 +13724,6 @@
             "value" : "Mettre en pause"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Pause"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14466,12 +13860,6 @@
             "value" : "Ouvrir"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Play"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14606,12 +13994,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lecture"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Playback"
           }
         },
         "hu" : {
@@ -14751,12 +14133,6 @@
             "value" : "En lecture"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Playing"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14893,12 +14269,6 @@
             "value" : "Image précédente"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Previous Frame"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -15033,12 +14403,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Propriétés"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Properties"
           }
         },
         "hu" : {
@@ -15178,12 +14542,6 @@
             "value" : "Éditeur"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Publisher"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -15318,12 +14676,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Plage"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Range"
           }
         },
         "hu" : {
@@ -15463,12 +14815,6 @@
             "value" : "Retirer des éléments récents"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Remove from Recents"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -15604,12 +14950,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Réinitialiser"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Reset"
           }
         },
         "hu" : {
@@ -15749,12 +15089,6 @@
             "value" : "Redémarrer la lecture"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Restart"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -15892,12 +15226,6 @@
             "value" : "Reprendre %@"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Resume %@"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -16031,12 +15359,6 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rotation"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
             "value" : "Rotation"
           }
         },
@@ -16176,12 +15498,6 @@
             "value" : "Fréquence d’échantillonnage"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Sample Rate"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -16316,12 +15632,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Envoyer des commentaires"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Send Feedback"
           }
         },
         "hu" : {
@@ -16461,12 +15771,6 @@
             "value" : "Afficher dans le Finder"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Show in Finder"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -16604,12 +15908,6 @@
             "value" : "Afficher l’inspecteur"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Show Inspector"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -16744,12 +16042,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Taille"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Size"
           }
         },
         "hu" : {
@@ -16889,12 +16181,6 @@
             "value" : "Ignorer l'intervalle"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Skip Interval"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -17030,12 +16316,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Logiciel"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Software"
           }
         },
         "hu" : {
@@ -17175,12 +16455,6 @@
             "value" : "Vitesse"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Speed"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -17316,12 +16590,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Stéréo"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Stereo"
           }
         },
         "hu" : {
@@ -17461,12 +16729,6 @@
             "value" : "Sous-titres"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Subtitle"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -17602,12 +16864,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Les sous-titres seront supprimés."
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Subtitles will be dropped."
           }
         },
         "hu" : {
@@ -17747,12 +17003,6 @@
             "value" : "Pris en charge"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Supported"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -17888,12 +17138,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Texte"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Text"
           }
         },
         "hu" : {
@@ -18033,12 +17277,6 @@
             "value" : "Ce fichier ne contient aucune piste."
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This file has no tracks."
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -18174,12 +17412,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ce fichier ne contient aucune piste vidéo ou audio."
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This file has no video or audio tracks."
           }
         },
         "hu" : {
@@ -18319,12 +17551,6 @@
             "value" : "Titre"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Title"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -18460,12 +17686,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Piste"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Track"
           }
         },
         "hu" : {
@@ -18605,12 +17825,6 @@
             "value" : "Pistes"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Tracks"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -18745,12 +17959,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Type de texte"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Type"
           }
         },
         "hu" : {
@@ -18890,12 +18098,6 @@
             "value" : "Inconnu"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Unknown"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -19033,12 +18235,6 @@
             "value" : "Sans titre"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Untitled"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -19172,12 +18368,6 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Version %@"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
             "value" : "Version %@"
           }
         },
@@ -19318,12 +18508,6 @@
             "value" : "Vidéo"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Video"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -19458,12 +18642,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Site Web"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Website"
           }
         },
         "hu" : {
@@ -19602,12 +18780,6 @@
             "value" : "Bienvenue sur Front Row"
           }
         },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Welcome to Front Row"
-          }
-        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
@@ -19743,12 +18915,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oui"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yes"
           }
         },
         "hu" : {
