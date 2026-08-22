@@ -19005,7 +19005,117 @@
       }
     },
     "Your Mac isn't connected to the internet. Connect to a network and try again." : {
-      "comment" : "Alert message shown when a file couldn't be opened because there is no internet connection"
+      "comment" : "Alert message shown when a file couldn't be opened because there is no internet connection",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Váš Mac není připojen k internetu. Připojte se k síti a zkuste to znovu."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Din Mac er ikke forbundet til internettet. Opret forbindelse til et netværk, og prøv igen."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dein Mac ist nicht mit dem Internet verbunden. Verbinde dich mit einem Netzwerk und versuche es erneut."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το Mac σας δεν είναι συνδεδεμένο στο διαδίκτυο. Συνδεθείτε σε ένα δίκτυο και προσπαθήστε ξανά."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu Mac no está conectado a internet. Conéctate a una red y vuelve a intentarlo."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre Mac n'est pas connecté à Internet. Connectez-vous à un réseau et réessayez."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il tuo Mac non è connesso a internet. Collegati a una rete e riprova."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "お使いのMacがインターネットに接続されていません。ネットワークに接続して再度お試し下さい。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mac이 인터넷에 연결되어 있지 않습니다. 네트워크에 연결한 후 다시 시도하십시오."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Je Mac heeft geen internetverbinding. Maak verbinding met een netwerk en probeer het opnieuw."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Twój Mac nie jest połączony z internetem. Połącz się z siecią i spróbuj ponownie."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ваш Mac не подключен к интернету. Подключитесь к сети и повторите попытку."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Din Mac är inte ansluten till internet. Anslut till ett nätverk och försök igen."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mac'iniz internete bağlı değil. Bir ağa bağlanıp tekrar deneyin."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ваш Mac не підключений до інтернету. Підключіться до мережі та повторіть спробу."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Máy Mac của bạn chưa được kết nối internet. Hãy kết nối vào một mạng rồi thử lại."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "您的 Mac 未连接到互联网。请连接网络后再试一次。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "您的 Mac 未連接到網際網路。請連接網路後再試一次。"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
