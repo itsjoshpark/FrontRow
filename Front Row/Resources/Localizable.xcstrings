@@ -13897,6 +13897,12 @@
             "value" : "Odtwórz próbkę dźwięku przestrzennego"
           }
         },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Redare mostră audio spaţială"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
