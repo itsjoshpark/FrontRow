@@ -1,7 +1,7 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "“%@” couldn't be opened. It may have been moved or deleted." : {
+    "“%@” couldn’t be opened. It may have been moved or deleted." : {
       "comment" : "Alert message shown when a recent file can no longer be found",
       "localizations" : {
         "ar" : {
@@ -49,7 +49,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La « %@ » n'a pas pu être ouverte. Elle a peut-être été déplacée ou supprimée."
+            "value" : "La « %@ » n’a pas pu être ouverte. Elle a peut-être été déplacée ou supprimée."
           }
         },
         "hu" : {
@@ -138,7 +138,7 @@
         }
       }
     },
-    "“%@” is on “%@”, which isn't connected. Connect it and try again." : {
+    "“%@” is on “%@”, which isn’t connected. Connect it and try again." : {
       "comment" : "Alert message shown when a recent file's drive or network share is not mounted",
       "localizations" : {
         "ar" : {
@@ -174,7 +174,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "“%1$@” is on “%2$@”, which isn't connected. Connect it and try again."
+            "value" : "“%1$@” is on “%2$@”, which isn’t connected. Connect it and try again."
           }
         },
         "es" : {
@@ -192,7 +192,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "« %1$@ » est sur « %2$@ », ce qui n'est pas connecté. Connectez-le et réessayez."
+            "value" : "« %1$@ » est sur « %2$@ », ce qui n’est pas connecté. Connectez-le et réessayez."
           }
         },
         "hu" : {
@@ -281,7 +281,7 @@
         }
       }
     },
-    "“%@” isn't a format Front Row can play." : {
+    "“%@” isn’t a format Front Row can play." : {
       "comment" : "Alert message shown when a file exists but cannot be decoded",
       "localizations" : {
         "ar" : {
@@ -329,7 +329,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "« %@ » n'est pas un format que Front Row peut lire."
+            "value" : "« %@ » n’est pas un format que Front Row peut lire."
           }
         },
         "hu" : {
@@ -389,7 +389,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "“%@”, Front Row'un oynatabileceği bir biçim değil."
+            "value" : "“%@”, Front Row’un oynatabileceği bir biçim değil."
           }
         },
         "uk" : {
@@ -418,7 +418,7 @@
         }
       }
     },
-    "“%@” isn't a format Front Row can play. The file may be damaged or incomplete." : {
+    "“%@” isn’t a format Front Row can play. The file may be damaged or incomplete." : {
       "comment" : "Alert message shown when a file could not be read at all",
       "localizations" : {
         "ar" : {
@@ -466,7 +466,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "« %@ » n'est pas un format que Front Row peut lire. Le fichier est peut-être endommagé ou incomplet."
+            "value" : "« %@ » n’est pas un format que Front Row peut lire. Le fichier est peut-être endommagé ou incomplet."
           }
         },
         "hu" : {
@@ -526,7 +526,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "“%@”, Front Row'un oynatabileceği bir biçim değil. Dosya hasarlı veya eksik olabilir."
+            "value" : "“%@”, Front Row’un oynatabileceği bir biçim değil. Dosya hasarlı veya eksik olabilir."
           }
         },
         "uk" : {
@@ -555,7 +555,7 @@
         }
       }
     },
-    "“%@” was successfully converted. The original file isn't needed anymore." : {
+    "“%@” was successfully converted. The original file isn’t needed anymore." : {
       "comment" : "Alert message shown after a file has been converted",
       "localizations" : {
         "ar" : {
@@ -603,7 +603,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "« %@ » a été converti avec succès. Le fichier d'origine n'est plus nécessaire."
+            "value" : "« %@ » a été converti avec succès. Le fichier d’origine n’est plus nécessaire."
           }
         },
         "hu" : {
@@ -4658,7 +4658,7 @@
         }
       }
     },
-    "Couldn't Convert File" : {
+    "Couldn’t Convert File" : {
       "comment" : "Alert title shown when ffmpeg failed",
       "localizations" : {
         "ar" : {
@@ -4795,7 +4795,7 @@
         }
       }
     },
-    "Couldn't Open File" : {
+    "Couldn’t Open File" : {
       "comment" : "Alert title shown when a file can't be opened\nAlert title shown when a file can't be played or converted\nTitle of the alert shown when a recent file could not be opened",
       "localizations" : {
         "ar" : {
@@ -4843,7 +4843,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Impossible d'ouvrir le fichier"
+            "value" : "Impossible d’ouvrir le fichier"
           }
         },
         "hu" : {
@@ -6208,7 +6208,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Entrez l'heure à laquelle vous souhaitez vous rendre"
+            "value" : "Entrez l’heure à laquelle vous souhaitez vous rendre"
           }
         },
         "hu" : {
@@ -6220,7 +6220,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inserisci l'orario in cui vuoi andare"
+            "value" : "Inserisci l’orario in cui vuoi andare"
           }
         },
         "ja" : {
@@ -6357,7 +6357,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inserisci l'URL"
+            "value" : "Inserisci l’URL"
           }
         },
         "ja" : {
@@ -6570,7 +6570,7 @@
         }
       }
     },
-    "FFmpeg couldn't convert “%@”." : {
+    "FFmpeg couldn’t convert “%@”." : {
       "comment" : "Alert message shown when ffmpeg failed to convert a file",
       "localizations" : {
         "ar" : {
@@ -6618,7 +6618,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "FFmpeg n'a pas pu convertir « %@ »."
+            "value" : "FFmpeg n’a pas pu convertir « %@ »."
           }
         },
         "hu" : {
@@ -6707,7 +6707,7 @@
         }
       }
     },
-    "“%@” took too long to check. If it's on a cloud or network drive, make sure it's available and try again." : {
+    "“%@” took too long to check. If it’s on a cloud or network drive, make sure it’s available and try again." : {
       "comment" : "Alert message shown when a file took too long to check",
       "localizations" : {
         "ar" : {
@@ -6755,7 +6755,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La vérification de « %@ » a pris trop de temps. Si le fichier se trouve sur un disque cloud ou réseau, assurez-vous qu'il est disponible, puis réessayez."
+            "value" : "La vérification de « %@ » a pris trop de temps. Si le fichier se trouve sur un disque cloud ou réseau, assurez-vous qu’il est disponible, puis réessayez."
           }
         },
         "hu" : {
@@ -6767,7 +6767,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La verifica di “%@” ha richiesto troppo tempo. Se il file si trova su un'unità cloud o di rete, assicurati che sia disponibile e riprova."
+            "value" : "La verifica di “%@” ha richiesto troppo tempo. Se il file si trova su un’unità cloud o di rete, assicurati che sia disponibile e riprova."
           }
         },
         "ja" : {
@@ -7799,7 +7799,7 @@
         }
       }
     },
-    "“%@” can be opened after it is converted, but FFmpeg isn't installed. Install it using Homebrew, then open the file again." : {
+    "“%@” can be opened after it is converted, but FFmpeg isn’t installed. Install it using Homebrew, then open the file again." : {
       "comment" : "Alert message shown when a file needs converting but ffmpeg is missing",
       "localizations" : {
         "ar" : {
@@ -7847,7 +7847,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "« %@ » peut être ouvert après conversion, mais FFmpeg n'est pas installé. Installez-le avec Homebrew, puis ouvrez à nouveau le fichier."
+            "value" : "« %@ » peut être ouvert après conversion, mais FFmpeg n’est pas installé. Installez-le avec Homebrew, puis ouvrez à nouveau le fichier."
           }
         },
         "hu" : {
@@ -8802,7 +8802,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aller à l'heure"
+            "value" : "Aller à l’heure"
           }
         },
         "hu" : {
@@ -8938,7 +8938,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aller à l'heure..."
+            "value" : "Aller à l’heure..."
           }
         },
         "hu" : {
@@ -10090,7 +10090,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "FFmpeg'i Yükle…"
+            "value" : "FFmpeg’i Yükle…"
           }
         },
         "uk" : {
@@ -10227,7 +10227,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Homebrew'u Yükle…"
+            "value" : "Homebrew’u Yükle…"
           }
         },
         "uk" : {
@@ -11398,7 +11398,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Placer le fichier d'origine dans la corbeille ?"
+            "value" : "Placer le fichier d’origine dans la corbeille ?"
           }
         },
         "hu" : {
@@ -15829,7 +15829,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Finder'da Göster"
+            "value" : "Finder’da Göster"
           }
         },
         "uk" : {
@@ -16179,7 +16179,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ignorer l'intervalle"
+            "value" : "Ignorer l’intervalle"
           }
         },
         "hu" : {
@@ -18838,7 +18838,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Front Row'a Hoş Geldiniz"
+            "value" : "Front Row’a Hoş Geldiniz"
           }
         },
         "uk" : {
@@ -19004,7 +19004,7 @@
         }
       }
     },
-    "Your Mac isn't connected to the internet. Connect to a network and try again." : {
+    "Your Mac isn’t connected to the internet. Connect to a network and try again." : {
       "comment" : "Alert message shown when a file couldn't be opened because there is no internet connection",
       "localizations" : {
         "ar" : {
@@ -19052,13 +19052,13 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Votre Mac n'est pas connecté à Internet. Connectez-vous à un réseau et réessayez."
+            "value" : "Votre Mac n’est pas connecté à Internet. Connectez-vous à un réseau et réessayez."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your Mac isn't connected to the internet. Connect to a network and try again."
+            "value" : "Your Mac isn’t connected to the internet. Connect to a network and try again."
           }
         },
         "it" : {
@@ -19112,7 +19112,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mac'iniz internete bağlı değil. Bir ağa bağlanıp tekrar deneyin."
+            "value" : "Mac’iniz internete bağlı değil. Bir ağa bağlanıp tekrar deneyin."
           }
         },
         "uk" : {

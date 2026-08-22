@@ -117,7 +117,7 @@ private struct UnopenableRecentFileAlertModifier: ViewModifier {
     func body(content: Content) -> some View {
         content.alert(
             Text(
-                "Couldn't Open File",
+                "Couldn’t Open File",
                 comment: "Title of the alert shown when a recent file could not be opened"
             ),
             isPresented: isPresented,
@@ -184,19 +184,19 @@ private struct AlertMessage: View {
         switch alert {
         case .volumeOffline(let volumeName):
             Text(
-                "“\(name)” is on “\(volumeName ?? "")”, which isn't connected. Connect it and try again.",
+                "“\(name)” is on “\(volumeName ?? "")”, which isn’t connected. Connect it and try again.",
                 comment:
                     "Alert message shown when a recent file's drive or network share is not mounted"
             )
         case .offline:
             Text(
-                "Your Mac isn't connected to the internet. Connect to a network and try again.",
+                "Your Mac isn’t connected to the internet. Connect to a network and try again.",
                 comment:
                     "Alert message shown when a file couldn't be opened because there is no internet connection"
             )
         case .unreadable:
             Text(
-                "“\(name)” couldn't be opened. It may have been moved or deleted.",
+                "“\(name)” couldn’t be opened. It may have been moved or deleted.",
                 comment: "Alert message shown when a recent file can no longer be found"
             )
         case .unplayable:

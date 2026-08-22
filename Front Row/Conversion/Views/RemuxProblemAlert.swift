@@ -39,7 +39,7 @@ enum RemuxProblemAlert {
             )
         case .unsupported, .probeFailed, .checkTimedOut, nil:
             Text(
-                "Couldn't Open File",
+                "Couldn’t Open File",
                 comment: "Alert title shown when a file can't be played or converted"
             )
         }
@@ -99,12 +99,12 @@ struct RemuxProblemMessage: View {
         switch problem.reason {
         case .toolsMissing:
             Text(
-                "“\(problem.url.lastPathComponent)” can be opened after it is converted, but FFmpeg isn't installed. Install it using Homebrew, then open the file again.",
+                "“\(problem.url.lastPathComponent)” can be opened after it is converted, but FFmpeg isn’t installed. Install it using Homebrew, then open the file again.",
                 comment: "Alert message shown when a file needs converting but ffmpeg is missing"
             )
         case .checkTimedOut:
             Text(
-                "“\(problem.url.lastPathComponent)” took too long to check. If it's on a cloud or network drive, make sure it's available and try again.",
+                "“\(problem.url.lastPathComponent)” took too long to check. If it’s on a cloud or network drive, make sure it’s available and try again.",
                 comment: "Alert message shown when a file took too long to check"
             )
         case .unsupported, .probeFailed:
