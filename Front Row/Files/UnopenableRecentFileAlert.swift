@@ -184,7 +184,7 @@ private struct AlertMessage: View {
         switch alert {
         case .volumeOffline(let volumeName):
             Text(
-                "\"\(name)\" is on \"\(volumeName ?? "")\", which isn't connected. Connect it and try again.",
+                "“\(name)” is on “\(volumeName ?? "")”, which isn't connected. Connect it and try again.",
                 comment:
                     "Alert message shown when a recent file's drive or network share is not mounted"
             )
@@ -196,7 +196,7 @@ private struct AlertMessage: View {
             )
         case .unreadable:
             Text(
-                "\"\(name)\" couldn't be opened. It may have been moved or deleted.",
+                "“\(name)” couldn't be opened. It may have been moved or deleted.",
                 comment: "Alert message shown when a recent file can no longer be found"
             )
         case .unplayable:

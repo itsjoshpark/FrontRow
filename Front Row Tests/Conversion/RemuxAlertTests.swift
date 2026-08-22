@@ -38,7 +38,7 @@ struct RemuxAlertTests {
     func theOfferNamesTheFileAndNothingElse() {
         let message = RemuxOfferAlert.message(for: offer(dropping: []))
 
-        #expect(message == "\"The Film.mkv\" can be opened after it is converted.")
+        #expect(message == "“The Film.mkv” can be opened after it is converted.")
     }
 
     /// Losing the subtitles is the one surprise worth heading off.
@@ -58,7 +58,7 @@ struct RemuxAlertTests {
     func anUnplayableFileGetsTheSharedMessage() {
         let message = UnplayableFileMessage.text(for: file, mayBeDamaged: false)
 
-        #expect(message == "\"The Film.mkv\" isn't a format Front Row can play.")
+        #expect(message == "“The Film.mkv” isn't a format Front Row can play.")
         #expect(message == UnplayableFileMessage.text(for: file))
     }
 
@@ -68,7 +68,7 @@ struct RemuxAlertTests {
     func aProbeFailureAddsTheDamagedSentence() {
         let message = UnplayableFileMessage.text(for: file, mayBeDamaged: true)
 
-        #expect(message.hasPrefix("\"The Film.mkv\" isn't a format Front Row can play."))
+        #expect(message.hasPrefix("“The Film.mkv” isn't a format Front Row can play."))
         #expect(message.hasSuffix("The file may be damaged or incomplete."))
         #expect(RemuxProblemAlert.mayBeDamaged(.probeFailed))
         #expect(!RemuxProblemAlert.mayBeDamaged(.unsupported))
