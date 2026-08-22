@@ -33,7 +33,6 @@ struct FrontRowApp: App {
     var body: some Scene {
         Window("Front Row", id: WindowID.main) {
             ContentView()
-                .preferredColorScheme(.dark)
                 .ignoresSafeArea()
                 .navigationTitle(playEngine.fileURL?.lastPathComponent ?? "Front Row")
                 .navigationDocument(ifLocal: playEngine.isLocalFile ? playEngine.fileURL : nil)
@@ -105,7 +104,6 @@ struct FrontRowApp: App {
 
         Window("Welcome to Front Row", id: WindowID.welcome) {
             WelcomeView()
-                .preferredColorScheme(.dark)
                 .environment(playEngine)
                 .environment(presentationModel)
         }
@@ -119,7 +117,6 @@ struct FrontRowApp: App {
         // appearance, which supplies the background.
         UtilityWindow("Inspector", id: WindowID.inspector) {
             InspectorView()
-                .preferredColorScheme(.dark)
                 .environment(playEngine)
         }
         .defaultSize(width: 460, height: 520)
