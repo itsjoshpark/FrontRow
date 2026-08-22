@@ -33,7 +33,10 @@ struct AppCommands: Commands {
                         await openRecentDocument(url: Self.spatialAudioSampleURL)
                     }
                 } label: {
-                    Text("Experience Spatial Audio")
+                    Text(
+                        "Play Spatial Audio Sample",
+                        comment: "Plays a short multichannel sample clip"
+                    )
                 }
             }
         }
