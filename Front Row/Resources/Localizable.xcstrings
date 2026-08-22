@@ -6208,7 +6208,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Entrez l’heure à laquelle vous souhaitez vous rendre"
+            "value" : "Entrez l'heure à laquelle vous souhaitez vous rendre"
           }
         },
         "hu" : {
@@ -6220,7 +6220,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inserisci l’orario in cui vuoi andare"
+            "value" : "Inserisci l'orario in cui vuoi andare"
           }
         },
         "ja" : {
@@ -6357,7 +6357,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inserisci l’URL"
+            "value" : "Inserisci l'URL"
           }
         },
         "ja" : {
@@ -8802,7 +8802,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aller à l’heure"
+            "value" : "Aller à l'heure"
           }
         },
         "hu" : {
@@ -8938,7 +8938,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aller à l’heure..."
+            "value" : "Aller à l'heure..."
           }
         },
         "hu" : {
@@ -16179,7 +16179,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ignorer l’intervalle"
+            "value" : "Ignorer l'intervalle"
           }
         },
         "hu" : {
