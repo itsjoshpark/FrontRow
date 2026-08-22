@@ -16,7 +16,7 @@ enum UnplayableFileMessage {
 
     static func text(for url: URL) -> String {
         String(
-            localized: "\"\(url.lastPathComponent)\" isn't a format Front Row can play.",
+            localized: "“\(url.lastPathComponent)” isn’t a format Front Row can play.",
             comment: "Alert message shown when a file exists but cannot be decoded"
         )
     }
@@ -31,7 +31,7 @@ enum UnplayableFileMessage {
         guard mayBeDamaged else { return text(for: url) }
         return String(
             localized:
-                "\"\(url.lastPathComponent)\" isn't a format Front Row can play. The file may be damaged or incomplete.",
+                "“\(url.lastPathComponent)” isn’t a format Front Row can play. The file may be damaged or incomplete.",
             comment: "Alert message shown when a file could not be read at all"
         )
     }

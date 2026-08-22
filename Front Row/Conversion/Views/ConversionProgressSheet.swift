@@ -35,7 +35,7 @@ final class ConversionProgressSheet {
     convenience init(fileName: String) {
         self.init(
             messageText: String(
-                localized: "Converting \"\(fileName)\"",
+                localized: "Converting “\(fileName)”",
                 comment: "Title of the sheet shown while a file is being converted"
             ),
             buttonTitle: String(
@@ -49,7 +49,7 @@ final class ConversionProgressSheet {
     convenience init(checkingFileName fileName: String) {
         self.init(
             messageText: String(
-                localized: "Checking \"\(fileName)\"",
+                localized: "Checking “\(fileName)”",
                 comment: "Title of the sheet shown while a file is being examined"
             ),
             buttonTitle: String(

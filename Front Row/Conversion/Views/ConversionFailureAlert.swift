@@ -19,11 +19,11 @@ enum ConversionFailureAlert {
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = String(
-            localized: "Couldn't Convert File",
+            localized: "Couldn’t Convert File",
             comment: "Alert title shown when ffmpeg failed"
         )
         alert.informativeText = String(
-            localized: "FFmpeg couldn't convert \"\(fileName)\".",
+            localized: "FFmpeg couldn’t convert “\(fileName)”.",
             comment: "Alert message shown when ffmpeg failed to convert a file"
         )
         alert.addButton(

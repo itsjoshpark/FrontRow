@@ -16,7 +16,7 @@ enum RemuxOfferAlert {
     static func message(for offer: RemuxOffer) -> String {
         var message = String(
             localized:
-                "\"\(offer.url.lastPathComponent)\" can be opened after it is converted.",
+                "“\(offer.url.lastPathComponent)” can be opened after it is converted.",
             comment: "Alert message offering to convert a file into a format Front Row can play"
         )
 

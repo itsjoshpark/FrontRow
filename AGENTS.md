@@ -37,6 +37,7 @@ swift-format format -p -r -i ./
 - Prefer static member lookup to struct instances where possible, such as `.circle` rather than `Circle()`, and `.borderedProminent` rather than `BorderedProminentButtonStyle()`.
 - New code should use modern Swift concurrency rather than old-style Grand Central Dispatch — prefer `Task { @MainActor in }` or actor isolation to `DispatchQueue.main.async()`. Leave working GCD code alone; some APIs only take a queue, and the replacements differ in delivery semantics.
 - Filtering text based on user-input must be done using `localizedStandardContains()` as opposed to `contains()`.
+- User-facing text takes curly quotation marks and the curly apostrophe — `“…”` and `’`, never `"` or `'`. A file name sitting in a sentence goes in quotation marks, the way AppKit’s own alerts write one; each translation uses the marks its language writes.
 - Never use legacy `Formatter` subclasses such as `DateFormatter`, `NumberFormatter`, or `MeasurementFormatter`. Always use the modern `FormatStyle` API instead. For example, to format a date, use `myDate.formatted(date: .abbreviated, time: .shortened)`. To parse a date from a string, use `Date(inputString, strategy: .iso8601)`. For numbers, use `myNumber.formatted(.number)` or custom format styles.
 - Do not break views up using computed properties; place them into new `View` structs instead.
 - Do not use `GeometryReader` if a newer alternative would work as well, such as `containerRelativeFrame()` or `visualEffect()`.
