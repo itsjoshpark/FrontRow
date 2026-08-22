@@ -1,5 +1,5 @@
 - New: Front Row offers to convert and play MKV files if possible (using FFmpeg)
-- Changed: Experience Spatial Audio in the Front Row menu is now called Play Spatial Audio Sample
+- Changed: Experience Spatial Audio menu item renamed to Play Spatial Audio Sample
 - Fixed: Play Spatial Audio Sample in the Front Row menu started the sample without opening a player window
 - Updated: App localizations
 
