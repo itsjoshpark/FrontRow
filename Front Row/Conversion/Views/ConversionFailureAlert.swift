@@ -23,7 +23,7 @@ enum ConversionFailureAlert {
             comment: "Alert title shown when ffmpeg failed"
         )
         alert.informativeText = String(
-            localized: "FFmpeg couldn't convert \"\(fileName)\".",
+            localized: "FFmpeg couldn't convert “\(fileName)”.",
             comment: "Alert message shown when ffmpeg failed to convert a file"
         )
         alert.addButton(
