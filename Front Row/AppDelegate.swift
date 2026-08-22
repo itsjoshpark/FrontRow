@@ -8,6 +8,10 @@
 import AppKit
 
 class AppDelegate: NSObject, NSApplicationDelegate {
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        NSApp.appearance = NSAppearance(named: .darkAqua)
+    }
+
     func application(_ application: NSApplication, open urls: [URL]) {
         guard urls.count == 1, let url = urls.first else { return }
         Task {
