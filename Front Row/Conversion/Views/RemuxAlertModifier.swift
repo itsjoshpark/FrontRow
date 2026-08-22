@@ -70,7 +70,7 @@ enum RemuxAlertTitle {
         case .problem(let problem):
             RemuxProblemAlert.title(for: problem.reason)
         case nil:
-            Text("Couldn't Open File", comment: "Alert title shown when a file can't be opened")
+            Text("Couldn’t Open File", comment: "Alert title shown when a file can't be opened")
         }
     }
 }
