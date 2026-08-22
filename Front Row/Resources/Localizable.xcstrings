@@ -19007,6 +19007,12 @@
     "Your Mac isn't connected to the internet. Connect to a network and try again." : {
       "comment" : "Alert message shown when a file couldn't be opened because there is no internet connection",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جهاز Mac الخاص بك غير متصل بالإنترنت. اتصل بشبكة ثم حاول مرة أخرى."
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -19037,10 +19043,22 @@
             "value" : "Tu Mac no está conectado a internet. Conéctate a una red y vuelve a intentarlo."
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Macisi ei ole yhteydessä internetiin. Yhdistä verkkoon ja yritä uudelleen."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Votre Mac n'est pas connecté à Internet. Connectez-vous à un réseau et réessayez."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your Mac isn't connected to the internet. Connect to a network and try again."
           }
         },
         "it" : {
@@ -19071,6 +19089,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Twój Mac nie jest połączony z internetem. Połącz się z siecią i spróbuj ponownie."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mac-ul tău nu este conectat la internet. Conectează-te la o rețea și încearcă din nou."
           }
         },
         "ru" : {
