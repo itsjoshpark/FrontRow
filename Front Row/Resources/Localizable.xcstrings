@@ -19003,6 +19003,9 @@
           }
         }
       }
+    },
+    "Your Mac isn't connected to the internet. Connect to a network and try again." : {
+      "comment" : "Alert message shown when a file couldn't be opened because there is no internet connection"
     }
   },
   "version" : "1.0"

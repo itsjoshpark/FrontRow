@@ -41,6 +41,33 @@ struct UnopenableRecentFileAlertTests {
         #expect(alert.removesEntry(.ok))
     }
 
+    /// A file nothing could be reached over says nothing about the file, so dismissing must leave
+    /// the entry alone - the connection is coming back, and the wording blames no file at all.
+    @Test
+    func aMissingConnectionIsDiagnosedAndDismissesWithoutRemoving() {
+        let alert = UnopenableRecentFileAlert(
+            file: UnopenableRecentFile(
+                url: file, result: .offline, unavailableVolumeName: nil, scene: .player))
+
+        #expect(alert == .offline)
+        #expect(alert.defaultButton == .ok)
+        #expect(!alert.removesEntry(.ok))
+        #expect(alert.secondaryButton == nil)
+    }
+
+    /// Being offline is about reaching the file at all, so it's settled before the volume is
+    /// consulted. Only a remote file is ever diagnosed that way and a remote file has no volume,
+    /// so the two can't really meet - this pins the order anyway, since a later reshuffle of the
+    /// switch would otherwise be free to describe a URL as living on a drive.
+    @Test
+    func offlineTakesPrecedenceOverVolumeState() {
+        let alert = UnopenableRecentFileAlert(
+            file: UnopenableRecentFile(
+                url: file, result: .offline, unavailableVolumeName: "Media", scene: .player))
+
+        #expect(alert == .offline)
+    }
+
     /// An unplayable file is present and intact, so it must never be described as missing. Its
     /// single OK still clears the entry, since it shouldn't have been listed in the first place.
     @Test
