@@ -39,10 +39,13 @@ func showOpenFileDialog() async {
 /// Opens a file, records it in recent documents, and brings the main player window forward.
 ///
 /// This is the single entry point every file-opening path should use so recent-document tracking
-/// and the welcome-to-player transition stay consistent.
+/// and the welcome-to-player transition stay consistent - and so a failure is diagnosed the same
+/// way wherever it was asked for.
 @MainActor
 @discardableResult
-func openFile(url: URL) async -> FileOpenResult {
+func openFile(
+    url: URL, reachability: any NetworkReachabilityProviding = NetworkReachability.shared
+) async -> FileOpenResult {
     // Handled before AVFoundation is asked, which would only fail: Matroska has to become an MP4
     // before there is anything to play or to note in recents.
     if PlayEngine.isConvertible(url) {
@@ -51,7 +54,9 @@ func openFile(url: URL) async -> FileOpenResult {
     }
 
     let result = await PlayEngine.shared.loadAndPlay(url: url)
-    guard result == .opened else { return result }
+    guard result == .opened else {
+        return await diagnosingOffline(result, url: url, reachability: reachability)
+    }
 
     // What actually opened, not what was asked for: a bookmark tracks file identity, so a file
     // renamed outside the app opens from its new location. Noting the stale URL would match no
@@ -61,9 +66,21 @@ func openFile(url: URL) async -> FileOpenResult {
     return .opened
 }
 
+/// Re-reads a failed open as `.offline` where nothing could have been reached anyway.
+///
+/// Only a remote file can be blamed on the connection: a local one is sitting on a disk that is
+/// there whether or not the machine is. The network is consulted second so that ordinary local
+/// failures never start a monitor at all.
+func diagnosingOffline(
+    _ result: FileOpenResult, url: URL, reachability: any NetworkReachabilityProviding
+) async -> FileOpenResult {
+    guard result == .unreadable, !url.isFileURL else { return result }
+    return await reachability.isConnected() ? result : .offline
+}
+
 /// Opens a file that's already in recent documents. On failure, explains why - and only a
-/// disconnected drive keeps its entry, since that one is coming back. Where the volume is present
-/// and the file still wouldn't open, dismissing the alert clears it.
+/// disconnected drive or a missing network connection keeps its entry, since both are coming back.
+/// Where the file was reachable and still wouldn't open, dismissing the alert clears it.
 @MainActor
 func openRecentDocument(url: URL) async {
     let result = await openFile(url: url)

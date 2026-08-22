@@ -26,6 +26,9 @@ enum UnopenableRecentFileAlert: Equatable {
     /// The file's volume isn't mounted, so the file itself is probably fine.
     case volumeOffline(volumeName: String?)
 
+    /// The file is remote and the machine has no connection, so nothing could have been reached.
+    case offline
+
     /// The volume is mounted but the file couldn't be read: moved off the volume, or deleted.
     case unreadable
 
@@ -41,6 +44,8 @@ enum UnopenableRecentFileAlert: Equatable {
         switch file.result {
         case .unplayable:
             self = .unplayable
+        case .offline:
+            self = .offline
         case .unreadable, .opened, .handedToConverter:
             if let volumeName = file.unavailableVolumeName {
                 self = .volumeOffline(volumeName: volumeName)
@@ -58,7 +63,7 @@ enum UnopenableRecentFileAlert: Equatable {
     var secondaryButton: Button? {
         switch self {
         case .volumeOffline: .removeFromRecents
-        case .unreadable, .unplayable: nil
+        case .offline, .unreadable, .unplayable: nil
         }
     }
 
@@ -69,11 +74,12 @@ enum UnopenableRecentFileAlert: Equatable {
             true
         case .ok:
             switch self {
-            // The drive is coming back, so the entry and the playback position inside it have to
-            // survive being dismissed. This is the case the offline check exists to catch.
-            case .volumeOffline: false
-            // Whatever's recoverable was already caught as `.volumeOffline`: the volume is right
-            // there and the file still wouldn't open, so it's taken as gone. An unplayable file
+            // The drive or the connection is coming back, so the entry and the playback position
+            // inside it have to survive being dismissed. These are the cases the reachability
+            // checks exist to catch.
+            case .volumeOffline, .offline: false
+            // Whatever's recoverable was already caught above: the file was reachable and still
+            // wouldn't open, so it's taken as gone. An unplayable file
             // shouldn't have been listed at all, since entries are only added after a successful
             // open. Either way the single OK cleans up rather than just dismissing.
             case .unreadable, .unplayable: true
@@ -181,6 +187,12 @@ private struct AlertMessage: View {
                 "\"\(name)\" is on \"\(volumeName ?? "")\", which isn't connected. Connect it and try again.",
                 comment:
                     "Alert message shown when a recent file's drive or network share is not mounted"
+            )
+        case .offline:
+            Text(
+                "Your Mac isn't connected to the internet. Connect to a network and try again.",
+                comment:
+                    "Alert message shown when a file couldn't be opened because there is no internet connection"
             )
         case .unreadable:
             Text(

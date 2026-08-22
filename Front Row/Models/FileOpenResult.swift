@@ -16,6 +16,9 @@ enum FileOpenResult {
     case opened
     /// The file couldn't be read at all - deleted, or on a disconnected volume.
     case unreadable
+    /// A remote file that nothing could reach, because the machine has no network route. The file
+    /// itself is not the thing to doubt.
+    case offline
     /// The file was read, but it isn't a format that can be played.
     case unplayable
     /// The file is in a container AVFoundation can't open, and `MediaConversion` has taken it from
