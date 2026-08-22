@@ -3,13 +3,15 @@
 ## Commands
 
 ```sh
-# Build, analyze, and test. Signed ad-hoc: the test bundles are hosted in the
-# app, and an app with no code identity is assessed by Gatekeeper on every
-# launch. Drop the last two settings where a Mac Development certificate is
-# installed. The UI tests drive the built app, so this needs an unlocked display.
-xcodebuild clean analyze test -project "Front Row.xcodeproj" -scheme "Front Row" -destination "platform=macOS" CODE_SIGN_IDENTITY="-" CODE_SIGNING_REQUIRED=YES CODE_SIGNING_ALLOWED=YES CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=""
+# Build, analyze, and run the unit tests. This is the command to run locally.
+# Signed ad-hoc: the test bundles are hosted in the app, and an app with no code
+# identity is assessed by Gatekeeper on every launch. Drop the last two settings
+# where a Mac Development certificate is installed.
+xcodebuild clean analyze test -project "Front Row.xcodeproj" -scheme "Front Row" -skip-testing:"Front Row UI Tests" -destination "platform=macOS" CODE_SIGN_IDENTITY="-" CODE_SIGNING_REQUIRED=YES CODE_SIGNING_ALLOWED=YES CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=""
 
-# Just the UI tests, while iterating on them
+# The UI tests, which drive the built app and need an unlocked display. CI runs
+# them on every PR, so run them here only while iterating on the UI tests
+# themselves or when asked to.
 xcodebuild test -project "Front Row.xcodeproj" -scheme "Front Row" -only-testing:"Front Row UI Tests" -destination "platform=macOS" CODE_SIGN_IDENTITY="-" CODE_SIGNING_REQUIRED=YES CODE_SIGNING_ALLOWED=YES CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=""
 
 # Lint — must pass before a PR merges
