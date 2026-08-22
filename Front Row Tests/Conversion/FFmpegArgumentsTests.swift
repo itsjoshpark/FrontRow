@@ -83,13 +83,37 @@ struct FFmpegArgumentsTests {
         #expect(arguments.contains(["-b:a:1", "448k"]))
     }
 
-    /// Stereo doesn't need the bitrate multichannel does.
+    /// Stereo doesn't need the bitrate multichannel does, and 7.1 doesn't fit in 5.1's budget.
     @Test
     func theBitrateFollowsTheChannelCount() {
+        #expect(FFmpegArguments.audioBitrate(channels: 1) == "256k")
         #expect(FFmpegArguments.audioBitrate(channels: 2) == "256k")
         #expect(FFmpegArguments.audioBitrate(channels: nil) == "256k")
+        #expect(FFmpegArguments.audioBitrate(channels: 5) == "256k")
         #expect(FFmpegArguments.audioBitrate(channels: 6) == "448k")
-        #expect(FFmpegArguments.audioBitrate(channels: 8) == "448k")
+        #expect(FFmpegArguments.audioBitrate(channels: 7) == "640k")
+        #expect(FFmpegArguments.audioBitrate(channels: 8) == "640k")
+    }
+
+    /// The rate is pinned to the track that needs it, so a 7.1 track gets its own budget rather
+    /// than the one its 5.1 neighbour asked for.
+    @Test
+    func aSevenPointOneTrackIsGivenItsOwnBitrate() {
+        let arguments = arguments(
+            RemuxRecipe(
+                videoIndex: 0,
+                videoTag: "hvc1",
+                audio: [
+                    PlannedAudio(index: 1, codecName: "dts", channels: 6, transcodes: true),
+                    PlannedAudio(index: 2, codecName: "truehd", channels: 8, transcodes: true),
+                ],
+                subtitleIndices: [],
+                droppedSubtitles: []
+            )
+        )
+
+        #expect(arguments.contains(["-b:a:0", "448k"]))
+        #expect(arguments.contains(["-b:a:1", "640k"]))
     }
 
     /// ffmpeg reports progress on stdout only when asked, and would otherwise wait on stdin it is
