@@ -49,7 +49,7 @@ private final class Answer: @unchecked Sendable {
     }
 }
 
-/// The clip behind Front Row > Experience Spatial Audio.
+/// The clip behind Front Row > Play Spatial Audio Sample.
 ///
 /// It is the one thing the app plays that it does not ship and the user did not choose, so
 /// whether the menu item works at all is somebody else's decision to make. These are the tests
