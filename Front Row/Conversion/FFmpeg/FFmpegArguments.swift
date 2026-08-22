@@ -13,9 +13,17 @@ import Foundation
 /// fail.
 enum FFmpegArguments {
 
-    /// AAC bitrate for a re-encoded track. Multichannel needs the headroom; stereo doesn't.
+    /// AAC bitrate for a re-encoded track, held at a steady rate per full-range channel.
+    ///
+    /// 256k is the rate Apple encodes stereo AAC at, and 448k the one AC-3 carries 5.1 at. AC-3
+    /// has no 7.1 mode to borrow a third from, so that tier scales the 5.1 rate by its extra pair
+    /// of full-range channels.
     static func audioBitrate(channels: Int?) -> String {
-        (channels ?? 2) >= 6 ? "448k" : "256k"
+        switch channels ?? 2 {
+        case 7...: "640k"
+        case 6: "448k"
+        default: "256k"
+        }
     }
 
     /// Asks ffprobe for the stream details the planner needs, as JSON on stdout.
