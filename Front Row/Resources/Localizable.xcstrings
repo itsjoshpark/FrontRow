@@ -1,6 +1,280 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "“%@” can be opened after it is converted, but FFmpeg isn’t installed. Install it using Homebrew, then open the file again." : {
+      "comment" : "Alert message shown when a file needs converting but ffmpeg is missing",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يمكن فتح \"%@\" بعد تحويله، لكن FFmpeg غير مثبت. ثبّته باستخدام Homebrew، ثم افتح الملف مرة أخرى."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„%@“ lze otevřít po převodu, ale FFmpeg není nainstalovaný. Nainstalujte ho pomocí Homebrew a poté soubor otevřete znovu."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” kan åbnes, når filen er konverteret, men FFmpeg er ikke installeret. Installer det med Homebrew, og åbn derefter filen igen."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„%@“ kann nach der Konvertierung geöffnet werden, aber FFmpeg ist nicht installiert. Installiere es mit Homebrew und öffne die Datei danach erneut."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το «%@» μπορεί να ανοίξει αφού μετατραπεί, αλλά το FFmpeg δεν είναι εγκατεστημένο. Εγκαταστήστε το μέσω του Homebrew και ανοίξτε ξανά το αρχείο."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” se puede abrir una vez convertido, pero FFmpeg no está instalado. Instálalo con Homebrew y vuelve a abrir el archivo."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "”%@” voidaan avata muuntamisen jälkeen, mutta FFmpeg ei ole asennettuna. Asenna se Homebrew’n avulla ja avaa tiedosto uudelleen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "« %@ » peut être ouvert après conversion, mais FFmpeg n’est pas installé. Installez-le avec Homebrew, puis ouvrez à nouveau le fichier."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A(z) „%@” az átalakítás után megnyitható, de az FFmpeg nincs telepítve. Telepítse a Homebrew segítségével, majd nyissa meg újra a fájlt."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” può essere aperto dopo la conversione, ma FFmpeg non è installato. Installalo con Homebrew, quindi apri di nuovo il file."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” は変換後に開くことができますが、FFmpeg がインストールされていません。Homebrew でインストールしてから、ファイルをもう一度開いてください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "‘%@’은(는) 변환 후에 열 수 있지만 FFmpeg가 설치되어 있지 않습니다. Homebrew로 설치한 다음 파일을 다시 여십시오."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "'%@' kan na conversie worden geopend, maar FFmpeg is niet geïnstalleerd. Installeer het met Homebrew en open het bestand daarna opnieuw."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„%@” można otworzyć po konwersji, ale FFmpeg nie jest zainstalowany. Zainstaluj go za pomocą Homebrew, a następnie otwórz plik ponownie."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„%@” poate fi deschis după conversie, dar FFmpeg nu este instalat. Instalați-l folosind Homebrew, apoi deschideți din nou fișierul."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«%@» можно открыть после конвертации, но FFmpeg не установлен. Установите его с помощью Homebrew, затем откройте файл снова."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "”%@” kan öppnas när filen har konverterats, men FFmpeg är inte installerat. Installera det med Homebrew och öppna sedan filen igen."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” dönüştürüldükten sonra açılabilir ancak FFmpeg yüklü değil. Homebrew ile yükleyin, sonra dosyayı yeniden açın."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«%@» можна відкрити після конвертації, але FFmpeg не встановлено. Встановіть його за допомогою Homebrew, а потім відкрийте файл знову."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Có thể mở “%@” sau khi chuyển đổi, nhưng FFmpeg chưa được cài đặt. Hãy cài đặt bằng Homebrew, rồi mở lại tệp."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” 转换后即可打开，但尚未安装 FFmpeg。请使用 Homebrew 安装，然后重新打开该文件。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「%@」 轉換後即可開啟，但尚未安裝 FFmpeg。請使用 Homebrew 安裝，然後重新打開該檔案。"
+          }
+        }
+      }
+    },
+    "“%@” can be opened after it is converted." : {
+      "comment" : "Alert message offering to convert a file into a format Front Row can play",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يمكن فتح \"%@\" بعد تحويله."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„%@“ lze otevřít po převodu."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” kan åbnes, når filen er konverteret."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„%@“ kann nach der Konvertierung geöffnet werden."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το «%@» μπορεί να ανοίξει αφού μετατραπεί."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” se puede abrir una vez convertido."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "”%@” voidaan avata muuntamisen jälkeen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "« %@ » peut être ouvert après conversion."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A(z) „%@” az átalakítás után megnyitható."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” può essere aperto dopo la conversione."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” は変換後に開くことができます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "‘%@’은(는) 변환 후에 열 수 있습니다."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "'%@' kan na conversie worden geopend."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„%@” można otworzyć po konwersji."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„%@” poate fi deschis după conversie."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«%@» можно открыть после конвертации."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "”%@” kan öppnas när filen har konverterats."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” dönüştürüldükten sonra açılabilir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«%@» можна відкрити після конвертації."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Có thể mở “%@” sau khi chuyển đổi."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” 转换后即可打开。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「%@」 轉換後即可開啟。"
+          }
+        }
+      }
+    },
     "“%@” couldn’t be opened. It may have been moved or deleted." : {
       "comment" : "Alert message shown when a recent file can no longer be found",
       "localizations" : {
@@ -169,12 +443,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "«%1$@» είναι στο «%2$@», το οποίο δεν είναι συνδεδεμένο. Συνδέστε το και προσπαθήστε ξανά."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "“%1$@” is on “%2$@”, which isn’t connected. Connect it and try again."
           }
         },
         "es" : {
@@ -551,6 +819,143 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "「%@」不是 Front Row 可以播放的格式。檔案可能已損毀或不完整。"
+          }
+        }
+      }
+    },
+    "“%@” took too long to check. If it’s on a cloud or network drive, make sure it’s available and try again." : {
+      "comment" : "Alert message shown when a file took too long to check",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استغرق فحص \"%@\" وقتًا طويلاً جدًا. إذا كان الملف على قرص سحابي أو شبكي، فتأكد من أنه متاح ثم حاول مرة أخرى."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontrola „%@“ trvala příliš dlouho. Pokud je soubor v cloudu nebo na síťovém disku, ujistěte se, že je dostupný, a zkuste to znovu."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det tog for lang tid at kontrollere “%@”. Hvis filen ligger på et sky- eller netværksdrev, skal du sikre dig, at den er tilgængelig, og prøve igen."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Prüfung von „%@“ hat zu lange gedauert. Wenn die Datei auf einem Cloud- oder Netzlaufwerk liegt, stelle sicher, dass sie verfügbar ist, und versuche es erneut."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ο έλεγχος του «%@» άργησε πολύ. Αν το αρχείο βρίσκεται σε δίσκο cloud ή δικτύου, βεβαιωθείτε ότι είναι διαθέσιμο και δοκιμάστε ξανά."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” tardó demasiado en comprobarse. Si el archivo está en una unidad en la nube o de red, asegúrate de que esté disponible e inténtalo de nuevo."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiedoston ”%@” tarkistaminen kesti liian kauan. Jos tiedosto on pilvi- tai verkkolevyllä, varmista, että se on käytettävissä, ja yritä uudelleen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La vérification de « %@ » a pris trop de temps. Si le fichier se trouve sur un disque cloud ou réseau, assurez-vous qu’il est disponible, puis réessayez."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A(z) „%@” ellenőrzése túl sokáig tartott. Ha a fájl felhő- vagy hálózati meghajtón található, győződjön meg róla, hogy elérhető, majd próbálja újra."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La verifica di “%@” ha richiesto troppo tempo. Se il file si trova su un’unità cloud o di rete, assicurati che sia disponibile e riprova."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” の確認に時間がかかりすぎました。ファイルがクラウドまたはネットワークドライブにある場合は、利用できることを確認してから、もう一度お試しください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "‘%@’ 확인에 시간이 너무 오래 걸렸습니다. 파일이 클라우드 또는 네트워크 드라이브에 있는 경우 사용할 수 있는지 확인한 다음 다시 시도하십시오."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Het controleren van '%@' duurde te lang. Als het bestand op een cloud- of netwerkschijf staat, controleer dan of het beschikbaar is en probeer het opnieuw."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sprawdzanie „%@” trwało zbyt długo. Jeśli plik znajduje się w chmurze lub na dysku sieciowym, upewnij się, że jest dostępny, i spróbuj ponownie."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verificarea „%@” a durat prea mult. Dacă fișierul se află pe o unitate cloud sau de rețea, asigurați-vă că este disponibil și încercați din nou."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проверка «%@» заняла слишком много времени. Если файл находится в облаке или на сетевом диске, убедитесь, что он доступен, и повторите попытку."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det tog för lång tid att kontrollera ”%@”. Om filen ligger på en moln- eller nätverksenhet, kontrollera att den är tillgänglig och försök igen."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” dosyasının denetlenmesi çok uzun sürdü. Dosya bir bulut veya ağ sürücüsündeyse kullanılabilir olduğundan emin olun ve yeniden deneyin."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перевірка «%@» тривала надто довго. Якщо файл розташований у хмарі або на мережевому диску, переконайтеся, що він доступний, і повторіть спробу."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Việc kiểm tra “%@” mất quá nhiều thời gian. Nếu tệp nằm trên ổ đĩa đám mây hoặc ổ mạng, hãy đảm bảo tệp khả dụng rồi thử lại."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "检查 “%@” 的时间过长。如果该文件位于云端或网络驱动器上，请确认文件可用后重试。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "檢查 「%@」 的時間過長。如果該檔案位於雲端或網路磁碟機上，請確認檔案可用後重試。"
           }
         }
       }
@@ -3426,6 +3831,143 @@
         }
       }
     },
+    "Checking “%@”" : {
+      "comment" : "Title of the sheet shown while a file is being examined",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جارٍ فحص \"%@\""
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontrola „%@“"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontrollerer “%@”"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„%@“ wird geprüft"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Έλεγχος του «%@»"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comprobando “%@”"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarkistetaan ”%@”"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vérification de « %@ »"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„%@” ellenőrzése"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verifica di “%@”"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” を確認中"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "‘%@’ 확인 중"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "'%@' wordt gecontroleerd"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sprawdzanie „%@”"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se verifică „%@”"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проверка «%@»"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontrollerar ”%@”"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” denetleniyor"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перевірка «%@»"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đang kiểm tra “%@”"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在检查 “%@”"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在檢查 「%@」"
+          }
+        }
+      }
+    },
     "Clear Menu" : {
       "comment" : "Clears the Open Recent menu's list of recently opened files",
       "localizations" : {
@@ -3741,7 +4283,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Koodi"
+            "value" : "Koodekki"
           }
         },
         "fr" : {
@@ -4243,143 +4785,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "要轉換檔案嗎？"
-          }
-        }
-      }
-    },
-    "Checking “%@”" : {
-      "comment" : "Title of the sheet shown while a file is being examined",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "جارٍ فحص \"%@\""
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kontrola „%@“"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kontrollerer “%@”"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "„%@“ wird geprüft"
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Έλεγχος του «%@»"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Comprobando “%@”"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tarkistetaan ”%@”"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vérification de « %@ »"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "„%@” ellenőrzése"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Verifica di “%@”"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "“%@” を確認中"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "‘%@’ 확인 중"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "'%@' wordt gecontroleerd"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sprawdzanie „%@”"
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Se verifică „%@”"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Проверка «%@»"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kontrollerar ”%@”"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "“%@” denetleniyor"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Перевірка «%@»"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Đang kiểm tra “%@”"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "正在检查 “%@”"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "正在檢查 「%@」"
           }
         }
       }
@@ -6208,7 +6613,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Entrez l’heure à laquelle vous souhaitez vous rendre"
+            "value" : "Entrez l'heure à laquelle vous souhaitez vous rendre"
           }
         },
         "hu" : {
@@ -6220,7 +6625,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inserisci l’orario in cui vuoi andare"
+            "value" : "Inserisci l'orario in cui vuoi andare"
           }
         },
         "ja" : {
@@ -6357,7 +6762,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inserisci l’URL"
+            "value" : "Inserisci l'URL"
           }
         },
         "ja" : {
@@ -6703,143 +7108,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "FFmpeg 無法轉換 「%@」。"
-          }
-        }
-      }
-    },
-    "“%@” took too long to check. If it’s on a cloud or network drive, make sure it’s available and try again." : {
-      "comment" : "Alert message shown when a file took too long to check",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "استغرق فحص \"%@\" وقتًا طويلاً جدًا. إذا كان الملف على قرص سحابي أو شبكي، فتأكد من أنه متاح ثم حاول مرة أخرى."
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kontrola „%@“ trvala příliš dlouho. Pokud je soubor v cloudu nebo na síťovém disku, ujistěte se, že je dostupný, a zkuste to znovu."
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Det tog for lang tid at kontrollere “%@”. Hvis filen ligger på et sky- eller netværksdrev, skal du sikre dig, at den er tilgængelig, og prøve igen."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Die Prüfung von „%@“ hat zu lange gedauert. Wenn die Datei auf einem Cloud- oder Netzlaufwerk liegt, stelle sicher, dass sie verfügbar ist, und versuche es erneut."
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ο έλεγχος του «%@» άργησε πολύ. Αν το αρχείο βρίσκεται σε δίσκο cloud ή δικτύου, βεβαιωθείτε ότι είναι διαθέσιμο και δοκιμάστε ξανά."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "“%@” tardó demasiado en comprobarse. Si el archivo está en una unidad en la nube o de red, asegúrate de que esté disponible e inténtalo de nuevo."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tiedoston ”%@” tarkistaminen kesti liian kauan. Jos tiedosto on pilvi- tai verkkolevyllä, varmista, että se on käytettävissä, ja yritä uudelleen."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "La vérification de « %@ » a pris trop de temps. Si le fichier se trouve sur un disque cloud ou réseau, assurez-vous qu’il est disponible, puis réessayez."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "A(z) „%@” ellenőrzése túl sokáig tartott. Ha a fájl felhő- vagy hálózati meghajtón található, győződjön meg róla, hogy elérhető, majd próbálja újra."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "La verifica di “%@” ha richiesto troppo tempo. Se il file si trova su un’unità cloud o di rete, assicurati che sia disponibile e riprova."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "“%@” の確認に時間がかかりすぎました。ファイルがクラウドまたはネットワークドライブにある場合は、利用できることを確認してから、もう一度お試しください。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "‘%@’ 확인에 시간이 너무 오래 걸렸습니다. 파일이 클라우드 또는 네트워크 드라이브에 있는 경우 사용할 수 있는지 확인한 다음 다시 시도하십시오."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Het controleren van '%@' duurde te lang. Als het bestand op een cloud- of netwerkschijf staat, controleer dan of het beschikbaar is en probeer het opnieuw."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sprawdzanie „%@” trwało zbyt długo. Jeśli plik znajduje się w chmurze lub na dysku sieciowym, upewnij się, że jest dostępny, i spróbuj ponownie."
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Verificarea „%@” a durat prea mult. Dacă fișierul se află pe o unitate cloud sau de rețea, asigurați-vă că este disponibil și încercați din nou."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Проверка «%@» заняла слишком много времени. Если файл находится в облаке или на сетевом диске, убедитесь, что он доступен, и повторите попытку."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Det tog för lång tid att kontrollera ”%@”. Om filen ligger på en moln- eller nätverksenhet, kontrollera att den är tillgänglig och försök igen."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "“%@” dosyasının denetlenmesi çok uzun sürdü. Dosya bir bulut veya ağ sürücüsündeyse kullanılabilir olduğundan emin olun ve yeniden deneyin."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Перевірка «%@» тривала надто довго. Якщо файл розташований у хмарі або на мережевому диску, переконайтеся, що він доступний, і повторіть спробу."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Việc kiểm tra “%@” mất quá nhiều thời gian. Nếu tệp nằm trên ổ đĩa đám mây hoặc ổ mạng, hãy đảm bảo tệp khả dụng rồi thử lại."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "检查 “%@” 的时间过长。如果该文件位于云端或网络驱动器上，请确认文件可用后重试。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "檢查 「%@」 的時間過長。如果該檔案位於雲端或網路磁碟機上，請確認檔案可用後重試。"
           }
         }
       }
@@ -7799,280 +8067,6 @@
         }
       }
     },
-    "“%@” can be opened after it is converted, but FFmpeg isn’t installed. Install it using Homebrew, then open the file again." : {
-      "comment" : "Alert message shown when a file needs converting but ffmpeg is missing",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "يمكن فتح \"%@\" بعد تحويله، لكن FFmpeg غير مثبت. ثبّته باستخدام Homebrew، ثم افتح الملف مرة أخرى."
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "„%@“ lze otevřít po převodu, ale FFmpeg není nainstalovaný. Nainstalujte ho pomocí Homebrew a poté soubor otevřete znovu."
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "“%@” kan åbnes, når filen er konverteret, men FFmpeg er ikke installeret. Installer det med Homebrew, og åbn derefter filen igen."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "„%@“ kann nach der Konvertierung geöffnet werden, aber FFmpeg ist nicht installiert. Installiere es mit Homebrew und öffne die Datei danach erneut."
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Το «%@» μπορεί να ανοίξει αφού μετατραπεί, αλλά το FFmpeg δεν είναι εγκατεστημένο. Εγκαταστήστε το μέσω του Homebrew και ανοίξτε ξανά το αρχείο."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "“%@” se puede abrir una vez convertido, pero FFmpeg no está instalado. Instálalo con Homebrew y vuelve a abrir el archivo."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "”%@” voidaan avata muuntamisen jälkeen, mutta FFmpeg ei ole asennettuna. Asenna se Homebrew’n avulla ja avaa tiedosto uudelleen."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "« %@ » peut être ouvert après conversion, mais FFmpeg n’est pas installé. Installez-le avec Homebrew, puis ouvrez à nouveau le fichier."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "A(z) „%@” az átalakítás után megnyitható, de az FFmpeg nincs telepítve. Telepítse a Homebrew segítségével, majd nyissa meg újra a fájlt."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "“%@” può essere aperto dopo la conversione, ma FFmpeg non è installato. Installalo con Homebrew, quindi apri di nuovo il file."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "“%@” は変換後に開くことができますが、FFmpeg がインストールされていません。Homebrew でインストールしてから、ファイルをもう一度開いてください。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "‘%@’은(는) 변환 후에 열 수 있지만 FFmpeg가 설치되어 있지 않습니다. Homebrew로 설치한 다음 파일을 다시 여십시오."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "'%@' kan na conversie worden geopend, maar FFmpeg is niet geïnstalleerd. Installeer het met Homebrew en open het bestand daarna opnieuw."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "„%@” można otworzyć po konwersji, ale FFmpeg nie jest zainstalowany. Zainstaluj go za pomocą Homebrew, a następnie otwórz plik ponownie."
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "„%@” poate fi deschis după conversie, dar FFmpeg nu este instalat. Instalați-l folosind Homebrew, apoi deschideți din nou fișierul."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "«%@» можно открыть после конвертации, но FFmpeg не установлен. Установите его с помощью Homebrew, затем откройте файл снова."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "”%@” kan öppnas när filen har konverterats, men FFmpeg är inte installerat. Installera det med Homebrew och öppna sedan filen igen."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "“%@” dönüştürüldükten sonra açılabilir ancak FFmpeg yüklü değil. Homebrew ile yükleyin, sonra dosyayı yeniden açın."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "«%@» можна відкрити після конвертації, але FFmpeg не встановлено. Встановіть його за допомогою Homebrew, а потім відкрийте файл знову."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Có thể mở “%@” sau khi chuyển đổi, nhưng FFmpeg chưa được cài đặt. Hãy cài đặt bằng Homebrew, rồi mở lại tệp."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "“%@” 转换后即可打开，但尚未安装 FFmpeg。请使用 Homebrew 安装，然后重新打开该文件。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "「%@」 轉換後即可開啟，但尚未安裝 FFmpeg。請使用 Homebrew 安裝，然後重新打開該檔案。"
-          }
-        }
-      }
-    },
-    "“%@” can be opened after it is converted." : {
-      "comment" : "Alert message offering to convert a file into a format Front Row can play",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "يمكن فتح \"%@\" بعد تحويله."
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "„%@“ lze otevřít po převodu."
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "“%@” kan åbnes, når filen er konverteret."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "„%@“ kann nach der Konvertierung geöffnet werden."
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Το «%@» μπορεί να ανοίξει αφού μετατραπεί."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "“%@” se puede abrir una vez convertido."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "”%@” voidaan avata muuntamisen jälkeen."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "« %@ » peut être ouvert après conversion."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "A(z) „%@” az átalakítás után megnyitható."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "“%@” può essere aperto dopo la conversione."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "“%@” は変換後に開くことができます。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "‘%@’은(는) 변환 후에 열 수 있습니다."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "'%@' kan na conversie worden geopend."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "„%@” można otworzyć po konwersji."
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "„%@” poate fi deschis după conversie."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "«%@» можно открыть после конвертации."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "”%@” kan öppnas när filen har konverterats."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "“%@” dönüştürüldükten sonra açılabilir."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "«%@» можна відкрити після конвертації."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Có thể mở “%@” sau khi chuyển đổi."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "“%@” 转换后即可打开。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "「%@」 轉換後即可開啟。"
-          }
-        }
-      }
-    },
     "Full" : {
       "comment" : "Full-range video levels",
       "localizations" : {
@@ -8802,7 +8796,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aller à l’heure"
+            "value" : "Aller à l'heure"
           }
         },
         "hu" : {
@@ -8938,7 +8932,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aller à l’heure..."
+            "value" : "Aller à l'heure..."
           }
         },
         "hu" : {
@@ -16179,7 +16173,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ignorer l’intervalle"
+            "value" : "Ignorer l'intervalle"
           }
         },
         "hu" : {
@@ -19057,8 +19051,8 @@
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Your Mac isn’t connected to the internet. Connect to a network and try again."
+            "state" : "translated",
+            "value" : "A Mac nincs csatlakoztatva az internethez. Csatlakozzon egy hálózathoz, majd próbálja újra."
           }
         },
         "it" : {
