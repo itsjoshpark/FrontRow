@@ -188,20 +188,13 @@ private struct TrackDetails {
 
         let tag = try? await track.load(.extendedLanguageTag)
         let code = try? await track.load(.languageCode)
-        self.language = Self.languageName(tag: tag ?? code)
+        self.language = MediaLanguageName.name(forTag: tag ?? code)
 
         let metadata = (try? await track.load(.commonMetadata)) ?? []
         let titleItem = AVMetadataItem.metadataItems(
             from: metadata, filteredByIdentifier: .commonIdentifierTitle
         ).first
         self.title = try? await titleItem?.load(.stringValue)
-    }
-
-    /// Resolves a language tag to its name in the viewer's language. `und` is what an MP4 writes
-    /// when the track was never tagged, so it counts as no language at all.
-    private static func languageName(tag: String?) -> String? {
-        guard let tag, !tag.isEmpty, tag != "und" else { return nil }
-        return Locale.current.localizedString(forIdentifier: tag) ?? tag
     }
 
     private var subType: FourCharCode? { format?.mediaSubType.rawValue }

@@ -123,5 +123,25 @@ private final class Answer: @unchecked Sendable {
                 """
             )
         }
+
+        /// That the Audio Track menu still finds the clip's audio.
+        ///
+        /// The sample's tracks sit in no alternate group, so AVFoundation offers no media
+        /// selection group for them and the menu has to fall back to the tracks themselves. Both
+        /// halves are asserted: a group appearing here would mean the fallback is no longer what
+        /// this clip exercises.
+        @Test(.timeLimit(.minutes(1)))
+        @MainActor
+        func audioIsOfferedWithoutAMediaSelectionGroup() async throws {
+            let asset = AVURLAsset(url: AppCommands.spatialAudioSampleURL)
+
+            let group = try await asset.loadMediaSelectionGroup(for: .audible)
+            #expect(group == nil, "The spatial audio sample now groups its tracks after all")
+
+            let choices = await MediaTrackChoice.choices(
+                in: group, of: asset, mediaTypes: [.audio])
+            #expect(choices.count == 1)
+            #expect(choices.first?.name == "Track 1")
+        }
     }
 }

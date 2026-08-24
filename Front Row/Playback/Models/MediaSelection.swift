@@ -26,12 +26,12 @@ extension AVMediaSelectionOption {
 }
 
 extension AVMediaSelectionGroup {
-    /// The subtitle options worth offering as a choice.
+    /// The options worth offering as a choice.
     ///
-    /// Forced-only tracks are left out. They exist to be switched on automatically for
+    /// Forced-only subtitles are left out. They exist to be switched on automatically for
     /// foreign-language passages inside a track the viewer already chose, not to be picked by
-    /// hand.
-    var selectableSubtitleOptions: [AVMediaSelectionOption] {
+    /// hand. No audio track carries the characteristic, so the same filter serves both menus.
+    var selectableOptions: [AVMediaSelectionOption] {
         options.filter { !$0.hasMediaCharacteristic(.containsOnlyForcedSubtitles) }
     }
 }

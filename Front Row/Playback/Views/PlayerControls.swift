@@ -25,7 +25,7 @@ struct PlayerControls: View {
                 .disabled(!playEngine.isLoaded)
             DurationLabel()
             PlaybackSpeedIndicator(playEngine: playEngine)
-            if playEngine.subtitleGroup != nil {
+            if !playEngine.subtitleChoices.isEmpty {
                 Menu {
                     SubtitlePicker(playEngine: playEngine)
                 } label: {

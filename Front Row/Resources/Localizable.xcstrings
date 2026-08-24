@@ -1097,6 +1097,9 @@
         }
       }
     },
+    "%@ (%@)" : {
+      "comment" : "A media track named by its title, qualified by its language"
+    },
     "%@ bps" : {
       "comment" : "Bits per second",
       "localizations" : {
@@ -17768,6 +17771,9 @@
           }
         }
       }
+    },
+    "Track %lld" : {
+      "comment" : "A media track that carries no name or language of its own"
     },
     "Tracks" : {
       "comment" : "Inspector tab",
