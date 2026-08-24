@@ -13,19 +13,19 @@ struct AudioTrackPicker: View {
     @Bindable var playEngine: PlayEngine
 
     var body: some View {
-        if let group = playEngine.audioGroup {
-            Picker("Audio Track", selection: $playEngine.audioTrack) {
-                Text("Off").tag(nil as AVMediaSelectionOption?)
-
-                ForEach(group.options, id: \.stableID) { option in
-                    Text(verbatim: option.displayName).tag(Optional(option))
-                }
-            }
-        } else {
+        if playEngine.audioChoices.isEmpty {
             Picker("Audio Track", selection: .constant(0)) {
                 Text("None").tag(0)
             }
             .disabled(true)
+        } else {
+            Picker("Audio Track", selection: $playEngine.audioTrack) {
+                Text("Off").tag(nil as MediaTrackChoice?)
+
+                ForEach(playEngine.audioChoices) { choice in
+                    Text(verbatim: choice.name).tag(Optional(choice))
+                }
+            }
         }
     }
 }

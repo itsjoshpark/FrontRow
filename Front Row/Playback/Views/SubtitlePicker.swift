@@ -16,21 +16,21 @@ struct SubtitlePicker: View {
     @Bindable var playEngine: PlayEngine
 
     var body: some View {
-        if let group = playEngine.subtitleGroup {
-            Picker("Subtitle", selection: $playEngine.subtitle) {
-                Text("Off").tag(nil as AVMediaSelectionOption?)
-
-                ForEach(group.selectableSubtitleOptions, id: \.stableID) { option in
-                    Text(verbatim: option.displayName).tag(Optional(option))
-                }
-            }
-            .pickerStyle(.inline)
-        } else {
+        if playEngine.subtitleChoices.isEmpty {
             Picker("Subtitle", selection: .constant(0)) {
                 Text("None").tag(0)
             }
             .pickerStyle(.inline)
             .disabled(true)
+        } else {
+            Picker("Subtitle", selection: $playEngine.subtitle) {
+                Text("Off").tag(nil as MediaTrackChoice?)
+
+                ForEach(playEngine.subtitleChoices) { choice in
+                    Text(verbatim: choice.name).tag(Optional(choice))
+                }
+            }
+            .pickerStyle(.inline)
         }
     }
 }

@@ -44,6 +44,10 @@ import SwiftUI
         url.isFileURL && convertibleFileExtensions.contains(url.pathExtension.lowercased())
     }
 
+    /// What the Subtitle menu covers, kept in one place so the choices it lists and the tracks it
+    /// switches stay the same set.
+    private static let legibleTypes: [AVMediaType] = [.subtitle, .closedCaption]
+
     /// How often (in seconds of playback) the current position is saved while playing.
     private static let periodicPositionSaveInterval: TimeInterval = 5
 
@@ -126,21 +130,23 @@ import SwiftUI
         }
     }
 
-    private(set) var subtitleGroup: AVMediaSelectionGroup?
+    private var subtitleGroup: AVMediaSelectionGroup?
 
-    var subtitle: AVMediaSelectionOption? {
+    private(set) var subtitleChoices: [MediaTrackChoice] = []
+
+    var subtitle: MediaTrackChoice? {
         didSet {
-            guard let subtitleGroup else { return }
-            selectTrack(subtitle, in: subtitleGroup)
+            selectTrack(subtitle, ofTypes: Self.legibleTypes, in: subtitleGroup)
         }
     }
 
-    private(set) var audioGroup: AVMediaSelectionGroup?
+    private var audioGroup: AVMediaSelectionGroup?
 
-    var audioTrack: AVMediaSelectionOption? {
+    private(set) var audioChoices: [MediaTrackChoice] = []
+
+    var audioTrack: MediaTrackChoice? {
         didSet {
-            guard let audioGroup else { return }
-            selectTrack(audioTrack, in: audioGroup)
+            selectTrack(audioTrack, ofTypes: [.audio], in: audioGroup)
         }
     }
 
@@ -220,6 +226,10 @@ import SwiftUI
 
             self.subtitleGroup = try? await newAsset.loadMediaSelectionGroup(for: .legible)
             self.audioGroup = try? await newAsset.loadMediaSelectionGroup(for: .audible)
+            self.subtitleChoices = await MediaTrackChoice.choices(
+                in: subtitleGroup, of: newAsset, mediaTypes: Self.legibleTypes)
+            self.audioChoices = await MediaTrackChoice.choices(
+                in: audioGroup, of: newAsset, mediaTypes: [.audio])
             if let loadedDuration = try? await newAsset.load(.duration) {
                 mediaDuration = loadedDuration.seconds
             }
@@ -244,8 +254,8 @@ import SwiftUI
 
         player.play()
 
-        self.subtitle = subtitleGroup?.options.first
-        self.audioTrack = audioGroup?.options.first
+        self.subtitle = subtitleChoices.first
+        self.audioTrack = audioChoices.first
 
         return .opened
     }
@@ -297,6 +307,19 @@ import SwiftUI
                 default:
                     break
                 }
+            }
+            .store(in: &currentItemSubs)
+
+        // A file with no media selection group is switched by enabling one of the item's tracks,
+        // and the item has none to enable until it has read them. Re-applying costs nothing when
+        // the choice is already in force.
+        playerItem.publisher(for: \.tracks)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self else { return }
+                self.selectTrack(self.audioTrack, ofTypes: [.audio], in: self.audioGroup)
+                self.selectTrack(
+                    self.subtitle, ofTypes: Self.legibleTypes, in: self.subtitleGroup)
             }
             .store(in: &currentItemSubs)
 
@@ -366,9 +389,11 @@ import SwiftUI
         asset?.cancelLoading()
         asset = nil
 
-        // Cleared before the selections, whose observers go no further once the group is gone.
+        // Cleared before the selections, whose observers find nothing left to apply to.
         subtitleGroup = nil
         audioGroup = nil
+        subtitleChoices = []
+        audioChoices = []
         subtitle = nil
         audioTrack = nil
 
@@ -479,9 +504,32 @@ import SwiftUI
         wasPausedBeforeSeeking = false
     }
 
-    private func selectTrack(_ option: AVMediaSelectionOption?, in group: AVMediaSelectionGroup) {
+    /// Applies a menu choice to the current item, by whichever route the file describes its
+    /// tracks.
+    private func selectTrack(
+        _ choice: MediaTrackChoice?,
+        ofTypes mediaTypes: [AVMediaType],
+        in group: AVMediaSelectionGroup?
+    ) {
         guard let item = player.currentItem else { return }
-        item.select(option, in: group)
+
+        if let group {
+            guard case .option(let option) = choice?.selection else {
+                item.select(nil, in: group)
+                return
+            }
+            item.select(option, in: group)
+            return
+        }
+
+        var chosenID: CMPersistentTrackID?
+        if case .track(let id) = choice?.selection { chosenID = id }
+
+        for track in item.tracks {
+            guard let assetTrack = track.assetTrack, mediaTypes.contains(assetTrack.mediaType)
+            else { continue }
+            track.isEnabled = assetTrack.trackID == chosenID
+        }
     }
 
     private func addPeriodicTimeObserver() {
