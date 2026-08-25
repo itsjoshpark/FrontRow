@@ -77,10 +77,6 @@ If you don't hear any audio afterwards, the audio stream is in a codec that is n
 ffmpeg -i ./input.mkv -map 0 -c copy -c:a aac_at -b:a 448k -tag:v hvc1 ./output.mp4
 ```
 
-### This is too complicated for me, what's `ffmpeg` anyway?
-
-You can use [Subler](https://subler.org/) to convert mkv to mp4 and [Handbrake](https://handbrake.fr/) for other formats.
-
 ### I don't hear spatial audio through my supported device
 
 First, make sure that the audio track contains more than 2 channels. Also, make sure to turn on spatial audio under the audio menu bar while the video is playing.
