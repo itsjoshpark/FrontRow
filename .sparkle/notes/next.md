@@ -1,3 +1,3 @@
-- Fixed: Audio Track and Subtitle menus displayed “None” for some files
-- Fixed: Tracks with no language tag were listed as “Unknown language” rather than by their name or number
-- Fixed: Handling files with multichannel Opus or MP3 audio tracks
+- New:
+- Changed:
+- Fixed:

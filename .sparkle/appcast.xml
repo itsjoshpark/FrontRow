@@ -8,6 +8,29 @@
     <item>
       <title>New Version Available</title>
       <link>https://github.com/itsjoshpark/FrontRow</link>
+      <sparkle:version>271</sparkle:version>
+      <sparkle:shortVersionString>3.0.1 (271)</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>15.6</sparkle:minimumSystemVersion>
+      <sparkle:fullReleaseNotesLink>https://github.com/itsjoshpark/FrontRow/releases</sparkle:fullReleaseNotesLink>
+      <pubDate>Wed, 26 Aug 2026 22:33:56 +0000</pubDate>
+      <enclosure
+        url="https://github.com/itsjoshpark/FrontRow/releases/download/v3.0.1/FrontRow_v3.0.1.dmg"
+        sparkle:edSignature="ercu+vQpaejEUlkhNbArPWyrEJZRVBi1ASWCn13LkkBWN8CMco5laeds8txg/zVYm3ifpxWonWtV3WD3+LxrAw=="
+        length="3949296"
+        type="application/octet-stream" />
+      <description><![CDATA[
+      <ul>
+      <li>Fixed: Audio Track and Subtitle menus displayed “None” for some files</li>
+      <li>Fixed: Tracks with no language tag were listed as “Unknown language” rather than by their name or number</li>
+      <li>Fixed: Handling files with multichannel Opus or MP3 audio tracks</li>
+      </ul>
+      ]]>
+      </description>
+    </item>
+
+    <item>
+      <title>New Version Available</title>
+      <link>https://github.com/itsjoshpark/FrontRow</link>
       <sparkle:version>263</sparkle:version>
       <sparkle:shortVersionString>3.0.0 (263)</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>15.6</sparkle:minimumSystemVersion>
