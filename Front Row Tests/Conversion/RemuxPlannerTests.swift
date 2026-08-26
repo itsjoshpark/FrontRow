@@ -232,14 +232,41 @@ struct RemuxPlannerTests {
         #expect(plan == .unsupported(.noPlayableStreams))
     }
 
-    /// Both are common in Matroska and decode from an MP4 intact, so re-encoding them to AAC threw
-    /// audio away for nothing.
+    /// Both decode from an MP4 intact - FLAC at any channel count, Opus at the stereo the helper
+    /// defaults to - so re-encoding them to AAC threw audio away for nothing.
     @Test(arguments: ["flac", "opus"])
     func losslessAndModernAudioIsCopiedRatherThanReEncoded(codec: String) {
         let plan = RemuxPlanner.plan(for: [video(0, "h264"), audio(1, codec)])
 
         #expect(plan.recipe?.transcodesAudio == false)
         if case .remux = plan {} else { Issue.record("Expected a straight remux, got \(plan)") }
+    }
+
+    /// ffmpeg can only mux MP3 under the `mp4a` tag, and AVFoundation drops that track on open, so
+    /// copying it produced a file that played silently.
+    @Test
+    func mp3IsReEncodedRatherThanCopied() {
+        let plan = RemuxPlanner.plan(for: [video(0, "h264"), audio(1, "mp3")])
+
+        #expect(plan.recipe?.transcodesAudio == true)
+    }
+
+    /// Above two channels Opus carries a channel mapping family AVFoundation will not load, and
+    /// the whole MP4 fails to open rather than merely losing its audio.
+    @Test(arguments: [6, 8])
+    func multichannelOpusIsReEncoded(channels: Int) {
+        let plan = RemuxPlanner.plan(for: [video(0, "h264"), audio(1, "opus", channels: channels)])
+
+        #expect(plan.recipe?.transcodesAudio == true)
+    }
+
+    /// Whether an Opus track can be copied hinges on its channel count, so a missing one is
+    /// re-encoded rather than assumed to be stereo.
+    @Test
+    func opusWithNoChannelCountIsReEncoded() {
+        let plan = RemuxPlanner.plan(for: [video(0, "h264"), audio(1, "opus", channels: nil)])
+
+        #expect(plan.recipe?.transcodesAudio == true)
     }
 
     /// PCM decodes as well, but copying it keeps a stream far larger than the AAC it would become.

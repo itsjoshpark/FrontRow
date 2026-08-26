@@ -46,8 +46,8 @@ final class ConversionUITests: FrontRowUITestCase {
     ///
     /// Written by ffmpeg rather than committed: nothing else on the machine can write Matroska, and
     /// a test that needs ffmpeg installed to reach the conversion at all has no use for a fixture
-    /// that exists to avoid needing it. FLAC because it has to be re-encoded, which is the plan the
-    /// offer alert describes in the most detail.
+    /// that exists to avoid needing it. FLAC copies into an MP4 untouched, so the offer alert
+    /// describes a straight remux.
     private func makeMatroska(named name: String) throws -> URL {
         guard let ffmpeg = locateTool("ffmpeg") else {
             throw XCTSkip("ffmpeg is not installed, so the app has no conversion to offer")
