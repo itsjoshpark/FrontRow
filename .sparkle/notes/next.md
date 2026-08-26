@@ -1,2 +1,3 @@
 - Fixed: The Audio Track and Subtitle menus said “None” for files whose tracks they could not see, including the Play Spatial Audio Sample file
 - Fixed: Tracks with no language tag were listed as “Unknown language” rather than by their name or number
+- Fixed: Handling files with multichannel Opus or MP3 audio tracks

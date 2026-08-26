@@ -34,12 +34,12 @@ enum RemuxPlanner {
 
     /// Audio codecs AVFoundation decodes from an MP4. Everything else is re-encoded to AAC.
     ///
-    /// FLAC and Opus are here because they are common in Matroska and decode from an MP4 intact -
-    /// copying them keeps the original audio where re-encoding it to AAC would throw some away for
-    /// no gain. PCM is deliberately not: it decodes too, but it is far larger than the AAC it
-    /// would become.
+    /// FLAC and Opus are here because they decode from an MP4 intact, and re-encoding them to AAC
+    /// would throw audio away for no gain. PCM and MP3 are deliberately absent: PCM decodes but is
+    /// far larger than the AAC it would become, and MP3 only muxes under the `mp4a` tag, which
+    /// AVFoundation drops on open for a file that plays silently.
     private static let copyableAudioCodecs: Set<String> = [
-        "aac", "mp3", "alac", "ac3", "eac3", "flac", "opus",
+        "aac", "alac", "ac3", "eac3", "flac", "opus",
     ]
 
     /// Subtitle codecs that carry text, and so can become `mov_text`.
@@ -98,7 +98,7 @@ enum RemuxPlanner {
                 index: stream.index,
                 codecName: stream.codecName,
                 channels: stream.channels,
-                transcodes: !copyableAudioCodecs.contains(stream.codecName ?? "")
+                transcodes: !isCopyable(audio: stream)
             )
         }
 
@@ -130,6 +130,18 @@ enum RemuxPlanner {
         case "av1": "av01"
         default: nil
         }
+    }
+
+    /// Opus is capped at stereo. Above two channels it needs channel mapping family 1, which
+    /// AVFoundation will not load at all - the whole file fails to open, not just the track.
+    /// A stream with no channel count is re-encoded rather than guessed at.
+    private static func isCopyable(audio stream: ProbedStream) -> Bool {
+        guard let codecName = stream.codecName, copyableAudioCodecs.contains(codecName) else {
+            return false
+        }
+
+        guard codecName == "opus" else { return true }
+        return stream.channels.map { $0 <= 2 } ?? false
     }
 
     /// A stream with no pixel format, or one this doesn't recognise, is refused rather than

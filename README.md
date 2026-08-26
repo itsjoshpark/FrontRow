@@ -50,7 +50,7 @@ brew install ffmpeg
 Open an MKV file and Front Row checks what's inside it, then offers to convert:
 
 - If the video and audio are both formats it can play, they're copied into an MP4 as they are — nothing is re-encoded, and it takes a few seconds
-- If only the audio is unsupported (DTS, TrueHD, FLAC, Opus), the video is still copied and just the audio is re-encoded to AAC
+- If only the audio is unsupported (DTS, TrueHD, MP3, multichannel Opus), the video is still copied and just the audio is re-encoded to AAC
 - Text subtitles come along as `mov_text`. Bitmap subtitles (Blu-ray, DVD) can't be stored in an MP4, and the dialog warns you before you start
 - If the video itself can't be decoded (VP9, for example), Front Row won't offer to convert the file because it will usually take much longer time
 
