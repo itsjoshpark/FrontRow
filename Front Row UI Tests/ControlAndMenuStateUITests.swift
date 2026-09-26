@@ -35,6 +35,10 @@ final class ControlAndMenuStateUITests: FrontRowUITestCase {
             "File ▸ Show in Finder"
         )
         assertEqual(
+            menus.states(of: "File", for: ["Move to Trash"])["Move to Trash"], false,
+            "File ▸ Move to Trash"
+        )
+        assertEqual(
             menus.states(of: "Window", for: ["Natural Size"])["Natural Size"], false,
             "Window ▸ Natural Size"
         )
@@ -52,6 +56,63 @@ final class ControlAndMenuStateUITests: FrontRowUITestCase {
             menus.states(of: "Window", for: ["Natural Size"])["Natural Size"], true,
             "Window ▸ Natural Size"
         )
+    }
+
+    func testMoveToTrashTrashesTheFileAndReturnsToTheWelcomeWindow() async throws {
+        let movie = try await MediaFixtures.makeMovie(
+            size: CGSize(width: 640, height: 360), named: "trash", in: fixtures)
+        try openInFinder(movie)
+        let player = try playerWindow(for: movie)
+        waitForSizeToSettle(player)
+
+        menus.click("Move to Trash", in: "File")
+
+        XCTAssertTrue(
+            app.windows["welcome"].waitForExistence(timeout: 10),
+            "The welcome window did not come back"
+        )
+        XCTAssertTrue(
+            player.waitForNonExistence(timeout: 10), "The player window is still open")
+        XCTAssertFalse(
+            FileManager.default.fileExists(atPath: movie.path(percentEncoded: false)),
+            "The file is still where it was"
+        )
+        XCTAssertEqual(app.state, .runningForeground, "The app quit")
+    }
+
+    func testDeleteImmediatelyAsksFirstAndReturnsToTheWelcomeWindow() async throws {
+        let movie = try await MediaFixtures.makeMovie(
+            size: CGSize(width: 640, height: 360), named: "delete", in: fixtures)
+        try openInFinder(movie)
+        let player = try playerWindow(for: movie)
+        waitForSizeToSettle(player)
+        let path = movie.path(percentEncoded: false)
+
+        let confirmation = player.sheets.firstMatch
+        XCUIElement.perform(withKeyModifiers: .option) {
+            menus.click("Delete Immediately...", in: "File")
+        }
+        XCTAssertTrue(confirmation.waitForExistence(timeout: 10), "No confirmation was asked for")
+        confirmation.buttons["Cancel"].click()
+        XCTAssertTrue(
+            confirmation.waitForNonExistence(timeout: 10), "The confirmation stayed up")
+        XCTAssertTrue(FileManager.default.fileExists(atPath: path), "Cancel deleted the file")
+        XCTAssertTrue(player.exists, "Cancel closed the player window")
+
+        XCUIElement.perform(withKeyModifiers: .option) {
+            menus.click("Delete Immediately...", in: "File")
+        }
+        XCTAssertTrue(confirmation.waitForExistence(timeout: 10), "No confirmation was asked for")
+        confirmation.buttons["Delete"].click()
+
+        XCTAssertTrue(
+            app.windows["welcome"].waitForExistence(timeout: 10),
+            "The welcome window did not come back"
+        )
+        XCTAssertTrue(
+            player.waitForNonExistence(timeout: 10), "The player window is still open")
+        XCTAssertFalse(FileManager.default.fileExists(atPath: path), "The file is still there")
+        XCTAssertEqual(app.state, .runningForeground, "The app quit")
     }
 
     /// The item is titled for what it will do, so it reads "Pause" only while something is playing.

@@ -41,6 +41,7 @@ struct ContentView: View {
         }
         .unopenableRecentFileAlert(in: .player)
         .remuxAlert(in: .player)
+        .fileRemovalAlert()
         .onAppear {
             chrome.mouseMoved()
         }
