@@ -128,6 +128,22 @@ struct PresentationModelTests {
 
     /// Playback commands stay disabled while any question is up, which is the one thing outside
     /// this file that reads the slot.
+    /// Confirming a deletion shares the slot with the other questions, and gives it back.
+    @Test
+    func aFileRemovalAlertHoldsTheSlotUntilDismissed() {
+        let model = PresentationModel()
+        #expect(model.raise(.confirmDeletion(film)))
+
+        #expect(!model.raise(problem(film)), "A conversion talked over a deletion")
+        #expect(!model.raise(unopenable(film)), "A recent-file alert talked over a deletion")
+        #expect(!model.raise(.confirmDeletion(film)), "A second deletion replaced the first")
+
+        model.dismissFileRemovalAlert()
+        #expect(!model.isAskingAboutAFile)
+        #expect(model.raise(problem(film)))
+        #expect(!model.raise(.confirmDeletion(film)), "A deletion talked over a conversion")
+    }
+
     @Test
     func aQuestionCountsAsPresenting() {
         let model = PresentationModel()

@@ -26,6 +26,11 @@ import SwiftUI
     /// Raised through `raise(_:)` and cleared through `dismissRemuxAlert()`.
     private(set) var remuxAlert: RemuxAlert?
 
+    /// A question or failure about removing the playing file.
+    ///
+    /// Raised through `raise(_:)` and cleared through `dismissFileRemovalAlert()`.
+    private(set) var fileRemovalAlert: FileRemovalAlert?
+
     /// Whether a file is being checked over before anything is offered about it.
     ///
     /// Holds the slot below for the same reason a running conversion does: the check puts a sheet
@@ -40,12 +45,13 @@ import SwiftUI
 
     /// Whether the app is already occupied with a file.
     ///
-    /// Both alerts are stacked on the same view in each scene, so between them they have one place
+    /// The alerts are stacked on the same view in each scene, so between them they have one place
     /// to appear, and a conversion's sheet is sitting in it while one runs. A question raised into
     /// any of that is not a second alert - it is one alert wearing another's buttons, or one that
     /// is dropped and never answered.
     var isAskingAboutAFile: Bool {
-        remuxAlert != nil || unopenableRecentFile != nil || isConverting || isCheckingFile
+        remuxAlert != nil || unopenableRecentFile != nil || fileRemovalAlert != nil
+            || isConverting || isCheckingFile
     }
 
     var isPresenting: Bool {
@@ -73,6 +79,14 @@ import SwiftUI
         return true
     }
 
+    /// The same for removing the playing file.
+    @discardableResult
+    func raise(_ alert: FileRemovalAlert) -> Bool {
+        guard !isAskingAboutAFile else { return false }
+        fileRemovalAlert = alert
+        return true
+    }
+
     /// Takes the conversion question down, if `scene` is the one holding it.
     ///
     /// Each scene applies its own modifier to the same app-wide value, so both are told when either
@@ -88,6 +102,11 @@ import SwiftUI
     func dismissUnopenableRecentFile(in scene: AlertScene) {
         guard unopenableRecentFile?.scene == scene else { return }
         unopenableRecentFile = nil
+    }
+
+    /// The same for the file removal alert, which only the player scene presents.
+    func dismissFileRemovalAlert() {
+        fileRemovalAlert = nil
     }
 
     /// Marks a file as being checked over, which holds the slot until the check is done.

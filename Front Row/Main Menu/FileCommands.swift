@@ -9,6 +9,9 @@ import AVKit
 import SwiftUI
 
 struct FileCommands: Commands {
+    @Environment(\.openWindow) private var openWindow
+    @Environment(\.dismissWindow) private var dismissWindow
+
     private let playEngine = PlayEngine.shared
     private let presentationModel = PresentationModel.shared
     private let recentDocumentsStore = RecentDocumentsStore.shared
@@ -86,6 +89,33 @@ struct FileCommands: Commands {
                 )
             }
             .disabled(!playEngine.isLocalFile)
+
+            Divider()
+
+            Button {
+                guard removeCurrentFile(.trash) else { return }
+                // Opened first: closing the last window quits the app.
+                openWindow(id: WindowID.welcome)
+                dismissWindow(id: WindowID.main)
+            } label: {
+                Text(
+                    "Move to Trash",
+                    comment: "Move the currently playing file to the Trash"
+                )
+            }
+            .modifierKeyAlternate(.option) {
+                Button {
+                    guard let url = playEngine.fileURL else { return }
+                    presentationModel.raise(.confirmDeletion(url))
+                } label: {
+                    Text(
+                        "Delete Immediately...",
+                        comment: "Delete the currently playing file without moving it to the Trash"
+                    )
+                }
+                .disabled(!playEngine.isLocalFile || presentationModel.isPresenting)
+            }
+            .disabled(!playEngine.isLocalFile || presentationModel.isPresenting)
         }
     }
 }

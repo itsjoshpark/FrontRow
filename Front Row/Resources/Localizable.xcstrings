@@ -2467,6 +2467,9 @@
         }
       }
     },
+    "Are you sure you want to delete “%@”?" : {
+      "comment" : "Title of the alert confirming Delete Immediately; the argument is a file name"
+    },
     "Artist" : {
       "comment" : "Media metadata field",
       "localizations" : {
@@ -3287,7 +3290,7 @@
       }
     },
     "Cancel" : {
-      "comment" : "Alert button that declines converting a Matroska file\nButton that stops a conversion that is running\nButton that stops a file being checked\nDismisses the alert shown when ffmpeg isn't installed",
+      "comment" : "Alert button that cancels Delete Immediately\nAlert button that declines converting a Matroska file\nButton that stops a conversion that is running\nButton that stops a file being checked\nDismisses the alert shown when ffmpeg isn't installed",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -5337,6 +5340,12 @@
         }
       }
     },
+    "Couldn’t Delete “%@”" : {
+      "comment" : "Title of the alert shown when a file couldn’t be deleted"
+    },
+    "Couldn’t Move “%@” to the Trash" : {
+      "comment" : "Title of the alert shown when a file couldn’t be moved to the Trash"
+    },
     "Couldn’t Open File" : {
       "comment" : "Alert title shown when a file can't be opened\nAlert title shown when a file can't be played or converted\nTitle of the alert shown when a recent file could not be opened",
       "localizations" : {
@@ -5883,6 +5892,12 @@
           }
         }
       }
+    },
+    "Delete" : {
+      "comment" : "Alert button that confirms Delete Immediately"
+    },
+    "Delete Immediately..." : {
+      "comment" : "Delete the currently playing file without moving it to the Trash"
     },
     "Description" : {
       "comment" : "Media metadata field",
@@ -11619,7 +11634,7 @@
       }
     },
     "Move to Trash" : {
-      "comment" : "Alert button that trashes the original file",
+      "comment" : "Alert button that trashes the original file\nMove the currently playing file to the Trash",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -13122,7 +13137,7 @@
       }
     },
     "OK" : {
-      "comment" : "Dismisses the alert shown when a file couldn't be converted\nDismisses the alert shown when a recent file couldn't be opened",
+      "comment" : "Dismisses the alert shown when a file couldn't be converted\nDismisses the alert shown when a file couldn’t be removed\nDismisses the alert shown when a recent file couldn't be opened",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -17631,6 +17646,9 @@
           }
         }
       }
+    },
+    "This item will be deleted immediately. You can’t undo this action." : {
+      "comment" : "Message of the alert confirming Delete Immediately"
     },
     "Title" : {
       "comment" : "Media metadata field",
