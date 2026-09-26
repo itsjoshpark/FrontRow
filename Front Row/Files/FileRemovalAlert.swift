@@ -30,13 +30,15 @@ enum FileRemovalAlert {
 /// Moves the playing file to the Trash or deletes it, and drops its recents entry, which would
 /// otherwise point at a file that's gone. A failure is raised as an alert instead.
 ///
-/// Runs while the engine still holds the file's security-scoped access.
+/// Refuses a `url` that is no longer the one playing: a file opened while the confirmation was up
+/// would otherwise be deleted in place of the one it named. Runs while the engine still holds the
+/// file's security-scoped access.
 /// - Returns: Whether the file is gone.
 @MainActor
 @discardableResult
-func removeCurrentFile(_ removal: FileRemoval) -> Bool {
+func removeCurrentFile(at url: URL, _ removal: FileRemoval) -> Bool {
     let playEngine = PlayEngine.shared
-    guard playEngine.isLocalFile, let url = playEngine.fileURL else { return false }
+    guard playEngine.isLocalFile, playEngine.fileURL == url else { return false }
     do {
         switch removal {
         case .trash: try FileManager.default.trashItem(at: url, resultingItemURL: nil)
@@ -84,12 +86,12 @@ private struct FileRemovalAlertModifier: ViewModifier {
             presenting: presentationModel.fileRemovalAlert
         ) { alert in
             switch alert {
-            case .confirmDeletion:
+            case .confirmDeletion(let url):
                 Button(role: .destructive) {
                     // After the confirmation has gone: a failure raised from here would find
                     // the slot still taken.
                     Task {
-                        guard removeCurrentFile(.delete) else { return }
+                        guard removeCurrentFile(at: url, .delete) else { return }
                         openWindow(id: WindowID.welcome)
                         dismissWindow(id: WindowID.main)
                     }

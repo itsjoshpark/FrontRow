@@ -93,7 +93,9 @@ struct FileCommands: Commands {
             Divider()
 
             Button {
-                guard removeCurrentFile(.trash) else { return }
+                guard let url = playEngine.fileURL, removeCurrentFile(at: url, .trash) else {
+                    return
+                }
                 // Opened first: closing the last window quits the app.
                 openWindow(id: WindowID.welcome)
                 dismissWindow(id: WindowID.main)

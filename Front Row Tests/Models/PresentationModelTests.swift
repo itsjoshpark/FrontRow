@@ -126,8 +126,6 @@ struct PresentationModelTests {
         #expect(model.raise(problem(film)), "The slot stayed shut after the conversion ended")
     }
 
-    /// Playback commands stay disabled while any question is up, which is the one thing outside
-    /// this file that reads the slot.
     /// Confirming a deletion shares the slot with the other questions, and gives it back.
     @Test
     func aFileRemovalAlertHoldsTheSlotUntilDismissed() {
@@ -144,6 +142,8 @@ struct PresentationModelTests {
         #expect(!model.raise(.confirmDeletion(film)), "A deletion talked over a conversion")
     }
 
+    /// Playback commands stay disabled while any question is up, which is the one thing outside
+    /// this file that reads the slot.
     @Test
     func aQuestionCountsAsPresenting() {
         let model = PresentationModel()
