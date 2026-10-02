@@ -1,1 +1,3 @@
-- New: File ▸ Move to Trash moves the playing file to the Trash and returns to the welcome window. Hold Option for Delete Immediately…, which deletes it outright after asking
+- New:
+- Changed:
+- Fixed:

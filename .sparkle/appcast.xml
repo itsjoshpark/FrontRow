@@ -8,6 +8,27 @@
     <item>
       <title>New Version Available</title>
       <link>https://github.com/itsjoshpark/FrontRow</link>
+      <sparkle:version>275</sparkle:version>
+      <sparkle:shortVersionString>3.1.0 (275)</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>15.6</sparkle:minimumSystemVersion>
+      <sparkle:fullReleaseNotesLink>https://github.com/itsjoshpark/FrontRow/releases</sparkle:fullReleaseNotesLink>
+      <pubDate>Fri, 02 Oct 2026 21:39:12 +0000</pubDate>
+      <enclosure
+        url="https://github.com/itsjoshpark/FrontRow/releases/download/v3.1.0/FrontRow_v3.1.0.dmg"
+        sparkle:edSignature="5yn8lLrnSCLcQWob5KrwO30FvfBwGOH5Nve9kY36SXMvxTsyWZk4bZbN5nF1QF0Vx1tJuGtv5jjqsZPYudtWBA=="
+        length="3945973"
+        type="application/octet-stream" />
+      <description><![CDATA[
+      <ul>
+      <li>New: File ▸ Move to Trash moves the playing file to the Trash and returns to the welcome window. Hold Option for Delete Immediately…, which deletes it outright after asking</li>
+      </ul>
+      ]]>
+      </description>
+    </item>
+
+    <item>
+      <title>New Version Available</title>
+      <link>https://github.com/itsjoshpark/FrontRow</link>
       <sparkle:version>271</sparkle:version>
       <sparkle:shortVersionString>3.0.1 (271)</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>15.6</sparkle:minimumSystemVersion>
