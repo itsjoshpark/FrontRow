@@ -15,6 +15,11 @@
 # Nothing outside the runner is touched until notarization succeeds, so a failed
 # run leaves no tag, no release, and no feed change behind — just run it again.
 #
+# The release commit (appcast, version, archived notes) is made first and is the
+# commit that gets tagged, so the tag's source reports the version it shipped as.
+# It is pushed to main last: the appcast links to the release's dmg, so the feed
+# only goes live once that download exists.
+#
 # 🚨 GITHUB SECRETS REQUIRED:
 #         - DEVELOPER_ID_CERT_P12_BASE64: Developer ID Application certificate
 #           exported from Keychain Access with its private key, as .p12, then
@@ -335,30 +340,18 @@ jobs:
 
       # ---- Nothing above this line changes anything outside the runner. ----
 
-      - name: Tag and create the GitHub release
-        if: ${{ !inputs.dry-run }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          version="${{ steps.version.outputs.version }}"
-          git tag "v$version"
-          git push origin "v$version"
-
-          gh release create "v$version" \
-            "$EXPORT_PATH/${{ steps.version.outputs.dmg }}" \
-            --title "v$version" \
-            --notes-file "${{ steps.version.outputs.notes }}"
-
-      - name: Publish to the appcast and record the version
+      # Committed but not pushed: the tag below points at this commit, and main
+      # only gets it once the release (and the dmg the appcast links to) exists.
+      - name: Commit the release
+        id: record
         if: ${{ !inputs.dry-run }}
         env:
           SPARKLE_ED_PRIVATE_KEY: ${{ secrets.SPARKLE_ED_PRIVATE_KEY }}
         run: |
           set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           version="${{ steps.version.outputs.version }}"
           dmg="$EXPORT_PATH/${{ steps.version.outputs.dmg }}"
           sign_update="$DERIVED_DATA/SourcePackages/artifacts/sparkle/Sparkle/bin/sign_update"
@@ -391,23 +384,61 @@ jobs:
 
           # Archive the notes under the version they shipped as, and leave a
           # fresh template ready for the next release.
-          git mv .sparkle/notes/next.md ".sparkle/notes/$version.md"
+          notes=".sparkle/notes/$version.md"
+          git mv "${{ steps.version.outputs.notes }}" "$notes"
           cp .sparkle/notes/TEMPLATE.md .sparkle/notes/next.md
 
           git add .sparkle/appcast.xml "Front Row.xcodeproj/project.pbxproj" .sparkle/notes
           git commit -m "chore: release $version (${{ steps.version.outputs.build }}) [skip ci]"
 
+          {
+            echo "commit=$(git rev-parse HEAD)"
+            echo "notes=$notes"
+          } >>"$GITHUB_OUTPUT"
+
+      - name: Tag and create the GitHub release
+        if: ${{ !inputs.dry-run }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          version="${{ steps.version.outputs.version }}"
+
+          git tag "v$version" "${{ steps.record.outputs.commit }}"
+          git push origin "v$version"
+
+          gh release create "v$version" \
+            "$EXPORT_PATH/${{ steps.version.outputs.dmg }}" \
+            --title "v$version" \
+            --notes-file "${{ steps.record.outputs.notes }}" ||
+            { echo "::error::Tag v$version is pushed, but creating the GitHub release failed, and main is not updated. Delete the tag (git push origin :v$version) and run again."; exit 1; }
+
+      - name: Publish to the appcast and record the version
+        if: ${{ !inputs.dry-run }}
+        run: |
+          set -euo pipefail
+          version="${{ steps.version.outputs.version }}"
+
+          failed() {
+            echo "::error::$1 The release is published but users will not be offered it until .sparkle/appcast.xml is updated on main. Cherry-pick the tagged commit onto main: git fetch origin tag v$version && git cherry-pick v$version"
+            exit 1
+          }
+
           # The release is already public by this point, so a rejected push would
           # leave the feed permanently missing it. Rebase onto whatever landed on
-          # main during the run and retry.
+          # main during the run and retry. After a rebase, main carries a copy of
+          # the tagged commit with the same changes.
           for attempt in 1 2 3; do
             if git push origin HEAD:main; then
               exit 0
             fi
+            ((attempt < 3)) || break
             echo "Push rejected (attempt $attempt), rebasing onto main"
             git fetch origin main
-            git rebase origin/main
+            if ! git rebase origin/main; then
+              git rebase --abort
+              failed "Rebasing the appcast update onto main conflicted."
+            fi
           done
 
-          echo "::error::Could not push the appcast update after 3 attempts. The release is published but users will not be offered it until .sparkle/appcast.xml is updated on main."
-          exit 1
+          failed "Could not push the appcast update after 3 attempts."
