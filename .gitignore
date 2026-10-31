@@ -11,7 +11,9 @@ Icon
 
 ## User settings
 *.xcuserstate
-project.xcworkspace/
+**/project.xcworkspace/*
+# fastlane builds through the workspace; its xcodeproj gem cannot read project.xcproj.
+!**/project.xcworkspace/contents.xcworkspacedata
 xcuserdata/
 
 ## Obj-C/Swift specific
