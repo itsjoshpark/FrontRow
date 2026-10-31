@@ -78,6 +78,22 @@ jobs:
           brew update
           brew install cmark-gfm
 
+      - name: Install Changie
+        uses: miniscruff/changie-action@v3
+        with:
+          version: v1.26.0
+
+      # Every fragment must parse and have a known kind, or the release would
+      # fail at its first step.
+      - name: Check the Changie fragments
+        run: |
+          set -euo pipefail
+          if compgen -G ".changes/unreleased/*.yaml" >/dev/null; then
+            changie batch auto --dry-run
+          else
+            echo "No unreleased changes"
+          fi
+
       - name: Run script tests
         run: |
           failures=0

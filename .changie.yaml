@@ -1,0 +1,38 @@
+# Release notes and versioning. Each user-facing change adds a fragment with
+# `changie new`; the release workflow batches them into .changes/<version>.md,
+# which becomes the GitHub release body and, rendered to HTML by
+# scripts/render-notes.sh, the Sparkle update notes. See .changes/README.md.
+changesDir: .changes
+unreleasedDir: unreleased
+headerPath: header.tpl.md
+changelogPath: CHANGELOG.md
+versionExt: md
+# Optional free text (e.g. "**Note**: …") placed above the changes. Create
+# .changes/unreleased/header.md before the release; batch consumes it.
+versionHeaderPath: header.md
+versionFormat: '## {{.Version}} - {{.Time.Format "2006-01-02"}}'
+kindFormat: ""
+changeFormat: "- {{.Kind}}: {{.Body}}"
+body:
+  block: false
+kinds:
+  - label: New
+    auto: minor
+  - label: Changed
+    auto: patch
+  - label: Fixed
+    auto: patch
+  - label: Updated
+    auto: patch
+newlines:
+  afterChangelogHeader: 0
+  afterVersion: 1
+  beforeChangelogVersion: 1
+  endOfVersion: 1
+# Applied by `changie merge`: the marketing version lives at project level in
+# project.xcproj (four spaces of indentation). The build number is the commit
+# count and is passed to the build, never written back.
+replacements:
+  - path: Front Row.xcodeproj/project.xcproj
+    find: '^    "MARKETING_VERSION": ".*",$'
+    replace: '    "MARKETING_VERSION": "{{.VersionNoPrefix}}",'

@@ -1,0 +1,118 @@
+# Signing, build and notarization lanes for the Developer ID release. The
+# release workflow (.github/workflows/release.yml) drives these; versioning and
+# release notes come from Changie (.changie.yaml).
+#
+#   bundle exec fastlane import_signing_certificate      (CI: needs the env below)
+#   bundle exec fastlane build version:1.2.3 build:42
+#   bundle exec fastlane notarize_dmg dmg:path
+#
+# CI environment: KEYCHAIN_PATH, DEVELOPER_ID_CERT_P12_BASE64,
+# DEVELOPER_ID_CERT_PASSWORD, and AC_KEY_PATH, AC_API_KEY_ID, AC_API_ISSUER_ID
+# for notarization.
+
+require "securerandom"
+require "tmpdir"
+
+default_platform(:mac)
+
+# gym reads projects with the xcodeproj gem, which can't parse project.xcproj.
+# Through a workspace it skips projects it can't open and asks xcodebuild instead.
+WORKSPACE = "Front Row.xcodeproj/project.xcworkspace"
+SCHEME = "Front Row"
+TEAM_ID = "TCQ6328PP6"
+IDENTITY = "Developer ID Application"
+
+# Build output must stay outside the repository: the app target's swift-format
+# lint phase runs `-r ./` from $SRCROOT and would lint SPM's checkout of Sparkle.
+def build_root
+  ENV.fetch("BUILD_ROOT", File.join(Dir.tmpdir, "FrontRow-release"))
+end
+
+platform :mac do
+  desc "Import the Developer ID certificate into an ephemeral keychain"
+  lane :import_signing_certificate do
+    keychain = ENV.fetch("KEYCHAIN_PATH")
+    # Discarded with the runner, so the password only needs to be unguessable
+    # for this run.
+    password = SecureRandom.base64(32)
+    certificate = File.join(Dir.tmpdir, "developer-id.p12")
+
+    File.binwrite(certificate, ENV.fetch("DEVELOPER_ID_CERT_P12_BASE64").unpack1("m"))
+    begin
+      create_keychain(
+        path: keychain,
+        password: password,
+        default_keychain: false,
+        unlock: true,
+        timeout: 21_600,
+        lock_when_sleeps: false,
+        add_to_search_list: true
+      )
+      import_certificate(
+        certificate_path: certificate,
+        certificate_password: ENV.fetch("DEVELOPER_ID_CERT_PASSWORD"),
+        keychain_path: keychain,
+        keychain_password: password
+      )
+    ensure
+      File.delete(certificate) if File.exist?(certificate)
+    end
+  end
+
+  desc "Archive and export a Developer ID signed app"
+  lane :build do |options|
+    version = options.fetch(:version)
+    build = options.fetch(:build)
+    UI.user_error!("version must be X.Y.Z, got '#{version}'") unless version.to_s.match?(/\A\d+\.\d+\.\d+\z/)
+    UI.user_error!("build must be a whole number, got '#{build}'") unless build.to_s.match?(/\A\d+\z/)
+
+    build_mac_app(
+      workspace: WORKSPACE,
+      scheme: SCHEME,
+      configuration: "Release",
+      destination: "generic/platform=macOS",
+      archive_path: File.join(build_root, "FrontRow.xcarchive"),
+      derived_data_path: File.join(build_root, "DerivedData"),
+      output_directory: File.join(build_root, "export"),
+      export_method: "developer-id",
+      export_team_id: TEAM_ID,
+      export_options: {
+        # The certificate is imported into an ephemeral keychain. Naming it
+        # explicitly avoids an ambiguous match if more than one identity is present.
+        signingStyle: "manual",
+        signingCertificate: IDENTITY,
+        destination: "export"
+      },
+      # gym's profile detection parses project.pbxproj with the xcodeproj gem,
+      # which can't read the JSON project format (project.xcproj). Developer ID
+      # needs no profile.
+      skip_profile_detection: true,
+      # gym passes these to the export too; xcodebuild accepts them there.
+      xcargs: [
+        "CURRENT_PROJECT_VERSION=#{build}",
+        "MARKETING_VERSION=#{version}",
+        "CODE_SIGN_STYLE=Manual",
+        "CODE_SIGN_IDENTITY=#{IDENTITY.shellescape}",
+        "PROVISIONING_PROFILE_SPECIFIER=",
+        "DEVELOPMENT_TEAM=#{TEAM_ID}"
+      ].join(" "),
+      clean: true
+    )
+  end
+
+  desc "Notarize and staple a dmg"
+  lane :notarize_dmg do |options|
+    api_key = app_store_connect_api_key(
+      key_id: ENV.fetch("AC_API_KEY_ID"),
+      issuer_id: ENV.fetch("AC_API_ISSUER_ID"),
+      key_filepath: ENV.fetch("AC_KEY_PATH")
+    )
+
+    notarize(
+      package: options.fetch(:dmg),
+      api_key: api_key,
+      print_log: true
+    )
+    sh("xcrun", "stapler", "validate", options.fetch(:dmg))
+  end
+end
