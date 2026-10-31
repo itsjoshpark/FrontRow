@@ -9,7 +9,7 @@
 # CHANGELOG.md, and stamps MARKETING_VERSION into project.xcproj. The notes go
 # to GitHub as Markdown and to the appcast as HTML, rendered by cmark-gfm so
 # both read the same. The build number is the commit count; it is passed to the
-# build and never written back. fastlane (fastlane/Fastfile) imports the
+# build and recorded in project.xcproj with the release commit. fastlane (fastlane/Fastfile) imports the
 # certificate, archives, exports, and notarizes.
 #
 # Nothing outside the runner is touched until notarization succeeds, so a failed
@@ -354,6 +354,10 @@ jobs:
           # Changie's batch and merge already ran: the fragments became
           # .changes/$version.md, CHANGELOG.md was regenerated, and project.xcproj
           # carries the new marketing version.
+          # Record the shipped build number too, so local builds report what last
+          # shipped. Changie stamps only the marketing version.
+          xcrun xcodeproj setting set --project "Front Row.xcodeproj" CURRENT_PROJECT_VERSION "${{ steps.version.outputs.build }}"
+
           git add -A .sparkle/appcast.xml .changes CHANGELOG.md "Front Row.xcodeproj/project.xcproj"
           git commit -m "chore: release $version (${{ steps.version.outputs.build }}) [skip ci]"
 

@@ -31,7 +31,7 @@ newlines:
   endOfVersion: 1
 # Applied by `changie merge`: the marketing version lives at project level in
 # project.xcproj (four spaces of indentation). The build number is the commit
-# count and is passed to the build, never written back.
+# count; the release workflow records it separately.
 replacements:
   - path: Front Row.xcodeproj/project.xcproj
     find: '^    "MARKETING_VERSION": ".*",$'
