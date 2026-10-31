@@ -24,6 +24,7 @@ swift-format format -p -r -i ./
 ## Architecture
 
 - Target macOS Sequoia 15.6 or later.
+- Building needs Xcode 27.2 or later (on macOS Tahoe 26.6 or later). The project uses Xcode's JSON project format, `Front Row.xcodeproj/project.xcproj`. `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` are project-level settings there, read and written by `scripts/project-version.sh`.
 - Do not introduce third-party frameworks without asking first.
 - Group source files by feature, not by layer. A feature folder holds its models and its views together.
 - A feature that outgrows one folder splits by kind into `Models/`, `Views/`, and any domain subfolder it needs (`Conversion/FFmpeg/`). Small features stay flat.
