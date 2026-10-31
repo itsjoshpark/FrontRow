@@ -7,9 +7,9 @@
 # The notes go to GitHub as Markdown and to the appcast as HTML, rendered by
 # cmark-gfm so both read the same.
 #
-# The marketing version is read from project.pbxproj and bumped by the chosen
+# The marketing version is read from project.xcproj and bumped by the chosen
 # amount; the build number is the commit count and is never read back as input.
-# Both are passed to xcodebuild, then written back to project.pbxproj in the same
+# Both are passed to xcodebuild, then written back to project.xcproj in the same
 # commit as the appcast — so a local build always reports the last release.
 #
 # Nothing outside the runner is touched until notarization succeeds, so a failed
@@ -60,7 +60,7 @@ concurrency:
 jobs:
   release:
     name: Release
-    runs-on: macos-26
+    runs-on: xcode-27
     permissions:
       contents: write
     env:
@@ -74,10 +74,10 @@ jobs:
           # the shipped build number and would strand every existing user.
           fetch-depth: 0
 
-      - name: Setup Xcode Version
-        uses: maxim-lobanov/setup-xcode@ed7a3b1fda3918c0306d1b724322adc0b8cc0a90 # v1
-        with:
-          xcode-version: latest-stable
+      # The project uses Xcode's JSON project format (project.xcproj), which
+      # needs Xcode 27.2. The xcode-27 image defaults to an older Xcode 27.
+      - name: Select Xcode 27.2
+        run: sudo xcode-select -s /Applications/Xcode_27.2.app
 
       # Build output must stay outside the workspace: the app target's
       # swift-format lint phase runs `-r ./` from $SRCROOT and would lint SPM's
@@ -117,10 +117,10 @@ jobs:
             exit 1
           fi
 
-          pbxproj="Front Row.xcodeproj/project.pbxproj"
+          xcproj="Front Row.xcodeproj/project.xcproj"
           # The marketing version is authoritative in the project file; the build
           # number is mechanical and never read back as input.
-          current="$(./scripts/project-version.sh read-marketing "$pbxproj")"
+          current="$(./scripts/project-version.sh read-marketing "$xcproj")"
           version="$(./scripts/bump-version.sh "$current" "${{ inputs.release-type }}")"
           build="$(git rev-list --count HEAD)"
 
@@ -379,7 +379,7 @@ jobs:
 
           # Record what was just released, so local builds report the shipped
           # version and the next run has a marketing version to bump from.
-          ./scripts/project-version.sh write "Front Row.xcodeproj/project.pbxproj" \
+          ./scripts/project-version.sh write "Front Row.xcodeproj/project.xcproj" \
             "$version" "${{ steps.version.outputs.build }}"
 
           # Archive the notes under the version they shipped as, and leave a
@@ -388,7 +388,7 @@ jobs:
           git mv "${{ steps.version.outputs.notes }}" "$notes"
           cp .sparkle/notes/TEMPLATE.md .sparkle/notes/next.md
 
-          git add .sparkle/appcast.xml "Front Row.xcodeproj/project.pbxproj" .sparkle/notes
+          git add .sparkle/appcast.xml "Front Row.xcodeproj/project.xcproj" .sparkle/notes
           git commit -m "chore: release $version (${{ steps.version.outputs.build }}) [skip ci]"
 
           {

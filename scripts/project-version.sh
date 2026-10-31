@@ -1,76 +1,90 @@
 #!/bin/bash
-# Reads and writes the version settings in project.pbxproj.
+# Reads and writes the version settings in project.xcproj.
 #
-#   project-version.sh read-marketing "Front Row.xcodeproj/project.pbxproj"
-#   project-version.sh read-build     "Front Row.xcodeproj/project.pbxproj"
-#   project-version.sh write          "Front Row.xcodeproj/project.pbxproj" 2.11.0 206
+#   project-version.sh read-marketing "Front Row.xcodeproj/project.xcproj"
+#   project-version.sh read-build     "Front Row.xcodeproj/project.xcproj"
+#   project-version.sh write          "Front Row.xcodeproj/project.xcproj" 2.11.0 206
 #
-# MARKETING_VERSION and CURRENT_PROJECT_VERSION both live at the project level,
-# so each appears exactly twice — once per configuration. Anything else means
-# the project no longer matches what this assumes, and writing would be a guess.
+# project.xcproj is Xcode's JSON project format, in its canonical layout
+# (xcprojformatter): project-level settings sit in the top-level
+# "build-settings" object, one per line at four spaces of indentation.
+# MARKETING_VERSION and CURRENT_PROJECT_VERSION both live there, shared by every
+# configuration, so each appears exactly once, with no per-configuration
+# ("KEY[config=...]") or per-target override. Anything else means the project
+# no longer matches what this assumes, and writing would be a guess.
 
 set -euo pipefail
-
-readonly EXPECTED_OCCURRENCES=2
 
 die() {
   echo "project-version: $1" >&2
   exit 1
 }
 
+# Every mention of the setting as a key, at any level or with any condition.
+count_keys() {
+  grep -c "\"$2[\"[]" "$1" || true
+}
+
+# The setting as a plain project-level key: four spaces, then "KEY": "value",
+project_line() {
+  printf '^    "%s": "\\(.*\\)",$' "$1"
+}
+
 read_setting() {
-  local pbxproj="$1" setting="$2"
-  [[ -f "$pbxproj" ]] || die "project file not found: $pbxproj"
+  local project="$1" setting="$2"
+  [[ -f "$project" ]] || die "project file not found: $project"
 
-  local values
-  values="$(sed -n "s/^[[:space:]]*$setting = \(.*\);$/\1/p" "$pbxproj" | sort -u)"
-  [[ -n "$values" ]] || die "$setting not found in $pbxproj"
-  [[ "$(wc -l <<<"$values")" -eq 1 ]] ||
-    die "$setting has conflicting values in $pbxproj: $(tr '\n' ' ' <<<"$values")"
+  local count
+  count="$(count_keys "$project" "$setting")"
+  (( count > 0 )) || die "$setting not found in $project"
+  (( count == 1 )) ||
+    die "$setting is set $count times in $project; expected one project-level value"
 
-  echo "$values"
+  local value
+  value="$(sed -n "s/$(project_line "$setting")/\1/p" "$project")"
+  [[ -n "$value" ]] || die "$setting in $project is not a project-level setting"
+
+  echo "$value"
 }
 
 command="${1-}"
-pbxproj="${2-}"
+project="${2-}"
 
 case "$command" in
   read-marketing)
-    read_setting "$pbxproj" MARKETING_VERSION
+    read_setting "$project" MARKETING_VERSION
     ;;
 
   read-build)
-    read_setting "$pbxproj" CURRENT_PROJECT_VERSION
+    read_setting "$project" CURRENT_PROJECT_VERSION
     ;;
 
   write)
     marketing="${3-}"
     build="${4-}"
 
-    [[ -f "$pbxproj" ]] || die "project file not found: $pbxproj"
+    [[ -f "$project" ]] || die "project file not found: $project"
     [[ "$marketing" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]] ||
       die "marketing version must be X.Y.Z, got '$marketing'"
     [[ "$build" =~ ^[0-9]+$ ]] || die "build number must be a whole number, got '$build'"
 
-    for setting in MARKETING_VERSION CURRENT_PROJECT_VERSION; do
-      count="$(grep -c "^[[:space:]]*$setting = .*;$" "$pbxproj" || true)"
-      (( count == EXPECTED_OCCURRENCES )) ||
-        die "expected $EXPECTED_OCCURRENCES occurrences of $setting, found $count — the project layout changed"
-    done
+    # Reading validates the layout: one project-level value for each setting.
+    read_setting "$project" MARKETING_VERSION >/dev/null
+    read_setting "$project" CURRENT_PROJECT_VERSION >/dev/null
 
     # Write to a temp file and move into place so a failure cannot leave a
     # half-rewritten project.
     tmp="$(mktemp)"
     trap 'rm -f "$tmp"' EXIT
 
-    sed -e "s/^\([[:space:]]*\)MARKETING_VERSION = .*;$/\1MARKETING_VERSION = $marketing;/" \
-      -e "s/^\([[:space:]]*\)CURRENT_PROJECT_VERSION = .*;$/\1CURRENT_PROJECT_VERSION = $build;/" \
-      "$pbxproj" >"$tmp"
+    sed -e "s/$(project_line MARKETING_VERSION)/    \"MARKETING_VERSION\": \"$marketing\",/" \
+      -e "s/$(project_line CURRENT_PROJECT_VERSION)/    \"CURRENT_PROJECT_VERSION\": \"$build\",/" \
+      "$project" >"$tmp"
 
-    mv "$tmp" "$pbxproj"
+    mv "$tmp" "$project"
     trap - EXIT
 
-    echo "Set $pbxproj to $marketing ($build)"
+    echo "Set $project to $marketing ($build)"
     ;;
 
   "")
