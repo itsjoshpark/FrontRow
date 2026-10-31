@@ -1,21 +1,21 @@
 # Description:
 # Builds, signs, notarizes, and publishes a new release, then adds it to the
 # Sparkle appcast. Triggered manually from the Actions tab.
-#         1. Choose release type (major, minor, patch)
-#         2. Write release notes to .sparkle/notes/next.md beforehand
+#         1. Each user-facing change adds a Changie fragment (`changie new`,
+#            see .changes/README.md)
+#         2. Choose the release type (auto picks it from the fragments' kinds)
 #
-# The notes go to GitHub as Markdown and to the appcast as HTML, rendered by
-# cmark-gfm so both read the same.
-#
-# The marketing version is read from project.xcproj and bumped by the chosen
-# amount; the build number is the commit count and is never read back as input.
-# Both are passed to xcodebuild, then written back to project.xcproj in the same
-# commit as the appcast — so a local build always reports the last release.
+# Changie batches the fragments into .changes/<version>.md, updates
+# CHANGELOG.md, and stamps MARKETING_VERSION into project.xcproj. The notes go
+# to GitHub as Markdown and to the appcast as HTML, rendered by cmark-gfm so
+# both read the same. The build number is the commit count; it is passed to the
+# build and never written back. fastlane (fastlane/Fastfile) imports the
+# certificate, archives, exports, and notarizes.
 #
 # Nothing outside the runner is touched until notarization succeeds, so a failed
 # run leaves no tag, no release, and no feed change behind — just run it again.
 #
-# The release commit (appcast, version, archived notes) is made first and is the
+# The release commit (appcast, version, notes) is made first and is the
 # commit that gets tagged, so the tag's source reports the version it shipped as.
 # It is pushed to main last: the appcast links to the release's dmg, so the feed
 # only goes live once that download exists.
@@ -38,16 +38,17 @@ on:
     inputs:
       release-type:
         type: choice
-        description: "Choose release type: major, minor, patch"
+        description: "Release type: auto (from the Changie fragments), patch, minor, major"
         required: true
-        default: patch
+        default: auto
         options:
+          - auto
           - patch
           - minor
           - major
       dry-run:
         type: boolean
-        description: "Build and notarize only — no tag, release, or appcast update"
+        description: "Build and notarize only — no tag, release, or appcast update (any branch)"
         required: false
         default: false
 
@@ -81,16 +82,38 @@ jobs:
 
       # Build output must stay outside the workspace: the app target's
       # swift-format lint phase runs `-r ./` from $SRCROOT and would lint SPM's
-      # checkout of Sparkle. The runner context is unavailable in job-level env,
-      # so these are set here.
+      # checkout of Sparkle. fastlane builds into BUILD_ROOT.
       - name: Set build paths
         run: |
           set -euo pipefail
           {
-            echo "ARCHIVE_PATH=$RUNNER_TEMP/build/FrontRow.xcarchive"
+            echo "BUILD_ROOT=$RUNNER_TEMP/build"
             echo "EXPORT_PATH=$RUNNER_TEMP/build/export"
             echo "DERIVED_DATA=$RUNNER_TEMP/build/DerivedData"
+            echo "KEYCHAIN_PATH=$RUNNER_TEMP/build.keychain-db"
+            echo "BUNDLE_PATH=$RUNNER_TEMP/gems"
           } >>"$GITHUB_ENV"
+
+      - name: Install Changie
+        uses: miniscruff/changie-action@v3
+        with:
+          version: v1.26.0
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4"
+
+      # Gems stay outside the workspace (BUNDLE_PATH) for the same reason as the
+      # build output: the lint phase would lint the fastlane gem's Swift files.
+      - name: Cache gems
+        uses: actions/cache@v6
+        with:
+          path: ${{ runner.temp }}/gems
+          key: gems-${{ runner.os }}-ruby3.4-${{ hashFiles('Gemfile.lock') }}
+
+      - name: Install fastlane
+        run: bundle install
 
       - name: Install cmark-gfm
         run: brew install cmark-gfm
@@ -98,8 +121,6 @@ jobs:
       # Before anything depends on these scripts.
       - name: Verify script tests pass
         run: |
-          ./scripts/bump-version.test.sh
-          ./scripts/project-version.test.sh
           ./scripts/append-appcast-item.test.sh
           ./scripts/render-notes.test.sh
 
@@ -111,17 +132,23 @@ jobs:
 
           # The appcast is published from main (SUFeedURL points at
           # raw/main/.sparkle/appcast.xml). Releasing from anywhere else would
-          # tag and publish, then strand the feed entry on a side branch.
-          if [[ "$GITHUB_REF_NAME" != "main" ]]; then
+          # tag and publish, then strand the feed entry on a side branch. A dry
+          # run publishes nothing, so it can run from any branch.
+          if [[ "$GITHUB_REF_NAME" != "main" && "${{ inputs.dry-run }}" != "true" ]]; then
             echo "::error::Releases must be run from main, not $GITHUB_REF_NAME"
             exit 1
           fi
 
-          xcproj="Front Row.xcodeproj/project.xcproj"
-          # The marketing version is authoritative in the project file; the build
-          # number is mechanical and never read back as input.
-          current="$(./scripts/project-version.sh read-marketing "$xcproj")"
-          version="$(./scripts/bump-version.sh "$current" "${{ inputs.release-type }}")"
+          # `changie batch patch` happily releases nothing, so check first.
+          if ! compgen -G ".changes/unreleased/*.yaml" >/dev/null; then
+            echo "::error::No unreleased changes. Add fragments with \`changie new\` before releasing."
+            exit 1
+          fi
+
+          current="$(changie latest)"
+          changie batch "${{ inputs.release-type }}"
+          changie merge
+          version="$(changie latest)"
           build="$(git rev-list --count HEAD)"
 
           if git rev-parse "v$version" >/dev/null 2>&1; then
@@ -136,19 +163,11 @@ jobs:
             exit 1
           fi
 
-          notes=".sparkle/notes/next.md"
-          if [[ ! -f "$notes" ]]; then
-            echo "::error::Missing $notes. Copy .sparkle/notes/TEMPLATE.md to it and write the release notes."
-            exit 1
-          fi
-          if cmp -s "$notes" .sparkle/notes/TEMPLATE.md; then
-            echo "::error::$notes is still the unedited template. Write the release notes before releasing."
-            exit 1
-          fi
-          if [[ -e ".sparkle/notes/$version.md" ]]; then
-            echo "::error::.sparkle/notes/$version.md already exists, so the archived notes for this release would be overwritten."
-            exit 1
-          fi
+          # The release body: the version file without its "## version - date"
+          # heading and the blank line after it.
+          notes="$RUNNER_TEMP/notes.md"
+          tail -n +3 ".changes/$version.md" >"$notes"
+          [[ -s "$notes" ]] || { echo "::error::.changes/$version.md has no notes"; exit 1; }
 
           {
             echo "version=$version"
@@ -182,27 +201,9 @@ jobs:
 
       - name: Import signing certificate
         env:
-          CERT_P12_BASE64: ${{ secrets.DEVELOPER_ID_CERT_P12_BASE64 }}
-          CERT_PASSWORD: ${{ secrets.DEVELOPER_ID_CERT_PASSWORD }}
-        run: |
-          set -euo pipefail
-          keychain="$RUNNER_TEMP/build.keychain-db"
-          # Ephemeral keychain, discarded with the runner, so the password only
-          # needs to be unguessable for this run.
-          keychain_password="$(openssl rand -base64 32)"
-
-          security create-keychain -p "$keychain_password" "$keychain"
-          security set-keychain-settings -lut 21600 "$keychain"
-          security unlock-keychain -p "$keychain_password" "$keychain"
-
-          printf '%s' "$CERT_P12_BASE64" | base64 --decode >"$RUNNER_TEMP/cert.p12"
-          security import "$RUNNER_TEMP/cert.p12" -k "$keychain" -P "$CERT_PASSWORD" \
-            -T /usr/bin/codesign -T /usr/bin/security
-          rm -f "$RUNNER_TEMP/cert.p12"
-
-          security set-key-partition-list -S apple-tool:,apple:,codesign: \
-            -s -k "$keychain_password" "$keychain" >/dev/null
-          security list-keychain -d user -s "$keychain" login.keychain-db
+          DEVELOPER_ID_CERT_P12_BASE64: ${{ secrets.DEVELOPER_ID_CERT_P12_BASE64 }}
+          DEVELOPER_ID_CERT_PASSWORD: ${{ secrets.DEVELOPER_ID_CERT_PASSWORD }}
+        run: bundle exec fastlane import_signing_certificate
 
       # Cheap checks, before the ~15 minute build.
       - name: Preflight — verify credentials
@@ -211,7 +212,7 @@ jobs:
           AC_API_ISSUER_ID: ${{ secrets.AC_API_ISSUER_ID }}
         run: |
           set -euo pipefail
-          keychain="$RUNNER_TEMP/build.keychain-db"
+          keychain="$KEYCHAIN_PATH"
 
           identity="$(security find-identity -v -p codesigning "$keychain" |
             sed -n 's/.*"\(Developer ID Application[^"]*\)".*/\1/p' | head -1)"
@@ -253,30 +254,11 @@ jobs:
           fi
           echo "App Store Connect API key accepted"
 
-      - name: Archive
-        run: |
-          set -euo pipefail
-          xcodebuild archive \
-            -project "Front Row.xcodeproj" \
-            -scheme "Front Row" \
-            -configuration Release \
-            -destination "generic/platform=macOS" \
-            -archivePath "$ARCHIVE_PATH" \
-            -derivedDataPath "$DERIVED_DATA" \
-            CURRENT_PROJECT_VERSION=${{ steps.version.outputs.build }} \
-            MARKETING_VERSION=${{ steps.version.outputs.version }} \
-            CODE_SIGN_STYLE=Manual \
-            CODE_SIGN_IDENTITY="Developer ID Application" \
-            PROVISIONING_PROFILE_SPECIFIER="" \
-            DEVELOPMENT_TEAM="$TEAM_ID"
-
-      - name: Export archive
-        run: |
-          set -euo pipefail
-          xcodebuild -exportArchive \
-            -archivePath "$ARCHIVE_PATH" \
-            -exportPath "$EXPORT_PATH" \
-            -exportOptionsPlist .github/ExportOptions.plist
+      - name: Archive and export
+        run: >
+          bundle exec fastlane build
+          version:${{ steps.version.outputs.version }}
+          build:${{ steps.version.outputs.build }}
 
       - name: Verify the exported app
         run: |
@@ -318,15 +300,7 @@ jobs:
         env:
           AC_API_KEY_ID: ${{ secrets.AC_API_KEY_ID }}
           AC_API_ISSUER_ID: ${{ secrets.AC_API_ISSUER_ID }}
-        run: |
-          set -euo pipefail
-          dmg="$EXPORT_PATH/${{ steps.version.outputs.dmg }}"
-          xcrun notarytool submit "$dmg" \
-            --key "$AC_KEY_PATH" --key-id "$AC_API_KEY_ID" --issuer "$AC_API_ISSUER_ID" \
-            --wait
-
-          xcrun stapler staple "$dmg"
-          xcrun stapler validate "$dmg"
+        run: bundle exec fastlane notarize_dmg dmg:"$EXPORT_PATH/${{ steps.version.outputs.dmg }}"
 
       - name: Remove the API key
         if: always()
@@ -377,24 +351,13 @@ jobs:
             --pub-date "$(date -u '+%a, %d %b %Y %H:%M:%S +0000')" \
             --minimum-system-version "$minimum_system_version"
 
-          # Record what was just released, so local builds report the shipped
-          # version and the next run has a marketing version to bump from.
-          ./scripts/project-version.sh write "Front Row.xcodeproj/project.xcproj" \
-            "$version" "${{ steps.version.outputs.build }}"
-
-          # Archive the notes under the version they shipped as, and leave a
-          # fresh template ready for the next release.
-          notes=".sparkle/notes/$version.md"
-          git mv "${{ steps.version.outputs.notes }}" "$notes"
-          cp .sparkle/notes/TEMPLATE.md .sparkle/notes/next.md
-
-          git add .sparkle/appcast.xml "Front Row.xcodeproj/project.xcproj" .sparkle/notes
+          # Changie's batch and merge already ran: the fragments became
+          # .changes/$version.md, CHANGELOG.md was regenerated, and project.xcproj
+          # carries the new marketing version.
+          git add -A .sparkle/appcast.xml .changes CHANGELOG.md "Front Row.xcodeproj/project.xcproj"
           git commit -m "chore: release $version (${{ steps.version.outputs.build }}) [skip ci]"
 
-          {
-            echo "commit=$(git rev-parse HEAD)"
-            echo "notes=$notes"
-          } >>"$GITHUB_OUTPUT"
+          echo "commit=$(git rev-parse HEAD)" >>"$GITHUB_OUTPUT"
 
       - name: Tag and create the GitHub release
         if: ${{ !inputs.dry-run }}
@@ -410,7 +373,7 @@ jobs:
           gh release create "v$version" \
             "$EXPORT_PATH/${{ steps.version.outputs.dmg }}" \
             --title "v$version" \
-            --notes-file "${{ steps.record.outputs.notes }}" ||
+            --notes-file "${{ steps.version.outputs.notes }}" ||
             { echo "::error::Tag v$version is pushed, but creating the GitHub release failed, and main is not updated. Delete the tag (git push origin :v$version) and run again."; exit 1; }
 
       - name: Publish to the appcast and record the version

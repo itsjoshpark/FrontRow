@@ -29,3 +29,9 @@ xcuserdata/
 ## Playgrounds
 timeline.xctimeline
 playground.xcworkspace
+
+# fastlane reports. Install gems outside the repository (see AGENTS.md):
+# the swift-format lint build phase lints everything under ./
+.bundle/
+fastlane/report.xml
+fastlane/README.md

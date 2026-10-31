@@ -19,12 +19,17 @@ swift-format lint -s -p -r ./
 
 # Auto-fix formatting
 swift-format format -p -r -i ./
+
+# Release lanes (fastlane/Fastfile; run by .github/workflows/release.yml). Keep the
+# gems outside the repository: the lint phase above lints everything under ./
+BUNDLE_PATH=~/.cache/frontrow-gems bundle install
+BUNDLE_PATH=~/.cache/frontrow-gems bundle exec fastlane build version:1.2.3 build:42
 ```
 
 ## Architecture
 
 - Target macOS Sequoia 15.6 or later.
-- Building needs Xcode 27.2 or later (on macOS Tahoe 26.6 or later). The project uses Xcode's JSON project format, `Front Row.xcodeproj/project.xcproj`. `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` are project-level settings there, read and written by `scripts/project-version.sh`.
+- Building needs Xcode 27.2 or later (on macOS Tahoe 26.6 or later). The project uses Xcode's JSON project format, `Front Row.xcodeproj/project.xcproj`. `MARKETING_VERSION` is a project-level setting there, stamped by Changie at release. fastlane builds through `Front Row.xcodeproj/project.xcworkspace` with profile detection skipped, because its `xcodeproj` gem can't parse `project.xcproj`.
 - Do not introduce third-party frameworks without asking first.
 - Group source files by feature, not by layer. A feature folder holds its models and its views together.
 - A feature that outgrows one folder splits by kind into `Models/`, `Views/`, and any domain subfolder it needs (`Conversion/FFmpeg/`). Small features stay flat.
@@ -63,6 +68,7 @@ Applies to every file — Swift, YAML, shell, config.
 ## GitHub PRs
 
 - See `CONTRIBUTING.md`.
+- A user-facing change adds a Changie release-notes fragment: `changie new --kind Fixed --body "…"` (kinds `New`, `Changed`, `Fixed`, `Updated`; see `.changes/README.md`).
 
 ## Git
 
